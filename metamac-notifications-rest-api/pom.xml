@@ -13,7 +13,7 @@
     <groupId>org.siemac.metamac.metamac-notifications</groupId>
     <artifactId>metamac-notifications-rest-api</artifactId>
     <packaging>jar</packaging>
-    <name>METAMAC :: NOTIFICATIOS :: REST :: API</name>
+    <name>METAMAC :: NOTIFICATIONS :: REST :: API</name>
 
     <dependencies>
         <dependency>
