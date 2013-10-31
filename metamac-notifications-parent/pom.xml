@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.siemac.metamac</groupId>
+        <artifactId>metamac-parent</artifactId>
+        <version>1.7.1-SNAPSHOT</version>
+    </parent>
+
+
+    <groupId>org.siemac.metamac.metamac-notifications</groupId>
+    <artifactId>metamac-notifications-parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>METAMAC :: NOTIFICATIONS :: PARENT</name>
+    <description>METAMAC :: NOTIFICATIONS :: PARENT</description>
+
+    <issueManagement>
+        <system>Jira</system>
+        <url>http://jira.arte-consultores.com/browse/METAMAC</url>
+    </issueManagement>
+
+    <repositories>
+        <repository>
+            <id>smartclient</id>
+            <name>smartclient.com</name>
+            <url>http://www.smartclient.com/maven2</url>
+        </repository>
+    </repositories>
+
+    <properties>
+        <metamac-common-test.version>1.5.1-SNAPSHOT</metamac-common-test.version>
+        <metamac-core-common.version>1.7.1-SNAPSHOT</metamac-core-common.version>
+        <metamac-sso.version>1.4.0</metamac-sso.version>
+        <metamac-notifications.baseDir>${basedir}/..</metamac-notifications.baseDir>
+        <metamac-notifications.etcDir>${metamac-notifications.baseDir}/etc</metamac-notifications.etcDir>
+    </properties>
+</project>
