@@ -392,11 +392,11 @@
                                 <copy toDir="${metamac-notifications.etcDir}/db/01-create">
                                     <fileset dir="${basedir}/src/generated/resources/dbschema/01-create" />
                                 </copy>
-                                <move file="${metamac-notifications.etcDir}/db/01-create/01-StatisticalResources-create.sql" tofile="${metamac-notifications.etcDir}/db/01-create/01-notifications-schema-create.sql"/>
+                                <move file="${metamac-notifications.etcDir}/db/01-create/01-Notifications-create.sql" tofile="${metamac-notifications.etcDir}/db/01-create/01-notifications-schema-create.sql"/>
                                 <copy toDir="${metamac-notifications.etcDir}/db/02-drop">
                                     <fileset dir="${basedir}/src/generated/resources/dbschema/02-drop" />
                                 </copy>
-                                <move file="${metamac-notifications.etcDir}/db/02-drop/01-StatisticalResources-drop.sql" tofile="${metamac-notifications.etcDir}/db/02-drop/01-notifications-schema-drop.sql"/>
+                                <move file="${metamac-notifications.etcDir}/db/02-drop/01-Notifications-drop.sql" tofile="${metamac-notifications.etcDir}/db/02-drop/01-notifications-schema-drop.sql"/>
 
                                 <!-- Delete spring configuration files -->
                                 <delete file="${basedir}/src/main/resources/spring.properties" />
@@ -417,8 +417,8 @@
                                 <delete file="${basedir}/src/test/generated/resources/EntityManagerFactory-test.xml" />
 
                                 <!-- Delete generated /src/test/java/.../*Test.java -->
-                                <!-- <delete file="${basedir}/src/test/java/org/siemac/metamac/statistical/resources/core/serviceapi/StatisticalResourcesServiceFacadeTest.java" /> -->
-                                <!-- <delete file="${basedir}/src/test/java/org/siemac/metamac/statistical/resources/core/serviceapi/StatisticalResourcesServiceTest.java" /> -->
+                                <!-- <delete file="${basedir}/src/test/java/org/siemac/metamac/notifications/core/serviceapi/NotificationsResourcesServiceFacadeTest.java" /> -->
+                                <!-- <delete file="${basedir}/src/test/java/org/siemac/metamac/notifications/core/serviceapi/NotificationsResourcesServiceTest.java" /> -->
                             </target>
                         </configuration>
                     </execution>

@@ -1,4 +1,4 @@
-package org.siemac.metamac.statistical.resources.core;
+package org.siemac.metamac.notifications.core;
 
 import org.apache.commons.lang.StringUtils;
 import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
@@ -7,10 +7,10 @@ import org.junit.rules.ExpectedException;
 import org.siemac.metamac.common.test.MetamacBaseTest;
 import org.siemac.metamac.common.test.dbunit.MetamacDBUnitBaseTests.DataBaseProvider;
 import org.siemac.metamac.notifications.core.constants.NotificationsConstants;
+import org.siemac.metamac.notifications.core.utils.mocks.configuration.MockAnnotationRule;
 import org.siemac.metamac.sso.client.MetamacPrincipal;
 import org.siemac.metamac.sso.client.MetamacPrincipalAccess;
 import org.siemac.metamac.sso.client.SsoClientConstants;
-import org.siemac.metamac.statistical.resources.core.utils.mocks.configuration.MockAnnotationRule;
 import org.springframework.beans.factory.annotation.Value;
 
 public abstract class NotificationsBaseTest extends MetamacBaseTest {
