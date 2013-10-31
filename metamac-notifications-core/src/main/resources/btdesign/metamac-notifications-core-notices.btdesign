@@ -1,0 +1,105 @@
+Application Notices { 
+	basePackage=unused
+
+	Module enume_notice {
+		basePackage=org.siemac.metamac.notifications.core.notice.enume
+		
+		enum NotificationType {
+    		NOTIFICATION,
+    		ADVERTISEMENT
+    	}
+    	
+    	enum NotificationConditionType {
+    		APP_ISSUER_ACCESS,
+    		STATISTIC_OPERATION_ACCESS,
+    		ROLE_ACCESS
+    	}
+	}
+	
+	Module domain_notice {
+		basePackage=org.siemac.metamac.notifications.core.notice
+
+		// ----------------------------------------------------------------
+		// 							SERVICES
+		// ----------------------------------------------------------------
+		
+		Service NotificationService {
+			> @NotificationRepository
+			> @ReceiverRepository
+			
+			// Notifications
+			@Notification findNotificationById(Long id) throws MetamacException;
+			@Notification createNotification(@Notification notification) throws MetamacException;
+    		@Notification updateNotification(@Notification notification) throws MetamacException;
+    		deleteNotification(Long id) throws MetamacException;
+    		List<@Notification> findAllNotification throws MetamacException;
+    		List<@Notification> findNotificationByCondition(List<ConditionalCriteria> condition) throws MetamacException;
+			
+		}  
+
+		// ----------------------------------------------------------------
+		// 							ENTITIES
+		// ---------------------------------------------------------------- 
+
+		Entity Notification {
+			databaseTable="TB_NOTIFICATIONS"
+			hint="idSequence=NOTIFICATIONS"
+			
+			"App id issuer"
+			String appIdIssuer required;
+			"User issuer"
+			String userIssuer nullable;
+			"Mail"
+       		String mail nullable;
+       		"Expiration date. Only valid when notificationType is ADVERTISEMENT"
+			DateTimeTZ expirationDate nullable; 
+       		"Type of notification"
+       		- @NotificationType notificationType required;
+       		"Type of notification condition"
+       		- @NotificationConditionType notificationConditionType nullable;
+       		"Require role. Only valid when notificationConditionType is ROLE_ACCESS"
+       		String requiredRole nullable;
+			"Message"       		
+			Clob message required;
+			"Mark"
+			boolean mark;
+			
+			"Receivers"
+			- Bag<@Receiver> receivers cascade="all-delete-orphan" fetch="lazy" inverse <-> notification;
+			
+			Repository NotificationRepository {
+				save;
+				delete;
+				findAll;
+				findById;
+				findByCondition;
+				findByCondition(PagingParameter pagingParameter);
+				findByQuery(String query, Map<String, Object> parameters, int maxResult);
+			}
+		}
+		
+		Entity Receiver {
+			databaseTable="TB_RECEIVERS"
+			hint="idSequence=RECEIVERS"
+			not auditable
+			
+			"Semantic identifier"
+       		String usernames not nullable;
+       		"Acknowledge‎"
+       		boolean acknowledge;
+
+			"Notification"
+			- @Notification notification not nullable cascade="none" databaseColumn="RECEIVER_FK" <-> receivers;
+			
+			Repository ReceiverRepository {
+				save;
+				delete;
+				findAll;
+				findById;
+				findByCondition;
+				findByCondition(PagingParameter pagingParameter);
+				findByQuery(String query, Map<String, Object> parameters, int maxResult);
+			}
+		}
+	}
+}

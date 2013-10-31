@@ -1,0 +1,148 @@
+«IMPORT sculptormetamodel»
+«EXTENSION generator::SpecialCases»
+«EXTENSION extensions::helper»
+«EXTENSION extensions::dbhelper»
+«EXTENSION extensions::properties»
+«EXTENSION generator::SpecialCases» 
+
+«AROUND templates::domain::DomainObjectAttributeAnnotation::columnAnnotations FOR Attribute»
+	«IF type == "DateTimeTZ"»
+		@org.hibernate.annotations.Columns(columns={@javax.persistence.Column(name="«getDatabaseName()»"),@javax.persistence.Column(name="«getDatabaseName()»_TZ")})
+		@org.hibernate.annotations.Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTimeWithZone")
+	«ELSE»
+    	«targetDef.proceed()»
+    «ENDIF»
+«ENDAROUND»
+
+«AROUND templates::domain::DomainObjectAttributeAnnotation::auditAnnotations FOR Attribute»
+	«IF type == "DateTime"»
+		@org.hibernate.annotations.Columns(columns={@javax.persistence.Column(name="«getDatabaseName()»"),@javax.persistence.Column(name="«getDatabaseName()»_TZ")})
+		@org.hibernate.annotations.Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTimeWithZone")
+	«ELSE»
+	     «targetDef.proceed()»
+    «ENDIF»
+«ENDAROUND»
+
+
+«AROUND templates::db::OracleDDL::column(String prefix, boolean parentIsNullable) FOR Attribute-»
+  «IF type == "DateTimeTZ" || name == "lastUpdated" || name == "createdDate"»«getDatabaseName()»_TZ VARCHAR2(50 CHAR)«parentIsNullable || nullable ? "" : getDatabaseTypeNullability()-»,
+  «ENDIF-»
+  «getDatabaseName(prefix, this)» «useCharactersInsteadBytes(getDatabaseType())»«parentIsNullable ? "" : getDatabaseTypeNullability()-»
+«ENDAROUND»
+
+«AROUND templates::db::OracleDDL::enumColumn(String prefix, boolean parentIsNullable) FOR Reference-»
+  «getDatabaseName(prefix, this)» «useCharactersInsteadBytes(getEnumDatabaseType())»«parentIsNullable ? "" : getDatabaseTypeNullability()-»
+«ENDAROUND»
+
+«AROUND templates::db::CustomDDL::column(String prefix, boolean parentIsNullable) FOR Attribute-»
+  «IF type == "DateTimeTZ" || name == "lastUpdated" || name == "createdDate"»«getDatabaseName()»_TZ VARCHAR(50)«parentIsNullable || nullable ? "" : getDatabaseTypeNullability()-»,
+  «ENDIF-»
+  «targetDef.proceed()-»
+«ENDAROUND»
+
+
+
+«AROUND templates::domain::DomainObjectProperties::domainObjectProperties FOR DomainObject-»
+	«IF name.endsWith("Dto")»
+
+	«ELSE»
+     «targetDef.proceed()»
+    «ENDIF»	
+«ENDAROUND»
+
+
+«AROUND templates::domain::DomainObject::clone FOR DomainObject-»
+
+«ENDAROUND»
+
+
+
+«AROUND templates::domain::DomainObjectAttributeAnnotation::idAnnotations FOR Attribute»
+    «IF getDomainObject().hasHint("idSequence")»
+        @javax.persistence.Id
+        @javax.persistence.SequenceGenerator(name="«getDomainObject().getHint('idSequence')»", sequenceName="SEQ_«getDomainObject().getHint('idSequence')»", allocationSize=1)
+        @javax.persistence.GeneratedValue(strategy=javax.persistence.GenerationType.SEQUENCE,
+            generator="«getDomainObject().getHint('idSequence')»")
+        @javax.persistence.Column(name="«getDatabaseName()»")
+    «ELSE»
+    	«targetDef.proceed()»
+    «ENDIF»
+«ENDAROUND»
+
+
+«REM»Skip unique constraint in InternationalString and LocalisedString this will be for "id", and primary key restriction already exists for this attribute «ENDREM»
+«AROUND templates::db::OracleDDL::uniqueConstraint FOR DomainObject»
+	«IF name != "InternationalString" && name != "LocalisedString" && name != "ExternalItem" && name != "RelatedResource" && name != "Translation" && name != "VersionRationaleType"
+	&& name != "StatisticalResource" && name != "RelatedResource" && name != "Datasource" && name != "Dataset" && name != "DatasetVersion" && name != "StatisticOfficiality" && name != "CodeDimension" && name != "AttributeValue" 
+	&& name != "TemporalCode" && name != "Publication" && name != "PublicationVersion" && name != "ElementLevel" && name != "Chapter" && name != "Cube" && name != "CodeItem"  
+	&& name != "QuerySelectionItem" && name != "Query" && name != "QueryVersion" && name != "Categorisation" && name != "CategorisationSequence"
+	-»
+		«targetDef.proceed() -»
+	«ENDIF -»
+«ENDAROUND»
+
+«REM»HibernateSeuence is not needed in this project «ENDREM»
+«AROUND templates::db::OracleDDL::dropSequence FOR Application»
+ 	«FOREACH getDomainObjectsInCreateOrder(true).select(d | !isInheritanceTypeSingleTable(getRootExtends(d.extends)) && d.getHint('idSequence') != null) AS domainObject»
+drop sequence SEQ_«domainObject.getHint('idSequence')»;
+ 	«ENDFOREACH»
+«ENDAROUND»
+
+«REM»HibernateSeuence is not needed in this project «ENDREM»
+«AROUND templates::db::OracleDDL::createSequence FOR Application»
+ 	«FOREACH getDomainObjectsInCreateOrder(true).select(d | !isInheritanceTypeSingleTable(getRootExtends(d.extends)) && d.getHint('idSequence') != null) AS domainObject»
+CREATE sequence SEQ_«domainObject.getHint('idSequence')»;
+ 	«ENDFOREACH»
+«ENDAROUND»
+
+«REM»Generete tests for non generated repository methods «ENDREM»
+«AROUND templates::repository::Repository::repository FOR Repository»
+	«targetDef.proceed() -»
+	«IF gapClass»
+		«IF isTestToBeGenerated()»
+		    «EXPAND generatorcommon::RepositoryTest::repositoryJUnitBase»
+		    «IF applicationServer() == "appengine"»
+				«EXPAND generatorcommon::RepositoryTest::repositoryJUnitSubclassAppEngine»
+			«ELSE»
+		    	«EXPAND generatorcommon::RepositoryTest::repositoryJUnitSubclassWithAnnotations»
+			«ENDIF»
+			«IF isDbUnitTestDataToBeGenerated()»
+				«EXPAND generatorcommon::RepositoryTest::dbunitTestData»
+			«ENDIF»
+		    «IF !otherDependencies.isEmpty»
+		        «EXPAND generatorcommon::RepositoryTest::repositoryDependencyInjectionJUnit»
+		    «ENDIF»
+		«ENDIF»
+	«ENDIF»
+«ENDAROUND»
+
+«REM»Generete invocation validator for services «ENDREM»
+«AROUND templates::service::Service::service FOR Service»
+	«targetDef.proceed() -»
+	«EXPAND generatorcommon::InvocationValidator::invocationValidator»
+«ENDAROUND»
+ 
+«AROUND templates::domain::DomainObject::domainObjectHook FOR DomainObject»
+	«EXPAND generatorcommon::DbUnitMocksCases::generateXmlSerialize»
+«ENDAROUND»
+
+«AROUND templates::db::DbUnit::dbunitTestDataContent FOR Application»
+	«EXPAND generatorcommon::DbUnitMocksCases::dbunitTestDataContent»
+«ENDAROUND»
+
+«AROUND templates::Root::Root FOR Application»
+	«targetDef.proceed() -»
+	«EXPAND generatorcommon::DbUnitMocksCases::dbUnitProperties»
+	
+
+	«EXPAND generatorcommon::ServiceParameters::serviceParameters»
+«ENDAROUND»
+
+
+
+
+
+
+«AROUND templates::db::OracleDDL::ddl FOR Application»
+	«EXPAND generatorcommon::MetamacOracleDDL::generateDdl»
+«ENDAROUND»

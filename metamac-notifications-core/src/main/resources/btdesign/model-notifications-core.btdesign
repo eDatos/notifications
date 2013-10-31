@@ -1,0 +1,7 @@
+import "classpath:/btdesign/metamac-notifications-core-notices.btdesign"
+
+Application Notifications {
+	basePackage=org.siemac.metamac.notifications.core
+	
+	
+}
