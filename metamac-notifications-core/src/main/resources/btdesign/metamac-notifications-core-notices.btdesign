@@ -10,7 +10,7 @@ Application Notices {
     	}
     	
     	enum NotificationConditionType {
-    		APP_ISSUER_ACCESS,
+    		APPLICATION_ACCESS,
     		STATISTIC_OPERATION_ACCESS,
     		ROLE_ACCESS
     	}
@@ -29,6 +29,7 @@ Application Notices {
 			
 			// Notifications
 			@Notification findNotificationById(Long id) throws MetamacException;
+			@Notification retrieveNotificationByUrn(String urn) throws MetamacException;
 			@Notification createNotification(@Notification notification) throws MetamacException;
     		@Notification updateNotification(@Notification notification) throws MetamacException;
     		deleteNotification(Long id) throws MetamacException;
@@ -45,10 +46,15 @@ Application Notices {
 			databaseTable="TB_NOTIFICATIONS"
 			hint="idSequence=NOTIFICATIONS"
 			
-			"App id issuer"
-			String appIdIssuer required;
-			"User issuer"
-			String userIssuer nullable;
+			"Added explicitly to avoid that Sculptor generate UUID"
+			Long id key;
+			"Universal resource name, this is for use in registries: all registered objects have a urn"
+			String urn nullable;
+			
+			"Sending application ID"
+			String sendingApplication required;
+			"Sending user"
+			String sendingUser nullable;
 			"Mail"
        		String mail nullable;
        		"Expiration date. Only valid when notificationType is ADVERTISEMENT"
@@ -75,6 +81,7 @@ Application Notices {
 				findByCondition;
 				findByCondition(PagingParameter pagingParameter);
 				findByQuery(String query, Map<String, Object> parameters, int maxResult);
+				@Notification retrieveByUrn(String urn) throws MetamacException;
 			}
 		}
 		
@@ -83,8 +90,11 @@ Application Notices {
 			hint="idSequence=RECEIVERS"
 			not auditable
 			
+			"Added explicitly to avoid that Sculptor generate UUID"
+			Long id key;
+			
 			"Semantic identifier"
-       		String usernames not nullable;
+       		String username not nullable;
        		"Acknowledge‎"
        		boolean acknowledge;
 

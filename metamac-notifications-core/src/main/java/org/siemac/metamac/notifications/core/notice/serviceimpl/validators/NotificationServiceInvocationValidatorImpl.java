@@ -21,7 +21,7 @@ public class NotificationServiceInvocationValidatorImpl {
     }
 
     public static void checkUpdateNotification(Notification notification, List<MetamacExceptionItem> exceptions) {
-        checkNewNotification(notification, exceptions);
+        checkExistingNotification(notification, exceptions);
     }
 
     public static void checkDeleteNotification(Long id, List<MetamacExceptionItem> exceptions) {
@@ -34,6 +34,10 @@ public class NotificationServiceInvocationValidatorImpl {
 
     public static void checkFindNotificationByCondition(List<ConditionalCriteria> condition, List<MetamacExceptionItem> exceptions) {
         // Nothing to check
+    }
+
+    public static void checkRetrieveNotificationByUrn(String urn, List<MetamacExceptionItem> exceptions) {
+        ValidationUtils.checkParameterRequired(urn, ServiceExceptionParameters.URN, exceptions);
     }
 
     // ------------------------------------------------------------------------
@@ -50,7 +54,7 @@ public class NotificationServiceInvocationValidatorImpl {
             return;
         }
 
-        ValidationUtils.checkMetadataRequired(notification.getAppIdIssuer(), ServiceExceptionParameters.NOTIFICATION__APP_ID_ISSUER, exceptions);
+        ValidationUtils.checkMetadataRequired(notification.getSendingUser(), ServiceExceptionParameters.NOTIFICATION__SENDING_USER, exceptions);
         ValidationUtils.checkMetadataRequired(notification.getNotificationType(), ServiceExceptionParameters.NOTIFICATION__NOTIFICATION_TYPE, exceptions);
         ValidationUtils.checkMetadataRequired(notification.getMessage(), ServiceExceptionParameters.NOTIFICATION__MESSAGE, exceptions);
 
@@ -76,8 +80,10 @@ public class NotificationServiceInvocationValidatorImpl {
 
         if (notification.isMark()) {
             // TODO lanzar exepcion de modificar un aviso que ya está marcado
+            throw new RuntimeException("The notification is unmodifiable, is already marked.");
         }
 
         checkNewNotification(notification, exceptions);
     }
+
 }

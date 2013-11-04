@@ -59,4 +59,10 @@ public class NotificationServiceTest extends NotificationsBaseTest implements No
         // TODO Auto-generated method stub
 
     }
+
+    @Override
+    public void testRetrieveNotificationByUrn() throws Exception {
+        // TODO Auto-generated method stub
+
+    }
 }

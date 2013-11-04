@@ -39,6 +39,15 @@ public class NotificationServiceImpl extends NotificationServiceImplBase {
     }
 
     @Override
+    public Notification retrieveNotificationByUrn(ServiceContext ctx, String urn) throws MetamacException {
+
+        // Validations
+        notificationServiceInvocationValidator.checkRetrieveNotificationByUrn(ctx, urn);
+
+        return getNotificationRepository().retrieveByUrn(urn);
+    }
+
+    @Override
     public Notification createNotification(ServiceContext ctx, Notification notification) throws MetamacException {
 
         // Validations
@@ -97,4 +106,5 @@ public class NotificationServiceImpl extends NotificationServiceImplBase {
         }
         return conditionsEntity;
     }
+
 }
