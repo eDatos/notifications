@@ -4,4 +4,58 @@
 
     <xs:import namespace="http://www.siemac.org/metamac/rest/common/v1.0/domain" schemaLocation="metamac-rest-api:metamac-rest-common-domain-v1.0.xsd" />
 
+    <xs:complexType name="Notification">
+        <xs:sequence>
+            <xs:element name="id" type="xs:string" />
+            <xs:element name="urn" type="xs:string" />
+            <xs:element name="selfLink" type="common:ResourceLink" />
+            <xs:element name="parentLink" type="common:ResourceLink" />
+            
+            <xs:element name="sendingApplication" type="xs:string" minOccurs="1"/>
+            <xs:element name="sendingUser" type="xs:string" minOccurs="0"/>
+            <xs:element name="sendingDate" type="xs:dateTime" minOccurs="0"/>
+            <xs:element name="email" type="xs:string" minOccurs="0"/>
+            <xs:element name="notificationType" type="tns:NotificationType" minOccurs="1"/>
+            <xs:element name="notificationConditionType" type="tns:NotificationConditionType" minOccurs="0"/>
+            <xs:element name="expirationDate" type="xs:dateTime" minOccurs="0"/>
+            <xs:element name="requiredRole" type="xs:string" minOccurs="0"/>
+            <xs:element name="message" type="xs:string" minOccurs="1"/>
+            <xs:element name="receivers" type="tns:Receivers" minOccurs="0" />
+        </xs:sequence>
+        <xs:attribute name="kind" type="xs:string" use="required" />
+    </xs:complexType>
+    
+    <xs:complexType name="Receiver">
+        <xs:sequence>
+            <xs:element name="username" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>  
+    
+    <xs:complexType name="Receivers">
+        <xs:sequence>
+            <xs:element name="receiver" type="tns:Receiver" minOccurs="1" maxOccurs="unbounded" />
+        </xs:sequence>
+        <xs:attribute name="total" type="xs:unsignedLong" use="required"/>
+    </xs:complexType>         
+    
+    
+    <!-- Enums -->
+    <xs:simpleType name="NotificationType">
+        <xs:restriction base="xs:token">
+            <xs:enumeration value="NOTIFICATION" />
+            <xs:enumeration value="ADVERTISEMENT" />
+        </xs:restriction>
+    </xs:simpleType>
+    
+     <xs:simpleType name="NotificationConditionType">
+        <xs:restriction base="xs:token">
+            <xs:enumeration value="APPLICATION_ACCESS" />
+            <xs:enumeration value="STATISTIC_OPERATION_ACCESS" />
+            <xs:enumeration value="ROLE_ACCESS" />
+        </xs:restriction>
+    </xs:simpleType>   
+    
+    <!-- **************** ELEMENTS **************** -->
+    <xs:element name="notification" type="tns:Notification"/>
+     
 </xs:schema>
