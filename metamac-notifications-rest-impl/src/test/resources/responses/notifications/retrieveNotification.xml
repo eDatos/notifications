@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<notice:notification xmlns:notice="http://www.siemac.org/metamac/rest/notifications/v1.0/domain" xmlns:cdomain="http://www.siemac.org/metamac/rest/common/v1.0/domain">
+    <notice:urn>urn:siemac:org.siemac.metamac.infomodel.notification.Advertisement=ADVERTISEMENT_UUID</notice:urn>
+    <notice:sendingApplication>application</notice:sendingApplication>
+    <notice:email>user@domain.com</notice:email>
+    <notice:notificationType>NOTIFICATION</notice:notificationType>
+    <notice:expirationDate>2013-01-01T01:01:01.001Z</notice:expirationDate>
+    <notice:requiredRole>ADMIN</notice:requiredRole>
+    <notice:message>My message</notice:message>
+    <notice:receivers total="5">
+        <notice:receiver>
+            <notice:username>user-0</notice:username>
+        </notice:receiver>
+        <notice:receiver>
+            <notice:username>user-1</notice:username>
+        </notice:receiver>
+        <notice:receiver>
+            <notice:username>user-2</notice:username>
+        </notice:receiver>
+        <notice:receiver>
+            <notice:username>user-3</notice:username>
+        </notice:receiver>
+        <notice:receiver>
+            <notice:username>user-4</notice:username>
+        </notice:receiver>
+    </notice:receivers>
+</notice:notification>
