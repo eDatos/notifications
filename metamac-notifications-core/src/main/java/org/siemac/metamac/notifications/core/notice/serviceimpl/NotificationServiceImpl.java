@@ -6,8 +6,10 @@ import org.fornax.cartridges.sculptor.framework.accessapi.ConditionalCriteria;
 import org.fornax.cartridges.sculptor.framework.accessapi.ConditionalCriteriaBuilder;
 import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.siemac.metamac.core.common.exception.MetamacException;
+import org.siemac.metamac.core.common.util.GeneratorUrnUtils;
 import org.siemac.metamac.notifications.core.error.ServiceExceptionType;
 import org.siemac.metamac.notifications.core.notice.domain.Notification;
+import org.siemac.metamac.notifications.core.notice.enume.domain.NotificationType;
 import org.siemac.metamac.notifications.core.notice.exception.NotificationNotFoundException;
 import org.siemac.metamac.notifications.core.notice.serviceapi.validators.NotificationServiceInvocationValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +54,13 @@ public class NotificationServiceImpl extends NotificationServiceImplBase {
 
         // Validations
         notificationServiceInvocationValidator.checkCreateNotification(ctx, notification);
+
+        // Generate URN
+        if (NotificationType.NOTIFICATION.equals(notification.getNotificationType())) {
+            notification.setUrn(GeneratorUrnUtils.generateSiemacNotificationUrn(java.util.UUID.randomUUID().toString()));
+        } else if (NotificationType.ADVERTISEMENT.equals(notification.getNotificationType())) {
+            notification.setUrn(GeneratorUrnUtils.generateSiemacAdvertisementUrn(java.util.UUID.randomUUID().toString()));
+        }
 
         return getNotificationRepository().save(notification);
     }
