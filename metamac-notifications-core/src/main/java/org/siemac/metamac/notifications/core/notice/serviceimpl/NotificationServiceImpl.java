@@ -7,6 +7,7 @@ import org.fornax.cartridges.sculptor.framework.accessapi.ConditionalCriteriaBui
 import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.core.common.util.GeneratorUrnUtils;
+import org.siemac.metamac.notifications.core.channel.mail.serviceimpl.MailChannelService;
 import org.siemac.metamac.notifications.core.error.ServiceExceptionType;
 import org.siemac.metamac.notifications.core.notice.domain.Notification;
 import org.siemac.metamac.notifications.core.notice.enume.domain.NotificationType;
@@ -23,6 +24,9 @@ public class NotificationServiceImpl extends NotificationServiceImplBase {
 
     @Autowired
     private NotificationServiceInvocationValidator notificationServiceInvocationValidator;
+
+    @Autowired
+    private MailChannelService                     mailChannelService;
 
     public NotificationServiceImpl() {
     }
@@ -62,7 +66,12 @@ public class NotificationServiceImpl extends NotificationServiceImplBase {
             notification.setUrn(GeneratorUrnUtils.generateSiemacAdvertisementUrn(java.util.UUID.randomUUID().toString()));
         }
 
-        return getNotificationRepository().save(notification);
+        notification = getNotificationRepository().save(notification);
+
+        // Send notification
+        mailChannelService.sendMail(ctx, notification);
+
+        return notification;
     }
 
     @Override
