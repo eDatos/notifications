@@ -41,6 +41,7 @@
 
     <!-- metamac-notifications-core > src/main/resources -->
     <import resource="classpath:/spring/notifications/include/interceptor.xml" />
+    <import resource="classpath:/spring/notifications/include/more.xml" />
 
     <!-- metamac-notifications-core > src/test/resources -->
     <import resource="classpath:/spring/notifications/include/datasource-test.xml" />
