@@ -26,6 +26,7 @@
             </list>
         </property>
     </bean>
+    
 
     <!-- Metamac environment configuration -->
     <bean id="configurationService" class="org.siemac.metamac.notifications.core.conf.NotificationsConfigurationImpl">
@@ -33,7 +34,7 @@
             <value>classpath:metamac/environment-test.xml</value>
         </property>
     </bean>
-
+    
     <!-- metamac-core-common -->
     <import resource="classpath:/spring/error-beans-advice.xml" />
     <import resource="classpath:/spring/general-beans-advice.xml" />

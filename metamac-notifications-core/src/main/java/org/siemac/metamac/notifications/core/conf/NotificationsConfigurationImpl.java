@@ -1,45 +1,54 @@
 package org.siemac.metamac.notifications.core.conf;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.siemac.metamac.core.common.conf.ConfigurationServiceImpl;
 import org.siemac.metamac.core.common.exception.MetamacException;
-import org.siemac.metamac.core.common.exception.MetamacExceptionBuilder;
 import org.siemac.metamac.notifications.core.constants.NotificationsConfigurationConstants;
-import org.siemac.metamac.notifications.core.error.ServiceExceptionType;
 
 public class NotificationsConfigurationImpl extends ConfigurationServiceImpl implements NotificationsConfiguration {
 
-    private Map<KeyDotEnum, String> dotCodeMappingMap = null;
+    private String channelMailHost;
+    private String channelMailPort;
+    private String channelMailUsername;
+    private String channelMailPassword;
+    private String channelMailProtocol;
 
     @Override
-    public Map<KeyDotEnum, String> retrieveDotCodeMapping() throws MetamacException {
-
-        if (dotCodeMappingMap == null) {
-            Map<KeyDotEnum, String> dotCodeMappingMap = new HashMap<NotificationsConfiguration.KeyDotEnum, String>(6);
-            List<Object> dotCodeMappingList = retrievePropertyList(NotificationsConfigurationConstants.DOT_CODE_MAPPING, true);
-
-            for (Object item : dotCodeMappingList) {
-                String[] splitItem = ((String) item).split("=");
-                try {
-                    KeyDotEnum key = KeyDotEnum.valueOf(splitItem[0].trim());
-                    dotCodeMappingMap.put(key, splitItem[1].trim());
-                } catch (IllegalArgumentException e) {
-                    throw MetamacExceptionBuilder.builder().withExceptionItems(ServiceExceptionType.CONFIGURATION_PROPERTY_INVALID)
-                            .withMessageParameters(NotificationsConfigurationConstants.DOT_CODE_MAPPING).build();
-                }
-            }
-
-            if (dotCodeMappingMap.size() != 6) {
-                throw MetamacExceptionBuilder.builder().withExceptionItems(ServiceExceptionType.CONFIGURATION_PROPERTY_INVALID)
-                        .withMessageParameters(NotificationsConfigurationConstants.DOT_CODE_MAPPING).build();
-            }
-
-            this.dotCodeMappingMap = dotCodeMappingMap;
+    public String retrieveChannelMailHost() throws MetamacException {
+        if (channelMailHost == null) {
+            channelMailHost = retrieveProperty(NotificationsConfigurationConstants.METAMAC_NOTIFICATION_CHANNEL_MAIL_HOST, Boolean.TRUE);
         }
+        return channelMailHost;
+    }
 
-        return dotCodeMappingMap;
+    @Override
+    public String retrieveChannelMailPort() throws MetamacException {
+        if (channelMailPort == null) {
+            channelMailPort = retrieveProperty(NotificationsConfigurationConstants.METAMAC_NOTIFICATION_CHANNEL_MAIL_PORT, Boolean.TRUE);
+        }
+        return channelMailPort;
+    }
+
+    @Override
+    public String retrieveChannelMailUsername() throws MetamacException {
+        if (channelMailUsername == null) {
+            channelMailUsername = retrieveProperty(NotificationsConfigurationConstants.METAMAC_NOTIFICATION_CHANNEL_MAIL_USERNAME, Boolean.TRUE);
+        }
+        return channelMailUsername;
+    }
+
+    @Override
+    public String retrieveChannelMailPassword() throws MetamacException {
+        if (channelMailPassword == null) {
+            channelMailPassword = retrieveProperty(NotificationsConfigurationConstants.METAMAC_NOTIFICATION_CHANNEL_MAIL_PASSWORD, Boolean.TRUE);
+        }
+        return channelMailPassword;
+    }
+
+    @Override
+    public String retrieveChannelMailProtocol() throws MetamacException {
+        if (channelMailProtocol == null) {
+            channelMailProtocol = retrieveProperty(NotificationsConfigurationConstants.METAMAC_NOTIFICATION_CHANNEL_MAIL_PROTOCOL, Boolean.TRUE);
+        }
+        return channelMailProtocol;
     }
 }

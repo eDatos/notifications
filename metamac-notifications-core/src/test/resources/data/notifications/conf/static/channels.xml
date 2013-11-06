@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>Configurations</comment>
+
+	<!-- Mail Channel -->
+  	<entry key="metamac.notifications.channel.mail.host">smtp.gmail.com</entry>
+  	<entry key="metamac.notifications.channel.mail.port">465</entry>
+  	<entry key="metamac.notifications.channel.mail.username">xxxx@xxxx.com</entry>
+  	<entry key="metamac.notifications.channel.mail.password">xxxx</entry>
+  	<entry key="metamac.notifications.channel.mail.protocol">smtps</entry>
+</properties>

@@ -1,19 +1,29 @@
 package org.siemac.metamac.notifications.core;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 import org.siemac.metamac.common.test.MetamacBaseTest;
 import org.siemac.metamac.common.test.dbunit.MetamacDBUnitBaseTests.DataBaseProvider;
+import org.siemac.metamac.common.test.utils.MetamacAsserts;
 import org.siemac.metamac.notifications.core.constants.NotificationsConstants;
 import org.siemac.metamac.notifications.core.utils.mocks.configuration.MockAnnotationRule;
 import org.siemac.metamac.sso.client.MetamacPrincipal;
 import org.siemac.metamac.sso.client.MetamacPrincipalAccess;
 import org.siemac.metamac.sso.client.SsoClientConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 
 public abstract class NotificationsBaseTest extends MetamacBaseTest {
+
+    protected static Logger   logger          = LoggerFactory.getLogger(NotificationsBaseTest.class);
 
     protected static String   EMPTY           = StringUtils.EMPTY;
 
@@ -56,4 +66,15 @@ public abstract class NotificationsBaseTest extends MetamacBaseTest {
         return StringUtils.join(items, ", ");
     }
 
+    protected void assertInputStream(InputStream expected, InputStream actual, boolean onlyPrint) throws IOException {
+        byte[] byteArray = IOUtils.toByteArray(actual);
+        if (logger.isDebugEnabled()) {
+            System.out.println("-------------------");
+            System.out.println(IOUtils.toString(new ByteArrayInputStream(byteArray)));
+            System.out.println("-------------------");
+        }
+        if (!onlyPrint) {
+            MetamacAsserts.assertEqualsInputStream(expected, new ByteArrayInputStream(byteArray));
+        }
+    }
 }

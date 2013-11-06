@@ -39,4 +39,6 @@ public class NotificationsConstants {
     public static final String TRANSLATION_TIME_SDMX_MINUTE_END_IN_LABEL = "{mm_END}";
     public static final String TRANSLATION_TIME_SDMX_SECOND_END_IN_LABEL = "{ss_END}";
 
+    // Mail channel
+    public static final String CHANNEL_MAIL_TEMPLATE_NOTIFICATION        = "mailTemplates/mailNotification_es.vm";
 }

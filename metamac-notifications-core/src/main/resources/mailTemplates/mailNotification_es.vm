@@ -1,0 +1,15 @@
+Instituto Canario de Estadística
+Notificaciones de ISTACbase
+
+-----------------------------------------------------
+
+- Aplicación emisora: ${notification.sendingApplication}
+- Fecha de creación: ${createdDate}
+#if( "$!notification.sendingUser" != "" )
+- Usuario emisor:  ${notification.sendingUser}
+#end
+- Urn de notificación: ${notification.urn}
+- Tipo de notificación: ${notification.notificationType}
+
+- Mensaje:
+ ${notification.message}
