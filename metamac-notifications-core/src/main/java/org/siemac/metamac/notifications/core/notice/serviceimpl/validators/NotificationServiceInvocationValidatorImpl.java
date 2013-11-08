@@ -7,7 +7,6 @@ import org.siemac.metamac.core.common.exception.MetamacExceptionItem;
 import org.siemac.metamac.core.common.serviceimpl.utils.ValidationUtils;
 import org.siemac.metamac.notifications.core.error.ServiceExceptionParameters;
 import org.siemac.metamac.notifications.core.notice.domain.Notification;
-import org.siemac.metamac.notifications.core.notice.enume.domain.NotificationConditionType;
 import org.siemac.metamac.notifications.core.notice.enume.domain.NotificationType;
 
 public class NotificationServiceInvocationValidatorImpl {
@@ -85,11 +84,6 @@ public class NotificationServiceInvocationValidatorImpl {
         // when notificationType is "ADVERTISEMENT"
         if (NotificationType.ADVERTISEMENT.equals(notification.getNotificationType())) {
             ValidationUtils.checkMetadataRequired(notification.getExpirationDate(), ServiceExceptionParameters.NOTIFICATION__EXPIRATION_DATE, exceptions);
-        }
-
-        // when notificationConditionType is "ROLE_ACCESS"
-        if (NotificationConditionType.ROLE_ACCESS.equals(notification.getNotificationConditionType())) {
-            ValidationUtils.checkMetadataRequired(notification.getRequiredRole(), ServiceExceptionParameters.NOTIFICATION__REQUIRED_ROLE, exceptions);
         }
     }
 

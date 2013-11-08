@@ -8,7 +8,9 @@
 	<system />
 	
 	<!-- STATIC configurations -->
+	
     <properties fileName="${environment.metamac.data}/common/conf/static/resources.xml" config-optional="false" />
+    <properties fileName="${environment.metamac.data}/common/conf/static/api-endpoints.xml" config-optional="false" />
     
   	<properties fileName="${environment.metamac.data}/notifications/conf/static/resources.xml" config-optional="false" />
     <properties fileName="${environment.metamac.data}/notifications/conf/static/datasource.xml" config-optional="false" />

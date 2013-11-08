@@ -12,7 +12,7 @@ public class DoMocks {
         notification.setCreatedDate(new DateTime());
         notification.setMail("user@domain.com");
         notification.setExpirationDate(new DateTime(2013, 1, 1, 1, 1, 1, 1));
-        notification.setRequiredRole("ADMIN");
+        notification.setRole("ADMIN");
 
         // Receivers
         for (int i = 0; i < 5; i++) {

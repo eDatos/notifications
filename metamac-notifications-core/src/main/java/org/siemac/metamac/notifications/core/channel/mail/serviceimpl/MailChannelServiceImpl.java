@@ -38,7 +38,7 @@ public class MailChannelServiceImpl implements MailChannelService {
     private NotificationsConfiguration notificationsConfiguration;
 
     @Override
-    public void sendMail(ServiceContext serviceContext, final Notification notification) throws MetamacException {
+    public void sendMail(ServiceContext serviceContext, final Notification notification, final String[] mailsTo) throws MetamacException {
         // Prepare email
         MimeMessagePreparator preparator = new MimeMessagePreparator() {
 
@@ -47,7 +47,8 @@ public class MailChannelServiceImpl implements MailChannelService {
                 // Mail configuration
                 MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
                 message.setSubject(getNotificationMailSubject());
-                message.setTo("zmencor@arte-consultores.com");
+                message.setTo(mailsTo);
+
                 if (StringUtils.isEmpty(notification.getMail())) {
                     message.setFrom(notificationsConfiguration.retrieveChannelMailUsername());
                 } else {

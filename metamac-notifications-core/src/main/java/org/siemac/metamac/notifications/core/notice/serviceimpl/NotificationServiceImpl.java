@@ -9,10 +9,13 @@ import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.core.common.util.GeneratorUrnUtils;
 import org.siemac.metamac.notifications.core.channel.mail.serviceimpl.MailChannelService;
 import org.siemac.metamac.notifications.core.error.ServiceExceptionType;
+import org.siemac.metamac.notifications.core.invocation.service.AccessControlRestInternalFacade;
 import org.siemac.metamac.notifications.core.notice.domain.Notification;
 import org.siemac.metamac.notifications.core.notice.enume.domain.NotificationType;
 import org.siemac.metamac.notifications.core.notice.exception.NotificationNotFoundException;
 import org.siemac.metamac.notifications.core.notice.serviceapi.validators.NotificationServiceInvocationValidator;
+import org.siemac.metamac.notifications.core.notice.serviceimpl.util.NotificationServiceUtil;
+import org.siemac.metamac.rest.access_control.v1_0.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +30,9 @@ public class NotificationServiceImpl extends NotificationServiceImplBase {
 
     @Autowired
     private MailChannelService                     mailChannelService;
+
+    @Autowired
+    private AccessControlRestInternalFacade        accessControlRestInternalFacade;
 
     public NotificationServiceImpl() {
     }
@@ -69,11 +75,10 @@ public class NotificationServiceImpl extends NotificationServiceImplBase {
         notification = getNotificationRepository().save(notification);
 
         // Send notification
-        mailChannelService.sendMail(ctx, notification);
+        mailChannelService.sendMail(ctx, notification, extractMailsTo(notification));
 
         return notification;
     }
-
     @Override
     public Notification updateNotification(ServiceContext ctx, Notification notification) throws MetamacException {
 
@@ -125,4 +130,13 @@ public class NotificationServiceImpl extends NotificationServiceImplBase {
         return conditionsEntity;
     }
 
+    private String[] extractMailsTo(Notification notification) throws MetamacException {
+        String queryForFindUsers = NotificationServiceUtil.createQueryForFindUsers(notification);
+        List<User> users = accessControlRestInternalFacade.findUsers(queryForFindUsers);
+        String[] mailsTo = new String[users.size()];
+        for (int i = 0; i < users.size(); i++) {
+            mailsTo[i] = users.get(i).getMail();
+        }
+        return mailsTo;
+    }
 }

@@ -1,3 +1,5 @@
+import "classpath:/btdesign/metamac-notifications-core-common.btdesign"
+
 Application Notices { 
 	basePackage=unused
 
@@ -61,10 +63,10 @@ Application Notices {
 			DateTimeTZ expirationDate nullable; 
        		"Type of notification"
        		- @NotificationType notificationType required;
-       		"Type of notification condition"
-       		- @NotificationConditionType notificationConditionType nullable;
-       		"Require role. Only valid when notificationConditionType is ROLE_ACCESS"
-       		String requiredRole nullable;
+       		"Required role access for notification"
+       		String role nullable;
+       		"Required statistical operation access for notification"
+			- @ExternalItem statisticalOperation;// nullable cascade="all" databaseColumn="STAT_OPERATION_FK";
 			"Message"       		
 			Clob message required;
 			"Mark"
