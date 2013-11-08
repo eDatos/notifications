@@ -42,6 +42,13 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+    		<groupId>org.siemac.metamac.metamac-access-control</groupId>
+    		<artifactId>metamac-access-control-rest-internal-api</artifactId>
+            <version>${metamac-access-control.version}</version>
+        </dependency>
+        
+        
+        <dependency>
             <groupId>org.dbunit</groupId>
             <artifactId>dbunit</artifactId>
             <version>${dbunit.version}</version>
