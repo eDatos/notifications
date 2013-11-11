@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+
+
+    <!-- ********************* SPRING INTEGRATION ******************** -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/config/spring/applicationContext.xml </param-value>
+    </context-param>
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <!-- Enable Spring Request Context Holder -->
+    <listener>
+        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+    </listener>
+
+    <!-- Application startup listener to validate the configuration properties -->
+    <listener>
+        <listener-class>org.siemac.metamac.common.metadata.web.server.listener.CommonMetadataApplicationStartupListener</listener-class>
+    </listener>
+
+    <!-- SSO -->
+    <listener>
+        <listener-class>org.siemac.metamac.web.common.server.session.SingleSignOutHttpSessionListener</listener-class>
+    </listener>
+
+    <servlet>
+        <servlet-name>dispatch</servlet-name>
+        <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>dispatch</servlet-name>
+        <url-pattern>/dispatch/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>download</servlet-name>
+        <servlet-class>org.siemac.metamac.web.common.server.servlet.FileDownloadServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>download</servlet-name>
+        <url-pattern>/files/download/*</url-pattern>
+    </servlet-mapping>
+
+    <!-- Remote logging -->
+    <servlet>
+        <servlet-name>remoteLogging</servlet-name>
+        <servlet-class>com.google.gwt.logging.server.RemoteLoggingServiceImpl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>remoteLogging</servlet-name>
+        <url-pattern>/CommonMetadataWeb/remote_logging</url-pattern>
+    </servlet-mapping>
+
+    <!-- Logout filter -->
+    <filter>
+        <filter-name>logoutFilter</filter-name>
+        <filter-class>org.siemac.metamac.web.common.server.session.SingleSignOutFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>logoutFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- ******************* Default page to serve ******************** -->
+    <welcome-file-list>
+        <welcome-file>CommonMetadataWeb.jsp</welcome-file>
+    </welcome-file-list>
+
+</web-app>
