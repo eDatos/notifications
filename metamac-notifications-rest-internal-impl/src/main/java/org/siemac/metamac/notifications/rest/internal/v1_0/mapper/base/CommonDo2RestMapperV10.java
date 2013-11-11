@@ -1,4 +1,4 @@
-package org.siemac.metamac.notifications.rest.v1_0.mapper.base;
+package org.siemac.metamac.notifications.rest.internal.v1_0.mapper.base;
 
 import java.util.List;
 

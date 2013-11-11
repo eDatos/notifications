@@ -1,4 +1,4 @@
-package org.siemac.metamac.notifications.rest.v1_0.mapper.notification;
+package org.siemac.metamac.notifications.rest.internal.v1_0.mapper.notification;
 
 import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.siemac.metamac.core.common.exception.MetamacException;

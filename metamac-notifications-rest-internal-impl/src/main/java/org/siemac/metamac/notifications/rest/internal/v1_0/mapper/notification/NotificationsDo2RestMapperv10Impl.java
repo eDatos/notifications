@@ -1,4 +1,4 @@
-package org.siemac.metamac.notifications.rest.v1_0.mapper.notification;
+package org.siemac.metamac.notifications.rest.internal.v1_0.mapper.notification;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -7,7 +7,7 @@ import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.core.common.util.CoreCommonUtil;
 import org.siemac.metamac.notifications.core.notice.domain.Receiver;
-import org.siemac.metamac.notifications.rest.v1_0.mapper.base.CommonDo2RestMapperV10;
+import org.siemac.metamac.notifications.rest.internal.v1_0.mapper.base.CommonDo2RestMapperV10;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Notification;
 import org.siemac.metamac.rest.notifications.v1_0.domain.NotificationType;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Receivers;

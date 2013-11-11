@@ -1,4 +1,4 @@
-package org.siemac.metamac.notifications.rest.v1_0.mapper.notification;
+package org.siemac.metamac.notifications.rest.internal.v1_0.mapper.notification;
 
 import static org.fornax.cartridges.sculptor.framework.accessapi.ConditionalCriteriaBuilder.criteriaFor;
 
@@ -16,8 +16,8 @@ import org.siemac.metamac.notifications.core.notice.domain.Notification;
 import org.siemac.metamac.notifications.core.notice.domain.NotificationProperties;
 import org.siemac.metamac.notifications.core.notice.enume.domain.NotificationType;
 import org.siemac.metamac.notifications.core.notice.serviceapi.NotificationService;
-import org.siemac.metamac.notifications.rest.v1_0.mapper.base.BaseRest2DoMapperV10Impl;
-import org.siemac.metamac.notifications.rest.v1_0.mapper.base.CommonRest2DoMapperV10;
+import org.siemac.metamac.notifications.rest.internal.v1_0.mapper.base.BaseRest2DoMapperV10Impl;
+import org.siemac.metamac.notifications.rest.internal.v1_0.mapper.base.CommonRest2DoMapperV10;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

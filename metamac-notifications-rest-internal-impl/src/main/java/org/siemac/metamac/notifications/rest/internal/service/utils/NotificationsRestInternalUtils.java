@@ -1,4 +1,4 @@
-package org.siemac.metamac.notifications.rest.service.utils;
+package org.siemac.metamac.notifications.rest.internal.service.utils;
 
 import java.util.regex.Pattern;
 
@@ -10,9 +10,9 @@ import org.siemac.metamac.rest.exception.utils.RestExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class NotificationsRestExternalUtils {
+public class NotificationsRestInternalUtils {
 
-    private static final Logger  logger               = LoggerFactory.getLogger(NotificationsRestExternalUtils.class);
+    private static final Logger  logger               = LoggerFactory.getLogger(NotificationsRestInternalUtils.class);
     private static final Pattern patternDataSeparator = Pattern.compile(" \\| ");
 
     /**

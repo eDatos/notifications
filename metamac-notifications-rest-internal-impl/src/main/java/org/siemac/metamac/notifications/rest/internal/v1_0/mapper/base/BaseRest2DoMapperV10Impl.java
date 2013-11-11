@@ -1,4 +1,4 @@
-package org.siemac.metamac.notifications.rest.v1_0.mapper.base;
+package org.siemac.metamac.notifications.rest.internal.v1_0.mapper.base;
 
 import javax.ws.rs.core.Response.Status;
 
@@ -6,7 +6,7 @@ import org.fornax.cartridges.sculptor.framework.domain.LeafProperty;
 import org.fornax.cartridges.sculptor.framework.domain.Property;
 import org.siemac.metamac.core.common.constants.CoreCommonConstants;
 import org.siemac.metamac.core.common.util.CoreCommonUtil;
-import org.siemac.metamac.notifications.rest.exception.RestServiceExceptionType;
+import org.siemac.metamac.notifications.rest.internal.exception.RestServiceExceptionType;
 import org.siemac.metamac.rest.common.query.domain.MetamacRestQueryPropertyRestriction;
 import org.siemac.metamac.rest.exception.RestException;
 import org.siemac.metamac.rest.exception.utils.RestExceptionUtils;

@@ -1,4 +1,4 @@
-package org.siemac.metamac.notifications.rest.exception;
+package org.siemac.metamac.notifications.rest.internal.exception;
 
 import org.siemac.metamac.rest.exception.RestCommonServiceExceptionType;
 

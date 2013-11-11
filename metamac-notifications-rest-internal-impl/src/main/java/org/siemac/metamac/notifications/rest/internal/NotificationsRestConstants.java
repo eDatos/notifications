@@ -1,4 +1,4 @@
-package org.siemac.metamac.notifications.rest;
+package org.siemac.metamac.notifications.rest.internal;
 
 import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.siemac.metamac.rest.api.constants.RestApiConstants;
