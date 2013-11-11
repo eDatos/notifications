@@ -21,8 +21,8 @@
     <modules>
         <module>metamac-notifications-parent</module>
 		<module>metamac-notifications-core</module>
-		<module>metamac-notifications-rest-api</module>
-		<module>metamac-notifications-rest-impl</module>
+		<module>metamac-notifications-rest-internal-api</module>
+		<module>metamac-notifications-rest-internal-impl</module>
         <!--module>metamac-notifications-web</module-->
     </modules>
 
