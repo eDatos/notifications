@@ -34,6 +34,7 @@
             <artifactId>metamac-rest-common</artifactId>
             <version>${metamac-rest-common.version}</version>
         </dependency>
+                
         <dependency>
             <groupId>org.codehaus.jackson</groupId>
             <artifactId>jackson-core-asl</artifactId>
