@@ -3,6 +3,7 @@ package org.siemac.metamac.rest.notifications.v1_0.utils;
 import java.math.BigInteger;
 import java.util.Date;
 
+import org.siemac.metamac.rest.common.test.utils.MetamacRestMocks;
 import org.siemac.metamac.rest.common.v1_0.domain.InternationalString;
 import org.siemac.metamac.rest.common.v1_0.domain.LocalisedString;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Notification;
@@ -33,7 +34,9 @@ public class RestMocks {
         notification.setSendingUser("user");
         notification.setEmail("user@domain.com");
         notification.setExpirationDate(new Date());
-        notification.setRequiredRole("ADMIN");
+        notification.setRole("ADMIN");
+        notification.setStatisticalOperation(MetamacRestMocks.mockResource("operation01", "urn:siemac:org.siemac.metamac.infomodel.statisticaloperations.Operation=operation01",
+                "operations#operation", "http://domain.com/metamac-statistical-operations-web/apis/operations-internal/v1.0/operations/operation01"));
         notification.setMessage("My message");
         notification.setNotificationType(NotificationType.NOTIFICATION);
 
@@ -56,4 +59,5 @@ public class RestMocks {
 
         return notification;
     }
+
 }
