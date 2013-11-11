@@ -56,6 +56,8 @@ public abstract class NotificationsRestExternalFacadeV10BaseTest extends Metamac
 
     private NotificationService         notificationService;
 
+    protected static String             NOTIFICATION_URN   = "urn:siemac:org.siemac.metamac.infomodel.notification.Advertisement=ADVERTISEMENT_UUID";
+
     @SuppressWarnings({"unchecked", "rawtypes"})
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {

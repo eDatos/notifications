@@ -10,8 +10,6 @@ import org.siemac.metamac.rest.notifications.v1_0.utils.RestMocks;
 
 public class NotificationsRestExternalFacadeV10NotificationsTest extends NotificationsRestExternalFacadeV10BaseTest {
 
-    private static String NOTIFICATION_URN = "urn:siemac:org.siemac.metamac.infomodel.notification.Advertisement=ADVERTISEMENT_UUID";
-
     @Test
     public void test_PUT_Notification() throws Exception {
 
