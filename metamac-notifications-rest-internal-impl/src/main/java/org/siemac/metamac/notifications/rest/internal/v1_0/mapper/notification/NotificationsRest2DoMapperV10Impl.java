@@ -10,7 +10,6 @@ import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.core.common.exception.MetamacExceptionBuilder;
 import org.siemac.metamac.core.common.util.CoreCommonUtil;
-import org.siemac.metamac.notifications.core.common.domain.ExternalItem;
 import org.siemac.metamac.notifications.core.error.ServiceExceptionType;
 import org.siemac.metamac.notifications.core.notice.domain.Notification;
 import org.siemac.metamac.notifications.core.notice.domain.NotificationProperties;
@@ -54,12 +53,12 @@ public class NotificationsRest2DoMapperV10Impl extends BaseRest2DoMapperV10Impl 
             throw MetamacExceptionBuilder.builder().withExceptionItems(ServiceExceptionType.NOTIFICATION_ALREADY_EXISTS).withMessageParameters(source.getUrn()).build();
             // If updated is supported uncommented this code
             // target = notification;
-            // target.setStatisticalOperation(commonRest2DoMapper.externalItemRestStatisticalOperationToExternalItemDo(source.getStatisticalOperation(), target.getStatisticalOperation()));
         } else {
             // New Object
             target = new Notification(source.getSendingApplication(), source.getMessage(), NotificationType.valueOf(source.getNotificationType().name()));
-            target.setStatisticalOperation(commonRest2DoMapper.externalItemRestStatisticalOperationToExternalItemDo(source.getStatisticalOperation(), new ExternalItem()));
         }
+
+        target.setStatisticalOperation(commonRest2DoMapper.externalItemRestStatisticalOperationToExternalItemDo(source.getStatisticalOperation(), target.getStatisticalOperation()));
 
         target.setSendingUser(source.getSendingUser());
         target.setMail(source.getEmail());

@@ -46,7 +46,7 @@ public abstract class NotificationsRestInternalFacadeV10BaseTest extends Metamac
 
     protected static Logger             logger             = LoggerFactory.getLogger(NotificationsRestInternalFacadeV10BaseTest.class);
 
-    private static String               jaxrsServerAddress = "http://localhost:" + ServerResource.PORT + "/apis/notifications";
+    private static String               jaxrsServerAddress = "http://localhost:" + ServerResource.PORT + "/apis/notifications-internal";
     protected String                    baseApi            = jaxrsServerAddress + "/v1.0";
     protected static ApplicationContext applicationContext = null;
     protected static NotificationsV1_0  notificationsRestInternalFacadeClientXml;
