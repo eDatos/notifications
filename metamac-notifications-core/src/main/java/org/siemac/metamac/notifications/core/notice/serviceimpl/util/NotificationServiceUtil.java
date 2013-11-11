@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.siemac.metamac.notifications.core.common.domain.ExternalItem;
 import org.siemac.metamac.notifications.core.notice.domain.Notification;
 import org.siemac.metamac.notifications.core.notice.domain.Receiver;
@@ -20,18 +21,26 @@ public class NotificationServiceUtil {
         StringBuilder query = new StringBuilder();
 
         // Add filter: by usernames
-        appendConditionToQuery(query,
-                fieldComparison(UserCriteriaPropertyRestriction.USERNAME, ComparisonOperator.IN, transformReceiversIntoQuotedCommaSeparatedUsernameString(notification.getReceivers())));
+        if (notification.getReceivers() != null && !notification.getReceivers().isEmpty()) {
+            appendConditionToQuery(query,
+                    fieldComparison(UserCriteriaPropertyRestriction.USERNAME, ComparisonOperator.IN, transformReceiversIntoQuotedCommaSeparatedUsernameString(notification.getReceivers())));
+        }
 
         // Add filter: by statistic operation
-        appendConditionToQuery(query,
-                fieldComparison(UserCriteriaPropertyRestriction.STATISTICAL_OPERATION_URN, ComparisonOperator.EQ, processExternalItemsUrn(notification.getStatisticalOperation())));
+        if (notification.getStatisticalOperation() != null) {
+            appendConditionToQuery(query,
+                    fieldComparison(UserCriteriaPropertyRestriction.STATISTICAL_OPERATION_URN, ComparisonOperator.EQ, processExternalItemsUrn(notification.getStatisticalOperation())));
+        }
 
         // Add filter: by application code
-        appendConditionToQuery(query, fieldComparison(UserCriteriaPropertyRestriction.ROLE_CODE, ComparisonOperator.EQ, notification.getSendingApplication()));
+        if (!StringUtils.isEmpty(notification.getSendingApplication())) {
+            appendConditionToQuery(query, fieldComparison(UserCriteriaPropertyRestriction.APPLICATION_CODE, ComparisonOperator.EQ, notification.getSendingApplication()));
+        }
 
         // Add filter: by roles
-        appendConditionToQuery(query, fieldComparison(UserCriteriaPropertyRestriction.ROLE_CODE, ComparisonOperator.EQ, notification.getRole()));
+        if (!StringUtils.isEmpty(notification.getRole())) {
+            appendConditionToQuery(query, fieldComparison(UserCriteriaPropertyRestriction.ROLE_CODE, ComparisonOperator.EQ, notification.getRole()));
+        }
 
         return query.toString();
     }

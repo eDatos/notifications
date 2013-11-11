@@ -85,6 +85,7 @@ public class NotificationServiceInvocationValidatorImpl {
         if (NotificationType.ADVERTISEMENT.equals(notification.getNotificationType())) {
             ValidationUtils.checkMetadataRequired(notification.getExpirationDate(), ServiceExceptionParameters.NOTIFICATION__EXPIRATION_DATE, exceptions);
         }
+
     }
 
 }

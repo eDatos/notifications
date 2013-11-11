@@ -2,6 +2,7 @@ package org.siemac.metamac.notifications.core.notice.serviceimpl;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.fornax.cartridges.sculptor.framework.accessapi.ConditionalCriteria;
 import org.fornax.cartridges.sculptor.framework.accessapi.ConditionalCriteriaBuilder;
 import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
@@ -132,7 +133,17 @@ public class NotificationServiceImpl extends NotificationServiceImplBase {
 
     private String[] extractMailsTo(Notification notification) throws MetamacException {
         String queryForFindUsers = NotificationServiceUtil.createQueryForFindUsers(notification);
+
+        if (StringUtils.isEmpty(queryForFindUsers)) {
+            throw new RuntimeException("Unexpected error: Impossible to create query for acces-control api");
+        }
+
         List<User> users = accessControlRestInternalFacade.findUsers(queryForFindUsers);
+
+        if (users.isEmpty()) {
+            throw new MetamacException(ServiceExceptionType.NOTIFICATION_RECEIVERS_NOT_FOUND);
+        }
+
         String[] mailsTo = new String[users.size()];
         for (int i = 0; i < users.size(); i++) {
             mailsTo[i] = users.get(i).getMail();
