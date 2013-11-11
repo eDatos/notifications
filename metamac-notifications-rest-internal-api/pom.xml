@@ -11,9 +11,9 @@
     </parent>
 
     <groupId>org.siemac.metamac.metamac-notifications</groupId>
-    <artifactId>metamac-notifications-rest-api</artifactId>
+    <artifactId>metamac-notifications-rest-internal-api</artifactId>
     <packaging>jar</packaging>
-    <name>METAMAC :: NOTIFICATIONS :: REST :: API</name>
+    <name>METAMAC :: NOTIFICATIONS :: REST :: INTERNAL :: API</name>
 
     <dependencies>
         <dependency>
@@ -92,7 +92,7 @@
                             <goal>unpack-dependencies</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.build.directory}/classes/META-INF/rest/external</outputDirectory>
+                            <outputDirectory>${project.build.directory}/classes/META-INF/rest/internal</outputDirectory>
                             <includeGroupIds>org.siemac.metamac</includeGroupIds>
                             <includeArtifacIds>metamac-rest-api</includeArtifacIds>
                             <includeClassifiers>resources</includeClassifiers>
@@ -119,8 +119,8 @@
                             <outputDirectory>${project.build.directory}/classes</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>${basedir}/../etc/rest/external</directory>
-                                    <targetPath>META-INF/rest/external</targetPath>
+                                    <directory>${basedir}/../etc/rest/internal</directory>
+                                    <targetPath>META-INF/rest/internal</targetPath>
                                     <includes>
                                         <include>**/*</include>
                                     </includes>
@@ -144,7 +144,7 @@
                 </executions>
                 <configuration>
                     <includes>
-                        <include>target/classes/META-INF/rest/external/*.xsd</include>
+                        <include>target/classes/META-INF/rest/internal/*.xsd</include>
                     </includes>
                     <replacements>
                         <replacement>
@@ -166,7 +166,7 @@
                         </goals>
                         <configuration>
                             <extension>true</extension>
-                            <schemaDirectory>${project.build.directory}/classes/META-INF/rest/external</schemaDirectory>
+                            <schemaDirectory>${project.build.directory}/classes/META-INF/rest/internal</schemaDirectory>
                             <schemaIncludes>
                                 <schemaInclude>*.xsd</schemaInclude>
                             </schemaIncludes>
@@ -181,7 +181,7 @@
                                 </episode>
                             </episodes>
                             <bindingFiles>
-                                <bindingFile>${basedir}/../etc/rest/external/binding.xjb</bindingFile>
+                                <bindingFile>${basedir}/../etc/rest/internal/binding.xjb</bindingFile>
                             </bindingFiles>
                             <generateDirectory>${basedir}/src/generated/java</generateDirectory>
                             <forceRegenerate>true</forceRegenerate>

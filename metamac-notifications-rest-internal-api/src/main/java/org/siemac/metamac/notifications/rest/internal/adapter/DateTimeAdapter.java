@@ -1,10 +1,10 @@
-package org.siemac.metamac.notifications.rest.adapter;
+package org.siemac.metamac.notifications.rest.internal.adapter;
 
 import java.util.Date;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-public class DateAdapter extends XmlAdapter<String, Date> {
+public class DateTimeAdapter extends XmlAdapter<String, Date> {
 
     public Date unmarshal(String value) {
         return (org.apache.cxf.xjc.runtime.DataTypeAdapter.parseDateTime(value));

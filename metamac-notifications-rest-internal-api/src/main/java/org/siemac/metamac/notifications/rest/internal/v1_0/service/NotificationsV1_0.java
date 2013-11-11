@@ -1,4 +1,4 @@
-package org.siemac.metamac.notifications.rest.v1_0.service;
+package org.siemac.metamac.notifications.rest.internal.v1_0.service;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
