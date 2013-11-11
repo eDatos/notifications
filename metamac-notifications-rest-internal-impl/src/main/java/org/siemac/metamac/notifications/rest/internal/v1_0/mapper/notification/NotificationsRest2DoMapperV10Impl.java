@@ -70,7 +70,6 @@ public class NotificationsRest2DoMapperV10Impl extends BaseRest2DoMapperV10Impl 
         if (source.getReceivers() != null) {
             Set<String> usernamesInNotifications = new HashSet<String>();
             for (org.siemac.metamac.rest.notifications.v1_0.domain.Receiver sourceReceiver : source.getReceivers().getReceivers()) {
-                // TODO chequear con el api del access control, los usuarios que son válidos
                 if (!usernamesInNotifications.contains(sourceReceiver.getUsername())) {
                     usernamesInNotifications.add(sourceReceiver.getUsername());
                     org.siemac.metamac.notifications.core.notice.domain.Receiver receiverElement = new org.siemac.metamac.notifications.core.notice.domain.Receiver();
