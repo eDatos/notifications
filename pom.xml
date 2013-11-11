@@ -23,7 +23,7 @@
 		<module>metamac-notifications-core</module>
 		<module>metamac-notifications-rest-internal-api</module>
 		<module>metamac-notifications-rest-internal-impl</module>
-        <!--module>metamac-notifications-web</module-->
+		<module>metamac-notifications-web</module>
     </modules>
 
     <build>
