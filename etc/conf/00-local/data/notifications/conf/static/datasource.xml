@@ -7,6 +7,5 @@
   <entry key="metamac.notifications.db.driver_name">oracle.jdbc.OracleDriver</entry>
   <entry key="metamac.notifications.db.username">FILL_ME_WITH_USER</entry>
   <entry key="metamac.notifications.db.password">FILL_ME_WITH_PASSWORD</entry>
-  <entry key="metamac.notifications.db.dialect">org.siemac.metamac.hibernate.dialect.Oracle10gDialectMetamac</entry>
   
 </properties>
