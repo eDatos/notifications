@@ -46,6 +46,11 @@
             <classifier>client</classifier>
         </dependency>
         <dependency>
+            <groupId>org.siemac.metamac.metamac-notifications</groupId>
+            <artifactId>metamac-notifications-rest-internal-impl</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
             <version>${commons-fileupload.version}</version>
