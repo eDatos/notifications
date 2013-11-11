@@ -11,16 +11,16 @@
 	</parent>
 
 	<groupId>org.siemac.metamac.metamac-notifications</groupId>
-	<artifactId>metamac-notifications-rest-impl</artifactId>
+	<artifactId>metamac-notifications-rest-internal-impl</artifactId>
 	<packaging>jar</packaging>
-	<name>METAMAC :: NOTIFICATIONS :: REST :: IMPL</name>
-	<description>METAMAC :: NOTIFICATIONS :: REST :: IMPL</description>
+	<name>METAMAC :: NOTIFICATIONS :: REST :: INTERNAL :: IMPL</name>
+	<description>METAMAC :: NOTIFICATIONS :: REST :: INTERNAL :: IMPL</description>
 
 	<dependencies>
         <!-- Metamac -->
 		<dependency>
 			<groupId>org.siemac.metamac.metamac-notifications</groupId>
-			<artifactId>metamac-notifications-rest-api</artifactId>
+			<artifactId>metamac-notifications-rest-internal-api</artifactId>
 			<version>${project.version}</version>
 		</dependency>
         <dependency>
