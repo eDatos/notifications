@@ -81,7 +81,7 @@ public abstract class NotificationsRestInternalFacadeV10BaseTest extends Metamac
     @Before
     public void setUp() throws Exception {
         ConfigurationService configurationService = applicationContext.getBean(ConfigurationService.class);
-        apiEndpointv10 = configurationService.getProperty(ConfigurationConstants.ENDPOINT_NOTIFICATIONS_API) + "/v1.0";
+        apiEndpointv10 = configurationService.getProperty(ConfigurationConstants.ENDPOINT_NOTIFICATIONS_INTERNAL_API) + "/v1.0";
 
         resetMocks();
     }
