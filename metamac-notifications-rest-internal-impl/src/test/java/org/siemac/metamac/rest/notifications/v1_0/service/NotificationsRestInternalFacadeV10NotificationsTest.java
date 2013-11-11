@@ -8,7 +8,7 @@ import org.apache.cxf.jaxrs.client.WebClient;
 import org.junit.Test;
 import org.siemac.metamac.rest.notifications.v1_0.utils.RestMocks;
 
-public class NotificationsRestExternalFacadeV10NotificationsTest extends NotificationsRestExternalFacadeV10BaseTest {
+public class NotificationsRestInternalFacadeV10NotificationsTest extends NotificationsRestInternalFacadeV10BaseTest {
 
     @Test
     public void test_PUT_Notification() throws Exception {
@@ -32,7 +32,7 @@ public class NotificationsRestExternalFacadeV10NotificationsTest extends Notific
             create.path("notifications/{0}", NOTIFICATION_URN);
             Response response = create.get();
 
-            InputStream responseExpected = NotificationsRestExternalFacadeV10NotificationsTest.class.getResourceAsStream("/responses/notifications/retrieveNotification.xml");
+            InputStream responseExpected = NotificationsRestInternalFacadeV10NotificationsTest.class.getResourceAsStream("/responses/notifications/retrieveNotification.xml");
             assertEquals(200, response.getStatus());
             assertInputStream(responseExpected, (InputStream) response.getEntity(), false);
         }

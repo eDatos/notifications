@@ -33,7 +33,7 @@ import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.core.common.util.ApplicationContextProvider;
 import org.siemac.metamac.notifications.core.notice.domain.Notification;
 import org.siemac.metamac.notifications.core.notice.serviceapi.NotificationService;
-import org.siemac.metamac.notifications.rest.v1_0.service.NotificationsV1_0;
+import org.siemac.metamac.notifications.rest.internal.v1_0.service.NotificationsV1_0;
 import org.siemac.metamac.rest.common.test.MetamacRestBaseTest;
 import org.siemac.metamac.rest.common.test.ServerResource;
 import org.siemac.metamac.rest.common.test.utils.MetamacRestAsserts;
@@ -42,14 +42,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 
-public abstract class NotificationsRestExternalFacadeV10BaseTest extends MetamacRestBaseTest {
+public abstract class NotificationsRestInternalFacadeV10BaseTest extends MetamacRestBaseTest {
 
-    protected static Logger             logger             = LoggerFactory.getLogger(NotificationsRestExternalFacadeV10BaseTest.class);
+    protected static Logger             logger             = LoggerFactory.getLogger(NotificationsRestInternalFacadeV10BaseTest.class);
 
     private static String               jaxrsServerAddress = "http://localhost:" + ServerResource.PORT + "/apis/notifications";
     protected String                    baseApi            = jaxrsServerAddress + "/v1.0";
     protected static ApplicationContext applicationContext = null;
-    protected static NotificationsV1_0  notificationsRestExternalFacadeClientXml;
+    protected static NotificationsV1_0  notificationsRestInternalFacadeClientXml;
     private static String               apiEndpointv10;
 
     protected static RestDoMocks        restDoMocks;
@@ -74,7 +74,7 @@ public abstract class NotificationsRestExternalFacadeV10BaseTest extends Metamac
         {
             List providers = new ArrayList();
             providers.add(applicationContext.getBean("jaxbProvider", JAXBElementProvider.class));
-            notificationsRestExternalFacadeClientXml = JAXRSClientFactory.create(jaxrsServerAddress, NotificationsV1_0.class, providers, Boolean.TRUE);
+            notificationsRestInternalFacadeClientXml = JAXRSClientFactory.create(jaxrsServerAddress, NotificationsV1_0.class, providers, Boolean.TRUE);
         }
     }
 
@@ -98,10 +98,10 @@ public abstract class NotificationsRestExternalFacadeV10BaseTest extends Metamac
         assertTrue(StringUtils.isBlank(IOUtils.toString(responseActual)));
     }
 
-    protected NotificationsV1_0 getNotificationsRestExternalFacadeClientXml() {
-        WebClient.client(notificationsRestExternalFacadeClientXml).reset();
-        WebClient.client(notificationsRestExternalFacadeClientXml).accept(APPLICATION_XML);
-        return notificationsRestExternalFacadeClientXml;
+    protected NotificationsV1_0 getNotificationsRestInternalFacadeClientXml() {
+        WebClient.client(notificationsRestInternalFacadeClientXml).reset();
+        WebClient.client(notificationsRestInternalFacadeClientXml).accept(APPLICATION_XML);
+        return notificationsRestInternalFacadeClientXml;
     }
 
     protected String getApiEndpoint() {
