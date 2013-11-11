@@ -1,19 +1,24 @@
 package org.siemac.metamac.notifications.rest.v1_0.mapper.notification;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 
 import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.core.common.util.CoreCommonUtil;
 import org.siemac.metamac.notifications.core.notice.domain.Receiver;
+import org.siemac.metamac.notifications.rest.v1_0.mapper.base.CommonDo2RestMapperV10;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Notification;
-import org.siemac.metamac.rest.notifications.v1_0.domain.NotificationConditionType;
 import org.siemac.metamac.rest.notifications.v1_0.domain.NotificationType;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Receivers;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class NotificationsDo2RestMapperv10Impl implements NotificationsDo2RestMapperV10 {
+
+    @Autowired
+    private CommonDo2RestMapperV10 commonDo2RestMapper;
 
     @Override
     public Notification notificationEntity2Rest(ServiceContext ctx, org.siemac.metamac.notifications.core.notice.domain.Notification source) throws MetamacException {
@@ -29,10 +34,10 @@ public class NotificationsDo2RestMapperv10Impl implements NotificationsDo2RestMa
         target.setSendingDate(CoreCommonUtil.transformDateTimeToDate(source.getCreatedDate()));
         target.setEmail(source.getMail());
         target.setExpirationDate(CoreCommonUtil.transformDateTimeToDate(source.getExpirationDate()));
-        target.setRequiredRole(source.getRequiredRole());
+        target.setRole(source.getRole());
+        target.setStatisticalOperation(commonDo2RestMapper.toResourceExternalItemStatisticalOperations(source.getStatisticalOperation(), new ArrayList<String>()));
         target.setMessage(source.getMessage());
         target.setNotificationType(NotificationType.fromValue(source.getNotificationType().getName()));
-        target.setNotificationConditionType((source.getNotificationConditionType() != null) ? NotificationConditionType.fromValue(source.getNotificationConditionType().getName()) : null);
 
         // Receivers
         Receivers receivers = new Receivers();
