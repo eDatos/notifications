@@ -16,7 +16,6 @@ public class NotificationsConfigurationConstants extends ConfigurationConstants 
     public static final String DB_URL                                     = "metamac.notifications.db.url";
     public static final String DB_USERNAME                                = "metamac.notifications.db.username";
     public static final String DB_PASSWORD                                = "metamac.notifications.db.password";
-    public static final String DB_DIALECT                                 = "metamac.notifications.db.dialect";
     public static final String DB_DRIVER_NAME                             = "metamac.notifications.db.driver_name";
 
     // MAIL CHANNEL
