@@ -23,7 +23,7 @@
 
     <!-- Application startup listener to validate the configuration properties -->
     <listener>
-        <listener-class>org.siemac.metamac.common.metadata.web.server.listener.CommonMetadataApplicationStartupListener</listener-class>
+        <listener-class>org.siemac.metamac.notifications.web.server.listener.NotificationsApplicationStartupListener</listener-class>
     </listener>
 
     <!-- SSO -->
@@ -59,6 +59,17 @@
         <servlet-name>remoteLogging</servlet-name>
         <url-pattern>/CommonMetadataWeb/remote_logging</url-pattern>
     </servlet-mapping>
+    
+    <!-- Rest -->
+    <servlet>
+        <servlet-name>CXFServlet</servlet-name>
+        <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CXFServlet</servlet-name>
+        <url-pattern>/apis/*</url-pattern>
+    </servlet-mapping>
 
     <!-- Logout filter -->
     <filter>
@@ -72,7 +83,7 @@
 
     <!-- ******************* Default page to serve ******************** -->
     <welcome-file-list>
-        <welcome-file>CommonMetadataWeb.jsp</welcome-file>
+        <welcome-file>Notifications.jsp</welcome-file>
     </welcome-file-list>
 
 </web-app>
