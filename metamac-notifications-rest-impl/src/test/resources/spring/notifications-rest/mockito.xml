@@ -8,4 +8,12 @@
         <constructor-arg value="org.siemac.metamac.notifications.core.notice.serviceapi.NotificationService" />
     </bean>
     
+    <bean id="externalItemRepository" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="org.siemac.metamac.notifications.core.common.domain.ExternalItemRepository" />
+    </bean>
+    
+    <bean id="internationalStringRepository" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="org.siemac.metamac.notifications.core.common.domain.InternationalStringRepository" />
+    </bean>
+    
 </beans>
