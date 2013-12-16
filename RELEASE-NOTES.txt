@@ -1,0 +1,15 @@
+========================================================================
+METAMAC-NOTIFICATIONS -- Gestión de notificaciones
+========================================================================
+
+El gestor de notificaciones se encarga de emitir notificaciones a los
+usuarios de los diferentes aplicativos de METAMAC por los canales que se
+le indiquen.
+
+Esta aplicación consta de una API REST que permite dar de alta y gestionar
+las notificaciones que se desean enviar a través del sistema.
+
+Por favor, consulta nuestro gestor de incidencia para obtener más información
+de las incidencias con el id [METAMAC-xxx].
+http://jira.arte-consultores.com/browse/METAMAC
+
