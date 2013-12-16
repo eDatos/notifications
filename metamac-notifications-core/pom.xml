@@ -414,14 +414,14 @@
                         </goals>
                         <configuration>
                             <target>
-                                <copy toDir="${metamac-notifications.etcDir}/db/01-create">
+                                <copy toDir="${metamac-notifications.etcDir}/db/notifications/01-create">
                                     <fileset dir="${basedir}/src/generated/resources/dbschema/01-create" />
                                 </copy>
-                                <move file="${metamac-notifications.etcDir}/db/01-create/01-Notifications-create.sql" tofile="${metamac-notifications.etcDir}/db/01-create/01-notifications-schema-create.sql"/>
-                                <copy toDir="${metamac-notifications.etcDir}/db/02-drop">
+                                <move file="${metamac-notifications.etcDir}/db/notifications/01-create/01-Notifications-create.sql" tofile="${metamac-notifications.etcDir}/db/notifications/01-create/01-notifications-schema-create.sql"/>
+                                <copy toDir="${metamac-notifications.etcDir}/db/notifications/02-drop">
                                     <fileset dir="${basedir}/src/generated/resources/dbschema/02-drop" />
                                 </copy>
-                                <move file="${metamac-notifications.etcDir}/db/02-drop/01-Notifications-drop.sql" tofile="${metamac-notifications.etcDir}/db/02-drop/01-notifications-schema-drop.sql"/>
+                                <move file="${metamac-notifications.etcDir}/db/notifications/02-drop/01-Notifications-drop.sql" tofile="${metamac-notifications.etcDir}/db/notifications/02-drop/01-notifications-schema-drop.sql"/>
 
                                 <!-- Delete spring configuration files -->
                                 <delete file="${basedir}/src/main/resources/spring.properties" />
