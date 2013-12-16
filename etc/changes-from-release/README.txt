@@ -1,1 +1,0 @@
-Cuando se cree la RELEASE, se debe crear el manual de instalación.
