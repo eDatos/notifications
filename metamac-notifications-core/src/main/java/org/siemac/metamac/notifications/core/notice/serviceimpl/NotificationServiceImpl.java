@@ -76,10 +76,11 @@ public class NotificationServiceImpl extends NotificationServiceImplBase {
         notification = getNotificationRepository().save(notification);
 
         // Send notification
-        mailChannelService.sendMail(ctx, notification, extractMailsTo(notification));
+        mailChannelService.sendMail(ctx, notification, extractMailsTo(notification), extractReplyTo(notification));
 
         return notification;
     }
+
     @Override
     public Notification updateNotification(ServiceContext ctx, Notification notification) throws MetamacException {
 
@@ -149,5 +150,21 @@ public class NotificationServiceImpl extends NotificationServiceImplBase {
             mailsTo[i] = users.get(i).getMail();
         }
         return mailsTo;
+    }
+
+    private String extractReplyTo(Notification notification) throws MetamacException {
+        String queryForFindUsers = NotificationServiceUtil.createQueryForFindUser(notification.getSendingUser());
+
+        if (StringUtils.isEmpty(queryForFindUsers)) {
+            throw new RuntimeException("Unexpected error: Impossible to create query for acces-control api");
+        }
+
+        List<User> users = accessControlRestInternalFacade.findUsers(queryForFindUsers);
+
+        if (users.isEmpty()) {
+            throw new MetamacException(ServiceExceptionType.NOTIFICATION_RECEIVERS_NOT_FOUND);
+        }
+
+        return users.iterator().next().getMail();
     }
 }

@@ -3,6 +3,7 @@ package org.siemac.metamac.statistical.resources.core.utils.sql;
 import org.joda.time.DateTime;
 import org.siemac.metamac.notifications.core.notice.domain.Notification;
 import org.siemac.metamac.notifications.core.notice.domain.Receiver;
+import org.siemac.metamac.notifications.core.notice.domain.Role;
 import org.siemac.metamac.notifications.core.notice.enume.domain.NotificationType;
 
 public class DoMocks {
@@ -12,7 +13,9 @@ public class DoMocks {
         notification.setCreatedDate(new DateTime());
         notification.setMail("user@domain.com");
         notification.setExpirationDate(new DateTime(2013, 1, 1, 1, 1, 1, 1));
-        notification.setRole("ADMIN");
+        Role role = new Role();
+        role.setName("ADMIN");
+        notification.addRole(role);
 
         // Receivers
         for (int i = 0; i < 5; i++) {

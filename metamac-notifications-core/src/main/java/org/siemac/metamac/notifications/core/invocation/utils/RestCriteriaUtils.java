@@ -17,7 +17,7 @@ public class RestCriteriaUtils {
         conditionBuilder.append(field).append(BLANK).append(operator.name()).append(BLANK);
         if (ComparisonOperator.IN.equals(operator)) {
             conditionBuilder.append(LEFT_PARENTHESIS).append(value).append(RIGHT_PARENTHESIS);
-        } else {
+        } else if (!ComparisonOperator.IS_NULL.equals(operator) && !ComparisonOperator.IS_NOT_NULL.equals(operator)) {
             conditionBuilder.append(QUOTE).append(value).append(QUOTE);
         }
         return conditionBuilder.toString();
@@ -35,6 +35,13 @@ public class RestCriteriaUtils {
             queryBuilder.append(BLANK).append(operator.name()).append(BLANK);
         }
         queryBuilder.append(condition);
+    }
+
+    public static void appendConditionDisjuctionToQuery(StringBuilder queryBuilder, String condition1, String condition2) {
+        if (queryBuilder.length() > 0) {
+            queryBuilder.append(BLANK).append(LogicalOperator.AND.name()).append(BLANK);
+        }
+        queryBuilder.append(LEFT_PARENTHESIS).append(condition1).append(BLANK).append(LogicalOperator.OR.name()).append(BLANK).append(condition2).append(RIGHT_PARENTHESIS);
     }
 
     public static void appendCommaSeparatedQuotedElement(StringBuilder stringBuilder, String element) {

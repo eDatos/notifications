@@ -11,11 +11,6 @@ Application Notices {
     		ADVERTISEMENT
     	}
     	
-    	enum NotificationConditionType {
-    		APPLICATION_ACCESS,
-    		STATISTIC_OPERATION_ACCESS,
-    		ROLE_ACCESS
-    	}
 	}
 	
 	Module domain_notice {
@@ -63,17 +58,19 @@ Application Notices {
 			DateTimeTZ expirationDate nullable; 
        		"Type of notification"
        		- @NotificationType notificationType required;
-       		"Required role access for notification"
-       		String role nullable;
-       		"Required statistical operation access for notification"
-			- @ExternalItem statisticalOperation nullable cascade="all" databaseColumn="STAT_OPERATION_FK";
-			"Message"       		
-			Clob message required;
-			"Mark"
+       		"Mark"
 			boolean mark;
 			
-			"Receivers"
+       		"Required roles access for notification"
+       		- Bag<@Role> roles cascade="all-delete-orphan" fetch="lazy" inverse <-> notification;
+       		"Receivers"
 			- Bag<@Receiver> receivers cascade="all-delete-orphan" fetch="lazy" inverse <-> notification;
+			"Applications"
+			- Bag<@App> apps cascade="all-delete-orphan" fetch="lazy" inverse <-> notification;
+       		"Required statistical operations access for notification"
+			- Bag<@ExternalItem> statisticalOperations databaseColumn="STAT_OPE_FK" databaseJoinColumn="NOTIFICATION_FK" databaseJoinTable="TB_NOTIF_OPES" cascade="all-delete-orphan";
+			"Message"       		
+			Clob message required;
 			
 			Repository NotificationRepository {
 				save;
@@ -104,6 +101,56 @@ Application Notices {
 			- @Notification notification not nullable cascade="none" databaseColumn="RECEIVER_FK" <-> receivers;
 			
 			Repository ReceiverRepository {
+				save;
+				delete;
+				findAll;
+				findById;
+				findByCondition;
+				findByCondition(PagingParameter pagingParameter);
+				findByQuery(String query, Map<String, Object> parameters, int maxResult);
+			}
+		}
+		
+		Entity Role {
+			databaseTable="TB_ROLES"
+			hint="idSequence=ROLES"
+			not auditable
+			
+			"Added explicitly to avoid that Sculptor generate UUID"
+			Long id key;
+			
+			"Semantic identifier"
+       		String name not nullable;
+
+			"Notification"
+			- @Notification notification not nullable cascade="none" databaseColumn="ROLE_FK" <-> roles;
+			
+			Repository RoleRepository {
+				save;
+				delete;
+				findAll;
+				findById;
+				findByCondition;
+				findByCondition(PagingParameter pagingParameter);
+				findByQuery(String query, Map<String, Object> parameters, int maxResult);
+			}
+		}
+		
+		Entity App {
+			databaseTable="TB_APPS"
+			hint="idSequence=APPS"
+			not auditable
+			
+			"Added explicitly to avoid that Sculptor generate UUID"
+			Long id key;
+			
+			"Semantic identifier"
+       		String name not nullable;
+
+			"Notification"
+			- @Notification notification not nullable cascade="none" databaseColumn="APP_FK" <-> apps;
+			
+			Repository AppRepository {
 				save;
 				delete;
 				findAll;

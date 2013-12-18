@@ -47,7 +47,8 @@ public class MailChannelServiceTest extends NotificationsBaseTest /* implements 
     @Test
     public void testMailChannel() throws Exception {
         mailChannelService.sendMail(getServiceContextAdministrador(),
-                DoMocks.mockNotification_TYPE_NOTIFICATION("urn:siemac:org.siemac.metamac.infomodel.notification.Advertisement=ADVERTISEMENT_UUID"), new String[]{"count@domain.com"});
+                DoMocks.mockNotification_TYPE_NOTIFICATION("urn:siemac:org.siemac.metamac.infomodel.notification.Advertisement=ADVERTISEMENT_UUID"), new String[]{"count@domain.com"},
+                "count@domain.com");
 
         assertEquals(1, greenMail.getReceivedMessages().length);
         MimeMessage[] messages = greenMail.getReceivedMessages();

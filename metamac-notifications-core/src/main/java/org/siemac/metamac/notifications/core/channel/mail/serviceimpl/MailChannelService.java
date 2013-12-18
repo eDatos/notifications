@@ -6,6 +6,6 @@ import org.siemac.metamac.notifications.core.notice.domain.Notification;
 
 public interface MailChannelService {
 
-    public void sendMail(ServiceContext serviceContext, Notification notification, String[] mailsTo) throws MetamacException;
+    public void sendMail(ServiceContext serviceContext, Notification notification, String[] mailsTo, String replyTo) throws MetamacException;
 
 }
