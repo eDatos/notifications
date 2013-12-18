@@ -14,6 +14,7 @@ import org.siemac.metamac.notifications.core.common.domain.InternationalString;
 import org.siemac.metamac.notifications.core.common.domain.LocalisedString;
 import org.siemac.metamac.notifications.core.notice.domain.Notification;
 import org.siemac.metamac.notifications.core.notice.domain.Receiver;
+import org.siemac.metamac.notifications.core.notice.domain.Role;
 import org.siemac.metamac.notifications.core.notice.enume.domain.NotificationType;
 
 public class RestDoMocks {
@@ -22,8 +23,18 @@ public class RestDoMocks {
         Notification notification = new Notification("application", "My message", NotificationType.NOTIFICATION);
         notification.setMail("user@domain.com");
         notification.setExpirationDate(new DateTime(2013, 1, 1, 1, 1, 1, 1));
-        notification.setRole("ADMIN");
-        notification.setStatisticalOperation(mockStatisticalOperationExternalItem("operation01"));
+
+        {
+            // role
+            Role role = new Role();
+            role.setName("ADMIN");
+            notification.addRole(role);
+        }
+
+        {
+            // statistical operation
+            notification.addStatisticalOperation(mockStatisticalOperationExternalItem("operation01"));
+        }
 
         // Receivers
         for (int i = 0; i < 5; i++) {

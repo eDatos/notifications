@@ -5,17 +5,23 @@
     <notice:email>user@domain.com</notice:email>
     <notice:notificationType>NOTIFICATION</notice:notificationType>
     <notice:expirationDate>2013-01-01T01:01:01.001Z</notice:expirationDate>
-    <notice:role>ADMIN</notice:role>
-    <notice:statisticalOperation kind="statisticalOperations#operation">
-        <cdomain:id>operation01</cdomain:id>
-        <cdomain:urn>urn:siemac:org.siemac.metamac.infomodel.statisticaloperations.Operation=operation01</cdomain:urn>
-        <cdomain:selfLink kind="statisticalOperations#operation" href="http://FILL_ME_WITH_HOST/FILL_ME_WITH_PORT/metamac-statistical-operations-web/apis/operations-internal/latest/operation01"/>
-        <cdomain:name>
-            <cdomain:text xml:lang="es">title-operation01 en Espanol</cdomain:text>
-            <cdomain:text xml:lang="en">title-operation01 in English</cdomain:text>
-        </cdomain:name>
-    </notice:statisticalOperation>
     <notice:message>My message</notice:message>
+    <notice:roles total="1">
+        <notice:role>
+            <notice:name>ADMIN</notice:name>
+        </notice:role>
+    </notice:roles>
+    <notice:statisticalOperations total="1">
+        <cdomain:resource kind="statisticalOperations#operation">
+            <cdomain:id>operation01</cdomain:id>
+            <cdomain:urn>urn:siemac:org.siemac.metamac.infomodel.statisticaloperations.Operation=operation01</cdomain:urn>
+            <cdomain:selfLink kind="statisticalOperations#operation" href="http://FILL_ME_WITH_HOST/FILL_ME_WITH_PORT/metamac-statistical-operations-web/apis/operations-internal/latest/operation01"/>
+            <cdomain:name>
+                <cdomain:text xml:lang="es">title-operation01 en Espanol</cdomain:text>
+                <cdomain:text xml:lang="en">title-operation01 in English</cdomain:text>
+            </cdomain:name>
+        </cdomain:resource>
+    </notice:statisticalOperations>
     <notice:receivers total="5">
         <notice:receiver>
             <notice:username>user-0</notice:username>
