@@ -16,11 +16,12 @@
             <xs:element name="sendingDate" type="xs:dateTime" minOccurs="0"/>
             <xs:element name="email" type="xs:string" minOccurs="0"/>
             <xs:element name="notificationType" type="tns:NotificationType" minOccurs="1"/>
-            <xs:element name="notificationConditionType" type="tns:NotificationConditionType" minOccurs="0"/>
             <xs:element name="expirationDate" type="xs:dateTime" minOccurs="0"/>
-            <xs:element name="role" type="xs:string" minOccurs="0"/>
-            <xs:element name="statisticalOperation" type="common:Resource" minOccurs="0"/>
             <xs:element name="message" type="xs:string" minOccurs="1"/>
+                        
+            <xs:element name="roles" type="tns:Roles" minOccurs="0"/>
+            <xs:element name="applications" type="tns:Applications" minOccurs="0"/>
+            <xs:element name="statisticalOperations" type="common:Resources" minOccurs="0"/>
             <xs:element name="receivers" type="tns:Receivers" minOccurs="0" />
         </xs:sequence>
         <xs:attribute name="kind" type="xs:string" use="required" />
@@ -37,8 +38,33 @@
             <xs:element name="receiver" type="tns:Receiver" minOccurs="1" maxOccurs="unbounded" />
         </xs:sequence>
         <xs:attribute name="total" type="xs:unsignedLong" use="required"/>
-    </xs:complexType>         
+    </xs:complexType>
     
+    <xs:complexType name="Role">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>  
+    
+    <xs:complexType name="Roles">
+        <xs:sequence>
+            <xs:element name="role" type="tns:Role" minOccurs="1" maxOccurs="unbounded" />
+        </xs:sequence>
+        <xs:attribute name="total" type="xs:unsignedLong" use="required"/>
+    </xs:complexType>
+    
+    <xs:complexType name="Application">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>  
+    
+    <xs:complexType name="Applications">
+        <xs:sequence>
+            <xs:element name="application" type="tns:Application" minOccurs="1" maxOccurs="unbounded" />
+        </xs:sequence>
+        <xs:attribute name="total" type="xs:unsignedLong" use="required"/>
+    </xs:complexType>       
     
     <!-- Enums -->
     <xs:simpleType name="NotificationType">
@@ -47,14 +73,6 @@
             <xs:enumeration value="ADVERTISEMENT" />
         </xs:restriction>
     </xs:simpleType>
-    
-     <xs:simpleType name="NotificationConditionType">
-        <xs:restriction base="xs:token">
-            <xs:enumeration value="APPLICATION_ACCESS" />
-            <xs:enumeration value="STATISTIC_OPERATION_ACCESS" />
-            <xs:enumeration value="ROLE_ACCESS" />
-        </xs:restriction>
-    </xs:simpleType>   
     
     <!-- **************** ELEMENTS **************** -->
     <xs:element name="notification" type="tns:Notification"/>
