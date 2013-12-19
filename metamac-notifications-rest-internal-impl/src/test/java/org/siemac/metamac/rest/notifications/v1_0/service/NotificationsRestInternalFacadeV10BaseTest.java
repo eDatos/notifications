@@ -28,11 +28,9 @@ import org.junit.Test;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.siemac.metamac.core.common.conf.ConfigurationService;
-import org.siemac.metamac.core.common.constants.shared.ConfigurationConstants;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.core.common.util.ApplicationContextProvider;
 import org.siemac.metamac.notifications.core.notice.domain.Notification;
-import org.siemac.metamac.notifications.core.notice.serviceapi.NotificationService;
 import org.siemac.metamac.notifications.rest.internal.v1_0.service.NotificationsV1_0;
 import org.siemac.metamac.rest.common.test.MetamacRestBaseTest;
 import org.siemac.metamac.rest.common.test.ServerResource;
@@ -81,7 +79,7 @@ public abstract class NotificationsRestInternalFacadeV10BaseTest extends Metamac
     @Before
     public void setUp() throws Exception {
         ConfigurationService configurationService = applicationContext.getBean(ConfigurationService.class);
-        apiEndpointv10 = configurationService.getProperty(ConfigurationConstants.ENDPOINT_NOTIFICATIONS_INTERNAL_API) + "/v1.0";
+        apiEndpointv10 = configurationService.retrieveNotificationsInternalApiUrlBase() + "/v1.0";
 
         resetMocks();
     }
@@ -127,6 +125,7 @@ public abstract class NotificationsRestInternalFacadeV10BaseTest extends Metamac
             MetamacRestAsserts.assertEqualsResponse(expected, new ByteArrayInputStream(byteArray));
         }
     }
+
     private void mockRetrieveNotificationByUrn() throws MetamacException {
         when(notificationService.retrieveNotificationByUrn(any(ServiceContext.class), any(String.class))).thenAnswer(new Answer<Notification>() {
 
