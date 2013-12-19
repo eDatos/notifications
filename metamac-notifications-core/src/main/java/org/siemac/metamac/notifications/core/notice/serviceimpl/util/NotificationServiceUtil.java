@@ -55,7 +55,7 @@ public class NotificationServiceUtil {
         StringBuilder query = new StringBuilder();
 
         // Add filter: by username
-        if (StringUtils.isEmpty(username)) {
+        if (!StringUtils.isEmpty(username)) {
             appendConditionToQuery(query, fieldComparison(UserCriteriaPropertyRestriction.USERNAME, ComparisonOperator.IN, transformStringIntoQuotedCommaSeparatedString(username)));
         }
         return query.toString();
