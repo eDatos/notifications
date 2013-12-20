@@ -31,6 +31,7 @@ import org.siemac.metamac.core.common.conf.ConfigurationService;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.core.common.util.ApplicationContextProvider;
 import org.siemac.metamac.notifications.core.notice.domain.Notification;
+import org.siemac.metamac.notifications.core.notice.serviceapi.NotificationService;
 import org.siemac.metamac.notifications.rest.internal.v1_0.service.NotificationsV1_0;
 import org.siemac.metamac.rest.common.test.MetamacRestBaseTest;
 import org.siemac.metamac.rest.common.test.ServerResource;
