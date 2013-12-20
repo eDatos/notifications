@@ -4,4 +4,5 @@
     <comment>Rest endpoints</comment>
     <entry key="metamac.statistical_operations.rest.internal">http://FILL_ME_WITH_HOST:FILL_ME_WITH_PORT/metamac-statistical-operations-web/apis/operations-internal</entry>
     <entry key="metamac.access_control.rest.internal">http://FILL_ME_WITH_HOST:FILL_ME_WITH_PORT/metamac-access-control-web/apis/access-control-internal</entry>
+    <entry key="metamac.notifications.rest.internal">http://FILL_ME_WITH_HOST:FILL_ME_WITH_PORT/metamac-notifications-web/apis/notifications-internal</entry>
 </properties>
