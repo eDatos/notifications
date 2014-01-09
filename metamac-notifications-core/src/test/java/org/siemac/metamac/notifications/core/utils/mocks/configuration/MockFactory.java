@@ -131,6 +131,7 @@ public abstract class MockFactory<EntityMock> {
         return s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase();
     }
 
+    @SuppressWarnings("rawtypes")
     private Class getRealClassInTemplateClassParameter() {
         // This is the only way to know what is the real class of the parameter EntityMock
         // For more information http://stackoverflow.com/a/75345/1259208

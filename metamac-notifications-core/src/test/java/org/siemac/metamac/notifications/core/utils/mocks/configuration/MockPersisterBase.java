@@ -47,6 +47,7 @@ public abstract class MockPersisterBase implements MockPersister {
         }
         return null;
     }
+
     @SuppressWarnings("rawtypes")
     private List<MockFactory> getAllFactories() {
         if (factories == null) {
