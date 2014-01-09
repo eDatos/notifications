@@ -36,7 +36,6 @@ public class RestMocks {
 
         notification.setSendingApplication("application");
         notification.setSendingUser("user");
-        notification.setEmail("user@domain.com");
         notification.setExpirationDate(new Date());
 
         {
