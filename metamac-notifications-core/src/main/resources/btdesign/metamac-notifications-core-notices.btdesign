@@ -52,8 +52,6 @@ Application Notices {
 			String sendingApplication required;
 			"Sending user"
 			String sendingUser nullable;
-			"Mail"
-       		String mail nullable;
        		"Expiration date. Only valid when notificationType is ADVERTISEMENT"
 			DateTimeTZ expirationDate nullable; 
        		"Type of notification"

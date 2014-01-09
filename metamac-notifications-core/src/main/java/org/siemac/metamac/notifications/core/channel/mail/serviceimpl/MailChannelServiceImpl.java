@@ -5,7 +5,6 @@ import java.util.Map;
 
 import javax.mail.internet.MimeMessage;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.velocity.app.VelocityEngine;
 import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.siemac.metamac.core.common.exception.MetamacException;
@@ -38,6 +37,7 @@ public class MailChannelServiceImpl implements MailChannelService {
     private NotificationsConfiguration notificationsConfiguration;
 
     @Override
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public void sendMail(ServiceContext serviceContext, final Notification notification, final String[] mailsTo, final String replyTo) throws MetamacException {
         // Prepare email
         MimeMessagePreparator preparator = new MimeMessagePreparator() {
@@ -49,12 +49,7 @@ public class MailChannelServiceImpl implements MailChannelService {
                 message.setSubject(getNotificationMailSubject());
                 message.setTo(mailsTo);
                 message.setReplyTo(replyTo);
-
-                if (StringUtils.isEmpty(notification.getMail())) {
-                    message.setFrom(notificationsConfiguration.retrieveChannelMailUsername());
-                } else {
-                    message.setFrom(notification.getMail());
-                }
+                message.setFrom(notificationsConfiguration.retrieveChannelMailUsername());
 
                 // Mail data
                 Map model = new HashMap();

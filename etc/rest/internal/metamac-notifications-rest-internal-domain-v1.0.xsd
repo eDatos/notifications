@@ -14,7 +14,6 @@
             <xs:element name="sendingApplication" type="xs:string" minOccurs="1"/>
             <xs:element name="sendingUser" type="xs:string" minOccurs="0"/>
             <xs:element name="sendingDate" type="xs:dateTime" minOccurs="0"/>
-            <xs:element name="email" type="xs:string" minOccurs="0"/>
             <xs:element name="notificationType" type="tns:NotificationType" minOccurs="1"/>
             <xs:element name="expirationDate" type="xs:dateTime" minOccurs="0"/>
             <xs:element name="message" type="xs:string" minOccurs="1"/>
