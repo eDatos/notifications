@@ -66,7 +66,6 @@ public class NotificationsRest2DoMapperV10Impl extends BaseRest2DoMapperV10Impl 
         // target.setStatisticalOperation(commonRest2DoMapper.externalItemRestStatisticalOperationToExternalItemDo(source.getStatisticalOperation(), target.getStatisticalOperation()));
 
         target.setSendingUser(source.getSendingUser());
-        target.setMail(source.getEmail());
         target.setExpirationDate(CoreCommonUtil.transformDateToDateTime(source.getExpirationDate()));
         // target.setRole(source.getRole());
         target.setMessage(source.getMessage());

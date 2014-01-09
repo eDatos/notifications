@@ -40,7 +40,6 @@ public class NotificationsDo2RestMapperv10Impl implements NotificationsDo2RestMa
         target.setSendingApplication(source.getSendingApplication());
         target.setSendingUser(source.getSendingUser());
         target.setSendingDate(CoreCommonUtil.transformDateTimeToDate(source.getCreatedDate()));
-        target.setEmail(source.getMail());
         target.setExpirationDate(CoreCommonUtil.transformDateTimeToDate(source.getExpirationDate()));
         target.setMessage(source.getMessage());
         target.setNotificationType(NotificationType.fromValue(source.getNotificationType().getName()));
