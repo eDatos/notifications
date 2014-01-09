@@ -11,7 +11,6 @@ public class DoMocks {
     public static Notification mockNotification_TYPE_NOTIFICATION() {
         Notification notification = new Notification("application", "My message", NotificationType.NOTIFICATION);
         notification.setCreatedDate(new DateTime());
-        notification.setMail("user@domain.com");
         notification.setExpirationDate(new DateTime(2013, 1, 1, 1, 1, 1, 1));
         Role role = new Role();
         role.setName("ADMIN");
