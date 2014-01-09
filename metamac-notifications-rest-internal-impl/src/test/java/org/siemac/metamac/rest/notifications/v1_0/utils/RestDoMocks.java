@@ -21,7 +21,6 @@ public class RestDoMocks {
 
     public static Notification mockNotification_TYPE_NOTIFICATION() {
         Notification notification = new Notification("application", "My message", NotificationType.NOTIFICATION);
-        notification.setMail("user@domain.com");
         notification.setExpirationDate(new DateTime(2013, 1, 1, 1, 1, 1, 1));
 
         {
