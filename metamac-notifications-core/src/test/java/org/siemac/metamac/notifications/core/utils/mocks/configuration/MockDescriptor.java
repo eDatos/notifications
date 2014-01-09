@@ -5,11 +5,9 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import org.apache.commons.collections.CollectionUtils;
-
 public class MockDescriptor {
 
-    private Object       targetMock;
+    private Object targetMock;
     private List<Object> dependencies;
 
     public MockDescriptor(Object mock) {
@@ -17,6 +15,7 @@ public class MockDescriptor {
         this.dependencies = new ArrayList<Object>();
     }
 
+    @SuppressWarnings({"unchecked", "rawtypes"})
     public MockDescriptor(Object mock, Object deps) {
         this.targetMock = mock;
         if (deps instanceof Collection) {
