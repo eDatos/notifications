@@ -8,7 +8,6 @@ import java.util.Set;
 
 import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.siemac.metamac.core.common.exception.MetamacException;
-import org.siemac.metamac.core.common.exception.MetamacExceptionBuilder;
 import org.siemac.metamac.core.common.util.CoreCommonUtil;
 import org.siemac.metamac.notifications.core.common.domain.ExternalItem;
 import org.siemac.metamac.notifications.core.error.ServiceExceptionType;
@@ -21,6 +20,7 @@ import org.siemac.metamac.notifications.rest.internal.v1_0.mapper.base.BaseRest2
 import org.siemac.metamac.notifications.rest.internal.v1_0.mapper.base.CommonRest2DoMapperV10;
 import org.siemac.metamac.rest.common.v1_0.domain.Resource;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Application;
+import org.siemac.metamac.rest.notifications.v1_0.domain.Message;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -41,11 +41,10 @@ public class NotificationsRest2DoMapperV10Impl extends BaseRest2DoMapperV10Impl 
         }
 
         // Find
-        Notification notification = null;
         List<Notification> notifications = notificationService.findNotificationByCondition(ctx, criteriaFor(Notification.class).withProperty(NotificationProperties.urn()).eq(source.getUrn())
                 .distinctRoot().build());
         if (notifications.size() == 1) {
-            throw new MetamacException(ServiceExceptionType.NOTIFICATION_NOT_FOUND, source.getUrn());
+            throw new MetamacException(ServiceExceptionType.NOTIFICATION_ALREADY_EXISTS, source.getUrn());
         } else if (notifications.size() > 1) {
             // Exists a database constraint that makes URN unique
             throw new MetamacException(ServiceExceptionType.UNKNOWN, "More than one notification with urn " + source.getUrn());
@@ -53,22 +52,19 @@ public class NotificationsRest2DoMapperV10Impl extends BaseRest2DoMapperV10Impl 
 
         Notification target = null;
 
-        // Update
-        if (notification != null) {
-            throw MetamacExceptionBuilder.builder().withExceptionItems(ServiceExceptionType.NOTIFICATION_ALREADY_EXISTS).withMessageParameters(source.getUrn()).build();
-            // If updated is supported uncommented this code, and check the mapping code
-            // target = notification;
-        } else {
-            // New Object
-            target = new Notification(source.getSendingApplication(), source.getMessage(), NotificationType.valueOf(source.getNotificationType().name()));
-        }
-
-        // target.setStatisticalOperation(commonRest2DoMapper.externalItemRestStatisticalOperationToExternalItemDo(source.getStatisticalOperation(), target.getStatisticalOperation()));
+        target = new Notification(source.getSendingApplication(), NotificationType.valueOf(source.getNotificationType().name()));
 
         target.setSendingUser(source.getSendingUser());
         target.setExpirationDate(CoreCommonUtil.transformDateToDateTime(source.getExpirationDate()));
-        // target.setRole(source.getRole());
-        target.setMessage(source.getMessage());
+
+        // Messages
+        if (source.getMessages() != null) {
+            for (Message sourceMessage : source.getMessages().getMessages()) {
+                org.siemac.metamac.notifications.core.notice.domain.Message messageElement = new org.siemac.metamac.notifications.core.notice.domain.Message(sourceMessage.getText());
+                // TODO: Añadir resources
+                target.addMessage(messageElement);
+            }
+        }
 
         // Receivers
         if (source.getReceivers() != null) {

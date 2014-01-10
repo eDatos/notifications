@@ -2,12 +2,14 @@ package org.siemac.metamac.notifications.rest.internal.v1_0.mapper.notification;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.core.common.util.CoreCommonUtil;
 import org.siemac.metamac.notifications.core.common.domain.ExternalItem;
 import org.siemac.metamac.notifications.core.notice.domain.App;
+import org.siemac.metamac.notifications.core.notice.domain.Message;
 import org.siemac.metamac.notifications.core.notice.domain.Receiver;
 import org.siemac.metamac.notifications.core.notice.domain.Role;
 import org.siemac.metamac.notifications.rest.internal.v1_0.mapper.base.CommonDo2RestMapperV10;
@@ -15,6 +17,7 @@ import org.siemac.metamac.rest.common.v1_0.domain.Resource;
 import org.siemac.metamac.rest.common.v1_0.domain.Resources;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Application;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Applications;
+import org.siemac.metamac.rest.notifications.v1_0.domain.Messages;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Notification;
 import org.siemac.metamac.rest.notifications.v1_0.domain.NotificationType;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Receivers;
@@ -41,8 +44,23 @@ public class NotificationsDo2RestMapperv10Impl implements NotificationsDo2RestMa
         target.setSendingUser(source.getSendingUser());
         target.setSendingDate(CoreCommonUtil.transformDateTimeToDate(source.getCreatedDate()));
         target.setExpirationDate(CoreCommonUtil.transformDateTimeToDate(source.getExpirationDate()));
-        target.setMessage(source.getMessage());
         target.setNotificationType(NotificationType.fromValue(source.getNotificationType().getName()));
+
+        // Messages
+        {
+            Messages messages = new Messages();
+            for (Message sourceMessage : source.getMessages()) {
+                org.siemac.metamac.rest.notifications.v1_0.domain.Message targetMessage = new org.siemac.metamac.rest.notifications.v1_0.domain.Message();
+                targetMessage.setText(sourceMessage.getText());
+                targetMessage.setResources(externalItemsDoToResourcesRest(sourceMessage.getResources()));
+                messages.getMessages().add(targetMessage);
+
+            }
+            if (messages.getMessages().size() != 0) {
+                messages.setTotal(new BigInteger(String.valueOf(messages.getMessages().size())));
+                target.setMessages(messages);
+            }
+        }
 
         // Receivers
         {
@@ -100,5 +118,12 @@ public class NotificationsDo2RestMapperv10Impl implements NotificationsDo2RestMa
         }
 
         return target;
+    }
+
+    private Resources externalItemsDoToResourcesRest(List<ExternalItem> resources) {
+        // TODO: PEndiente de la transformación de los recursos
+
+        // TODO Auto-generated method stub
+        return null;
     }
 }
