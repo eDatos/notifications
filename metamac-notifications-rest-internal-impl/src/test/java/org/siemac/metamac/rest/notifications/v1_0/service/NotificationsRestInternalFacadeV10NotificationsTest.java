@@ -6,7 +6,7 @@ import javax.ws.rs.core.Response;
 
 import org.apache.cxf.jaxrs.client.WebClient;
 import org.junit.Test;
-import org.siemac.metamac.rest.notifications.v1_0.utils.RestMocks;
+import org.siemac.metamac.rest.notifications.v1_0.utils.NotificationsRestMocks;
 
 public class NotificationsRestInternalFacadeV10NotificationsTest extends NotificationsRestInternalFacadeV10BaseTest {
 
@@ -17,7 +17,7 @@ public class NotificationsRestInternalFacadeV10NotificationsTest extends Notific
             WebClient create = WebClient.create(baseApi);
             incrementRequestTimeOut(create); // Timeout
             create.path("notifications");
-            Response response = create.put(RestMocks.mockNotification_TYPE_NOTIFICATION());
+            Response response = create.put(NotificationsRestMocks.mockNotification_TYPE_NOTIFICATION());
 
             assertEquals(Response.Status.CREATED.getStatusCode(), response.getStatus());
         }
@@ -34,7 +34,7 @@ public class NotificationsRestInternalFacadeV10NotificationsTest extends Notific
 
             InputStream responseExpected = NotificationsRestInternalFacadeV10NotificationsTest.class.getResourceAsStream("/responses/notifications/retrieveNotification.xml");
             assertEquals(200, response.getStatus());
-            assertInputStream(responseExpected, (InputStream) response.getEntity(), false);
+            assertInputStream(responseExpected, (InputStream) response.getEntity(), true);
         }
     }
 }

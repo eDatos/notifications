@@ -18,7 +18,7 @@ import org.siemac.metamac.notifications.core.notice.domain.Receiver;
 import org.siemac.metamac.notifications.core.notice.domain.Role;
 import org.siemac.metamac.notifications.core.notice.enume.domain.NotificationType;
 
-public class RestDoMocks {
+public class NotificationsRestDoMocks {
 
     public static Notification mockNotification_TYPE_NOTIFICATION() {
         Notification notification = new Notification("application", NotificationType.NOTIFICATION);

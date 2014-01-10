@@ -36,7 +36,7 @@ import org.siemac.metamac.notifications.rest.internal.v1_0.service.Notifications
 import org.siemac.metamac.rest.common.test.MetamacRestBaseTest;
 import org.siemac.metamac.rest.common.test.ServerResource;
 import org.siemac.metamac.rest.common.test.utils.MetamacRestAsserts;
-import org.siemac.metamac.rest.notifications.v1_0.utils.RestDoMocks;
+import org.siemac.metamac.rest.notifications.v1_0.utils.NotificationsRestDoMocks;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -51,7 +51,7 @@ public abstract class NotificationsRestInternalFacadeV10BaseTest extends Metamac
     protected static NotificationsV1_0  notificationsRestInternalFacadeClientXml;
     private static String               apiEndpointv10;
 
-    protected static RestDoMocks        restDoMocks;
+    protected static NotificationsRestDoMocks        restDoMocks;
 
     private NotificationService         notificationService;
 
@@ -66,7 +66,7 @@ public abstract class NotificationsRestInternalFacadeV10BaseTest extends Metamac
 
         // Get application context from Jetty
         applicationContext = ApplicationContextProvider.getApplicationContext();
-        restDoMocks = new RestDoMocks();
+        restDoMocks = new NotificationsRestDoMocks();
 
         // Rest clients
         // xml
@@ -133,7 +133,7 @@ public abstract class NotificationsRestInternalFacadeV10BaseTest extends Metamac
             @Override
             public Notification answer(InvocationOnMock invocation) throws Throwable {
                 String urn = (String) invocation.getArguments()[1];
-                return RestDoMocks.mockNotification_TYPE_NOTIFICATION(urn);
+                return NotificationsRestDoMocks.mockNotification_TYPE_NOTIFICATION(urn);
             };
         });
     }

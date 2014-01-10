@@ -17,7 +17,7 @@ import org.siemac.metamac.rest.notifications.v1_0.domain.Receivers;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Role;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Roles;
 
-public class RestMocks {
+public class NotificationsRestMocks {
 
     public static InternationalString mockInternationalString(String resourceID) {
         InternationalString internationalString = new InternationalString();
