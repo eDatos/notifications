@@ -8,6 +8,6 @@ Notificaciones de ISTACbase
 - Urn de notificación: urn:siemac:org.siemac.metamac.infomodel.notification.Advertisement=ADVERTISEMENT_UUID
 - Tipo de notificación: NOTIFICATION
 
-- Mensaje:
- My message
+- Mensajes:
+  -- My message
 

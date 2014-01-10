@@ -59,6 +59,8 @@ Application Notices {
        		"Mark"
 			boolean mark;
 			
+			"Messages"
+			- Bag<@Message> messages cascade="all-delete-orphan" fetch="lazy" inverse <-> notification;
        		"Required roles access for notification"
        		- Bag<@Role> roles cascade="all-delete-orphan" fetch="lazy" inverse <-> notification;
        		"Receivers"
@@ -67,8 +69,6 @@ Application Notices {
 			- Bag<@App> apps cascade="all-delete-orphan" fetch="lazy" inverse <-> notification;
        		"Required statistical operations access for notification"
 			- Bag<@ExternalItem> statisticalOperations databaseColumn="STAT_OPE_FK" databaseJoinColumn="NOTIFICATION_FK" databaseJoinTable="TB_NOTIF_OPES" cascade="all-delete-orphan";
-			"Message"       		
-			Clob message required;
 			
 			Repository NotificationRepository {
 				save;
@@ -81,6 +81,35 @@ Application Notices {
 				@Notification retrieveByUrn(String urn) throws MetamacException;
 			}
 		}
+
+		Entity Message {
+			databaseTable="TB_MESSAGES"
+			hint="idSequence=MESSAGES"
+			not auditable
+			
+			"Added explicitly to avoid that Sculptor generate UUID"
+			Long id key;
+			
+			"Text"       		
+			Clob text required;
+			
+			"Resources"
+			- Bag<@ExternalItem> resources databaseColumn="RESOURCE_FK" databaseJoinColumn="MESSAGE_FK" databaseJoinTable="TB_MESSAGE_RESOURCES" cascade="all-delete-orphan";
+
+			"Notification"
+			- @Notification notification not nullable cascade="none" databaseColumn="MESSAGE_FK" <-> messages;
+			
+			Repository MessageRepository {
+				save;
+				delete;
+				findAll;
+				findById;
+				findByCondition;
+				findByCondition(PagingParameter pagingParameter);
+				findByQuery(String query, Map<String, Object> parameters, int maxResult);
+			}
+		}
+
 		
 		Entity Receiver {
 			databaseTable="TB_RECEIVERS"

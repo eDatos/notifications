@@ -8,8 +8,10 @@
 package org.siemac.metamac.rest.notifications.v1_0.domain.utils;
 
 import java.util.Date;
+
 import org.siemac.metamac.rest.common.v1_0.domain.Resources;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Applications;
+import org.siemac.metamac.rest.notifications.v1_0.domain.Messages;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Notification;
 import org.siemac.metamac.rest.notifications.v1_0.domain.NotificationType;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Receivers;
@@ -32,7 +34,7 @@ public class NotificationBuilder extends NotificationBuilderBase<NotificationBui
 
 class NotificationBuilderBase<GeneratorT extends NotificationBuilderBase<GeneratorT>> {
 
-    private Notification instance;
+    private final Notification instance;
 
     protected NotificationBuilderBase(Notification aInstance) {
         instance = aInstance;
@@ -78,8 +80,8 @@ class NotificationBuilderBase<GeneratorT extends NotificationBuilderBase<Generat
     }
 
     @SuppressWarnings("unchecked")
-    public GeneratorT withMessage(String aValue) {
-        instance.setMessage(aValue);
+    public GeneratorT withMessages(Messages aValue) {
+        instance.setMessages(aValue);
 
         return (GeneratorT) this;
     }

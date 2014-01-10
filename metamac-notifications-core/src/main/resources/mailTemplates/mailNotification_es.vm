@@ -11,5 +11,7 @@ Notificaciones de ISTACbase
 - Urn de notificación: ${notification.urn}
 - Tipo de notificación: ${notification.notificationType}
 
-- Mensaje:
- ${notification.message}
+- Mensajes:
+	#foreach( $item in ${notification.messages} )
+	  -- $item.text
+	#end

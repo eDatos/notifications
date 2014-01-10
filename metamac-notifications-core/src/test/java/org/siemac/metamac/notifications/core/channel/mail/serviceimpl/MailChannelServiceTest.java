@@ -47,8 +47,8 @@ public class MailChannelServiceTest extends NotificationsBaseTest /* implements 
     @Test
     public void testMailChannel() throws Exception {
         mailChannelService.sendMail(getServiceContextAdministrador(),
-                DoMocks.mockNotification_TYPE_NOTIFICATION("urn:siemac:org.siemac.metamac.infomodel.notification.Advertisement=ADVERTISEMENT_UUID"), new String[]{"count@domain.com"},
-                "count@domain.com");
+                DoMocks.mockNotificationWithoutResources_TYPE_NOTIFICATION("urn:siemac:org.siemac.metamac.infomodel.notification.Advertisement=ADVERTISEMENT_UUID", "application", "My message"),
+                new String[]{"count@domain.com"}, "count@domain.com");
 
         assertEquals(1, greenMail.getReceivedMessages().length);
         MimeMessage[] messages = greenMail.getReceivedMessages();
@@ -57,7 +57,6 @@ public class MailChannelServiceTest extends NotificationsBaseTest /* implements 
         InputStream responseExpected = MailChannelServiceTest.class.getResourceAsStream("/responses/email/notification.mail");
         assertInputStream(responseExpected, IOUtils.toInputStream((String) messages[0].getContent()), false);
         assertEquals("Metamac Notification", messages[0].getSubject());
-        // assertEquals(body, GreenMailUtil.getBody(messages[0]).trim());
     }
 
     @After
