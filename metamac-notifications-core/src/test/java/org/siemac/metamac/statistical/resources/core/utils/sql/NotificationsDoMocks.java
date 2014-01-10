@@ -21,7 +21,7 @@ import org.siemac.metamac.notifications.core.notice.domain.Receiver;
 import org.siemac.metamac.notifications.core.notice.domain.Role;
 import org.siemac.metamac.notifications.core.notice.enume.domain.NotificationType;
 
-public class DoMocks extends MetamacMocks {
+public class NotificationsDoMocks extends MetamacMocks {
 
     // -----------------------------------------------------------------
     // NOTIFICATIONS

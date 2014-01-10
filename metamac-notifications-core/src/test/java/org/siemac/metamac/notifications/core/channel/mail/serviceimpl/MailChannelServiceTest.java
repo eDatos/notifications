@@ -13,7 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.siemac.metamac.notifications.core.NotificationsBaseTest;
-import org.siemac.metamac.statistical.resources.core.utils.sql.DoMocks;
+import org.siemac.metamac.statistical.resources.core.utils.sql.NotificationsDoMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -47,7 +47,7 @@ public class MailChannelServiceTest extends NotificationsBaseTest /* implements 
     @Test
     public void testMailChannel() throws Exception {
         mailChannelService.sendMail(getServiceContextAdministrador(),
-                DoMocks.mockNotificationWithoutResources_TYPE_NOTIFICATION("urn:siemac:org.siemac.metamac.infomodel.notification.Advertisement=ADVERTISEMENT_UUID", "application", "My message"),
+                NotificationsDoMocks.mockNotificationWithoutResources_TYPE_NOTIFICATION("urn:siemac:org.siemac.metamac.infomodel.notification.Advertisement=ADVERTISEMENT_UUID", "application", "My message"),
                 new String[]{"count@domain.com"}, "count@domain.com");
 
         assertEquals(1, greenMail.getReceivedMessages().length);
