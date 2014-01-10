@@ -2,10 +2,13 @@
 <notice:notification xmlns:notice="http://www.siemac.org/metamac/rest/notifications/v1.0/domain" xmlns:cdomain="http://www.siemac.org/metamac/rest/common/v1.0/domain">
     <notice:urn>urn:siemac:org.siemac.metamac.infomodel.notification.Advertisement=ADVERTISEMENT_UUID</notice:urn>
     <notice:sendingApplication>application</notice:sendingApplication>
-    <notice:email>user@domain.com</notice:email>
     <notice:notificationType>NOTIFICATION</notice:notificationType>
     <notice:expirationDate>2013-01-01T01:01:01.001Z</notice:expirationDate>
-    <notice:message>My message</notice:message>
+    <notice:messages>
+        <notice:message total="1">
+            <notice:text>My message</notice:text>
+        </notice:message>
+    </notice:messages>
     <notice:roles total="1">
         <notice:role>
             <notice:name>ADMIN</notice:name>

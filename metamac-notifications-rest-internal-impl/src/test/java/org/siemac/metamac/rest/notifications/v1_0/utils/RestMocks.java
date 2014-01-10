@@ -8,6 +8,8 @@ import org.siemac.metamac.rest.common.v1_0.domain.InternationalString;
 import org.siemac.metamac.rest.common.v1_0.domain.LocalisedString;
 import org.siemac.metamac.rest.common.v1_0.domain.Resource;
 import org.siemac.metamac.rest.common.v1_0.domain.Resources;
+import org.siemac.metamac.rest.notifications.v1_0.domain.Message;
+import org.siemac.metamac.rest.notifications.v1_0.domain.Messages;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Notification;
 import org.siemac.metamac.rest.notifications.v1_0.domain.NotificationType;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Receiver;
@@ -58,7 +60,12 @@ public class RestMocks {
             notification.setStatisticalOperations(resources);
         }
 
-        notification.setMessage("My message");
+        // Messages
+        Messages messages = new Messages();
+        Message message = new Message();
+        message.setText("My message");
+        messages.getMessages().add(message);
+
         notification.setNotificationType(NotificationType.NOTIFICATION);
 
         // Receivers

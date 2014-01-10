@@ -12,6 +12,7 @@ import org.siemac.metamac.core.common.enume.utils.TypeExternalArtefactsEnumUtils
 import org.siemac.metamac.notifications.core.common.domain.ExternalItem;
 import org.siemac.metamac.notifications.core.common.domain.InternationalString;
 import org.siemac.metamac.notifications.core.common.domain.LocalisedString;
+import org.siemac.metamac.notifications.core.notice.domain.Message;
 import org.siemac.metamac.notifications.core.notice.domain.Notification;
 import org.siemac.metamac.notifications.core.notice.domain.Receiver;
 import org.siemac.metamac.notifications.core.notice.domain.Role;
@@ -20,8 +21,9 @@ import org.siemac.metamac.notifications.core.notice.enume.domain.NotificationTyp
 public class RestDoMocks {
 
     public static Notification mockNotification_TYPE_NOTIFICATION() {
-        Notification notification = new Notification("application", "My message", NotificationType.NOTIFICATION);
+        Notification notification = new Notification("application", NotificationType.NOTIFICATION);
         notification.setExpirationDate(new DateTime(2013, 1, 1, 1, 1, 1, 1));
+        notification.getMessages().add(new Message("My message"));
 
         {
             // role

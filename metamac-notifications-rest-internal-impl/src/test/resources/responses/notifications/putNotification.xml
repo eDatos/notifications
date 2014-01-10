@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <notice:notification
 	xmlns:notice="http://www.siemac.org/metamac/rest/notifications/v1.0/domain"
-	xmlns:cdomain="http://www.siemac.org/metamac/rest/common/v1.0/domain">
+	xmlns:cdomain="http://www.siemac.org/metamac/rest/common/v1.0/domain"
+    xsi:schemaLocation="http://www.siemac.org/metamac/rest/notifications/v1.0/domain metamac-notifications-rest-internal-domain-v1.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<notice:sendingApplication>application</notice:sendingApplication>
 	<notice:sendingUser>user</notice:sendingUser>
 	<notice:email>user@domain.com</notice:email>
@@ -21,7 +22,11 @@
 			</cdomain:text>
 		</cdomain:name>
 	</notice:statisticalOperation>
-	<notice:message>My message</notice:message>
+	<notice:messages>
+        <notice:message>
+            <notice:text>My message</notice:text>
+        </notice:message>
+    </notice:messages>
 	<notice:receivers total="5">
 		<notice:receiver>
 			<notice:username>user-0</notice:username>
