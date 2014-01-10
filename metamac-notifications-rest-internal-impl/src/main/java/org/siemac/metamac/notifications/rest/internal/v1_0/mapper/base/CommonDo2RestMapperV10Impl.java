@@ -15,15 +15,11 @@ import org.siemac.metamac.rest.common.v1_0.domain.Resource;
 import org.siemac.metamac.rest.common.v1_0.domain.ResourceLink;
 import org.siemac.metamac.rest.common.v1_0.domain.Resources;
 import org.siemac.metamac.rest.utils.RestUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CommonDo2RestMapperV10Impl implements CommonDo2RestMapperV10 {
-
-    private static final Logger  logger = LoggerFactory.getLogger(CommonDo2RestMapperV10.class);
 
     @Autowired
     private ConfigurationService configurationService;

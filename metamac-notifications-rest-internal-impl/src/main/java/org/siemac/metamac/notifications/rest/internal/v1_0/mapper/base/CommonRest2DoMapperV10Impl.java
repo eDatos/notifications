@@ -19,15 +19,11 @@ import org.siemac.metamac.notifications.core.common.domain.InternationalStringRe
 import org.siemac.metamac.notifications.core.common.domain.LocalisedString;
 import org.siemac.metamac.notifications.core.error.ServiceExceptionType;
 import org.siemac.metamac.rest.common.v1_0.domain.Resource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CommonRest2DoMapperV10Impl implements CommonRest2DoMapperV10 {
-
-    private static final Logger           logger = LoggerFactory.getLogger(CommonRest2DoMapperV10.class);
 
     @Autowired
     private ConfigurationService          configurationService;
