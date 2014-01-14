@@ -37,8 +37,8 @@ class StatisticalOperationBuilderBase<GeneratorT extends StatisticalOperationBui
     }
 
     @SuppressWarnings("unchecked")
-    public GeneratorT withName(String aValue) {
-        instance.setName(aValue);
+    public GeneratorT withUrn(String aValue) {
+        instance.setUrn(aValue);
 
         return (GeneratorT) this;
     }

@@ -9,7 +9,7 @@ public class StatisticalOperationsUtils {
     public static StatisticalOperations createStatisticalOperationsList(String... statisticalOperationsUrns) {
         StatisticalOperations statisticalOperations = new StatisticalOperations();
         for (String urn : statisticalOperationsUrns) {
-            statisticalOperations.getStatisticalOperations().add(StatisticalOperationBuilder.statisticalOperation().withName(urn.toString()).build());
+            statisticalOperations.getStatisticalOperations().add(StatisticalOperationBuilder.statisticalOperation().withUrn(urn.toString()).build());
         }
 
         statisticalOperations.setTotal(new BigInteger(String.valueOf(statisticalOperations.getStatisticalOperations().size())));
