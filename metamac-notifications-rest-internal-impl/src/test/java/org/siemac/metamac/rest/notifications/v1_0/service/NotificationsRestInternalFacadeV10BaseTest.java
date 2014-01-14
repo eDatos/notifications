@@ -37,25 +37,26 @@ import org.siemac.metamac.rest.common.test.MetamacRestBaseTest;
 import org.siemac.metamac.rest.common.test.ServerResource;
 import org.siemac.metamac.rest.common.test.utils.MetamacRestAsserts;
 import org.siemac.metamac.rest.notifications.v1_0.utils.NotificationsRestDoMocks;
+import org.siemac.metamac.statistical.resources.core.utils.sql.NotificationsDoMocks;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 
 public abstract class NotificationsRestInternalFacadeV10BaseTest extends MetamacRestBaseTest {
 
-    protected static Logger             logger             = LoggerFactory.getLogger(NotificationsRestInternalFacadeV10BaseTest.class);
+    protected static Logger                   logger             = LoggerFactory.getLogger(NotificationsRestInternalFacadeV10BaseTest.class);
 
-    private static String               jaxrsServerAddress = "http://localhost:" + ServerResource.PORT + "/apis/notifications-internal";
-    protected String                    baseApi            = jaxrsServerAddress + "/v1.0";
-    protected static ApplicationContext applicationContext = null;
-    protected static NotificationsV1_0  notificationsRestInternalFacadeClientXml;
-    private static String               apiEndpointv10;
+    private static String                     jaxrsServerAddress = "http://localhost:" + ServerResource.PORT + "/apis/notifications-internal";
+    protected String                          baseApi            = jaxrsServerAddress + "/v1.0";
+    protected static ApplicationContext       applicationContext = null;
+    protected static NotificationsV1_0        notificationsRestInternalFacadeClientXml;
+    private static String                     apiEndpointv10;
 
-    protected static NotificationsRestDoMocks        restDoMocks;
+    protected static NotificationsRestDoMocks restDoMocks;
 
-    private NotificationService         notificationService;
+    private NotificationService               notificationService;
 
-    protected static String             NOTIFICATION_URN   = "urn:siemac:org.siemac.metamac.infomodel.notification.Advertisement=ADVERTISEMENT_UUID";
+    protected static String                   NOTIFICATION_URN   = "urn:siemac:org.siemac.metamac.infomodel.notification.Advertisement=ADVERTISEMENT_UUID";
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     @BeforeClass
