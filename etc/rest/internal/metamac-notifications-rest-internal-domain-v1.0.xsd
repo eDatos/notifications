@@ -16,8 +16,8 @@
             <xs:element name="sendingDate" type="xs:dateTime" minOccurs="0" />
             <xs:element name="notificationType" type="tns:NotificationType" minOccurs="1" />
             <xs:element name="expirationDate" type="xs:dateTime" minOccurs="0" />
-            <xs:element name="messages" type="tns:Messages" minOccurs="1" />
             <xs:element name="subject" type="xs:string" minOccurs="1" maxOccurs="1" />
+            <xs:element name="messages" type="tns:Messages" minOccurs="1" />
 
             <xs:element name="roles" type="tns:Roles" minOccurs="0" />
             <xs:element name="applications" type="tns:Applications" minOccurs="0" />
@@ -68,13 +68,13 @@
     
     <xs:complexType name="StatisticalOperation">
         <xs:sequence>
-            <xs:element name="name" type="xs:string" />
+            <xs:element name="urn" type="xs:string" />
         </xs:sequence>
     </xs:complexType>
 
     <xs:complexType name="StatisticalOperations">
         <xs:sequence>
-            <xs:element name="statisticalOperations" type="tns:StatisticalOperation" minOccurs="1" maxOccurs="unbounded" />
+            <xs:element name="statisticalOperation" type="tns:StatisticalOperation" minOccurs="1" maxOccurs="unbounded" />
         </xs:sequence>
         <xs:attribute name="total" type="xs:unsignedLong" use="required" />
     </xs:complexType>
