@@ -90,13 +90,13 @@
         </dependency>
 
         <!-- Test -->
-<!--         <dependency> -->
-<!--             <groupId>org.siemac.metamac.metamac-notifications</groupId> -->
-<!--             <artifactId>metamac-notifications-core</artifactId> -->
-<!--             <type>test-jar</type> -->
-<!--             <version>${project.version}</version> -->
-<!--             <scope>test</scope> -->
-<!--         </dependency> -->
+        <dependency>
+            <groupId>org.siemac.metamac.metamac-notifications</groupId>
+            <artifactId>metamac-notifications-core</artifactId>
+            <type>test-jar</type>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.siemac.metamac</groupId>
             <artifactId>metamac-core-common</artifactId>
