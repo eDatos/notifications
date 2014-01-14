@@ -1,7 +1,6 @@
 package org.siemac.metamac.notifications.rest.internal.v1_0.mapper.notification;
 
-import static org.fornax.cartridges.sculptor.framework.accessapi.ConditionalCriteriaBuilder.criteriaFor;
-
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -9,18 +8,19 @@ import java.util.Set;
 import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.core.common.util.CoreCommonUtil;
-import org.siemac.metamac.notifications.core.error.ServiceExceptionType;
-import org.siemac.metamac.notifications.core.notice.domain.App;
-import org.siemac.metamac.notifications.core.notice.domain.Notification;
-import org.siemac.metamac.notifications.core.notice.domain.NotificationProperties;
 import org.siemac.metamac.notifications.core.notice.enume.domain.NotificationType;
-import org.siemac.metamac.notifications.core.notice.serviceapi.NotificationService;
 import org.siemac.metamac.notifications.rest.internal.v1_0.mapper.base.BaseRest2DoMapperV10Impl;
 import org.siemac.metamac.notifications.rest.internal.v1_0.mapper.base.CommonRest2DoMapperV10;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Application;
+import org.siemac.metamac.rest.notifications.v1_0.domain.Applications;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Message;
+import org.siemac.metamac.rest.notifications.v1_0.domain.Messages;
+import org.siemac.metamac.rest.notifications.v1_0.domain.Notification;
+import org.siemac.metamac.rest.notifications.v1_0.domain.Receivers;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Role;
+import org.siemac.metamac.rest.notifications.v1_0.domain.Roles;
 import org.siemac.metamac.rest.notifications.v1_0.domain.StatisticalOperation;
+import org.siemac.metamac.rest.notifications.v1_0.domain.StatisticalOperations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -28,92 +28,103 @@ import org.springframework.stereotype.Component;
 public class NotificationsRest2DoMapperV10Impl extends BaseRest2DoMapperV10Impl implements NotificationsRest2DoMapperV10 {
 
     @Autowired
-    private NotificationService    notificationService;
-
-    @Autowired
     private CommonRest2DoMapperV10 commonRest2DoMapper;
 
     @Override
-    public Notification notificationRest2Entity(ServiceContext ctx, org.siemac.metamac.rest.notifications.v1_0.domain.Notification source) throws MetamacException {
+    public org.siemac.metamac.notifications.core.notice.domain.Notification notificationRestToEntity(ServiceContext ctx, Notification source) throws MetamacException {
         if (source == null) {
             return null;
         }
 
-        // Find
-        List<Notification> notifications = notificationService.findNotificationByCondition(ctx, criteriaFor(Notification.class).withProperty(NotificationProperties.urn()).eq(source.getUrn())
-                .distinctRoot().build());
-        if (notifications.size() == 1) {
-            throw new MetamacException(ServiceExceptionType.NOTIFICATION_ALREADY_EXISTS, source.getUrn());
-        } else if (notifications.size() > 1) {
-            // Exists a database constraint that makes URN unique
-            throw new MetamacException(ServiceExceptionType.UNKNOWN, "More than one notification with urn " + source.getUrn());
-        }
-
-        Notification target = null;
-
-        target = new Notification(source.getSendingApplication(), source.getSubject(), NotificationType.valueOf(source.getNotificationType().name()));
-
+        org.siemac.metamac.notifications.core.notice.domain.Notification target = new org.siemac.metamac.notifications.core.notice.domain.Notification(source.getSendingApplication(),
+                source.getSubject(), NotificationType.valueOf(source.getNotificationType().name()));
         target.setSendingUser(source.getSendingUser());
         target.setExpirationDate(CoreCommonUtil.transformDateToDateTime(source.getExpirationDate()));
 
-        // Messages
-        if (source.getMessages() != null) {
-            for (Message sourceMessage : source.getMessages().getMessages()) {
-                org.siemac.metamac.notifications.core.notice.domain.Message messageElement = new org.siemac.metamac.notifications.core.notice.domain.Message(sourceMessage.getText());
-                // TODO: Añadir resources
-                target.addMessage(messageElement);
-            }
-        }
+        target.getMessages().addAll(messagesRestToEntity(source.getMessages()));
+        target.getReceivers().addAll(receiversRestToEntity(source.getReceivers()));
+        target.getApps().addAll(applicationsRestToEntity(source.getApplications()));
+        target.getStatisticalOperations().addAll(statisticalOperationsRestToEntity(source.getStatisticalOperations()));
+        target.getRoles().addAll(rolesRestToEntity(source.getRoles()));
 
-        // Receivers
-        if (source.getReceivers() != null) {
-            Set<String> usernamesInNotifications = new HashSet<String>();
-            for (org.siemac.metamac.rest.notifications.v1_0.domain.Receiver sourceReceiver : source.getReceivers().getReceivers()) {
-                if (!usernamesInNotifications.contains(sourceReceiver.getUsername())) {
-                    usernamesInNotifications.add(sourceReceiver.getUsername());
-                    org.siemac.metamac.notifications.core.notice.domain.Receiver receiverElement = new org.siemac.metamac.notifications.core.notice.domain.Receiver();
-                    receiverElement.setUsername(sourceReceiver.getUsername());
-                    target.addReceiver(receiverElement);
-                }
-            }
-        }
+        return target;
+    }
 
-        // Applications
-        if (source.getApplications() != null) {
-            Set<String> applicationCodes = new HashSet<String>();
-            for (Application application : source.getApplications().getApplications()) {
-                if (!applicationCodes.contains(application.getName())) {
-                    applicationCodes.add(application.getName());
-                    App app = new App();
-                    app.setName(application.getName());
-                    target.addApp(app);
-                }
-            }
-        }
-
-        // Roles
-        if (source.getRoles() != null) {
+    private List<org.siemac.metamac.notifications.core.notice.domain.Role> rolesRestToEntity(Roles source) {
+        List<org.siemac.metamac.notifications.core.notice.domain.Role> target = new ArrayList<org.siemac.metamac.notifications.core.notice.domain.Role>();
+        if (source != null) {
             Set<String> rolCodes = new HashSet<String>();
-            for (Role role : source.getRoles().getRoles()) {
+            for (Role role : source.getRoles()) {
                 if (!rolCodes.contains(role.getName())) {
                     rolCodes.add(role.getName());
                     org.siemac.metamac.notifications.core.notice.domain.Role roleElement = new org.siemac.metamac.notifications.core.notice.domain.Role();
                     roleElement.setName(role.getName());
-                    target.addRole(roleElement);
+                    target.add(roleElement);
                 }
             }
         }
+        return target;
+    }
 
-        // Statistical operations
-        if (source.getStatisticalOperations() != null) {
+    private List<org.siemac.metamac.notifications.core.notice.domain.StatisticalOperation> statisticalOperationsRestToEntity(StatisticalOperations source) {
+        List<org.siemac.metamac.notifications.core.notice.domain.StatisticalOperation> target = new ArrayList<org.siemac.metamac.notifications.core.notice.domain.StatisticalOperation>();
+        if (source != null) {
             Set<String> rolCodes = new HashSet<String>();
-            for (StatisticalOperation statisticalOperation : source.getStatisticalOperations().getStatisticalOperations()) {
+            for (StatisticalOperation statisticalOperation : source.getStatisticalOperations()) {
                 if (!rolCodes.contains(statisticalOperation.getName())) {
                     rolCodes.add(statisticalOperation.getName());
                     org.siemac.metamac.notifications.core.notice.domain.StatisticalOperation statisticalOperationElement = new org.siemac.metamac.notifications.core.notice.domain.StatisticalOperation();
                     statisticalOperationElement.setName(statisticalOperation.getName());
-                    target.addStatisticalOperation(statisticalOperationElement);
+                    target.add(statisticalOperationElement);
                 }
+            }
+        }
+        return target;
+    }
+
+    private List<org.siemac.metamac.notifications.core.notice.domain.App> applicationsRestToEntity(Applications source) {
+        List<org.siemac.metamac.notifications.core.notice.domain.App> target = new ArrayList<org.siemac.metamac.notifications.core.notice.domain.App>();
+        if (source != null) {
+            Set<String> applicationCodes = new HashSet<String>();
+            for (Application application : source.getApplications()) {
+                if (!applicationCodes.contains(application.getName())) {
+                    applicationCodes.add(application.getName());
+                    org.siemac.metamac.notifications.core.notice.domain.App app = new org.siemac.metamac.notifications.core.notice.domain.App();
+                    app.setName(application.getName());
+                    target.add(app);
+                }
+            }
+        }
+        return target;
+    }
+
+    private List<org.siemac.metamac.notifications.core.notice.domain.Receiver> receiversRestToEntity(Receivers source) {
+        List<org.siemac.metamac.notifications.core.notice.domain.Receiver> target = new ArrayList<org.siemac.metamac.notifications.core.notice.domain.Receiver>();
+
+        if (source != null) {
+            Set<String> usernamesInNotifications = new HashSet<String>();
+            for (org.siemac.metamac.rest.notifications.v1_0.domain.Receiver sourceReceiver : source.getReceivers()) {
+                if (!usernamesInNotifications.contains(sourceReceiver.getUsername())) {
+                    usernamesInNotifications.add(sourceReceiver.getUsername());
+                    org.siemac.metamac.notifications.core.notice.domain.Receiver receiverElement = new org.siemac.metamac.notifications.core.notice.domain.Receiver();
+                    receiverElement.setUsername(sourceReceiver.getUsername());
+                    target.add(receiverElement);
+                }
+            }
+        }
+        return target;
+    }
+
+    private List<org.siemac.metamac.notifications.core.notice.domain.Message> messagesRestToEntity(Messages source) {
+        List<org.siemac.metamac.notifications.core.notice.domain.Message> target = new ArrayList<org.siemac.metamac.notifications.core.notice.domain.Message>();
+
+        // Messages
+        if (source != null) {
+            for (Message sourceMessage : source.getMessages()) {
+                org.siemac.metamac.notifications.core.notice.domain.Message messageElement = new org.siemac.metamac.notifications.core.notice.domain.Message(sourceMessage.getText());
+
+                // TODO: Añadir resources
+                target.add(messageElement);
             }
         }
 

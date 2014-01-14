@@ -27,7 +27,7 @@ public class NotificationsRestFacadeV10Impl implements NotificationsV1_0 {
     public Response createNotification(Notification notification) {
         try {
             // Transform
-            org.siemac.metamac.notifications.core.notice.domain.Notification notificationEntity = notificationsRest2DoMapperV10.notificationRest2Entity(NotificationsRestConstants.SERVICE_CONTEXT,
+            org.siemac.metamac.notifications.core.notice.domain.Notification notificationEntity = notificationsRest2DoMapperV10.notificationRestToEntity(NotificationsRestConstants.SERVICE_CONTEXT,
                     notification);
 
             // Create

@@ -47,79 +47,83 @@ public class NotificationsDo2RestMapperv10Impl implements NotificationsDo2RestMa
         target.setNotificationType(NotificationType.fromValue(source.getNotificationType().getName()));
         target.setSubject(source.getSubject());
 
-        // Messages
-        {
-            Messages messages = new Messages();
-            for (Message sourceMessage : source.getMessages()) {
-                org.siemac.metamac.rest.notifications.v1_0.domain.Message targetMessage = new org.siemac.metamac.rest.notifications.v1_0.domain.Message();
-                targetMessage.setText(sourceMessage.getText());
-                targetMessage.setResources(externalItemsDoToResourcesRest(sourceMessage.getResources()));
-                messages.getMessages().add(targetMessage);
-
-            }
-            if (messages.getMessages().size() != 0) {
-                messages.setTotal(new BigInteger(String.valueOf(messages.getMessages().size())));
-                target.setMessages(messages);
-            }
-        }
-
-        // Receivers
-        {
-            Receivers receivers = new Receivers();
-            for (Receiver sourceReceiver : source.getReceivers()) {
-                org.siemac.metamac.rest.notifications.v1_0.domain.Receiver targetReceiver = new org.siemac.metamac.rest.notifications.v1_0.domain.Receiver();
-                targetReceiver.setUsername(sourceReceiver.getUsername());
-                receivers.getReceivers().add(targetReceiver);
-            }
-            if (receivers.getReceivers().size() != 0) {
-                receivers.setTotal(new BigInteger(String.valueOf(receivers.getReceivers().size())));
-                target.setReceivers(receivers);
-            }
-        }
-
-        // Applications
-        {
-            Applications applications = new Applications();
-            for (App app : source.getApps()) {
-                Application targetApplication = new Application();
-                targetApplication.setName(app.getName());
-                applications.getApplications().add(targetApplication);
-            }
-            if (applications.getApplications().size() != 0) {
-                applications.setTotal(new BigInteger(String.valueOf(applications.getApplications().size())));
-                target.setApplications(applications);
-            }
-        }
-
-        // Roles
-        {
-            Roles roles = new Roles();
-            for (Role role : source.getRoles()) {
-                org.siemac.metamac.rest.notifications.v1_0.domain.Role targetRole = new org.siemac.metamac.rest.notifications.v1_0.domain.Role();
-                targetRole.setName(role.getName());
-                roles.getRoles().add(targetRole);
-            }
-            if (roles.getRoles().size() != 0) {
-                roles.setTotal(new BigInteger(String.valueOf(roles.getRoles().size())));
-                target.setRoles(roles);
-            }
-        }
-
-        // Statistical Operations
-        {
-            StatisticalOperations statisticalOperations = new StatisticalOperations();
-            for (StatisticalOperation statisticalOperation : source.getStatisticalOperations()) {
-                org.siemac.metamac.rest.notifications.v1_0.domain.StatisticalOperation targetStatisticalOperation = new org.siemac.metamac.rest.notifications.v1_0.domain.StatisticalOperation();
-                targetStatisticalOperation.setName(statisticalOperation.getName());
-                statisticalOperations.getStatisticalOperations().add(targetStatisticalOperation);
-            }
-            if (statisticalOperations.getStatisticalOperations().size() != 0) {
-                statisticalOperations.setTotal(new BigInteger(String.valueOf(statisticalOperations.getStatisticalOperations().size())));
-                target.setStatisticalOperations(statisticalOperations);
-            }
-        }
+        target.setMessages(messagesToRest(source.getMessages()));
+        target.setReceivers(receiversToRest(source.getReceivers()));
+        target.setApplications(applicationsToRest(source.getApps()));
+        target.setRoles(rolesToRest(source.getRoles()));
+        target.setStatisticalOperations(statisticalOperationsToRest(source.getStatisticalOperations()));
 
         return target;
+    }
+
+    private StatisticalOperations statisticalOperationsToRest(List<StatisticalOperation> source) {
+        StatisticalOperations statisticalOperations = new StatisticalOperations();
+        for (StatisticalOperation statisticalOperation : source) {
+            org.siemac.metamac.rest.notifications.v1_0.domain.StatisticalOperation targetStatisticalOperation = new org.siemac.metamac.rest.notifications.v1_0.domain.StatisticalOperation();
+            targetStatisticalOperation.setName(statisticalOperation.getName());
+            statisticalOperations.getStatisticalOperations().add(targetStatisticalOperation);
+        }
+        if (statisticalOperations.getStatisticalOperations().size() != 0) {
+            statisticalOperations.setTotal(new BigInteger(String.valueOf(statisticalOperations.getStatisticalOperations().size())));
+        }
+
+        return statisticalOperations;
+    }
+
+    private Roles rolesToRest(List<Role> source) {
+        Roles roles = new Roles();
+        for (Role role : source) {
+            org.siemac.metamac.rest.notifications.v1_0.domain.Role targetRole = new org.siemac.metamac.rest.notifications.v1_0.domain.Role();
+            targetRole.setName(role.getName());
+            roles.getRoles().add(targetRole);
+        }
+        if (roles.getRoles().size() != 0) {
+            roles.setTotal(new BigInteger(String.valueOf(roles.getRoles().size())));
+        }
+
+        return roles;
+    }
+
+    private Applications applicationsToRest(List<App> source) {
+        Applications applications = new Applications();
+        for (org.siemac.metamac.notifications.core.notice.domain.App app : source) {
+            Application targetApplication = new Application();
+            targetApplication.setName(app.getName());
+            applications.getApplications().add(targetApplication);
+        }
+        if (applications.getApplications().size() != 0) {
+            applications.setTotal(new BigInteger(String.valueOf(applications.getApplications().size())));
+        }
+        return applications;
+    }
+
+    private Receivers receiversToRest(List<Receiver> source) {
+        Receivers receivers = new Receivers();
+        for (org.siemac.metamac.notifications.core.notice.domain.Receiver sourceReceiver : source) {
+            org.siemac.metamac.rest.notifications.v1_0.domain.Receiver targetReceiver = new org.siemac.metamac.rest.notifications.v1_0.domain.Receiver();
+            targetReceiver.setUsername(sourceReceiver.getUsername());
+            receivers.getReceivers().add(targetReceiver);
+        }
+        if (receivers.getReceivers().size() != 0) {
+            receivers.setTotal(new BigInteger(String.valueOf(receivers.getReceivers().size())));
+        }
+        return receivers;
+    }
+
+    private Messages messagesToRest(List<Message> source) {
+        Messages messages = new Messages();
+        for (Message sourceMessage : source) {
+            org.siemac.metamac.rest.notifications.v1_0.domain.Message targetMessage = new org.siemac.metamac.rest.notifications.v1_0.domain.Message();
+            targetMessage.setText(sourceMessage.getText());
+            targetMessage.setResources(externalItemsDoToResourcesRest(sourceMessage.getResources()));
+            messages.getMessages().add(targetMessage);
+
+        }
+
+        if (!messages.getMessages().isEmpty()) {
+            messages.setTotal(new BigInteger(String.valueOf(messages.getMessages().size())));
+        }
+        return messages;
     }
 
     private Resources externalItemsDoToResourcesRest(List<ExternalItem> resources) {
