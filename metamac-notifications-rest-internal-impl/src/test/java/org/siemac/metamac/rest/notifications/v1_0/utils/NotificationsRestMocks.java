@@ -4,8 +4,6 @@ import java.math.BigInteger;
 import java.util.Date;
 
 import org.siemac.metamac.rest.common.test.utils.MetamacRestMocks;
-import org.siemac.metamac.rest.common.v1_0.domain.InternationalString;
-import org.siemac.metamac.rest.common.v1_0.domain.LocalisedString;
 import org.siemac.metamac.rest.common.v1_0.domain.Resource;
 import org.siemac.metamac.rest.common.v1_0.domain.Resources;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Message;
@@ -18,20 +16,6 @@ import org.siemac.metamac.rest.notifications.v1_0.domain.Role;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Roles;
 
 public class NotificationsRestMocks {
-
-    public static InternationalString mockInternationalString(String resourceID) {
-        InternationalString internationalString = new InternationalString();
-        internationalString.getTexts().add(mockLocalisedString("es", resourceID + " en Español"));
-        internationalString.getTexts().add(mockLocalisedString("en", resourceID + " in English"));
-        return internationalString;
-    }
-
-    private static LocalisedString mockLocalisedString(String lang, String value) {
-        LocalisedString localisedString = new LocalisedString();
-        localisedString.setLang(lang);
-        localisedString.setValue(value);
-        return localisedString;
-    }
 
     public static Notification mockNotification_TYPE_NOTIFICATION() {
         Notification notification = new Notification();
