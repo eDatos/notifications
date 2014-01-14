@@ -9,13 +9,13 @@ package org.siemac.metamac.rest.notifications.v1_0.domain.utils;
 
 import java.util.Date;
 
-import org.siemac.metamac.rest.common.v1_0.domain.Resources;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Applications;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Messages;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Notification;
 import org.siemac.metamac.rest.notifications.v1_0.domain.NotificationType;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Receivers;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Roles;
+import org.siemac.metamac.rest.notifications.v1_0.domain.StatisticalOperations;
 
 public class NotificationBuilder extends NotificationBuilderBase<NotificationBuilder> {
 
@@ -101,7 +101,7 @@ class NotificationBuilderBase<GeneratorT extends NotificationBuilderBase<Generat
     }
 
     @SuppressWarnings("unchecked")
-    public GeneratorT withStatisticalOperations(Resources aValue) {
+    public GeneratorT withStatisticalOperations(StatisticalOperations aValue) {
         instance.setStatisticalOperations(aValue);
 
         return (GeneratorT) this;
