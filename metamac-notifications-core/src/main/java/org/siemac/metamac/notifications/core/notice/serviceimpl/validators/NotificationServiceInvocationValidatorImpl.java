@@ -75,6 +75,7 @@ public class NotificationServiceInvocationValidatorImpl {
 
         if (notification.isMark()) {
             // TODO lanzar exepcion de modificar un aviso que ya está marcado
+            // TODO EN realidad este campo no se puede mapear en este servicio. Se modifica en un servicio diferente
             throw new RuntimeException("The notification is unmodifiable, is already marked.");
         }
 
@@ -84,6 +85,7 @@ public class NotificationServiceInvocationValidatorImpl {
     private static void checkNotificationMetadata(Notification notification, List<MetamacExceptionItem> exceptions) {
         NotificationsValidationUtils.checkMetadataRequired(notification.getSendingUser(), ServiceExceptionParameters.NOTIFICATION__SENDING_USER, exceptions);
         NotificationsValidationUtils.checkMetadataRequired(notification.getNotificationType(), ServiceExceptionParameters.NOTIFICATION__NOTIFICATION_TYPE, exceptions);
+        NotificationsValidationUtils.checkMetadataRequired(notification.getSubject(), ServiceExceptionParameters.NOTIFICATION__SUBJECT, exceptions);
         NotificationsValidationUtils.checkMetadataRequired(notification.getMessages(), ServiceExceptionParameters.NOTIFICATION__MESSAGES, exceptions);
 
         // when notificationType is "ADVERTISEMENT"

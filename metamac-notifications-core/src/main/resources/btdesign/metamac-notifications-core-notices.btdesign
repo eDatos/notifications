@@ -59,6 +59,8 @@ Application Notices {
        		"Mark"
 			boolean mark;
 			
+			"Subject"
+			String subject required length="4000";
 			"Messages"
 			- Bag<@Message> messages cascade="all-delete-orphan" fetch="lazy" inverse <-> notification;
        		"Required roles access for notification"

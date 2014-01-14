@@ -49,7 +49,7 @@ public class NotificationsDoMocks extends MetamacMocks {
     }
 
     private static Notification buildNotification() {
-        Notification notification = new Notification(mockString(6), NotificationType.NOTIFICATION);
+        Notification notification = new Notification(mockString(6), mockSentence(4), NotificationType.NOTIFICATION);
         notification.setCreatedDate(new DateTime());
         notification.setExpirationDate(new DateTime(2013, 1, 1, 1, 1, 1, 1));
         Role role = new Role();
