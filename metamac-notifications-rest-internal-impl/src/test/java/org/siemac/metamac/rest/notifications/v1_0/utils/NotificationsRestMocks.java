@@ -3,9 +3,6 @@ package org.siemac.metamac.rest.notifications.v1_0.utils;
 import java.math.BigInteger;
 import java.util.Date;
 
-import org.siemac.metamac.rest.common.test.utils.MetamacRestMocks;
-import org.siemac.metamac.rest.common.v1_0.domain.Resource;
-import org.siemac.metamac.rest.common.v1_0.domain.Resources;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Message;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Messages;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Notification;
@@ -14,6 +11,7 @@ import org.siemac.metamac.rest.notifications.v1_0.domain.Receiver;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Receivers;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Role;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Roles;
+import org.siemac.metamac.rest.notifications.v1_0.domain.StatisticalOperations;
 
 public class NotificationsRestMocks {
 
@@ -37,12 +35,12 @@ public class NotificationsRestMocks {
 
         {
             // STATISTICAL OPERATIONS
-            Resources resources = new Resources();
-            Resource resource = MetamacRestMocks.mockResource("operation01", "urn:siemac:org.siemac.metamac.infomodel.statisticaloperations.Operation=operation01", "operations#operation",
-                    "http://domain.com/metamac-statistical-operations-web/apis/operations-internal/v1.0/operations/operation01");
-            resources.getResources().add(resource);
-            resources.setTotal(new BigInteger(String.valueOf(resources.getResources().size())));
-            notification.setStatisticalOperations(resources);
+            StatisticalOperations statisticalOperations = new StatisticalOperations();
+            org.siemac.metamac.rest.notifications.v1_0.domain.StatisticalOperation statisticalOperation = new org.siemac.metamac.rest.notifications.v1_0.domain.StatisticalOperation();
+            statisticalOperation.setName("urn:siemac:org.siemac.metamac.infomodel.statisticaloperations.Operation=operation01");
+            statisticalOperations.getStatisticalOperations().add(statisticalOperation);
+            statisticalOperations.setTotal(new BigInteger(String.valueOf(statisticalOperations.getStatisticalOperations().size())));
+            notification.setStatisticalOperations(statisticalOperations);
         }
 
         // Messages

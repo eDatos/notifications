@@ -1,7 +1,6 @@
 package org.siemac.metamac.notifications.rest.internal.v1_0.mapper.notification;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
@@ -12,8 +11,8 @@ import org.siemac.metamac.notifications.core.notice.domain.App;
 import org.siemac.metamac.notifications.core.notice.domain.Message;
 import org.siemac.metamac.notifications.core.notice.domain.Receiver;
 import org.siemac.metamac.notifications.core.notice.domain.Role;
+import org.siemac.metamac.notifications.core.notice.domain.StatisticalOperation;
 import org.siemac.metamac.notifications.rest.internal.v1_0.mapper.base.CommonDo2RestMapperV10;
-import org.siemac.metamac.rest.common.v1_0.domain.Resource;
 import org.siemac.metamac.rest.common.v1_0.domain.Resources;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Application;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Applications;
@@ -22,6 +21,7 @@ import org.siemac.metamac.rest.notifications.v1_0.domain.Notification;
 import org.siemac.metamac.rest.notifications.v1_0.domain.NotificationType;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Receivers;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Roles;
+import org.siemac.metamac.rest.notifications.v1_0.domain.StatisticalOperations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -107,14 +107,15 @@ public class NotificationsDo2RestMapperv10Impl implements NotificationsDo2RestMa
 
         // Statistical Operations
         {
-            Resources resources = new Resources();
-            for (ExternalItem statOpeExternalItem : source.getStatisticalOperations()) {
-                Resource statOpeResource = commonDo2RestMapper.toResourceExternalItemStatisticalOperations(statOpeExternalItem, new ArrayList<String>());
-                resources.getResources().add(statOpeResource);
+            StatisticalOperations statisticalOperations = new StatisticalOperations();
+            for (StatisticalOperation statisticalOperation : source.getStatisticalOperations()) {
+                org.siemac.metamac.rest.notifications.v1_0.domain.StatisticalOperation targetStatisticalOperation = new org.siemac.metamac.rest.notifications.v1_0.domain.StatisticalOperation();
+                targetStatisticalOperation.setName(statisticalOperation.getName());
+                statisticalOperations.getStatisticalOperations().add(targetStatisticalOperation);
             }
-            if (resources.getResources().size() != 0) {
-                resources.setTotal(new BigInteger(String.valueOf(resources.getResources().size())));
-                target.setStatisticalOperations(resources);
+            if (statisticalOperations.getStatisticalOperations().size() != 0) {
+                statisticalOperations.setTotal(new BigInteger(String.valueOf(statisticalOperations.getStatisticalOperations().size())));
+                target.setStatisticalOperations(statisticalOperations);
             }
         }
 

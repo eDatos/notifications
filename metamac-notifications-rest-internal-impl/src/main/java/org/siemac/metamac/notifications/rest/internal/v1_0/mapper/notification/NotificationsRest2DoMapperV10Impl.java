@@ -9,7 +9,6 @@ import java.util.Set;
 import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.core.common.util.CoreCommonUtil;
-import org.siemac.metamac.notifications.core.common.domain.ExternalItem;
 import org.siemac.metamac.notifications.core.error.ServiceExceptionType;
 import org.siemac.metamac.notifications.core.notice.domain.App;
 import org.siemac.metamac.notifications.core.notice.domain.Notification;
@@ -18,10 +17,10 @@ import org.siemac.metamac.notifications.core.notice.enume.domain.NotificationTyp
 import org.siemac.metamac.notifications.core.notice.serviceapi.NotificationService;
 import org.siemac.metamac.notifications.rest.internal.v1_0.mapper.base.BaseRest2DoMapperV10Impl;
 import org.siemac.metamac.notifications.rest.internal.v1_0.mapper.base.CommonRest2DoMapperV10;
-import org.siemac.metamac.rest.common.v1_0.domain.Resource;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Application;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Message;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Role;
+import org.siemac.metamac.rest.notifications.v1_0.domain.StatisticalOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -107,12 +106,13 @@ public class NotificationsRest2DoMapperV10Impl extends BaseRest2DoMapperV10Impl 
 
         // Statistical operations
         if (source.getStatisticalOperations() != null) {
-            Set<String> statisticalOperationsUrns = new HashSet<String>();
-            for (Resource resource : source.getStatisticalOperations().getResources()) {
-                if (!statisticalOperationsUrns.contains(resource.getUrn())) {
-                    statisticalOperationsUrns.add(resource.getUrn());
-                    ExternalItem externalItem = commonRest2DoMapper.externalItemRestStatisticalOperationToExternalItemDo(resource, null);
-                    target.addStatisticalOperation(externalItem);
+            Set<String> rolCodes = new HashSet<String>();
+            for (StatisticalOperation statisticalOperation : source.getStatisticalOperations().getStatisticalOperations()) {
+                if (!rolCodes.contains(statisticalOperation.getName())) {
+                    rolCodes.add(statisticalOperation.getName());
+                    org.siemac.metamac.notifications.core.notice.domain.StatisticalOperation statisticalOperationElement = new org.siemac.metamac.notifications.core.notice.domain.StatisticalOperation();
+                    statisticalOperationElement.setName(statisticalOperation.getName());
+                    target.addStatisticalOperation(statisticalOperationElement);
                 }
             }
         }
