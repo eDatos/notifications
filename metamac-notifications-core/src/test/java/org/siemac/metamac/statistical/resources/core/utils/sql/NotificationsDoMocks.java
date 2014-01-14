@@ -19,6 +19,7 @@ import org.siemac.metamac.notifications.core.notice.domain.Message;
 import org.siemac.metamac.notifications.core.notice.domain.Notification;
 import org.siemac.metamac.notifications.core.notice.domain.Receiver;
 import org.siemac.metamac.notifications.core.notice.domain.Role;
+import org.siemac.metamac.notifications.core.notice.domain.StatisticalOperation;
 import org.siemac.metamac.notifications.core.notice.enume.domain.NotificationType;
 
 public class NotificationsDoMocks extends MetamacMocks {
@@ -50,14 +51,21 @@ public class NotificationsDoMocks extends MetamacMocks {
 
     private static Notification buildNotification() {
         Notification notification = new Notification(mockString(6), mockSentence(4), NotificationType.NOTIFICATION);
-        notification.setCreatedDate(new DateTime());
+        notification.setCreatedDate(new DateTime(2012, 1, 1, 1, 1, 1, 1));
         notification.setExpirationDate(new DateTime(2013, 1, 1, 1, 1, 1, 1));
+
+        // Role
         Role role = new Role();
-        role.setName("ADMIN");
+        role.setName("ADMINISTRADOR");
         notification.addRole(role);
 
+        // StatisticalOperation
+        StatisticalOperation statisticalOperation = new StatisticalOperation();
+        statisticalOperation.setName("urn:siemac:org.siemac.metamac.infomodel.statisticaloperations.Operation=operation01");
+        notification.addStatisticalOperation(statisticalOperation);
+
         // Receivers
-        for (int i = 0; i < 5; i++) {
+        for (int i = 1; i < 6; i++) {
             Receiver receiverElement = new Receiver();
             receiverElement.setUsername("user-" + i);
             notification.addReceiver(receiverElement);
