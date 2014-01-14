@@ -21,7 +21,7 @@
 
             <xs:element name="roles" type="tns:Roles" minOccurs="0" />
             <xs:element name="applications" type="tns:Applications" minOccurs="0" />
-            <xs:element name="statisticalOperations" type="common:Resources" minOccurs="0" />
+            <xs:element name="statisticalOperations" type="tns:StatisticalOperations" minOccurs="0" />
             <xs:element name="receivers" type="tns:Receivers" minOccurs="0" />
         </xs:sequence>
         <xs:attribute name="kind" type="xs:string" use="required" />
@@ -62,6 +62,19 @@
     <xs:complexType name="Applications">
         <xs:sequence>
             <xs:element name="application" type="tns:Application" minOccurs="1" maxOccurs="unbounded" />
+        </xs:sequence>
+        <xs:attribute name="total" type="xs:unsignedLong" use="required" />
+    </xs:complexType>
+    
+    <xs:complexType name="StatisticalOperation">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="StatisticalOperations">
+        <xs:sequence>
+            <xs:element name="statisticalOperations" type="tns:StatisticalOperation" minOccurs="1" maxOccurs="unbounded" />
         </xs:sequence>
         <xs:attribute name="total" type="xs:unsignedLong" use="required" />
     </xs:complexType>
