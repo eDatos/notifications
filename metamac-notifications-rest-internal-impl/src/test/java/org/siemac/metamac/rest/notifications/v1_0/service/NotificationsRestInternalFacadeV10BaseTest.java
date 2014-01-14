@@ -37,7 +37,6 @@ import org.siemac.metamac.rest.common.test.MetamacRestBaseTest;
 import org.siemac.metamac.rest.common.test.ServerResource;
 import org.siemac.metamac.rest.common.test.utils.MetamacRestAsserts;
 import org.siemac.metamac.rest.notifications.v1_0.utils.NotificationsRestDoMocks;
-import org.siemac.metamac.statistical.resources.core.utils.sql.NotificationsDoMocks;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
