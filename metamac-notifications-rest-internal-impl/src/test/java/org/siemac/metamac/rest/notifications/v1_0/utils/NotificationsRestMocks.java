@@ -39,6 +39,7 @@ public class NotificationsRestMocks {
         notification.setSendingApplication("application");
         notification.setSendingUser("user");
         notification.setExpirationDate(new Date());
+        notification.setSubject("My subject");
 
         {
             // ROLES
