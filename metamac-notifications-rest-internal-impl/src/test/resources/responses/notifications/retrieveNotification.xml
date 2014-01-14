@@ -1,39 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<notice:notification 
-    xmlns:notice="http://www.siemac.org/metamac/rest/notifications/v1.0/domain" 
-    xmlns:cdomain="http://www.siemac.org/metamac/rest/common/v1.0/domain"
-    xsi:schemaLocation="http://www.siemac.org/metamac/rest/notifications/v1.0/domain metamac-notifications-rest-internal-domain-v1.0.xsd" 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    
+<notice:notification xmlns:notice="http://www.siemac.org/metamac/rest/notifications/v1.0/domain" xmlns:cdomain="http://www.siemac.org/metamac/rest/common/v1.0/domain" xsi:schemaLocation="http://www.siemac.org/metamac/rest/notifications/v1.0/domain metamac-notifications-rest-internal-domain-v1.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kind="notifications#notification">     
     <notice:urn>urn:siemac:org.siemac.metamac.infomodel.notification.Advertisement=ADVERTISEMENT_UUID</notice:urn>
-    <notice:sendingApplication>application</notice:sendingApplication>
+    <notice:sendingApplication>TEST-APPLICATION</notice:sendingApplication>
+    <notice:sendingDate>2012-01-01T01:01:01.001Z</notice:sendingDate>
     <notice:notificationType>NOTIFICATION</notice:notificationType>
     <notice:expirationDate>2013-01-01T01:01:01.001Z</notice:expirationDate>
-    <notice:messages>
-        <notice:message total="1">
+    <notice:subject>My subject</notice:subject>
+    <notice:messages total="1">
+        <notice:message>
             <notice:text>My message</notice:text>
         </notice:message>
     </notice:messages>
     <notice:roles total="1">
         <notice:role>
-            <notice:name>ADMIN</notice:name>
+            <notice:name>ADMINISTRADOR</notice:name>
         </notice:role>
     </notice:roles>
+    <notice:applications/>
     <notice:statisticalOperations total="1">
-        <cdomain:resource kind="statisticalOperations#operation">
-            <cdomain:id>operation01</cdomain:id>
-            <cdomain:urn>urn:siemac:org.siemac.metamac.infomodel.statisticaloperations.Operation=operation01</cdomain:urn>
-            <cdomain:selfLink kind="statisticalOperations#operation" href="http://FILL_ME_WITH_HOST/FILL_ME_WITH_PORT/metamac-statistical-operations-web/apis/operations-internal/latest/operation01"/>
-            <cdomain:name>
-                <cdomain:text xml:lang="es">title-operation01 en Espanol</cdomain:text>
-                <cdomain:text xml:lang="en">title-operation01 in English</cdomain:text>
-            </cdomain:name>
-        </cdomain:resource>
+        <notice:statisticalOperation>
+            <notice:urn>urn:siemac:org.siemac.metamac.infomodel.statisticaloperations.Operation=operation01</notice:urn>
+        </notice:statisticalOperation>
     </notice:statisticalOperations>
     <notice:receivers total="5">
-        <notice:receiver>
-            <notice:username>user-0</notice:username>
-        </notice:receiver>
         <notice:receiver>
             <notice:username>user-1</notice:username>
         </notice:receiver>
@@ -45,6 +34,9 @@
         </notice:receiver>
         <notice:receiver>
             <notice:username>user-4</notice:username>
+        </notice:receiver>
+        <notice:receiver>
+            <notice:username>user-5</notice:username>
         </notice:receiver>
     </notice:receivers>
 </notice:notification>
