@@ -12,6 +12,7 @@ import org.siemac.metamac.notifications.core.notice.domain.Message;
 import org.siemac.metamac.notifications.core.notice.domain.Receiver;
 import org.siemac.metamac.notifications.core.notice.domain.Role;
 import org.siemac.metamac.notifications.core.notice.domain.StatisticalOperation;
+import org.siemac.metamac.notifications.rest.internal.NotificationsRestConstants;
 import org.siemac.metamac.notifications.rest.internal.v1_0.mapper.base.CommonDo2RestMapperV10;
 import org.siemac.metamac.rest.common.v1_0.domain.Resources;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Application;
@@ -38,6 +39,11 @@ public class NotificationsDo2RestMapperv10Impl implements NotificationsDo2RestMa
         }
 
         Notification target = new Notification();
+
+        target.setKind(NotificationsRestConstants.KIND_NOTIFICATION);
+
+        // TODO: Añadir mapper del campo ID
+        // TODO: Añadir mapper del campo selfLink
 
         target.setUrn(source.getUrn());
         target.setSendingApplication(source.getSendingApplication());
