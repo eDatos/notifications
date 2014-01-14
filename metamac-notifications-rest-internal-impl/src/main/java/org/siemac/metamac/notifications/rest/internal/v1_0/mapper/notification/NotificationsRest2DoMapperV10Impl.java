@@ -71,10 +71,10 @@ public class NotificationsRest2DoMapperV10Impl extends BaseRest2DoMapperV10Impl 
         if (source != null) {
             Set<String> rolCodes = new HashSet<String>();
             for (StatisticalOperation statisticalOperation : source.getStatisticalOperations()) {
-                if (!rolCodes.contains(statisticalOperation.getName())) {
-                    rolCodes.add(statisticalOperation.getName());
+                if (!rolCodes.contains(statisticalOperation.getUrn())) {
+                    rolCodes.add(statisticalOperation.getUrn());
                     org.siemac.metamac.notifications.core.notice.domain.StatisticalOperation statisticalOperationElement = new org.siemac.metamac.notifications.core.notice.domain.StatisticalOperation();
-                    statisticalOperationElement.setName(statisticalOperation.getName());
+                    statisticalOperationElement.setName(statisticalOperation.getUrn());
                     target.add(statisticalOperationElement);
                 }
             }

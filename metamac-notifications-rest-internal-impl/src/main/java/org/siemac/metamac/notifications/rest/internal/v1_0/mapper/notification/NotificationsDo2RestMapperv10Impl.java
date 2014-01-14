@@ -66,7 +66,7 @@ public class NotificationsDo2RestMapperv10Impl implements NotificationsDo2RestMa
         StatisticalOperations statisticalOperations = new StatisticalOperations();
         for (StatisticalOperation statisticalOperation : source) {
             org.siemac.metamac.rest.notifications.v1_0.domain.StatisticalOperation targetStatisticalOperation = new org.siemac.metamac.rest.notifications.v1_0.domain.StatisticalOperation();
-            targetStatisticalOperation.setName(statisticalOperation.getName());
+            targetStatisticalOperation.setUrn(statisticalOperation.getName());
             statisticalOperations.getStatisticalOperations().add(targetStatisticalOperation);
         }
         if (statisticalOperations.getStatisticalOperations().size() != 0) {
