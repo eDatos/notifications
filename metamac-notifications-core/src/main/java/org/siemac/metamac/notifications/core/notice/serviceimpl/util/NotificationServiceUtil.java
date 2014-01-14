@@ -31,8 +31,7 @@ public class NotificationServiceUtil {
 
         // Add filter: by statistic operations
         if (notification.getStatisticalOperations() != null && !notification.getStatisticalOperations().isEmpty()) {
-            appendConditionDisjuctionToQuery(query,
-                    fieldComparison(UserCriteriaPropertyRestriction.STATISTICAL_OPERATION_URN, ComparisonOperator.EQ, processExternalItemsUrns(notification.getStatisticalOperations())),
+            appendConditionDisjuctionToQuery(query, fieldComparison(UserCriteriaPropertyRestriction.STATISTICAL_OPERATION_URN, ComparisonOperator.EQ, notification.getStatisticalOperations()),
                     fieldComparison(UserCriteriaPropertyRestriction.STATISTICAL_OPERATION_URN, ComparisonOperator.IS_NULL, null));
         }
 

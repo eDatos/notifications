@@ -70,7 +70,7 @@ Application Notices {
 			"Applications"
 			- Bag<@App> apps cascade="all-delete-orphan" fetch="lazy" inverse <-> notification;
        		"Required statistical operations access for notification"
-			- Bag<@ExternalItem> statisticalOperations databaseColumn="STAT_OPE_FK" databaseJoinColumn="NOTIFICATION_FK" databaseJoinTable="TB_NOTIF_OPES" cascade="all-delete-orphan";
+			- Bag<@StatisticalOperation> statisticalOperations cascade="all-delete-orphan" fetch="lazy" inverse <-> notification;
 			
 			Repository NotificationRepository {
 				save;
@@ -180,6 +180,31 @@ Application Notices {
 			- @Notification notification not nullable cascade="none" databaseColumn="APP_FK" <-> apps;
 			
 			Repository AppRepository {
+				save;
+				delete;
+				findAll;
+				findById;
+				findByCondition;
+				findByCondition(PagingParameter pagingParameter);
+				findByQuery(String query, Map<String, Object> parameters, int maxResult);
+			}
+		}
+		
+		Entity StatisticalOperation {
+			databaseTable="TB_STATISTICAL_OPERATIONS"
+			hint="idSequence=STATISTICAL_OPERATIONS"
+			not auditable
+			
+			"Added explicitly to avoid that Sculptor generate UUID"
+			Long id key;
+			
+			"Semantic identifier"
+       		String name not nullable;
+
+			"Notification"
+			- @Notification notification not nullable cascade="none" databaseColumn="STATISTICAL_OPERATION_FK" <-> statisticalOperations;
+			
+			Repository StatisticalOperationRepository {
 				save;
 				delete;
 				findAll;
