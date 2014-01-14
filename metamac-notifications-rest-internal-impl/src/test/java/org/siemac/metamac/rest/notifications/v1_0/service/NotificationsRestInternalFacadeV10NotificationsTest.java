@@ -34,7 +34,7 @@ public class NotificationsRestInternalFacadeV10NotificationsTest extends Notific
 
             InputStream responseExpected = NotificationsRestInternalFacadeV10NotificationsTest.class.getResourceAsStream("/responses/notifications/retrieveNotification.xml");
             assertEquals(200, response.getStatus());
-            assertInputStream(responseExpected, (InputStream) response.getEntity(), true);
+            assertInputStream(responseExpected, (InputStream) response.getEntity(), false);
         }
     }
 }
