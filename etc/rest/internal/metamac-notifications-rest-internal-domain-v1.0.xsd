@@ -17,6 +17,7 @@
             <xs:element name="notificationType" type="tns:NotificationType" minOccurs="1" />
             <xs:element name="expirationDate" type="xs:dateTime" minOccurs="0" />
             <xs:element name="messages" type="tns:Messages" minOccurs="1" />
+            <xs:element name="subject" type="xs:string" minOccurs="1" maxOccurs="1" />
 
             <xs:element name="roles" type="tns:Roles" minOccurs="0" />
             <xs:element name="applications" type="tns:Applications" minOccurs="0" />
