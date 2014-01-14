@@ -52,7 +52,7 @@ public class NotificationsRest2DoMapperV10Impl extends BaseRest2DoMapperV10Impl 
 
         Notification target = null;
 
-        target = new Notification(source.getSendingApplication(), NotificationType.valueOf(source.getNotificationType().name()));
+        target = new Notification(source.getSendingApplication(), source.getSubject(), NotificationType.valueOf(source.getNotificationType().name()));
 
         target.setSendingUser(source.getSendingUser());
         target.setExpirationDate(CoreCommonUtil.transformDateToDateTime(source.getExpirationDate()));

@@ -45,6 +45,7 @@ public class NotificationsDo2RestMapperv10Impl implements NotificationsDo2RestMa
         target.setSendingDate(CoreCommonUtil.transformDateTimeToDate(source.getCreatedDate()));
         target.setExpirationDate(CoreCommonUtil.transformDateTimeToDate(source.getExpirationDate()));
         target.setNotificationType(NotificationType.fromValue(source.getNotificationType().getName()));
+        target.setSubject(source.getSubject());
 
         // Messages
         {
