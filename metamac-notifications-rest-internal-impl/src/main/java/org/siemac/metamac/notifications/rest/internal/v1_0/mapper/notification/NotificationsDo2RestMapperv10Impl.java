@@ -63,27 +63,34 @@ public class NotificationsDo2RestMapperv10Impl implements NotificationsDo2RestMa
     }
 
     private StatisticalOperations statisticalOperationsToRest(List<StatisticalOperation> source) {
+        if (source == null) {
+            return null;
+        }
+
         StatisticalOperations statisticalOperations = new StatisticalOperations();
         for (StatisticalOperation statisticalOperation : source) {
             org.siemac.metamac.rest.notifications.v1_0.domain.StatisticalOperation targetStatisticalOperation = new org.siemac.metamac.rest.notifications.v1_0.domain.StatisticalOperation();
             targetStatisticalOperation.setUrn(statisticalOperation.getName());
             statisticalOperations.getStatisticalOperations().add(targetStatisticalOperation);
         }
-        if (statisticalOperations.getStatisticalOperations().size() != 0) {
+        if (!statisticalOperations.getStatisticalOperations().isEmpty()) {
             statisticalOperations.setTotal(new BigInteger(String.valueOf(statisticalOperations.getStatisticalOperations().size())));
         }
-
         return statisticalOperations;
     }
 
     private Roles rolesToRest(List<Role> source) {
+        if (source == null) {
+            return null;
+        }
+
         Roles roles = new Roles();
         for (Role role : source) {
             org.siemac.metamac.rest.notifications.v1_0.domain.Role targetRole = new org.siemac.metamac.rest.notifications.v1_0.domain.Role();
             targetRole.setName(role.getName());
             roles.getRoles().add(targetRole);
         }
-        if (roles.getRoles().size() != 0) {
+        if (!roles.getRoles().isEmpty()) {
             roles.setTotal(new BigInteger(String.valueOf(roles.getRoles().size())));
         }
 
@@ -91,32 +98,43 @@ public class NotificationsDo2RestMapperv10Impl implements NotificationsDo2RestMa
     }
 
     private Applications applicationsToRest(List<App> source) {
+        if (source.isEmpty()) {
+            return null;
+        }
         Applications applications = new Applications();
         for (org.siemac.metamac.notifications.core.notice.domain.App app : source) {
             Application targetApplication = new Application();
             targetApplication.setName(app.getName());
             applications.getApplications().add(targetApplication);
         }
-        if (applications.getApplications().size() != 0) {
+        if (!applications.getApplications().isEmpty()) {
             applications.setTotal(new BigInteger(String.valueOf(applications.getApplications().size())));
         }
         return applications;
     }
 
     private Receivers receiversToRest(List<Receiver> source) {
+        if (source.isEmpty()) {
+            return null;
+        }
+
         Receivers receivers = new Receivers();
         for (org.siemac.metamac.notifications.core.notice.domain.Receiver sourceReceiver : source) {
             org.siemac.metamac.rest.notifications.v1_0.domain.Receiver targetReceiver = new org.siemac.metamac.rest.notifications.v1_0.domain.Receiver();
             targetReceiver.setUsername(sourceReceiver.getUsername());
             receivers.getReceivers().add(targetReceiver);
         }
-        if (receivers.getReceivers().size() != 0) {
+        if (!receivers.getReceivers().isEmpty()) {
             receivers.setTotal(new BigInteger(String.valueOf(receivers.getReceivers().size())));
         }
         return receivers;
     }
 
     private Messages messagesToRest(List<Message> source) {
+        if (source.isEmpty()) {
+            return null;
+        }
+
         Messages messages = new Messages();
         for (Message sourceMessage : source) {
             org.siemac.metamac.rest.notifications.v1_0.domain.Message targetMessage = new org.siemac.metamac.rest.notifications.v1_0.domain.Message();

@@ -16,7 +16,6 @@
             <notice:name>ADMINISTRADOR</notice:name>
         </notice:role>
     </notice:roles>
-    <notice:applications/>
     <notice:statisticalOperations total="1">
         <notice:statisticalOperation>
             <notice:urn>urn:siemac:org.siemac.metamac.infomodel.statisticaloperations.Operation=operation01</notice:urn>
