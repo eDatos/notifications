@@ -1,4 +1,4 @@
-package org.siemac.metamac.statistical.resources.core.utils.mocks.templates;
+package org.siemac.metamac.notifications.core.utils.mocks.templates;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
