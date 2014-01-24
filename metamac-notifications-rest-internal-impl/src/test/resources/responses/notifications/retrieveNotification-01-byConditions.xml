@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<notice:notification xmlns:notice="http://www.siemac.org/metamac/rest/notifications/v1.0/domain" xmlns:cdomain="http://www.siemac.org/metamac/rest/common/v1.0/domain"
+    xsi:schemaLocation="http://www.siemac.org/metamac/rest/notifications/v1.0/domain metamac-notifications-rest-internal-domain-v1.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kind="notifications#notification">
+    <notice:urn>urn:siemac:org.siemac.metamac.infomodel.notices.Notification=NOTIFICATION_01_WITH_CONDITIONS</notice:urn>
+    <notice:sendingApplication>TEST-APPLICATION</notice:sendingApplication>
+    <notice:sendingDate>2012-01-01T01:01:01.001Z</notice:sendingDate>
+    <notice:notificationType>NOTIFICATION</notice:notificationType>
+    <notice:subject>Test subject</notice:subject>
+    <notice:messages total="1">
+        <notice:message>
+            <notice:text>Test message</notice:text>
+        </notice:message>
+    </notice:messages>
+    <notice:roles total="1">
+        <notice:role>
+            <notice:name>ROLE01</notice:name>
+        </notice:role>
+    </notice:roles>
+    <notice:applications total="2">
+        <notice:application>
+            <notice:name>APP01</notice:name>
+        </notice:application>
+        <notice:application>
+            <notice:name>APP02</notice:name>
+        </notice:application>
+    </notice:applications>
+    <notice:statisticalOperations total="2">
+        <notice:statisticalOperation>
+            <notice:urn>urn:siemac:org.siemac.metamac.infomodel.statisticaloperations.Operation=C00025A</notice:urn>
+        </notice:statisticalOperation>
+        <notice:statisticalOperation>
+            <notice:urn>urn:siemac:org.siemac.metamac.infomodel.statisticaloperations.Operation=C00025B</notice:urn>
+        </notice:statisticalOperation>
+    </notice:statisticalOperations>
+</notice:notification>
