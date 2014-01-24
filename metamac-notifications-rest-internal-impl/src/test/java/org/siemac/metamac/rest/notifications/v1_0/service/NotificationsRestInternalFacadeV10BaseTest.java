@@ -1,6 +1,7 @@
 package org.siemac.metamac.rest.notifications.v1_0.service;
 
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.when;
 
@@ -25,37 +26,32 @@ import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 import org.siemac.metamac.core.common.conf.ConfigurationService;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.core.common.util.ApplicationContextProvider;
-import org.siemac.metamac.notifications.core.notice.domain.Notification;
 import org.siemac.metamac.notifications.core.notice.serviceapi.NotificationService;
 import org.siemac.metamac.notifications.rest.internal.v1_0.service.NotificationsV1_0;
 import org.siemac.metamac.rest.common.test.MetamacRestBaseTest;
 import org.siemac.metamac.rest.common.test.ServerResource;
 import org.siemac.metamac.rest.common.test.utils.MetamacRestAsserts;
-import org.siemac.metamac.rest.notifications.v1_0.utils.NotificationsRestDoMocks;
+import org.siemac.metamac.statistical.resources.core.utils.mocks.factories.NotificationMockFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 
 public abstract class NotificationsRestInternalFacadeV10BaseTest extends MetamacRestBaseTest {
 
-    protected static Logger                   logger             = LoggerFactory.getLogger(NotificationsRestInternalFacadeV10BaseTest.class);
+    protected static Logger             logger             = LoggerFactory.getLogger(NotificationsRestInternalFacadeV10BaseTest.class);
 
-    private static String                     jaxrsServerAddress = "http://localhost:" + ServerResource.PORT + "/apis/notifications-internal";
-    protected String                          baseApi            = jaxrsServerAddress + "/v1.0";
-    protected static ApplicationContext       applicationContext = null;
-    protected static NotificationsV1_0        notificationsRestInternalFacadeClientXml;
-    private static String                     apiEndpointv10;
+    private static String               NOT_EXISTS         = "NOT_EXISTS";
 
-    protected static NotificationsRestDoMocks restDoMocks;
+    private static String               jaxrsServerAddress = "http://localhost:" + ServerResource.PORT + "/apis/notifications-internal";
+    protected String                    baseApi            = jaxrsServerAddress + "/v1.0";
+    protected static ApplicationContext applicationContext = null;
+    protected static NotificationsV1_0  notificationsRestInternalFacadeClientXml;
+    private static String               apiEndpointv10;
 
-    private NotificationService               notificationService;
-
-    protected static String                   NOTIFICATION_URN   = "urn:siemac:org.siemac.metamac.infomodel.notification.Advertisement=ADVERTISEMENT_UUID";
+    private NotificationService         notificationService;
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     @BeforeClass
@@ -66,7 +62,6 @@ public abstract class NotificationsRestInternalFacadeV10BaseTest extends Metamac
 
         // Get application context from Jetty
         applicationContext = ApplicationContextProvider.getApplicationContext();
-        restDoMocks = new NotificationsRestDoMocks();
 
         // Rest clients
         // xml
@@ -116,26 +111,34 @@ public abstract class NotificationsRestInternalFacadeV10BaseTest extends Metamac
     }
 
     protected void assertInputStream(InputStream expected, InputStream actual, boolean onlyPrint) throws IOException {
-        byte[] byteArray = IOUtils.toByteArray(actual);
+        byte[] expectedByteArray = IOUtils.toByteArray(expected);
+        byte[] actualByteArray = IOUtils.toByteArray(actual);
+
         if (logger.isDebugEnabled()) {
-            System.out.println("-------------------");
-            System.out.println(IOUtils.toString(new ByteArrayInputStream(byteArray)));
-            System.out.println("-------------------");
+            systemShowInputStream(new ByteArrayInputStream(expectedByteArray), "EXPECTED");
+            systemShowInputStream(new ByteArrayInputStream(actualByteArray), "ACTUAL");
         }
         if (!onlyPrint) {
-            MetamacRestAsserts.assertEqualsResponse(expected, new ByteArrayInputStream(byteArray));
+            MetamacRestAsserts.assertEqualsResponse(new ByteArrayInputStream(expectedByteArray), new ByteArrayInputStream(actualByteArray));
         }
     }
 
-    private void mockRetrieveNotificationByUrn() throws MetamacException {
-        when(notificationService.retrieveNotificationByUrn(any(ServiceContext.class), any(String.class))).thenAnswer(new Answer<Notification>() {
+    private void systemShowInputStream(InputStream inputStream, String name) throws IOException {
+        System.out.println("-------------------");
+        System.out.println(name);
+        System.out.println("-------------------");
+        System.out.println(IOUtils.toString(inputStream));
+        System.out.println("-------------------");
+    }
 
-            @Override
-            public Notification answer(InvocationOnMock invocation) throws Throwable {
-                String urn = (String) invocation.getArguments()[1];
-                return NotificationsRestDoMocks.mockNotification_TYPE_NOTIFICATION(urn);
-            };
-        });
+    private void mockRetrieveNotificationByUrn() throws MetamacException {
+        when(notificationService.retrieveNotificationByUrn(any(ServiceContext.class), eq(NotificationMockFactory.NOTIFICATION_01_URN))).thenReturn(
+                NotificationMockFactory.getNotification01WithConditions());
+        when(notificationService.retrieveNotificationByUrn(any(ServiceContext.class), eq(NotificationMockFactory.NOTIFICATION_02_URN))).thenReturn(
+                NotificationMockFactory.getNotification02WithReceivers());
+        when(notificationService.retrieveNotificationByUrn(any(ServiceContext.class), eq(NotificationMockFactory.NOTIFICATION_03_URN))).thenReturn(
+                NotificationMockFactory.getNotification03WithResources());
+        when(notificationService.retrieveNotificationByUrn(any(ServiceContext.class), eq(NOT_EXISTS))).thenReturn(null);
     }
 
     private void resetMocks() throws Exception {
