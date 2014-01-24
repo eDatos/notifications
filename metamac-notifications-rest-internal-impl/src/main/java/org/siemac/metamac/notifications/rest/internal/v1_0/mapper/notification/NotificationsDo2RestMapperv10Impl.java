@@ -6,7 +6,6 @@ import java.util.List;
 import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.core.common.util.CoreCommonUtil;
-import org.siemac.metamac.notifications.core.common.domain.ExternalItem;
 import org.siemac.metamac.notifications.core.notice.domain.App;
 import org.siemac.metamac.notifications.core.notice.domain.Message;
 import org.siemac.metamac.notifications.core.notice.domain.Receiver;
@@ -14,7 +13,6 @@ import org.siemac.metamac.notifications.core.notice.domain.Role;
 import org.siemac.metamac.notifications.core.notice.domain.StatisticalOperation;
 import org.siemac.metamac.notifications.rest.internal.NotificationsRestConstants;
 import org.siemac.metamac.notifications.rest.internal.v1_0.mapper.base.CommonDo2RestMapperV10;
-import org.siemac.metamac.rest.common.v1_0.domain.Resources;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Application;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Applications;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Messages;
@@ -63,7 +61,7 @@ public class NotificationsDo2RestMapperv10Impl implements NotificationsDo2RestMa
     }
 
     private StatisticalOperations statisticalOperationsToRest(List<StatisticalOperation> source) {
-        if (source == null) {
+        if (source.isEmpty()) {
             return null;
         }
 
@@ -80,7 +78,7 @@ public class NotificationsDo2RestMapperv10Impl implements NotificationsDo2RestMa
     }
 
     private Roles rolesToRest(List<Role> source) {
-        if (source == null) {
+        if (source.isEmpty()) {
             return null;
         }
 
@@ -130,7 +128,7 @@ public class NotificationsDo2RestMapperv10Impl implements NotificationsDo2RestMa
         return receivers;
     }
 
-    private Messages messagesToRest(List<Message> source) {
+    private Messages messagesToRest(List<Message> source) throws MetamacException {
         if (source.isEmpty()) {
             return null;
         }
@@ -139,7 +137,7 @@ public class NotificationsDo2RestMapperv10Impl implements NotificationsDo2RestMa
         for (Message sourceMessage : source) {
             org.siemac.metamac.rest.notifications.v1_0.domain.Message targetMessage = new org.siemac.metamac.rest.notifications.v1_0.domain.Message();
             targetMessage.setText(sourceMessage.getText());
-            targetMessage.setResources(externalItemsDoToResourcesRest(sourceMessage.getResources()));
+            targetMessage.setResources(commonDo2RestMapper.externalItemEntityListToRest(sourceMessage.getResources()));
             messages.getMessages().add(targetMessage);
 
         }
@@ -148,12 +146,5 @@ public class NotificationsDo2RestMapperv10Impl implements NotificationsDo2RestMa
             messages.setTotal(new BigInteger(String.valueOf(messages.getMessages().size())));
         }
         return messages;
-    }
-
-    private Resources externalItemsDoToResourcesRest(List<ExternalItem> resources) {
-        // TODO: PEndiente de la transformación de los recursos
-
-        // TODO Auto-generated method stub
-        return null;
     }
 }
