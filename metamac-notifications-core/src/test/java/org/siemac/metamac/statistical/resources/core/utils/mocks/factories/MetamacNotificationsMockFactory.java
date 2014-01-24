@@ -7,7 +7,7 @@ import java.util.List;
 import org.siemac.metamac.core.common.test.utils.mocks.configuration.MockDescriptor;
 import org.siemac.metamac.core.common.test.utils.mocks.configuration.MockFactory;
 import org.siemac.metamac.notifications.core.notice.domain.Notification;
-import org.siemac.metamac.statistical.resources.core.utils.mocks.templates.NotificationsPersistedDoMocks;
+import org.siemac.metamac.notifications.core.utils.mocks.templates.NotificationsPersistedDoMocks;
 
 public abstract class MetamacNotificationsMockFactory<EntityMock> extends MockFactory<EntityMock> {
 
