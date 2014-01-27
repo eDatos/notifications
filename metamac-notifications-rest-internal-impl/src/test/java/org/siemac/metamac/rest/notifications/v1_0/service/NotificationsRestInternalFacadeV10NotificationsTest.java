@@ -65,4 +65,18 @@ public class NotificationsRestInternalFacadeV10NotificationsTest extends Notific
             assertInputStream(responseExpected, (InputStream) response.getEntity(), false);
         }
     }
+
+    @Test
+    public void test_GET_NotificationErrorNotExists() throws Exception {
+        {
+            WebClient create = WebClient.create(baseApi);
+            incrementRequestTimeOut(create); // Timeout
+            create.path("notifications/{0}", NOT_EXISTS);
+            Response response = create.get();
+
+            InputStream responseExpected = NotificationsRestInternalFacadeV10NotificationsTest.class.getResourceAsStream("/responses/notifications/retrieveNotification-04-notExists.xml");
+            assertEquals(404, response.getStatus());
+            assertInputStream(responseExpected, (InputStream) response.getEntity(), false);
+        }
+    }
 }

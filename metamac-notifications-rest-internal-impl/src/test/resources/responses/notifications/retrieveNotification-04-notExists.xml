@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<cdomain:exception xmlns:cdomain="http://www.siemac.org/metamac/rest/common/v1.0/domain"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.siemac.org/metamac/rest/notifications/v1.0/domain metamac-notifications-rest-internal-domain-v1.0.xsd">
+    <cdomain:code>exception.notifications.notification.not_found</cdomain:code>
+    <cdomain:message>Notification not found with URN NOT_EXISTS</cdomain:message>
+    <cdomain:parameters total="1">
+        <cdomain:parameter>NOT_EXISTS</cdomain:parameter>
+    </cdomain:parameters>
+</cdomain:exception>
