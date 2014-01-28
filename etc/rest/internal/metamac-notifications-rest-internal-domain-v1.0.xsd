@@ -11,7 +11,7 @@
             <xs:element name="selfLink" type="common:ResourceLink" />
             <xs:element name="parentLink" type="common:ResourceLink" />
 
-            <xs:element name="noticesType" type="tns:NoticeType" minOccurs="1" />
+            <xs:element name="noticeType" type="tns:NoticeType" minOccurs="1" />
             <xs:element name="sendingApplication" type="xs:string" minOccurs="1" />
             <xs:element name="sendingUser" type="xs:string" minOccurs="0" />
             <xs:element name="sendingDate" type="xs:dateTime" minOccurs="0" />
