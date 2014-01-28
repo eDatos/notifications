@@ -2,23 +2,24 @@
 <notice:notification xmlns:notice="http://www.siemac.org/metamac/rest/notifications/v1.0/domain" xmlns:cdomain="http://www.siemac.org/metamac/rest/common/v1.0/domain"
     xsi:schemaLocation="http://www.siemac.org/metamac/rest/notifications/v1.0/domain metamac-notifications-rest-internal-domain-v1.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kind="notifications#notification">
     <notice:urn>urn:siemac:org.siemac.metamac.infomodel.notices.Notification=NOTIFICATION_02_WITH_RESOURCES</notice:urn>
+    <notice:notificationType>NOTIFICATION</notice:notificationType>
     <notice:sendingApplication>TEST-APPLICATION</notice:sendingApplication>
     <notice:sendingDate>2012-01-01T01:01:01.001Z</notice:sendingDate>
-    <notice:notificationType>NOTIFICATION</notice:notificationType>
     <notice:subject>Test subject</notice:subject>
     <notice:messages total="2">
         <notice:message>
             <notice:text>Message 01: with resources</notice:text>
             <notice:resources total="2">
-                <cdomain:resource kind="structuralResources#concept">
+                <notice:resource kind="structuralResources#concept">
                     <cdomain:id>TEST-CONCEPT</cdomain:id>
                     <cdomain:urn>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=MaintainerMock:ConceptSchemeMock(1.0).TEST-CONCEPT</cdomain:urn>
                     <cdomain:selfLink kind="structuralResources#concept" href="http://estadisticas.arte-consultores.com/metamac-srm-web/apis/structural-resources-internal/latest/TEST-CONCEPT" />
                     <cdomain:name>
                         <cdomain:text xml:lang="en">Test concept</cdomain:text>
                     </cdomain:name>
-                </cdomain:resource>
-                <cdomain:resource kind="structuralResources#agency">
+                    <notice:managementAppLink>http://estadisticas.arte-consultores.com/structural-resources-internal/TEST-CONCEPT</notice:managementAppLink>
+                </notice:resource>
+                <notice:resource kind="structuralResources#agency">
                     <cdomain:id>TEST-AGENCY</cdomain:id>
                     <cdomain:nestedId>TEST-AGENCY</cdomain:nestedId>
                     <cdomain:urn>urn:sdmx:org.sdmx.infomodel.base.Agency=MaintainerMock:AgencySchemeMock(1.0).TEST-AGENCY</cdomain:urn>
@@ -26,7 +27,8 @@
                     <cdomain:name>
                         <cdomain:text xml:lang="en">Test agency</cdomain:text>
                     </cdomain:name>
-                </cdomain:resource>
+                    <notice:managementAppLink>http://estadisticas.arte-consultores.com/structural-resources-internal/TEST-AGENCY</notice:managementAppLink>
+                </notice:resource>
             </notice:resources>
         </notice:message>
         <notice:message>
