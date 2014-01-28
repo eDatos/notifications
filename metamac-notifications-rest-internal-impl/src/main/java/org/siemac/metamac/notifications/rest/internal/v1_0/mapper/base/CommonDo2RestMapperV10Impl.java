@@ -74,8 +74,7 @@ public class CommonDo2RestMapperV10Impl implements CommonDo2RestMapperV10 {
         srmApiInternalEndpoint = StringUtils.removeEnd(srmApiInternalEndpoint, "/");
 
         // Statistical resources internal API (do not add api version! it is already stored in database (~latest))
-        // FIXME: Cambiar internal por internal. Pendiente de que este la API Interna.
-        statisticalResourcesApiInternalEndpoint = configurationService.retrieveStatisticalResourcesExternalApiUrlBase();
+        statisticalResourcesApiInternalEndpoint = configurationService.retrieveStatisticalResourcesInternalApiUrlBase();
         statisticalResourcesApiInternalEndpoint = StringUtils.removeEnd(statisticalResourcesApiInternalEndpoint, "/");
 
         // Common metadata external Api (do not add api version! it is already stored in database (~latest))

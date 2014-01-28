@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-	<!-- TODO: Cambiar por endpoints correctos -->
-
-    <entry key="metamac.srm.rest.internal">http://estadisticas.arte-consultores.com/metamac-srm-web/apis/structural-resources-internal</entry>
-    <entry key="metamac.statistical_operations.rest.internal">http://estadisticas.arte-consultores.com/metamac-statistical-operations-web/apis/operations-internal</entry>
-    <entry key="metamac.common_metadata.rest.external">http://estadisticas.arte-consultores.com/metamac-common-metadata-external-web/apis/cmetadata</entry>
-    <!-- FIXME: Cambiar por interna cuando la API esté disponible -->
-    <entry key="metamac.statistical_resources.rest.external">http://estadisticas.arte-consultores.com/metamac-statistical-resources-external-web/apis/statistical-resources</entry>
-    <entry key="metamac.access_control.rest.internal">http://estadisticas.arte-consultores.com/metamac-access-control-web/apis/access-control-internal</entry>
-    <entry key="metamac.notifications.rest.internal">http://estadisticas.arte-consultores.com/metamac-notifications-web/apis/notifications-internal</entry>
+    <entry key="metamac.srm.rest.internal">http://estadisticas.arte-consultores.com/structural-resources-internal/apis/structural-resources-internal</entry>
+    <entry key="metamac.statistical_operations.rest.internal">http://estadisticas.arte-consultores.com/statistical-operations-internal/apis/operations-internal</entry>
+    <entry key="metamac.common_metadata.rest.external">http://estadisticas.arte-consultores.com/common-metadata/apis/cmetadata</entry>
+    <entry key="metamac.statistical_resources.rest.internal">http://estadisticas.arte-consultores.com/statistical-resources-internal/apis/statistical-resources</entry>
+    <entry key="metamac.access_control.rest.internal">http://estadisticas.arte-consultores.com/access-control-internal/apis/access-control-internal</entry>
+    <entry key="metamac.notifications.rest.internal">http://estadisticas.arte-consultores.com/notices-internal/apis/notifications-internal</entry>
     
     <entry key="metamac.srm.web.internal">http://estadisticas.arte-consultores.com/structural-resources-internal/</entry>
     <entry key="metamac.statistical_operations.web.internal">http://estadisticas.arte-consultores.com/statistical-operations-internal/</entry>
