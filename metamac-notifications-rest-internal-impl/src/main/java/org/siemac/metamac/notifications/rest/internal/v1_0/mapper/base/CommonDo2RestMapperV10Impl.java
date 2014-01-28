@@ -115,9 +115,8 @@ public class CommonDo2RestMapperV10Impl implements CommonDo2RestMapperV10 {
                 target = srmExternalItemEntityToRest(source, target);
             } else if (TypeExternalArtefactsEnumUtils.isExternalItemOfStatisticalOperationsApp(source.getType())) {
                 target = statisticalOperationsExternalItemEntityToRest(source, target);
-                // FIXME: Añadir tipos de external item del gpe
-                // } else if (TypeExternalArtefactsEnumUtils.isExternalItemOfStatisticalResourcesApp(source.getType())) {
-                // target = statisticalResourcesExternalItemEntityToRest(source, target);
+            } else if (TypeExternalArtefactsEnumUtils.isExternalItemOfStatisticalResourcesApp(source.getType())) {
+                target = statisticalResourcesExternalItemEntityToRest(source, target);
             } else {
                 throw new MetamacException(org.siemac.metamac.notifications.core.error.ServiceExceptionType.UNKNOWN, "Type of externalItem not defined for externalItemEntityToRest");
             }
