@@ -2,7 +2,7 @@ package org.siemac.metamac.rest.notices.v1_0.domain.utils;
 
 import java.math.BigInteger;
 
-import org.siemac.metamac.rest.notifications.v1_0.domain.Receivers;
+import org.siemac.metamac.rest.notices.v1_0.domain.Receivers;
 
 public class ReceiversUtils {
 

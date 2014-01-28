@@ -8,7 +8,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import org.siemac.metamac.rest.notifications.v1_0.domain.Notification;
+import org.siemac.metamac.rest.notices.v1_0.domain.Notice;
 
 @Path("v1.0")
 // IMPORTANT: If a new version of API is added, remember change latest url y urlrewrite.xml in war
@@ -18,10 +18,10 @@ public interface NoticesV1_0 {
     @Consumes({"application/xml"})
     @Produces({"application/xml"})
     @Path("notifications")
-    Response createNotice(Notification notification);
+    Response createNotice(Notice notice);
 
     @GET
     @Produces({"application/xml"})
     @Path("notifications/{urn}")
-    Notification retrieveNoticeByUrn(@PathParam("urn") String urn);
+    Notice retrieveNoticeByUrn(@PathParam("urn") String urn);
 }

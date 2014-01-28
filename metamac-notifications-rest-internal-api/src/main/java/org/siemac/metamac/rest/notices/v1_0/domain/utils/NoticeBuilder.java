@@ -2,38 +2,38 @@ package org.siemac.metamac.rest.notices.v1_0.domain.utils;
 
 import java.util.Date;
 
-import org.siemac.metamac.rest.notifications.v1_0.domain.Applications;
-import org.siemac.metamac.rest.notifications.v1_0.domain.Messages;
-import org.siemac.metamac.rest.notifications.v1_0.domain.Notification;
-import org.siemac.metamac.rest.notifications.v1_0.domain.NotificationType;
-import org.siemac.metamac.rest.notifications.v1_0.domain.Receivers;
-import org.siemac.metamac.rest.notifications.v1_0.domain.Roles;
-import org.siemac.metamac.rest.notifications.v1_0.domain.StatisticalOperations;
+import org.siemac.metamac.rest.notices.v1_0.domain.Applications;
+import org.siemac.metamac.rest.notices.v1_0.domain.Messages;
+import org.siemac.metamac.rest.notices.v1_0.domain.Notice;
+import org.siemac.metamac.rest.notices.v1_0.domain.NoticeType;
+import org.siemac.metamac.rest.notices.v1_0.domain.Receivers;
+import org.siemac.metamac.rest.notices.v1_0.domain.Roles;
+import org.siemac.metamac.rest.notices.v1_0.domain.StatisticalOperations;
 
-public class NotificationBuilder extends NotificationBuilderBase<NotificationBuilder> {
+public class NoticeBuilder extends NoticeBuilderBase<NoticeBuilder> {
 
-    public static NotificationBuilder notification() {
-        return new NotificationBuilder();
+    public static NoticeBuilder notice() {
+        return new NoticeBuilder();
     }
 
-    public NotificationBuilder() {
-        super(new Notification());
+    public NoticeBuilder() {
+        super(new Notice());
     }
 
-    public Notification build() {
+    public Notice build() {
         return getInstance();
     }
 }
 
-class NotificationBuilderBase<GeneratorT extends NotificationBuilderBase<GeneratorT>> {
+class NoticeBuilderBase<GeneratorT extends NoticeBuilderBase<GeneratorT>> {
 
-    private final Notification instance;
+    private final Notice instance;
 
-    protected NotificationBuilderBase(Notification aInstance) {
+    protected NoticeBuilderBase(Notice aInstance) {
         instance = aInstance;
     }
 
-    protected Notification getInstance() {
+    protected Notice getInstance() {
         return instance;
     }
 
@@ -59,8 +59,8 @@ class NotificationBuilderBase<GeneratorT extends NotificationBuilderBase<Generat
     }
 
     @SuppressWarnings("unchecked")
-    public GeneratorT withNotificationType(NotificationType aValue) {
-        instance.setNotificationType(aValue);
+    public GeneratorT withNoticeType(NoticeType aValue) {
+        instance.setNoticeType(aValue);
 
         return (GeneratorT) this;
     }

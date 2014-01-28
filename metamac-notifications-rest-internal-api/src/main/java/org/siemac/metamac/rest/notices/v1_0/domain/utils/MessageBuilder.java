@@ -1,7 +1,7 @@
 package org.siemac.metamac.rest.notices.v1_0.domain.utils;
 
-import org.siemac.metamac.rest.notifications.v1_0.domain.Message;
-import org.siemac.metamac.rest.notifications.v1_0.domain.ResourcesInternal;
+import org.siemac.metamac.rest.notices.v1_0.domain.Message;
+import org.siemac.metamac.rest.notices.v1_0.domain.ResourcesInternal;
 
 public class MessageBuilder extends MessageBuilderBase<MessageBuilder> {
 

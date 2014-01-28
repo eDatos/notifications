@@ -1,6 +1,6 @@
 package org.siemac.metamac.rest.notices.v1_0.domain.utils;
 
-import org.siemac.metamac.rest.notifications.v1_0.domain.Application;
+import org.siemac.metamac.rest.notices.v1_0.domain.Application;
 
 public class ApplicationBuilder extends ApplicationBuilderBase<ApplicationBuilder> {
 
