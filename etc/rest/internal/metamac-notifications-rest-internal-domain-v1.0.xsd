@@ -11,10 +11,10 @@
             <xs:element name="selfLink" type="common:ResourceLink" />
             <xs:element name="parentLink" type="common:ResourceLink" />
 
+            <xs:element name="notificationType" type="tns:NotificationType" minOccurs="1" />
             <xs:element name="sendingApplication" type="xs:string" minOccurs="1" />
             <xs:element name="sendingUser" type="xs:string" minOccurs="0" />
             <xs:element name="sendingDate" type="xs:dateTime" minOccurs="0" />
-            <xs:element name="notificationType" type="tns:NotificationType" minOccurs="1" />
             <xs:element name="expirationDate" type="xs:dateTime" minOccurs="0" />
             <xs:element name="subject" type="xs:string" minOccurs="1" maxOccurs="1" />
             <xs:element name="messages" type="tns:Messages" minOccurs="1" />
@@ -89,8 +89,26 @@
     <xs:complexType name="Message">
         <xs:sequence>
             <xs:element name="text" type="xs:string" minOccurs="1" />
-            <xs:element name="resources" type="common:Resources" minOccurs="0" />
+            <xs:element name="resources" type="tns:ResourcesInternal" minOccurs="0" />
         </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="ResourcesInternal">
+        <xs:sequence>
+            <xs:element name="resource" type="tns:ResourceInternal" minOccurs="1" maxOccurs="unbounded" />
+        </xs:sequence>
+        <xs:attribute name="total" type="xs:unsignedLong" use="required"/>
+    </xs:complexType>  
+    
+    <xs:complexType name="ResourceInternal">
+        <xs:complexContent>
+            <xs:extension base="common:Resource">
+                <xs:sequence>
+                    <xs:element name="urnProvider" type="xs:string" minOccurs="1" />
+                    <xs:element name="managementAppLink" type="xs:string" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
     </xs:complexType>
 
     <!-- Enums -->
