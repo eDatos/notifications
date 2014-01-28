@@ -13,13 +13,13 @@ import org.siemac.metamac.notifications.core.utils.mocks.templates.Notifications
 public class NotificationMockFactory extends MetamacNotificationsMockFactory<Notification> {
 
     public static final String             NOTIFICATION_01_WITH_CONDITIONS_NAME = "NOTIFICATION_01_WITH_CONDITIONS";
-    public static final String             NOTIFICATION_01_URN                  = "urn:siemac:org.siemac.metamac.infomodel.notices.Notification=NOTIFICATION_01_WITH_CONDITIONS";
+    public static final String             NOTIFICATION_01_URN                  = "urn:siemac:org.siemac.metamac.infomodel.notices.Notice=NOTIFICATION_01_WITH_CONDITIONS";
 
     public static final String             NOTIFICATION_02_WITH_RECEIVERS_NAME  = "NOTIFICATION_02_WITH_RECEIVERS";
-    public static final String             NOTIFICATION_02_URN                  = "urn:siemac:org.siemac.metamac.infomodel.notices.Notification=NOTIFICATION_02_WITH_RECEIVERS";
+    public static final String             NOTIFICATION_02_URN                  = "urn:siemac:org.siemac.metamac.infomodel.notices.Notice=NOTIFICATION_02_WITH_RECEIVERS";
 
     public static final String             NOTIFICATION_03_WITH_RESOURCES_NAME  = "NOTIFICATION_03_WITH_RESOURCES";
-    public static final String             NOTIFICATION_03_URN                  = "urn:siemac:org.siemac.metamac.infomodel.notices.Notification=NOTIFICATION_03_WITH_RESOURCES";
+    public static final String             NOTIFICATION_03_URN                  = "urn:siemac:org.siemac.metamac.infomodel.notices.Notice=NOTIFICATION_03_WITH_RESOURCES";
 
     private static NotificationMockFactory instance                             = null;
 

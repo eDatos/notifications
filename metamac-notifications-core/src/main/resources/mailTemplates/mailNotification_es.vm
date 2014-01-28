@@ -8,8 +8,8 @@ Notificaciones de ISTACbase
 #if( "$!notification.sendingUser" != "" )
 - Usuario emisor:  ${notification.sendingUser}
 #end
-- Urn de notificación: ${notification.urn}
-- Tipo de notificación: ${notification.notificationType}
+- Urn de aviso: ${notification.urn}
+- Tipo de aviso: ${notification.notificationType}
 
 - Mensajes:
 	#foreach( $item in ${notification.messages} )

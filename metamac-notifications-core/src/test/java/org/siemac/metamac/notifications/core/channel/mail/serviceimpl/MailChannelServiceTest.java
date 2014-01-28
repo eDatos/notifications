@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.siemac.metamac.notifications.core.NotificationsBaseTest;
+import org.siemac.metamac.notifications.core.notice.domain.Notification;
 import org.siemac.metamac.notifications.core.utils.mocks.templates.NotificationsNotPersistedDoMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -44,13 +45,13 @@ public class MailChannelServiceTest extends NotificationsBaseTest /* implements 
         greenMail.start();
     }
 
-    
     // TODO: Cambiar el mock de este test por el mock 03 para que tenga varios mensajes y recursos asociados
     @Test
     public void testMailChannel() throws Exception {
-        mailChannelService.sendMail(getServiceContextAdministrador(),
-                NotificationsNotPersistedDoMocks.mockNotificationWithoutResources("urn:siemac:org.siemac.metamac.infomodel.notification.Advertisement=ADVERTISEMENT_UUID", "application", "My message"),
-                new String[]{"count@domain.com"}, "count@domain.com");
+        Notification notification = NotificationsNotPersistedDoMocks
+                .mockNotificationWithoutResources("urn:siemac:org.siemac.metamac.infomodel.notices.Notice=NOTICE_UUID", "application", "My message");
+
+        mailChannelService.sendMail(getServiceContextAdministrador(), notification, new String[]{"count@domain.com"}, "count@domain.com");
 
         assertEquals(1, greenMail.getReceivedMessages().length);
         MimeMessage[] messages = greenMail.getReceivedMessages();

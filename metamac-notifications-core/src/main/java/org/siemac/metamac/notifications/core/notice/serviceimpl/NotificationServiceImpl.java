@@ -12,7 +12,6 @@ import org.siemac.metamac.notifications.core.channel.mail.serviceimpl.MailChanne
 import org.siemac.metamac.notifications.core.error.ServiceExceptionType;
 import org.siemac.metamac.notifications.core.invocation.service.AccessControlRestInternalFacade;
 import org.siemac.metamac.notifications.core.notice.domain.Notification;
-import org.siemac.metamac.notifications.core.notice.enume.domain.NotificationType;
 import org.siemac.metamac.notifications.core.notice.exception.NotificationNotFoundException;
 import org.siemac.metamac.notifications.core.notice.serviceapi.validators.NotificationServiceInvocationValidator;
 import org.siemac.metamac.notifications.core.notice.serviceimpl.util.NotificationServiceUtil;
@@ -67,11 +66,8 @@ public class NotificationServiceImpl extends NotificationServiceImplBase {
         notificationServiceInvocationValidator.checkCreateNotification(ctx, notification);
 
         // Generate URN
-        if (NotificationType.NOTIFICATION.equals(notification.getNotificationType())) {
-            notification.setUrn(GeneratorUrnUtils.generateSiemacNotificationUrn(java.util.UUID.randomUUID().toString()));
-        } else if (NotificationType.ADVERTISEMENT.equals(notification.getNotificationType())) {
-            notification.setUrn(GeneratorUrnUtils.generateSiemacAdvertisementUrn(java.util.UUID.randomUUID().toString()));
-        }
+        // FIXME: change el random por un get del uuid
+        notification.setUrn(GeneratorUrnUtils.generateSiemacNoticeUrn(java.util.UUID.randomUUID().toString()));
 
         notification = getNotificationRepository().save(notification);
 

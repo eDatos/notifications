@@ -5,8 +5,8 @@ Notificaciones de ISTACbase
 
 - Aplicación emisora: application
 - Fecha de creación: 2013-11-06T13:32:57.247Z
-- Urn de notificación: urn:siemac:org.siemac.metamac.infomodel.notification.Advertisement=ADVERTISEMENT_UUID
-- Tipo de notificación: NOTIFICATION
+- Urn de aviso: urn:siemac:org.siemac.metamac.infomodel.notices.Notice=NOTICE_UUID
+- Tipo de aviso: NOTIFICATION
 
 - Mensajes:
   -- My message
