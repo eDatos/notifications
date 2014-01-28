@@ -1,4 +1,4 @@
-package org.siemac.metamac.notifications.core.common.domain;
+package org.siemac.metamac.notices.core.common.domain;
 
 import java.util.HashSet;
 import java.util.Set;

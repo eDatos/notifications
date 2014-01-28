@@ -4,7 +4,7 @@ Application Notices {
 	basePackage=unused
 
 	Module enume_notice {
-		basePackage=org.siemac.metamac.notifications.core.notice.enume
+		basePackage=org.siemac.metamac.notices.core.notice.enume
 		
 		enum NotificationType {
     		NOTIFICATION,
@@ -14,7 +14,7 @@ Application Notices {
 	}
 	
 	Module domain_notice {
-		basePackage=org.siemac.metamac.notifications.core.notice
+		basePackage=org.siemac.metamac.notices.core.notice
 
 		// ----------------------------------------------------------------
 		// 							SERVICES

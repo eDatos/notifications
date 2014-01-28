@@ -1,4 +1,4 @@
-package org.siemac.metamac.notifications.core.constants;
+package org.siemac.metamac.notices.core.constants;
 
 import org.siemac.metamac.core.common.constants.shared.ConfigurationConstants;
 

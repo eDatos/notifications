@@ -1,4 +1,4 @@
-package org.siemac.metamac.notifications.core.notice.repositoryimpl;
+package org.siemac.metamac.notices.core.notice.repositoryimpl;
 
 import static org.fornax.cartridges.sculptor.framework.accessapi.ConditionalCriteriaBuilder.criteriaFor;
 
@@ -6,9 +6,9 @@ import java.util.List;
 
 import org.fornax.cartridges.sculptor.framework.accessapi.ConditionalCriteria;
 import org.siemac.metamac.core.common.exception.MetamacException;
-import org.siemac.metamac.notifications.core.error.ServiceExceptionType;
-import org.siemac.metamac.notifications.core.notice.domain.Notification;
-import org.siemac.metamac.notifications.core.notice.domain.NotificationProperties;
+import org.siemac.metamac.notices.core.error.ServiceExceptionType;
+import org.siemac.metamac.notices.core.notice.domain.Notification;
+import org.siemac.metamac.notices.core.notice.domain.NotificationProperties;
 import org.springframework.stereotype.Repository;
 
 /**

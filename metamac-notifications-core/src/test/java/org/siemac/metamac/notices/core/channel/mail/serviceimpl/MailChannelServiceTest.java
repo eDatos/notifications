@@ -1,4 +1,4 @@
-package org.siemac.metamac.notifications.core.channel.mail.serviceimpl;
+package org.siemac.metamac.notices.core.channel.mail.serviceimpl;
 
 import static org.junit.Assert.assertEquals;
 
@@ -12,9 +12,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.siemac.metamac.notifications.core.NotificationsBaseTest;
-import org.siemac.metamac.notifications.core.notice.domain.Notification;
-import org.siemac.metamac.notifications.core.utils.mocks.templates.NotificationsNotPersistedDoMocks;
+import org.siemac.metamac.notices.core.NotificationsBaseTest;
+import org.siemac.metamac.notices.core.notice.domain.Notification;
+import org.siemac.metamac.notices.core.utils.mocks.templates.NotificationsNotPersistedDoMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;

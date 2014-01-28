@@ -1,4 +1,4 @@
-package org.siemac.metamac.notifications.core.channel.mail.serviceimpl;
+package org.siemac.metamac.notices.core.channel.mail.serviceimpl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,10 +10,10 @@ import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.core.common.lang.LocaleUtil;
 import org.siemac.metamac.core.common.util.CoreCommonUtil;
-import org.siemac.metamac.notifications.core.conf.NotificationsConfiguration;
-import org.siemac.metamac.notifications.core.constants.NotificationsConstants;
-import org.siemac.metamac.notifications.core.notice.domain.Notification;
-import org.siemac.metamac.notifications.core.notice.enume.domain.NotificationType;
+import org.siemac.metamac.notices.core.conf.NotificationsConfiguration;
+import org.siemac.metamac.notices.core.constants.NotificationsConstants;
+import org.siemac.metamac.notices.core.notice.domain.Notification;
+import org.siemac.metamac.notices.core.notice.enume.domain.NotificationType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;

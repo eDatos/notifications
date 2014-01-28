@@ -1,4 +1,4 @@
-package org.siemac.metamac.notifications.core.common.repositoryimpl;
+package org.siemac.metamac.notices.core.common.repositoryimpl;
 
 import java.util.Collection;
 

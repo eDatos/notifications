@@ -1,13 +1,13 @@
-package org.siemac.metamac.notifications.core.utils.mocks.factories;
+package org.siemac.metamac.notices.core.utils.mocks.factories;
 
 import org.siemac.metamac.core.common.test.utils.mocks.configuration.MockProvider;
-import org.siemac.metamac.notifications.core.common.domain.ExternalItem;
-import org.siemac.metamac.notifications.core.common.domain.InternationalString;
-import org.siemac.metamac.notifications.core.notice.domain.Message;
-import org.siemac.metamac.notifications.core.notice.domain.Notification;
-import org.siemac.metamac.notifications.core.utils.builders.MessageBuilder;
-import org.siemac.metamac.notifications.core.utils.builders.NotificationBuilder;
-import org.siemac.metamac.notifications.core.utils.mocks.templates.NotificationsDoMocks;
+import org.siemac.metamac.notices.core.common.domain.ExternalItem;
+import org.siemac.metamac.notices.core.common.domain.InternationalString;
+import org.siemac.metamac.notices.core.notice.domain.Message;
+import org.siemac.metamac.notices.core.notice.domain.Notification;
+import org.siemac.metamac.notices.core.utils.builders.MessageBuilder;
+import org.siemac.metamac.notices.core.utils.builders.NotificationBuilder;
+import org.siemac.metamac.notices.core.utils.mocks.templates.NotificationsDoMocks;
 
 @MockProvider
 public class NotificationMockFactory extends MetamacNotificationsMockFactory<Notification> {

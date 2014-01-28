@@ -1,8 +1,8 @@
-package org.siemac.metamac.notifications.core.conf;
+package org.siemac.metamac.notices.core.conf;
 
 import org.siemac.metamac.core.common.conf.ConfigurationServiceImpl;
 import org.siemac.metamac.core.common.exception.MetamacException;
-import org.siemac.metamac.notifications.core.constants.NotificationsConfigurationConstants;
+import org.siemac.metamac.notices.core.constants.NotificationsConfigurationConstants;
 
 public class NotificationsConfigurationImpl extends ConfigurationServiceImpl implements NotificationsConfiguration {
 

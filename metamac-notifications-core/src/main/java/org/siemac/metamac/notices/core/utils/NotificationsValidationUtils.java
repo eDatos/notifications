@@ -1,4 +1,4 @@
-package org.siemac.metamac.notifications.core.utils;
+package org.siemac.metamac.notices.core.utils;
 
 import java.util.Collection;
 import java.util.List;
@@ -7,10 +7,10 @@ import org.siemac.metamac.core.common.enume.utils.TypeExternalArtefactsEnumUtils
 import org.siemac.metamac.core.common.exception.CommonServiceExceptionType;
 import org.siemac.metamac.core.common.exception.MetamacExceptionItem;
 import org.siemac.metamac.core.common.serviceimpl.utils.ValidationUtils;
-import org.siemac.metamac.notifications.core.common.domain.ExternalItem;
-import org.siemac.metamac.notifications.core.common.domain.InternationalString;
-import org.siemac.metamac.notifications.core.common.domain.LocalisedString;
-import org.siemac.metamac.notifications.core.error.ServiceExceptionType;
+import org.siemac.metamac.notices.core.common.domain.ExternalItem;
+import org.siemac.metamac.notices.core.common.domain.InternationalString;
+import org.siemac.metamac.notices.core.common.domain.LocalisedString;
+import org.siemac.metamac.notices.core.error.ServiceExceptionType;
 
 public class NotificationsValidationUtils extends ValidationUtils {
 

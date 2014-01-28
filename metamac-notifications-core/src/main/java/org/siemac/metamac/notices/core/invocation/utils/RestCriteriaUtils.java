@@ -1,4 +1,4 @@
-package org.siemac.metamac.notifications.core.invocation.utils;
+package org.siemac.metamac.notices.core.invocation.utils;
 
 import static org.siemac.metamac.rest.api.constants.RestApiConstants.BLANK;
 import static org.siemac.metamac.rest.api.constants.RestApiConstants.COMMA;

@@ -4,7 +4,7 @@ Application CommonStatisticalResources {
 	basePackage=unused
 
 	Module core_common {
-		basePackage=org.siemac.metamac.notifications.core.common
+		basePackage=org.siemac.metamac.notices.core.common
 
 		// ----------------------------------------------------------------
 		// 							SERVICES

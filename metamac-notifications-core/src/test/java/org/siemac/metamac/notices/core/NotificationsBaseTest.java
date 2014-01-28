@@ -1,4 +1,4 @@
-package org.siemac.metamac.notifications.core;
+package org.siemac.metamac.notices.core;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -12,8 +12,8 @@ import org.junit.rules.ExpectedException;
 import org.siemac.metamac.common.test.MetamacBaseTest;
 import org.siemac.metamac.common.test.dbunit.MetamacDBUnitBaseTests.DataBaseProvider;
 import org.siemac.metamac.common.test.utils.MetamacAsserts;
-import org.siemac.metamac.notifications.core.constants.NotificationsConstants;
-import org.siemac.metamac.notifications.core.utils.mocks.configuration.MockAnnotationRule;
+import org.siemac.metamac.notices.core.constants.NotificationsConstants;
+import org.siemac.metamac.notices.core.utils.mocks.configuration.MockAnnotationRule;
 import org.siemac.metamac.sso.client.MetamacPrincipal;
 import org.siemac.metamac.sso.client.MetamacPrincipalAccess;
 import org.siemac.metamac.sso.client.SsoClientConstants;

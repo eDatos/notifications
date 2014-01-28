@@ -1,4 +1,4 @@
-package org.siemac.metamac.notifications.core.utils.mocks.configuration;
+package org.siemac.metamac.notices.core.utils.mocks.configuration;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -54,7 +54,7 @@ public abstract class MockPersisterBase implements MockPersister {
             ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
             scanner.addIncludeFilter(new AssignableTypeFilter(MockFactory.class));
 
-            Set<BeanDefinition> results = scanner.findCandidateComponents("org.siemac.metamac.notifications.core");
+            Set<BeanDefinition> results = scanner.findCandidateComponents("org.siemac.metamac.notices.core");
 
             factories = new ArrayList<MockFactory>();
             try {

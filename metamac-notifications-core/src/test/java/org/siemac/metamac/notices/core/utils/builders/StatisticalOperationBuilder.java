@@ -1,6 +1,6 @@
-package org.siemac.metamac.notifications.core.utils.builders;
+package org.siemac.metamac.notices.core.utils.builders;
 
-import org.siemac.metamac.notifications.core.notice.domain.StatisticalOperation;
+import org.siemac.metamac.notices.core.notice.domain.StatisticalOperation;
 
 public class StatisticalOperationBuilder extends StatisticalOperationBuilderBase<StatisticalOperationBuilder> {
 

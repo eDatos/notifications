@@ -1,8 +1,8 @@
-package org.siemac.metamac.notifications.core.utils.builders;
+package org.siemac.metamac.notices.core.utils.builders;
 
 import org.siemac.metamac.core.common.enume.domain.TypeExternalArtefactsEnum;
-import org.siemac.metamac.notifications.core.common.domain.ExternalItem;
-import org.siemac.metamac.notifications.core.common.domain.InternationalString;
+import org.siemac.metamac.notices.core.common.domain.ExternalItem;
+import org.siemac.metamac.notices.core.common.domain.InternationalString;
 
 public class ExternalItemBuilder extends ExternalItemBuilderBase<ExternalItemBuilder> {
 

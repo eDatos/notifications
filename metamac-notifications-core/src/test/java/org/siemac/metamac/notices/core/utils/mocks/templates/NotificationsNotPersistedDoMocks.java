@@ -1,4 +1,4 @@
-package org.siemac.metamac.notifications.core.utils.mocks.templates;
+package org.siemac.metamac.notices.core.utils.mocks.templates;
 
 public class NotificationsNotPersistedDoMocks extends NotificationsDoMocks {
 

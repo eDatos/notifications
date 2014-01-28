@@ -1,15 +1,15 @@
-package org.siemac.metamac.notifications.core.utils.builders;
+package org.siemac.metamac.notices.core.utils.builders;
 
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
-import org.siemac.metamac.notifications.core.notice.domain.App;
-import org.siemac.metamac.notifications.core.notice.domain.Message;
-import org.siemac.metamac.notifications.core.notice.domain.Notification;
-import org.siemac.metamac.notifications.core.notice.domain.Receiver;
-import org.siemac.metamac.notifications.core.notice.domain.Role;
-import org.siemac.metamac.notifications.core.notice.domain.StatisticalOperation;
-import org.siemac.metamac.notifications.core.notice.enume.domain.NotificationType;
-import org.siemac.metamac.notifications.core.utils.mocks.templates.NotificationsDoMocks;
+import org.siemac.metamac.notices.core.notice.domain.App;
+import org.siemac.metamac.notices.core.notice.domain.Message;
+import org.siemac.metamac.notices.core.notice.domain.Notification;
+import org.siemac.metamac.notices.core.notice.domain.Receiver;
+import org.siemac.metamac.notices.core.notice.domain.Role;
+import org.siemac.metamac.notices.core.notice.domain.StatisticalOperation;
+import org.siemac.metamac.notices.core.notice.enume.domain.NotificationType;
+import org.siemac.metamac.notices.core.utils.mocks.templates.NotificationsDoMocks;
 
 public class NotificationBuilder extends NotificationBuilderBase<NotificationBuilder> {
 

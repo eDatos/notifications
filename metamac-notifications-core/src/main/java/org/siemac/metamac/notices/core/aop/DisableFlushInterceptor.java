@@ -1,4 +1,4 @@
-package org.siemac.metamac.notifications.core.aop;
+package org.siemac.metamac.notices.core.aop;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

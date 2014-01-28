@@ -1,8 +1,8 @@
-package org.siemac.metamac.notifications.core.utils.builders;
+package org.siemac.metamac.notices.core.utils.builders;
 
-import org.siemac.metamac.notifications.core.common.domain.ExternalItem;
-import org.siemac.metamac.notifications.core.notice.domain.Message;
-import org.siemac.metamac.notifications.core.utils.mocks.templates.NotificationsDoMocks;
+import org.siemac.metamac.notices.core.common.domain.ExternalItem;
+import org.siemac.metamac.notices.core.notice.domain.Message;
+import org.siemac.metamac.notices.core.utils.mocks.templates.NotificationsDoMocks;
 
 public class MessageBuilder extends MessageBuilderBase<MessageBuilder> {
 

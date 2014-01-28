@@ -1,4 +1,4 @@
-package org.siemac.metamac.notifications.core.notice.serviceimpl;
+package org.siemac.metamac.notices.core.notice.serviceimpl;
 
 import java.util.List;
 
@@ -8,13 +8,13 @@ import org.fornax.cartridges.sculptor.framework.accessapi.ConditionalCriteriaBui
 import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.core.common.util.GeneratorUrnUtils;
-import org.siemac.metamac.notifications.core.channel.mail.serviceimpl.MailChannelService;
-import org.siemac.metamac.notifications.core.error.ServiceExceptionType;
-import org.siemac.metamac.notifications.core.invocation.service.AccessControlRestInternalFacade;
-import org.siemac.metamac.notifications.core.notice.domain.Notification;
-import org.siemac.metamac.notifications.core.notice.exception.NotificationNotFoundException;
-import org.siemac.metamac.notifications.core.notice.serviceapi.validators.NotificationServiceInvocationValidator;
-import org.siemac.metamac.notifications.core.notice.serviceimpl.util.NotificationServiceUtil;
+import org.siemac.metamac.notices.core.channel.mail.serviceimpl.MailChannelService;
+import org.siemac.metamac.notices.core.error.ServiceExceptionType;
+import org.siemac.metamac.notices.core.invocation.service.AccessControlRestInternalFacade;
+import org.siemac.metamac.notices.core.notice.domain.Notification;
+import org.siemac.metamac.notices.core.notice.exception.NotificationNotFoundException;
+import org.siemac.metamac.notices.core.notice.serviceapi.validators.NotificationServiceInvocationValidator;
+import org.siemac.metamac.notices.core.notice.serviceimpl.util.NotificationServiceUtil;
 import org.siemac.metamac.rest.access_control.v1_0.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

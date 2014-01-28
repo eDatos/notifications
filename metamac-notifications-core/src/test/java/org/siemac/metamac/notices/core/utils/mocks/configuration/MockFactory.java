@@ -1,4 +1,4 @@
-package org.siemac.metamac.notifications.core.utils.mocks.configuration;
+package org.siemac.metamac.notices.core.utils.mocks.configuration;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;

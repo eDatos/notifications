@@ -1,4 +1,4 @@
-package org.siemac.metamac.notifications.core.conf;
+package org.siemac.metamac.notices.core.conf;
 
 import org.siemac.metamac.core.common.conf.ConfigurationService;
 import org.siemac.metamac.core.common.exception.MetamacException;

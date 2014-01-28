@@ -1,8 +1,8 @@
-package org.siemac.metamac.notifications.core.channel.mail.serviceimpl;
+package org.siemac.metamac.notices.core.channel.mail.serviceimpl;
 
 import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.siemac.metamac.core.common.exception.MetamacException;
-import org.siemac.metamac.notifications.core.notice.domain.Notification;
+import org.siemac.metamac.notices.core.notice.domain.Notification;
 
 public interface MailChannelService {
 

@@ -1,4 +1,4 @@
-package org.siemac.metamac.notifications.core.invocation.service;
+package org.siemac.metamac.notices.core.invocation.service;
 
 import javax.annotation.PostConstruct;
 

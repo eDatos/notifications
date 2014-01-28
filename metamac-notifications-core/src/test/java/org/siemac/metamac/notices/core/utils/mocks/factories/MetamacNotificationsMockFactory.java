@@ -1,4 +1,4 @@
-package org.siemac.metamac.notifications.core.utils.mocks.factories;
+package org.siemac.metamac.notices.core.utils.mocks.factories;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.siemac.metamac.core.common.test.utils.mocks.configuration.MockDescriptor;
 import org.siemac.metamac.core.common.test.utils.mocks.configuration.MockFactory;
-import org.siemac.metamac.notifications.core.notice.domain.Notification;
-import org.siemac.metamac.notifications.core.utils.mocks.templates.NotificationsPersistedDoMocks;
+import org.siemac.metamac.notices.core.notice.domain.Notification;
+import org.siemac.metamac.notices.core.utils.mocks.templates.NotificationsPersistedDoMocks;
 
 public abstract class MetamacNotificationsMockFactory<EntityMock> extends MockFactory<EntityMock> {
 

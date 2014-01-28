@@ -1,4 +1,4 @@
-package org.siemac.metamac.notifications.core.error;
+package org.siemac.metamac.notices.core.error;
 
 import javax.ws.rs.core.Response.Status;
 

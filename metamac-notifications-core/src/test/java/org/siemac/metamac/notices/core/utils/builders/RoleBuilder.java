@@ -1,6 +1,6 @@
-package org.siemac.metamac.notifications.core.utils.builders;
+package org.siemac.metamac.notices.core.utils.builders;
 
-import org.siemac.metamac.notifications.core.notice.domain.Role;
+import org.siemac.metamac.notices.core.notice.domain.Role;
 
 public class RoleBuilder extends RoleBuilderBase<RoleBuilder> {
 

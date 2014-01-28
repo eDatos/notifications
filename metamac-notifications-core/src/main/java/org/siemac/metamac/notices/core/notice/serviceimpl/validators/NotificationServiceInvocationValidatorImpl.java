@@ -1,14 +1,14 @@
-package org.siemac.metamac.notifications.core.notice.serviceimpl.validators;
+package org.siemac.metamac.notices.core.notice.serviceimpl.validators;
 
 import java.util.List;
 
 import org.fornax.cartridges.sculptor.framework.accessapi.ConditionalCriteria;
 import org.siemac.metamac.core.common.exception.MetamacExceptionItem;
-import org.siemac.metamac.notifications.core.error.ServiceExceptionParameters;
-import org.siemac.metamac.notifications.core.error.ServiceExceptionSingleParameters;
-import org.siemac.metamac.notifications.core.notice.domain.Notification;
-import org.siemac.metamac.notifications.core.notice.enume.domain.NotificationType;
-import org.siemac.metamac.notifications.core.utils.NotificationsValidationUtils;
+import org.siemac.metamac.notices.core.error.ServiceExceptionParameters;
+import org.siemac.metamac.notices.core.error.ServiceExceptionSingleParameters;
+import org.siemac.metamac.notices.core.notice.domain.Notification;
+import org.siemac.metamac.notices.core.notice.enume.domain.NotificationType;
+import org.siemac.metamac.notices.core.utils.NotificationsValidationUtils;
 
 public class NotificationServiceInvocationValidatorImpl {
 

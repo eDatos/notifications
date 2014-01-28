@@ -1,11 +1,11 @@
-package org.siemac.metamac.notifications.core;
+package org.siemac.metamac.notices.core;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import org.siemac.metamac.notifications.core.channel.mail.serviceimpl.MailChannelServiceTest;
-import org.siemac.metamac.notifications.core.common.repositoryimpl.InternationalStringRepositoryTest;
-import org.siemac.metamac.notifications.core.notice.repositoryimpl.NotificationRepositoryTest;
-import org.siemac.metamac.notifications.core.notice.serviceapi.NotificationServiceTest;
+import org.siemac.metamac.notices.core.channel.mail.serviceimpl.MailChannelServiceTest;
+import org.siemac.metamac.notices.core.common.repositoryimpl.InternationalStringRepositoryTest;
+import org.siemac.metamac.notices.core.notice.repositoryimpl.NotificationRepositoryTest;
+import org.siemac.metamac.notices.core.notice.serviceapi.NotificationServiceTest;
 
 // @formatter:off
 @RunWith(Suite.class)

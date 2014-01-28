@@ -1,11 +1,11 @@
-package org.siemac.metamac.notifications.core.common.repositoryimpl;
+package org.siemac.metamac.notices.core.common.repositoryimpl;
 
 import java.util.Arrays;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.siemac.metamac.notifications.core.NotificationsBaseTest;
-import org.siemac.metamac.notifications.core.common.domain.InternationalStringRepository;
+import org.siemac.metamac.notices.core.NotificationsBaseTest;
+import org.siemac.metamac.notices.core.common.domain.InternationalStringRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;

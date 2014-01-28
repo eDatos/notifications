@@ -1,4 +1,4 @@
-package org.siemac.metamac.notifications.core.utils.mocks.templates;
+package org.siemac.metamac.notices.core.utils.mocks.templates;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
@@ -12,15 +12,15 @@ import org.siemac.metamac.common.test.utils.MetamacMocks;
 import org.siemac.metamac.core.common.constants.CoreCommonConstants;
 import org.siemac.metamac.core.common.enume.domain.TypeExternalArtefactsEnum;
 import org.siemac.metamac.core.common.enume.utils.TypeExternalArtefactsEnumUtils;
-import org.siemac.metamac.notifications.core.common.domain.ExternalItem;
-import org.siemac.metamac.notifications.core.common.domain.InternationalString;
-import org.siemac.metamac.notifications.core.common.domain.LocalisedString;
-import org.siemac.metamac.notifications.core.notice.domain.Message;
-import org.siemac.metamac.notifications.core.notice.domain.Notification;
-import org.siemac.metamac.notifications.core.notice.domain.Receiver;
-import org.siemac.metamac.notifications.core.notice.domain.Role;
-import org.siemac.metamac.notifications.core.notice.domain.StatisticalOperation;
-import org.siemac.metamac.notifications.core.notice.enume.domain.NotificationType;
+import org.siemac.metamac.notices.core.common.domain.ExternalItem;
+import org.siemac.metamac.notices.core.common.domain.InternationalString;
+import org.siemac.metamac.notices.core.common.domain.LocalisedString;
+import org.siemac.metamac.notices.core.notice.domain.Message;
+import org.siemac.metamac.notices.core.notice.domain.Notification;
+import org.siemac.metamac.notices.core.notice.domain.Receiver;
+import org.siemac.metamac.notices.core.notice.domain.Role;
+import org.siemac.metamac.notices.core.notice.domain.StatisticalOperation;
+import org.siemac.metamac.notices.core.notice.enume.domain.NotificationType;
 
 public abstract class NotificationsDoMocks extends MetamacMocks {
 
