@@ -13,7 +13,7 @@
                 <notice:resource kind="structuralResources#concept">
                     <cdomain:id>TEST-CONCEPT</cdomain:id>
                     <cdomain:urn>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=MaintainerMock:ConceptSchemeMock(1.0).TEST-CONCEPT</cdomain:urn>
-                    <cdomain:selfLink kind="structuralResources#concept" href="http://estadisticas.arte-consultores.com/metamac-srm-web/apis/structural-resources-internal/latest/TEST-CONCEPT" />
+                    <cdomain:selfLink kind="structuralResources#concept" href="http://estadisticas.arte-consultores.com/structural-resources-internal/apis/structural-resources-internal/latest/TEST-CONCEPT" />
                     <cdomain:name>
                         <cdomain:text xml:lang="en">Test concept</cdomain:text>
                     </cdomain:name>
@@ -23,7 +23,7 @@
                     <cdomain:id>TEST-AGENCY</cdomain:id>
                     <cdomain:nestedId>TEST-AGENCY</cdomain:nestedId>
                     <cdomain:urn>urn:sdmx:org.sdmx.infomodel.base.Agency=MaintainerMock:AgencySchemeMock(1.0).TEST-AGENCY</cdomain:urn>
-                    <cdomain:selfLink kind="structuralResources#agency" href="http://estadisticas.arte-consultores.com/metamac-srm-web/apis/structural-resources-internal/latest/TEST-AGENCY" />
+                    <cdomain:selfLink kind="structuralResources#agency" href="http://estadisticas.arte-consultores.com/structural-resources-internal/apis/structural-resources-internal/latest/TEST-AGENCY" />
                     <cdomain:name>
                         <cdomain:text xml:lang="en">Test agency</cdomain:text>
                     </cdomain:name>
