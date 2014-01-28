@@ -17,11 +17,11 @@ public interface NoticesV1_0 {
     @PUT
     @Consumes({"application/xml"})
     @Produces({"application/xml"})
-    @Path("notifications")
+    @Path("notices")
     Response createNotice(Notice notice);
 
     @GET
     @Produces({"application/xml"})
-    @Path("notifications/{urn}")
+    @Path("notices/{urn}")
     Notice retrieveNoticeByUrn(@PathParam("urn") String urn);
 }
