@@ -6,11 +6,11 @@ import java.util.List;
 import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.core.common.util.CoreCommonUtil;
-import org.siemac.metamac.notifications.core.notice.domain.App;
-import org.siemac.metamac.notifications.core.notice.domain.Message;
-import org.siemac.metamac.notifications.core.notice.domain.Receiver;
-import org.siemac.metamac.notifications.core.notice.domain.Role;
-import org.siemac.metamac.notifications.core.notice.domain.StatisticalOperation;
+import org.siemac.metamac.notices.core.notice.domain.App;
+import org.siemac.metamac.notices.core.notice.domain.Message;
+import org.siemac.metamac.notices.core.notice.domain.Receiver;
+import org.siemac.metamac.notices.core.notice.domain.Role;
+import org.siemac.metamac.notices.core.notice.domain.StatisticalOperation;
 import org.siemac.metamac.notifications.rest.internal.NotificationsRestConstants;
 import org.siemac.metamac.notifications.rest.internal.v1_0.mapper.base.CommonDo2RestMapperV10;
 import org.siemac.metamac.rest.common.v1_0.domain.ResourceLink;
@@ -32,7 +32,7 @@ public class NotificationsDo2RestMapperv10Impl implements NotificationsDo2RestMa
     private CommonDo2RestMapperV10 commonDo2RestMapper;
 
     @Override
-    public Notification notificationEntity2Rest(ServiceContext ctx, org.siemac.metamac.notifications.core.notice.domain.Notification source) throws MetamacException {
+    public Notification notificationEntity2Rest(ServiceContext ctx, org.siemac.metamac.notices.core.notice.domain.Notification source) throws MetamacException {
         if (source == null) {
             return null;
         }
@@ -68,7 +68,7 @@ public class NotificationsDo2RestMapperv10Impl implements NotificationsDo2RestMa
         return commonDo2RestMapper.uriToResourceLink(NotificationsRestConstants.KIND_NOTIFICATION, link);
     }
 
-    private ResourceLink toNotificationParentLink(org.siemac.metamac.notifications.core.notice.domain.Notification source) {
+    private ResourceLink toNotificationParentLink(org.siemac.metamac.notices.core.notice.domain.Notification source) {
         return toNotificationSelfLink(null);
     }
 
@@ -112,7 +112,7 @@ public class NotificationsDo2RestMapperv10Impl implements NotificationsDo2RestMa
             return null;
         }
         Applications applications = new Applications();
-        for (org.siemac.metamac.notifications.core.notice.domain.App app : source) {
+        for (org.siemac.metamac.notices.core.notice.domain.App app : source) {
             Application targetApplication = new Application();
             targetApplication.setName(app.getName());
             applications.getApplications().add(targetApplication);
@@ -129,7 +129,7 @@ public class NotificationsDo2RestMapperv10Impl implements NotificationsDo2RestMa
         }
 
         Receivers receivers = new Receivers();
-        for (org.siemac.metamac.notifications.core.notice.domain.Receiver sourceReceiver : source) {
+        for (org.siemac.metamac.notices.core.notice.domain.Receiver sourceReceiver : source) {
             org.siemac.metamac.rest.notifications.v1_0.domain.Receiver targetReceiver = new org.siemac.metamac.rest.notifications.v1_0.domain.Receiver();
             targetReceiver.setUsername(sourceReceiver.getUsername());
             receivers.getReceivers().add(targetReceiver);

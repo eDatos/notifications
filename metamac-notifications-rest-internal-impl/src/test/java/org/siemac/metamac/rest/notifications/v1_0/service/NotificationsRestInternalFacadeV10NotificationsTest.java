@@ -6,7 +6,7 @@ import javax.ws.rs.core.Response;
 
 import org.apache.cxf.jaxrs.client.WebClient;
 import org.junit.Test;
-import org.siemac.metamac.notifications.core.utils.mocks.factories.NotificationMockFactory;
+import org.siemac.metamac.notices.core.utils.mocks.factories.NotificationMockFactory;
 import org.siemac.metamac.rest.notifications.v1_0.utils.NotificationsRestMocks;
 
 public class NotificationsRestInternalFacadeV10NotificationsTest extends NotificationsRestInternalFacadeV10BaseTest {

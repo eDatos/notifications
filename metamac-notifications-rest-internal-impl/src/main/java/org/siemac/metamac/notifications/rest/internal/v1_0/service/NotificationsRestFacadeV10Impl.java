@@ -3,7 +3,7 @@ package org.siemac.metamac.notifications.rest.internal.v1_0.service;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import org.siemac.metamac.notifications.core.notice.serviceapi.NotificationService;
+import org.siemac.metamac.notices.core.notice.serviceapi.NotificationService;
 import org.siemac.metamac.notifications.rest.internal.NotificationsRestConstants;
 import org.siemac.metamac.notifications.rest.internal.exception.NotificationsRestServiceExceptionType;
 import org.siemac.metamac.notifications.rest.internal.service.utils.NotificationsRestInternalUtils;
@@ -31,7 +31,7 @@ public class NotificationsRestFacadeV10Impl implements NotificationsV1_0 {
     public Response createNotification(Notification notification) {
         try {
             // Transform
-            org.siemac.metamac.notifications.core.notice.domain.Notification notificationEntity = notificationsRest2DoMapperV10.notificationRestToEntity(NotificationsRestConstants.SERVICE_CONTEXT,
+            org.siemac.metamac.notices.core.notice.domain.Notification notificationEntity = notificationsRest2DoMapperV10.notificationRestToEntity(NotificationsRestConstants.SERVICE_CONTEXT,
                     notification);
 
             // Create
@@ -46,7 +46,7 @@ public class NotificationsRestFacadeV10Impl implements NotificationsV1_0 {
     public Notification retrieveResourceByUrn(String urn) {
         try {
             // Retrieve
-            org.siemac.metamac.notifications.core.notice.domain.Notification notificationEntity = notificationService.retrieveNotificationByUrn(NotificationsRestConstants.SERVICE_CONTEXT, urn);
+            org.siemac.metamac.notices.core.notice.domain.Notification notificationEntity = notificationService.retrieveNotificationByUrn(NotificationsRestConstants.SERVICE_CONTEXT, urn);
 
             if (notificationEntity == null) {
                 org.siemac.metamac.rest.common.v1_0.domain.Exception exception = RestExceptionUtils.getException(NotificationsRestServiceExceptionType.NOTIFICATION_NOT_FOUND, urn);

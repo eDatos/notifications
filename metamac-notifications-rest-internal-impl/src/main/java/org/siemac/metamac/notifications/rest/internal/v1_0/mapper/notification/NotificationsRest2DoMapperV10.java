@@ -6,6 +6,6 @@ import org.siemac.metamac.rest.notifications.v1_0.domain.Notification;
 
 public interface NotificationsRest2DoMapperV10 {
 
-    public org.siemac.metamac.notifications.core.notice.domain.Notification notificationRestToEntity(ServiceContext ctx, Notification notification) throws MetamacException;
+    public org.siemac.metamac.notices.core.notice.domain.Notification notificationRestToEntity(ServiceContext ctx, Notification notification) throws MetamacException;
 
 }

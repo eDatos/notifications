@@ -9,7 +9,7 @@ import org.apache.commons.lang.StringUtils;
 import org.siemac.metamac.core.common.conf.ConfigurationService;
 import org.siemac.metamac.core.common.enume.utils.TypeExternalArtefactsEnumUtils;
 import org.siemac.metamac.core.common.exception.MetamacException;
-import org.siemac.metamac.notifications.core.common.domain.ExternalItem;
+import org.siemac.metamac.notices.core.common.domain.ExternalItem;
 import org.siemac.metamac.notifications.rest.internal.NotificationsRestConstants;
 import org.siemac.metamac.rest.common.v1_0.domain.InternationalString;
 import org.siemac.metamac.rest.common.v1_0.domain.LocalisedString;
@@ -125,7 +125,7 @@ public class CommonDo2RestMapperV10Impl implements CommonDo2RestMapperV10 {
             } else if (TypeExternalArtefactsEnumUtils.isExternalItemOfStatisticalResourcesApp(source.getType())) {
                 target = statisticalResourcesExternalItemEntityToRest(source, target);
             } else {
-                throw new MetamacException(org.siemac.metamac.notifications.core.error.ServiceExceptionType.UNKNOWN, "Type of externalItem not defined for externalItemEntityToRest");
+                throw new MetamacException(org.siemac.metamac.notices.core.error.ServiceExceptionType.UNKNOWN, "Type of externalItem not defined for externalItemEntityToRest");
             }
         }
 
@@ -199,12 +199,12 @@ public class CommonDo2RestMapperV10Impl implements CommonDo2RestMapperV10 {
     // ------------------------------------------------------------
 
     @Override
-    public InternationalString internationalStringEntityToRest(org.siemac.metamac.notifications.core.common.domain.InternationalString sources) {
+    public InternationalString internationalStringEntityToRest(org.siemac.metamac.notices.core.common.domain.InternationalString sources) {
         if (sources == null) {
             return null;
         }
         InternationalString targets = new InternationalString();
-        for (org.siemac.metamac.notifications.core.common.domain.LocalisedString source : sources.getTexts()) {
+        for (org.siemac.metamac.notices.core.common.domain.LocalisedString source : sources.getTexts()) {
             LocalisedString target = new LocalisedString();
             target.setLang(source.getLocale());
             target.setValue(source.getLabel());
