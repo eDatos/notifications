@@ -23,4 +23,6 @@ public interface CommonDo2RestMapperV10 {
 
     public ResourceLink uriToResourceLink(String kind, String href);
 
+    public String toResourceLink(String resourceSubpath, String code);
+
 }

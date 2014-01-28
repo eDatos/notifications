@@ -10,6 +10,7 @@ import org.siemac.metamac.core.common.conf.ConfigurationService;
 import org.siemac.metamac.core.common.enume.utils.TypeExternalArtefactsEnumUtils;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.notifications.core.common.domain.ExternalItem;
+import org.siemac.metamac.notifications.rest.internal.NotificationsRestConstants;
 import org.siemac.metamac.rest.common.v1_0.domain.InternationalString;
 import org.siemac.metamac.rest.common.v1_0.domain.LocalisedString;
 import org.siemac.metamac.rest.common.v1_0.domain.ResourceLink;
@@ -24,6 +25,8 @@ public class CommonDo2RestMapperV10Impl implements CommonDo2RestMapperV10 {
 
     @Autowired
     private ConfigurationService configurationService;
+
+    private String               notificationsApiInternalEndpointV10;
 
     private String               statisticalResourcesApiInternalEndpoint;
     private String               srmApiInternalEndpoint;
@@ -65,6 +68,10 @@ public class CommonDo2RestMapperV10Impl implements CommonDo2RestMapperV10 {
     }
 
     private void initApiEndpoints() throws MetamacException {
+        // Notifications internal API v1.0
+        String notificationsApiInternalEndpoint = configurationService.retrieveNotificationsInternalApiUrlBase();
+        notificationsApiInternalEndpointV10 = RestUtils.createLink(notificationsApiInternalEndpoint, NotificationsRestConstants.API_VERSION_1_0);
+
         // Statistical operations internal Api (do not add api version! it is already stored in database (~latest))
         statisticalOperationsApiInternalEndpoint = configurationService.retrieveStatisticalOperationsInternalApiUrlBase();
         statisticalOperationsApiInternalEndpoint = StringUtils.removeEnd(statisticalOperationsApiInternalEndpoint, "/");
@@ -173,6 +180,18 @@ public class CommonDo2RestMapperV10Impl implements CommonDo2RestMapperV10 {
         target.setKind(kind);
         target.setHref(href);
         return target;
+    }
+
+    // API/[ARTEFACT_TYPE]
+    // API/[ARTEFACT_TYPE]/{code}
+    @Override
+    public String toResourceLink(String resourceSubpath, String code) {
+        String link = RestUtils.createLink(notificationsApiInternalEndpointV10, resourceSubpath);
+
+        if (StringUtils.isNotBlank(code)) {
+            link = RestUtils.createLink(link, code);
+        }
+        return link;
     }
 
     // ------------------------------------------------------------

@@ -13,6 +13,7 @@ import org.siemac.metamac.notifications.core.notice.domain.Role;
 import org.siemac.metamac.notifications.core.notice.domain.StatisticalOperation;
 import org.siemac.metamac.notifications.rest.internal.NotificationsRestConstants;
 import org.siemac.metamac.notifications.rest.internal.v1_0.mapper.base.CommonDo2RestMapperV10;
+import org.siemac.metamac.rest.common.v1_0.domain.ResourceLink;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Application;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Applications;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Messages;
@@ -39,25 +40,36 @@ public class NotificationsDo2RestMapperv10Impl implements NotificationsDo2RestMa
         Notification target = new Notification();
 
         target.setKind(NotificationsRestConstants.KIND_NOTIFICATION);
-
-        // TODO: Añadir mapper del campo ID
-        // TODO: Añadir mapper del campo selfLink
-
+        // FIXME: poner el code en lugar de la URN
+        target.setId(source.getUrn());
         target.setUrn(source.getUrn());
+        // FIXME: cambiar code por urn
+        target.setSelfLink(toNotificationSelfLink(source.getUrn()));
+        target.setParentLink(toNotificationParentLink(source));
+
+        target.setNotificationType(NotificationType.fromValue(source.getNotificationType().getName()));
         target.setSendingApplication(source.getSendingApplication());
         target.setSendingUser(source.getSendingUser());
         target.setSendingDate(CoreCommonUtil.transformDateTimeToDate(source.getCreatedDate()));
         target.setExpirationDate(CoreCommonUtil.transformDateTimeToDate(source.getExpirationDate()));
-        target.setNotificationType(NotificationType.fromValue(source.getNotificationType().getName()));
         target.setSubject(source.getSubject());
 
         target.setMessages(messagesToRest(source.getMessages()));
-        target.setReceivers(receiversToRest(source.getReceivers()));
-        target.setApplications(applicationsToRest(source.getApps()));
         target.setRoles(rolesToRest(source.getRoles()));
+        target.setApplications(applicationsToRest(source.getApps()));
         target.setStatisticalOperations(statisticalOperationsToRest(source.getStatisticalOperations()));
+        target.setReceivers(receiversToRest(source.getReceivers()));
 
         return target;
+    }
+
+    private ResourceLink toNotificationSelfLink(String code) {
+        String link = commonDo2RestMapper.toResourceLink(NotificationsRestConstants.LINK_SUBPATH_NOTIFICATION, code);
+        return commonDo2RestMapper.uriToResourceLink(NotificationsRestConstants.KIND_NOTIFICATION, link);
+    }
+
+    private ResourceLink toNotificationParentLink(org.siemac.metamac.notifications.core.notice.domain.Notification source) {
+        return toNotificationSelfLink(null);
     }
 
     private StatisticalOperations statisticalOperationsToRest(List<StatisticalOperation> source) {

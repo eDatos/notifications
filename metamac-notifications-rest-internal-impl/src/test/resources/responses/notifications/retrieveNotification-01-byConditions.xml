@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <notice:notification xmlns:notice="http://www.siemac.org/metamac/rest/notifications/v1.0/domain" xmlns:cdomain="http://www.siemac.org/metamac/rest/common/v1.0/domain"
     xsi:schemaLocation="http://www.siemac.org/metamac/rest/notifications/v1.0/domain metamac-notifications-rest-internal-domain-v1.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kind="notifications#notification">
+    <notice:id>urn:siemac:org.siemac.metamac.infomodel.notices.Notification=NOTIFICATION_01_WITH_CONDITIONS</notice:id>
     <notice:urn>urn:siemac:org.siemac.metamac.infomodel.notices.Notification=NOTIFICATION_01_WITH_CONDITIONS</notice:urn>
+    <notice:selfLink kind="notifications#notification" href="http://estadisticas.arte-consultores.com/notices-internal/apis/notifications-internal/v1.0/notifications/urn:siemac:org.siemac.metamac.infomodel.notices.Notification=NOTIFICATION_01_WITH_CONDITIONS"/>
+    <notice:parentLink kind="notifications#notification" href="http://estadisticas.arte-consultores.com/notices-internal/apis/notifications-internal/v1.0/notifications"/>
     <notice:notificationType>NOTIFICATION</notice:notificationType>
     <notice:sendingApplication>TEST-APPLICATION</notice:sendingApplication>
     <notice:sendingDate>2012-01-01T01:01:01.001Z</notice:sendingDate>
