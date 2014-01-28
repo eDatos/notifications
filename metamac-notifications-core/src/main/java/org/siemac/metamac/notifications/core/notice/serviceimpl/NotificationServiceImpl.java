@@ -66,7 +66,7 @@ public class NotificationServiceImpl extends NotificationServiceImplBase {
         notificationServiceInvocationValidator.checkCreateNotification(ctx, notification);
 
         // Generate URN
-        // FIXME: change el random por un get del uuid
+        // FIXME: change el random por un get del uuid - añadir a la entity
         notification.setUrn(GeneratorUrnUtils.generateSiemacNoticeUrn(java.util.UUID.randomUUID().toString()));
 
         notification = getNotificationRepository().save(notification);
