@@ -7,7 +7,7 @@
 
 	<jaxb:globalBindings> 
 		<xjc:simple/> 
-		<xjc:javaType xmlType="xs:dateTime" adapter="org.siemac.metamac.notifications.rest.internal.adapter.DateTimeAdapter" name="java.util.Date" />
-		<xjc:javaType xmlType="xs:date" adapter="org.siemac.metamac.notifications.rest.internal.adapter.DateAdapter" name="java.util.Date" />
+		<xjc:javaType xmlType="xs:dateTime" adapter="org.siemac.metamac.notices.rest.internal.adapter.DateTimeAdapter" name="java.util.Date" />
+		<xjc:javaType xmlType="xs:date" adapter="org.siemac.metamac.notices.rest.internal.adapter.DateAdapter" name="java.util.Date" />
 	</jaxb:globalBindings>
 </jaxb:bindings>

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.siemac.org/metamac/rest/notifications/v1.0/domain" xmlns:tns="http://www.siemac.org/metamac/rest/notifications/v1.0/domain"
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.siemac.org/metamac/rest/notices/v1.0/domain" xmlns:tns="http://www.siemac.org/metamac/rest/notices/v1.0/domain"
     xmlns:common="http://www.siemac.org/metamac/rest/common/v1.0/domain">
 
     <xs:import namespace="http://www.siemac.org/metamac/rest/common/v1.0/domain" schemaLocation="metamac-rest-api:metamac-rest-common-domain-v1.0.xsd" />
 
-    <xs:complexType name="Notification">
+    <xs:complexType name="Notice">
         <xs:sequence>
             <xs:element name="id" type="xs:string" />
             <xs:element name="urn" type="xs:string" />
             <xs:element name="selfLink" type="common:ResourceLink" />
             <xs:element name="parentLink" type="common:ResourceLink" />
 
-            <xs:element name="notificationType" type="tns:NotificationType" minOccurs="1" />
+            <xs:element name="noticesType" type="tns:NoticeType" minOccurs="1" />
             <xs:element name="sendingApplication" type="xs:string" minOccurs="1" />
             <xs:element name="sendingUser" type="xs:string" minOccurs="0" />
             <xs:element name="sendingDate" type="xs:dateTime" minOccurs="0" />
@@ -112,14 +112,14 @@
     </xs:complexType>
 
     <!-- Enums -->
-    <xs:simpleType name="NotificationType">
+    <xs:simpleType name="NoticeType">
         <xs:restriction base="xs:token">
             <xs:enumeration value="NOTIFICATION" />
-            <xs:enumeration value="ADVERTISEMENT" />
+            <xs:enumeration value="ANNOUNCEMENT" />
         </xs:restriction>
     </xs:simpleType>
 
     <!-- **************** ELEMENTS **************** -->
-    <xs:element name="notification" type="tns:Notification" />
+    <xs:element name="notice" type="tns:Notice" />
 
 </xs:schema>
