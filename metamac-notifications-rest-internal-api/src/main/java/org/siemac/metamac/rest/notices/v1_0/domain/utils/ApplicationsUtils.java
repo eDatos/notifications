@@ -1,9 +1,9 @@
-package org.siemac.metamac.rest.notifications.v1_0.domain.utils;
+package org.siemac.metamac.rest.notices.v1_0.domain.utils;
 
 import java.math.BigInteger;
 
+import org.siemac.metamac.rest.notices.v1_0.domain.enume.MetamacApplicationsEnum;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Applications;
-import org.siemac.metamac.rest.notifications.v1_0.domain.enume.MetamacApplicationsEnum;
 
 public class ApplicationsUtils {
 

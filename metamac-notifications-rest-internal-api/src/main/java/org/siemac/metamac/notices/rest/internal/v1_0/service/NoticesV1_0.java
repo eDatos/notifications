@@ -1,4 +1,4 @@
-package org.siemac.metamac.notifications.rest.internal.v1_0.service;
+package org.siemac.metamac.notices.rest.internal.v1_0.service;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -12,16 +12,16 @@ import org.siemac.metamac.rest.notifications.v1_0.domain.Notification;
 
 @Path("v1.0")
 // IMPORTANT: If a new version of API is added, remember change latest url y urlrewrite.xml in war
-public interface NotificationsV1_0 {
+public interface NoticesV1_0 {
 
     @PUT
     @Consumes({"application/xml"})
     @Produces({"application/xml"})
     @Path("notifications")
-    Response createNotification(Notification notification);
+    Response createNotice(Notification notification);
 
     @GET
     @Produces({"application/xml"})
     @Path("notifications/{urn}")
-    Notification retrieveResourceByUrn(@PathParam("urn") String urn);
+    Notification retrieveNoticeByUrn(@PathParam("urn") String urn);
 }

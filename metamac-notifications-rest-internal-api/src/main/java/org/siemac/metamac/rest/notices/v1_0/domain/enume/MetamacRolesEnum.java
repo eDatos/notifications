@@ -1,10 +1,13 @@
-package org.siemac.metamac.rest.notifications.v1_0.domain.enume;
+package org.siemac.metamac.rest.notices.v1_0.domain.enume;
 
 import java.io.Serializable;
 
 /**
  * Enum for MetamacRolesEnum
  */
+
+// @formatter:off
+
 public enum MetamacRolesEnum implements Serializable {
     ADMINISTRADOR,
     TECNICO_SISTEMA_INDICADORES,
@@ -19,8 +22,8 @@ public enum MetamacRolesEnum implements Serializable {
     TECNICO_NORMALIZACION,
     TECNICO_APOYO_NORMALIZACION;
 
-    /**
-     */
+ // @formatter:on    
+
     private MetamacRolesEnum() {
     }
 

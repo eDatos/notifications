@@ -1,10 +1,13 @@
-package org.siemac.metamac.rest.notifications.v1_0.domain.enume;
+package org.siemac.metamac.rest.notices.v1_0.domain.enume;
 
 import java.io.Serializable;
 
 /**
  * Enum for MetamacApplicationsEnum
  */
+
+// @formatter:off
+
 public enum MetamacApplicationsEnum implements Serializable {
     GESTOR_INDICADORES,
     GESTOR_RECURSOS_ESTRUCTURALES,
@@ -14,9 +17,9 @@ public enum MetamacApplicationsEnum implements Serializable {
     GESTOR_METADATOS_COMUNES,
     GESTOR_ACCESOS,
     GESTOR_OPERACIONES;
+    
+ // @formatter:on
 
-    /**
-     */
     private MetamacApplicationsEnum() {
     }
 
