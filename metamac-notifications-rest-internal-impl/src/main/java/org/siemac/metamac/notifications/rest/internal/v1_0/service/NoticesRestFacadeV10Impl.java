@@ -4,6 +4,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import org.siemac.metamac.notices.core.notice.serviceapi.NotificationService;
+import org.siemac.metamac.notices.rest.internal.v1_0.service.NoticesV1_0;
 import org.siemac.metamac.notifications.rest.internal.NotificationsRestConstants;
 import org.siemac.metamac.notifications.rest.internal.exception.NotificationsRestServiceExceptionType;
 import org.siemac.metamac.notifications.rest.internal.service.utils.NotificationsRestInternalUtils;
@@ -16,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service("notificationsRestInternalFacadeV10")
-public class NotificationsRestFacadeV10Impl implements NotificationsV1_0 {
+public class NoticesRestFacadeV10Impl implements NoticesV1_0 {
 
     @Autowired
     private NotificationService           notificationService;
@@ -28,7 +29,7 @@ public class NotificationsRestFacadeV10Impl implements NotificationsV1_0 {
     private NotificationsDo2RestMapperV10 notificationsDo2RestMapperV10;
 
     @Override
-    public Response createNotification(Notification notification) {
+    public Response createNotice(Notification notification) {
         try {
             // Transform
             org.siemac.metamac.notices.core.notice.domain.Notification notificationEntity = notificationsRest2DoMapperV10.notificationRestToEntity(NotificationsRestConstants.SERVICE_CONTEXT,
@@ -43,7 +44,7 @@ public class NotificationsRestFacadeV10Impl implements NotificationsV1_0 {
     }
 
     @Override
-    public Notification retrieveResourceByUrn(String urn) {
+    public Notification retrieveNoticeByUrn(String urn) {
         try {
             // Retrieve
             org.siemac.metamac.notices.core.notice.domain.Notification notificationEntity = notificationService.retrieveNotificationByUrn(NotificationsRestConstants.SERVICE_CONTEXT, urn);

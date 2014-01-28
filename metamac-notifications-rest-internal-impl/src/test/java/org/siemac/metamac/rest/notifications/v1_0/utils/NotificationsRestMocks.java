@@ -2,17 +2,17 @@ package org.siemac.metamac.rest.notifications.v1_0.utils;
 
 import java.util.Date;
 
+import org.siemac.metamac.rest.notices.v1_0.domain.enume.MetamacRolesEnum;
+import org.siemac.metamac.rest.notices.v1_0.domain.utils.MessagesUtils;
+import org.siemac.metamac.rest.notices.v1_0.domain.utils.ReceiversUtils;
+import org.siemac.metamac.rest.notices.v1_0.domain.utils.RolesUtils;
+import org.siemac.metamac.rest.notices.v1_0.domain.utils.StatisticalOperationsUtils;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Messages;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Notification;
 import org.siemac.metamac.rest.notifications.v1_0.domain.NotificationType;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Receivers;
 import org.siemac.metamac.rest.notifications.v1_0.domain.Roles;
 import org.siemac.metamac.rest.notifications.v1_0.domain.StatisticalOperations;
-import org.siemac.metamac.rest.notifications.v1_0.domain.enume.MetamacRolesEnum;
-import org.siemac.metamac.rest.notifications.v1_0.domain.utils.MessagesUtils;
-import org.siemac.metamac.rest.notifications.v1_0.domain.utils.ReceiversUtils;
-import org.siemac.metamac.rest.notifications.v1_0.domain.utils.RolesUtils;
-import org.siemac.metamac.rest.notifications.v1_0.domain.utils.StatisticalOperationsUtils;
 
 public class NotificationsRestMocks {
 

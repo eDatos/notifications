@@ -31,7 +31,7 @@ import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.core.common.util.ApplicationContextProvider;
 import org.siemac.metamac.notices.core.notice.serviceapi.NotificationService;
 import org.siemac.metamac.notices.core.utils.mocks.factories.NotificationMockFactory;
-import org.siemac.metamac.notifications.rest.internal.v1_0.service.NotificationsV1_0;
+import org.siemac.metamac.notices.rest.internal.v1_0.service.NoticesV1_0;
 import org.siemac.metamac.rest.common.test.MetamacRestBaseTest;
 import org.siemac.metamac.rest.common.test.ServerResource;
 import org.siemac.metamac.rest.common.test.utils.MetamacRestAsserts;
@@ -48,7 +48,7 @@ public abstract class NotificationsRestInternalFacadeV10BaseTest extends Metamac
     private static String               jaxrsServerAddress = "http://localhost:" + ServerResource.PORT + "/apis/notifications-internal";
     protected String                    baseApi            = jaxrsServerAddress + "/v1.0";
     protected static ApplicationContext applicationContext = null;
-    protected static NotificationsV1_0  notificationsRestInternalFacadeClientXml;
+    protected static NoticesV1_0        noticesRestInternalFacadeClientXml;
     private static String               apiEndpointv10;
 
     private NotificationService         notificationService;
@@ -68,7 +68,7 @@ public abstract class NotificationsRestInternalFacadeV10BaseTest extends Metamac
         {
             List providers = new ArrayList();
             providers.add(applicationContext.getBean("jaxbProvider", JAXBElementProvider.class));
-            notificationsRestInternalFacadeClientXml = JAXRSClientFactory.create(jaxrsServerAddress, NotificationsV1_0.class, providers, Boolean.TRUE);
+            noticesRestInternalFacadeClientXml = JAXRSClientFactory.create(jaxrsServerAddress, NoticesV1_0.class, providers, Boolean.TRUE);
         }
     }
 
@@ -92,10 +92,10 @@ public abstract class NotificationsRestInternalFacadeV10BaseTest extends Metamac
         assertTrue(StringUtils.isBlank(IOUtils.toString(responseActual)));
     }
 
-    protected NotificationsV1_0 getNotificationsRestInternalFacadeClientXml() {
-        WebClient.client(notificationsRestInternalFacadeClientXml).reset();
-        WebClient.client(notificationsRestInternalFacadeClientXml).accept(APPLICATION_XML);
-        return notificationsRestInternalFacadeClientXml;
+    protected NoticesV1_0 getNotificationsRestInternalFacadeClientXml() {
+        WebClient.client(noticesRestInternalFacadeClientXml).reset();
+        WebClient.client(noticesRestInternalFacadeClientXml).accept(APPLICATION_XML);
+        return noticesRestInternalFacadeClientXml;
     }
 
     protected String getApiEndpoint() {
