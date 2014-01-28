@@ -12,4 +12,11 @@
     <entry key="metamac.statistical_resources.rest.external">http://estadisticas.arte-consultores.com/metamac-statistical-resources-external-web/apis/statistical-resources</entry>
     <entry key="metamac.access_control.rest.internal">http://estadisticas.arte-consultores.com/metamac-access-control-web/apis/access-control-internal</entry>
     <entry key="metamac.notifications.rest.internal">http://estadisticas.arte-consultores.com/metamac-notifications-web/apis/notifications-internal</entry>
+    
+    <comment>Internal web applications</comment>
+    <entry key="metamac.srm.web.internal">http://estadisticas.arte-consultores.com/structural-resources-internal/</entry>
+    <entry key="metamac.statistical_operations.web.internal">http://estadisticas.arte-consultores.com/statistical-operations-internal/</entry>
+    <entry key="metamac.statistical_resources.web.internal">http://estadisticas.arte-consultores.com/statistical-resources-internal/</entry>
+    <entry key="metamac.common_metadata.web.internal">http://estadisticas.arte-consultores.com/common-metadata-internal</entry>
+    
 </properties>

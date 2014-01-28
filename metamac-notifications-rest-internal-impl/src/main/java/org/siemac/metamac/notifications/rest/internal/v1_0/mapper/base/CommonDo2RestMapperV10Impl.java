@@ -12,9 +12,9 @@ import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.notifications.core.common.domain.ExternalItem;
 import org.siemac.metamac.rest.common.v1_0.domain.InternationalString;
 import org.siemac.metamac.rest.common.v1_0.domain.LocalisedString;
-import org.siemac.metamac.rest.common.v1_0.domain.Resource;
 import org.siemac.metamac.rest.common.v1_0.domain.ResourceLink;
-import org.siemac.metamac.rest.common.v1_0.domain.Resources;
+import org.siemac.metamac.rest.notifications.v1_0.domain.ResourceInternal;
+import org.siemac.metamac.rest.notifications.v1_0.domain.ResourcesInternal;
 import org.siemac.metamac.rest.utils.RestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -30,12 +30,41 @@ public class CommonDo2RestMapperV10Impl implements CommonDo2RestMapperV10 {
     private String               statisticalOperationsApiInternalEndpoint;
     private String               commonMetadataApiExternalEndpoint;
 
+    private String               statisticalResourcesInternalWebApplication;
+    private String               srmInternalWebApplication;
+    private String               statisticalOperationsInternalWebApplication;
+    private String               commonMetadataInternalWebApplication;
+
     private String               defaultLanguage;
 
     @PostConstruct
     public void init() throws Exception {
+        initApiEndpoints();
+        initInternalWebApplicationsUrls();
+        initOtherProperties();
 
-        // ENDPOINTS
+    }
+
+    private void initInternalWebApplicationsUrls() throws MetamacException {
+        // Statistical operations
+        statisticalOperationsInternalWebApplication = configurationService.retrieveStatisticalOperationsInternalWebApplicationUrlBase();
+        statisticalOperationsInternalWebApplication = StringUtils.removeEnd(statisticalOperationsInternalWebApplication, "/");
+
+        // SRM
+        srmInternalWebApplication = configurationService.retrieveSrmInternalWebApplicationUrlBase();
+        srmInternalWebApplication = StringUtils.removeEnd(srmInternalWebApplication, "/");
+
+        // Statistical resources
+        statisticalResourcesInternalWebApplication = configurationService.retrieveStatisticalResourcesInternalWebApplicationUrlBase();
+        statisticalResourcesInternalWebApplication = StringUtils.removeEnd(statisticalResourcesInternalWebApplication, "/");
+
+        // Common metadata
+        commonMetadataInternalWebApplication = configurationService.retrieveCommonMetadataInternalWebApplicationUrlBase();
+        commonMetadataInternalWebApplication = StringUtils.removeEnd(commonMetadataInternalWebApplication, "/");
+
+    }
+
+    private void initApiEndpoints() throws MetamacException {
         // Statistical operations internal Api (do not add api version! it is already stored in database (~latest))
         statisticalOperationsApiInternalEndpoint = configurationService.retrieveStatisticalOperationsInternalApiUrlBase();
         statisticalOperationsApiInternalEndpoint = StringUtils.removeEnd(statisticalOperationsApiInternalEndpoint, "/");
@@ -47,13 +76,14 @@ public class CommonDo2RestMapperV10Impl implements CommonDo2RestMapperV10 {
         // Statistical resources internal API (do not add api version! it is already stored in database (~latest))
         // FIXME: Cambiar internal por internal. Pendiente de que este la API Interna.
         statisticalResourcesApiInternalEndpoint = configurationService.retrieveStatisticalResourcesExternalApiUrlBase();
-        statisticalResourcesApiInternalEndpoint = StringUtils.removeEnd(statisticalResourcesApiInternalEndpoint, "/");;
+        statisticalResourcesApiInternalEndpoint = StringUtils.removeEnd(statisticalResourcesApiInternalEndpoint, "/");
 
         // Common metadata external Api (do not add api version! it is already stored in database (~latest))
         commonMetadataApiExternalEndpoint = configurationService.retrieveCommonMetadataExternalApiUrlBase();
-        commonMetadataApiExternalEndpoint = StringUtils.removeEnd(commonMetadataApiExternalEndpoint, "/");;
+        commonMetadataApiExternalEndpoint = StringUtils.removeEnd(commonMetadataApiExternalEndpoint, "/");
+    }
 
-        // MISC
+    private void initOtherProperties() throws MetamacException {
         defaultLanguage = configurationService.retrieveLanguageDefault();
     }
 
@@ -62,12 +92,12 @@ public class CommonDo2RestMapperV10Impl implements CommonDo2RestMapperV10 {
     // ------------------------------------------------------------
 
     @Override
-    public Resources externalItemEntityListToRest(List<ExternalItem> source) throws MetamacException {
+    public ResourcesInternal externalItemEntityListToRest(List<ExternalItem> source) throws MetamacException {
         if (source.isEmpty()) {
             return null;
         }
 
-        Resources result = new Resources();
+        ResourcesInternal result = new ResourcesInternal();
         for (ExternalItem externalItem : source) {
             result.getResources().add(externalItemEntityToRest(externalItem));
         }
@@ -76,8 +106,8 @@ public class CommonDo2RestMapperV10Impl implements CommonDo2RestMapperV10 {
     }
 
     @Override
-    public Resource externalItemEntityToRest(ExternalItem source) throws MetamacException {
-        Resource target = externalItemEntityToRestWithoutUrls(source);
+    public ResourceInternal externalItemEntityToRest(ExternalItem source) throws MetamacException {
+        ResourceInternal target = externalItemEntityToRestWithoutUrls(source);
 
         if (target != null) {
             if (TypeExternalArtefactsEnumUtils.isExternalItemOfCommonMetadataApp(source.getType())) {
@@ -97,11 +127,11 @@ public class CommonDo2RestMapperV10Impl implements CommonDo2RestMapperV10 {
         return target;
     }
 
-    private Resource externalItemEntityToRestWithoutUrls(ExternalItem source) {
+    private ResourceInternal externalItemEntityToRestWithoutUrls(ExternalItem source) {
         if (source == null) {
             return null;
         }
-        Resource target = new Resource();
+        ResourceInternal target = new ResourceInternal();
         target.setId(source.getCode());
         target.setNestedId(source.getCodeNested());
         target.setUrn(source.getUrn());
@@ -111,23 +141,27 @@ public class CommonDo2RestMapperV10Impl implements CommonDo2RestMapperV10 {
         return target;
     }
 
-    private Resource statisticalOperationsExternalItemEntityToRest(ExternalItem source, Resource target) {
+    private ResourceInternal statisticalOperationsExternalItemEntityToRest(ExternalItem source, ResourceInternal target) {
         target.setSelfLink(uriToResourceLink(target.getKind(), RestUtils.createLink(statisticalOperationsApiInternalEndpoint, source.getUri())));
+        target.setManagementAppLink(RestUtils.createLink(statisticalOperationsInternalWebApplication, source.getManagementAppUrl()));
         return target;
     }
 
-    private Resource srmExternalItemEntityToRest(ExternalItem source, Resource target) {
+    private ResourceInternal srmExternalItemEntityToRest(ExternalItem source, ResourceInternal target) {
         target.setSelfLink(uriToResourceLink(target.getKind(), RestUtils.createLink(srmApiInternalEndpoint, source.getUri())));
+        target.setManagementAppLink(RestUtils.createLink(srmInternalWebApplication, source.getManagementAppUrl()));
         return target;
     }
 
-    private Resource commonMetadataExternalItemEntityToRest(ExternalItem source, Resource target) {
+    private ResourceInternal commonMetadataExternalItemEntityToRest(ExternalItem source, ResourceInternal target) {
         target.setSelfLink(uriToResourceLink(target.getKind(), RestUtils.createLink(commonMetadataApiExternalEndpoint, source.getUri())));
+        target.setManagementAppLink(RestUtils.createLink(commonMetadataInternalWebApplication, source.getManagementAppUrl()));
         return target;
     }
 
-    private Resource statisticalResourcesExternalItemEntityToRest(ExternalItem source, Resource target) {
+    private ResourceInternal statisticalResourcesExternalItemEntityToRest(ExternalItem source, ResourceInternal target) {
         target.setSelfLink(uriToResourceLink(target.getKind(), RestUtils.createLink(statisticalResourcesApiInternalEndpoint, source.getUri())));
+        target.setManagementAppLink(RestUtils.createLink(statisticalResourcesInternalWebApplication, source.getManagementAppUrl()));
         return target;
     }
 
