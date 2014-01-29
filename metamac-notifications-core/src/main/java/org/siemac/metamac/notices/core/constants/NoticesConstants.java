@@ -1,6 +1,6 @@
 package org.siemac.metamac.notices.core.constants;
 
-public class NotificationsConstants {
+public class NoticesConstants {
 
     public static final String SECURITY_APPLICATION_ID                   = "GESTOR_RECURSOS_ESTADISTICOS";
     public static final String DEFAULT_DATA_REPOSITORY_LOCALE            = "es";
