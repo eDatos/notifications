@@ -23,7 +23,7 @@
 
     <!-- Application startup listener to validate the configuration properties -->
     <listener>
-        <listener-class>org.siemac.metamac.notifications.web.server.listener.NotificationsApplicationStartupListener</listener-class>
+        <listener-class>org.siemac.metamac.notices.web.server.listener.NoticesApplicationStartupListener</listener-class>
     </listener>
 
     <!-- SSO -->
