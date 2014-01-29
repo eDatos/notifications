@@ -15,8 +15,6 @@
     
     <aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy>
 
-<!--     <bean id="translateExceptions" class="org.siemac.metamac.notices.core.error.utils.NotificationsTranslateExceptions"/> -->
-
     <bean id="springPropertyConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="ignoreResourceNotFound" value="true" />
         <property name="locations">
@@ -29,7 +27,7 @@
     
 
     <!-- Metamac environment configuration -->
-    <bean id="configurationService" class="org.siemac.metamac.notices.core.conf.NotificationsConfigurationImpl">
+    <bean id="configurationService" class="org.siemac.metamac.notices.core.conf.NoticesConfigurationImpl">
         <property name="systemConfigurationFile">
             <value>classpath:metamac/environment-test.xml</value>
         </property>
@@ -40,11 +38,11 @@
     <import resource="classpath:/spring/general-beans-advice.xml" />
 
     <!-- metamac-notifications-core > src/main/resources -->
-    <import resource="classpath:/spring/notifications/include/interceptor.xml" />
-    <import resource="classpath:/spring/notifications/include/more.xml" />
+    <import resource="classpath:/spring/notices/include/interceptor.xml" />
+    <import resource="classpath:/spring/notices/include/more.xml" />
 
     <!-- metamac-notifications-core > src/test/resources -->
-    <import resource="classpath:/spring/notifications/include/datasource-test.xml" />
-    <import resource="classpath:/spring/notifications/include/interceptor-test.xml" />
-    <import resource="classpath:/spring/notifications/include/more-test.xml" />
+    <import resource="classpath:/spring/notices/include/datasource-test.xml" />
+    <import resource="classpath:/spring/notices/include/interceptor-test.xml" />
+    <import resource="classpath:/spring/notices/include/more-test.xml" />
 </beans>
