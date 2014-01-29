@@ -13,7 +13,7 @@ public class NoticesApplicationStartupListener extends ApplicationStartupListene
     public void checkConfiguration() {
 
         LOG.info("****************************************************************");
-        LOG.info("[metamac-notifications-web] Checking application configuration");
+        LOG.info("[notices-internal] Checking application configuration");
         LOG.info("****************************************************************");
 
         // SECURITY
@@ -42,12 +42,12 @@ public class NoticesApplicationStartupListener extends ApplicationStartupListene
         checkRequiredProperty(NoticesConfigurationConstants.ENDPOINT_STATISTICAL_OPERATIONS_INTERNAL_API);
         checkRequiredProperty(NoticesConfigurationConstants.ENDPOINT_ACCESS_CONTROL_INTERNAL_API);
 
-        // Notifications properties
+        // Notices properties
 
         checkRequiredProperty(NoticesConfigurationConstants.USER_GUIDE_FILE_NAME);
 
         LOG.info("****************************************************************");
-        LOG.info("[metamac-notifications-web] Application configuration checked");
+        LOG.info("[notices-internal] Application configuration checked");
         LOG.info("****************************************************************");
     }
 }
