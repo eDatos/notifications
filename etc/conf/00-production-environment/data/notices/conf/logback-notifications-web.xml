@@ -2,7 +2,7 @@
 <!DOCTYPE configuration>
 <configuration scan="true" scanPeriod="60 seconds">
 
-    <property name="LOGS_HOME" value="${environment.metamac.data}/notifications/logs" />
+    <property name="LOGS_HOME" value="${environment.metamac.data}/notices/logs" />
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
