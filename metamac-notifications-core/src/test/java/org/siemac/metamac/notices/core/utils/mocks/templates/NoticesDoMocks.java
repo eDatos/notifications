@@ -25,7 +25,7 @@ import org.siemac.metamac.notices.core.notice.enume.domain.NoticeType;
 public abstract class NoticesDoMocks extends MetamacMocks {
 
     // -----------------------------------------------------------------
-    // NOTIFICATIONS
+    // NOTICES
     // -----------------------------------------------------------------
 
     public static Notice mockNoticeWithResources() {
