@@ -12,7 +12,7 @@ import org.siemac.metamac.notices.core.common.domain.InternationalString;
 import org.siemac.metamac.notices.core.common.domain.LocalisedString;
 import org.siemac.metamac.notices.core.error.ServiceExceptionType;
 
-public class NotificationsValidationUtils extends ValidationUtils {
+public class NoticesValidationUtils extends ValidationUtils {
 
     /**
      * Check for a required metadata and add an exception for a failed validation.
