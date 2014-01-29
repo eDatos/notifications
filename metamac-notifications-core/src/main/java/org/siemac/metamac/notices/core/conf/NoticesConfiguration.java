@@ -3,7 +3,7 @@ package org.siemac.metamac.notices.core.conf;
 import org.siemac.metamac.core.common.conf.ConfigurationService;
 import org.siemac.metamac.core.common.exception.MetamacException;
 
-public interface NotificationsConfiguration extends ConfigurationService {
+public interface NoticesConfiguration extends ConfigurationService {
 
     public String retrieveChannelMailHost() throws MetamacException;
 

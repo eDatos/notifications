@@ -2,9 +2,9 @@ package org.siemac.metamac.notices.core.conf;
 
 import org.siemac.metamac.core.common.conf.ConfigurationServiceImpl;
 import org.siemac.metamac.core.common.exception.MetamacException;
-import org.siemac.metamac.notices.core.constants.NotificationsConfigurationConstants;
+import org.siemac.metamac.notices.core.constants.NoticesConfigurationConstants;
 
-public class NotificationsConfigurationImpl extends ConfigurationServiceImpl implements NotificationsConfiguration {
+public class NoticesConfigurationImpl extends ConfigurationServiceImpl implements NoticesConfiguration {
 
     private String channelMailHost;
     private String channelMailPort;
@@ -15,7 +15,7 @@ public class NotificationsConfigurationImpl extends ConfigurationServiceImpl imp
     @Override
     public String retrieveChannelMailHost() throws MetamacException {
         if (channelMailHost == null) {
-            channelMailHost = retrieveProperty(NotificationsConfigurationConstants.METAMAC_NOTIFICATION_CHANNEL_MAIL_HOST, Boolean.TRUE);
+            channelMailHost = retrieveProperty(NoticesConfigurationConstants.METAMAC_NOTIFICATION_CHANNEL_MAIL_HOST, Boolean.TRUE);
         }
         return channelMailHost;
     }
@@ -23,7 +23,7 @@ public class NotificationsConfigurationImpl extends ConfigurationServiceImpl imp
     @Override
     public String retrieveChannelMailPort() throws MetamacException {
         if (channelMailPort == null) {
-            channelMailPort = retrieveProperty(NotificationsConfigurationConstants.METAMAC_NOTIFICATION_CHANNEL_MAIL_PORT, Boolean.TRUE);
+            channelMailPort = retrieveProperty(NoticesConfigurationConstants.METAMAC_NOTIFICATION_CHANNEL_MAIL_PORT, Boolean.TRUE);
         }
         return channelMailPort;
     }
@@ -31,7 +31,7 @@ public class NotificationsConfigurationImpl extends ConfigurationServiceImpl imp
     @Override
     public String retrieveChannelMailUsername() throws MetamacException {
         if (channelMailUsername == null) {
-            channelMailUsername = retrieveProperty(NotificationsConfigurationConstants.METAMAC_NOTIFICATION_CHANNEL_MAIL_USERNAME, Boolean.TRUE);
+            channelMailUsername = retrieveProperty(NoticesConfigurationConstants.METAMAC_NOTIFICATION_CHANNEL_MAIL_USERNAME, Boolean.TRUE);
         }
         return channelMailUsername;
     }
@@ -39,7 +39,7 @@ public class NotificationsConfigurationImpl extends ConfigurationServiceImpl imp
     @Override
     public String retrieveChannelMailPassword() throws MetamacException {
         if (channelMailPassword == null) {
-            channelMailPassword = retrieveProperty(NotificationsConfigurationConstants.METAMAC_NOTIFICATION_CHANNEL_MAIL_PASSWORD, Boolean.TRUE);
+            channelMailPassword = retrieveProperty(NoticesConfigurationConstants.METAMAC_NOTIFICATION_CHANNEL_MAIL_PASSWORD, Boolean.TRUE);
         }
         return channelMailPassword;
     }
@@ -47,7 +47,7 @@ public class NotificationsConfigurationImpl extends ConfigurationServiceImpl imp
     @Override
     public String retrieveChannelMailProtocol() throws MetamacException {
         if (channelMailProtocol == null) {
-            channelMailProtocol = retrieveProperty(NotificationsConfigurationConstants.METAMAC_NOTIFICATION_CHANNEL_MAIL_PROTOCOL, Boolean.TRUE);
+            channelMailProtocol = retrieveProperty(NoticesConfigurationConstants.METAMAC_NOTIFICATION_CHANNEL_MAIL_PROTOCOL, Boolean.TRUE);
         }
         return channelMailProtocol;
     }
