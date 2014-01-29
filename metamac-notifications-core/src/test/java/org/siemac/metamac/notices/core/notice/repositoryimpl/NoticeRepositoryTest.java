@@ -2,8 +2,8 @@ package org.siemac.metamac.notices.core.notice.repositoryimpl;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.siemac.metamac.notices.core.NotificationsBaseTest;
-import org.siemac.metamac.notices.core.notice.domain.NotificationRepository;
+import org.siemac.metamac.notices.core.NoticesBaseTest;
+import org.siemac.metamac.notices.core.notice.domain.NoticeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -11,13 +11,13 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:spring/notifications/applicationContext-test.xml"})
+@ContextConfiguration(locations = {"classpath:spring/notices/applicationContext-test.xml"})
 @TransactionConfiguration(transactionManager = "txManager", defaultRollback = true)
 @Transactional
-public class NotificationRepositoryTest extends NotificationsBaseTest implements NotificationRepositoryTestBase {
+public class NoticeRepositoryTest extends NoticesBaseTest implements NoticeRepositoryTestBase {
 
     @Autowired
-    protected NotificationRepository notificationRepository;
+    protected NoticeRepository noticeRepository;
 
     @Override
     @Test

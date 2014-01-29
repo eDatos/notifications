@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.siemac.metamac.notices.core.NotificationsBaseTest;
+import org.siemac.metamac.notices.core.NoticesBaseTest;
 import org.siemac.metamac.notices.core.common.domain.InternationalStringRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -13,10 +13,10 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:spring/notifications/applicationContext-test.xml", "classpath:/spring/notifications/include/more.xml"})
+@ContextConfiguration(locations = {"classpath:spring/notices/applicationContext-test.xml", "classpath:/spring/notices/include/more.xml"})
 @TransactionConfiguration(transactionManager = "txManager", defaultRollback = true)
 @Transactional
-public class InternationalStringRepositoryTest extends NotificationsBaseTest implements InternationalStringRepositoryTestBase {
+public class InternationalStringRepositoryTest extends NoticesBaseTest implements InternationalStringRepositoryTestBase {
 
     @Autowired
     protected InternationalStringRepository internationalStringRepository;

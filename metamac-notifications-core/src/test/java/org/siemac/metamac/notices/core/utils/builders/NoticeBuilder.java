@@ -4,44 +4,44 @@ import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.siemac.metamac.notices.core.notice.domain.App;
 import org.siemac.metamac.notices.core.notice.domain.Message;
-import org.siemac.metamac.notices.core.notice.domain.Notification;
+import org.siemac.metamac.notices.core.notice.domain.Notice;
 import org.siemac.metamac.notices.core.notice.domain.Receiver;
 import org.siemac.metamac.notices.core.notice.domain.Role;
 import org.siemac.metamac.notices.core.notice.domain.StatisticalOperation;
-import org.siemac.metamac.notices.core.notice.enume.domain.NotificationType;
-import org.siemac.metamac.notices.core.utils.mocks.templates.NotificationsDoMocks;
+import org.siemac.metamac.notices.core.notice.enume.domain.NoticeType;
+import org.siemac.metamac.notices.core.utils.mocks.templates.NoticesDoMocks;
 
-public class NotificationBuilder extends NotificationBuilderBase<NotificationBuilder> {
+public class NoticeBuilder extends NoticeBuilderBase<NoticeBuilder> {
 
     // By default we generate mock values for required-in-creation fields
     // This lets a simple interface for the builder
 
-    public static NotificationBuilder notification() {
-        String sendingApplication = NotificationsDoMocks.mockString(8);
-        String subject = NotificationsDoMocks.mockSentence(5);
-        NotificationType notificationType = NotificationType.NOTIFICATION;
-        return new NotificationBuilder(sendingApplication, subject, notificationType);
+    public static NoticeBuilder notice() {
+        String sendingApplication = NoticesDoMocks.mockString(8);
+        String subject = NoticesDoMocks.mockSentence(5);
+        NoticeType noticeType = NoticeType.NOTIFICATION;
+        return new NoticeBuilder(sendingApplication, subject, noticeType);
     }
 
-    public static NotificationBuilder advertisement() {
-        String sendingApplication = NotificationsDoMocks.mockString(8);
-        String subject = NotificationsDoMocks.mockSentence(5);
-        NotificationType notificationType = NotificationType.ADVERTISEMENT;
-        return new NotificationBuilder(sendingApplication, subject, notificationType);
+    public static NoticeBuilder advertisement() {
+        String sendingApplication = NoticesDoMocks.mockString(8);
+        String subject = NoticesDoMocks.mockSentence(5);
+        NoticeType noticeType = NoticeType.ADVERTISEMENT;
+        return new NoticeBuilder(sendingApplication, subject, noticeType);
     }
 
-    public NotificationBuilder(String sendingApplication, String subject, NotificationType notificationType) {
-        super(new Notification(sendingApplication, subject, notificationType));
+    public NoticeBuilder(String sendingApplication, String subject, NoticeType noticeType) {
+        super(new Notice(sendingApplication, subject, noticeType));
     }
 
-    public Notification build() {
+    public Notice build() {
         return getInstance();
     }
 }
 
-class NotificationBuilderBase<GeneratorT extends NotificationBuilderBase<GeneratorT>> {
+class NoticeBuilderBase<GeneratorT extends NoticeBuilderBase<GeneratorT>> {
 
-    private final Notification instance;
+    private final Notice instance;
 
     @SuppressWarnings("unchecked")
     public GeneratorT fillEmptyAuditableFields() {
@@ -64,11 +64,11 @@ class NotificationBuilderBase<GeneratorT extends NotificationBuilderBase<Generat
         return (GeneratorT) this;
     }
 
-    protected NotificationBuilderBase(Notification aInstance) {
+    protected NoticeBuilderBase(Notice aInstance) {
         instance = aInstance;
     }
 
-    protected Notification getInstance() {
+    protected Notice getInstance() {
         return instance;
     }
 
@@ -150,8 +150,8 @@ class NotificationBuilderBase<GeneratorT extends NotificationBuilderBase<Generat
     }
 
     @SuppressWarnings("unchecked")
-    public GeneratorT withNotificationType(NotificationType aValue) {
-        instance.setNotificationType(aValue);
+    public GeneratorT withNoticeType(NoticeType aValue) {
+        instance.setNoticeType(aValue);
 
         return (GeneratorT) this;
     }

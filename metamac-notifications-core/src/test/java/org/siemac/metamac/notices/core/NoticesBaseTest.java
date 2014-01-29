@@ -12,7 +12,7 @@ import org.junit.rules.ExpectedException;
 import org.siemac.metamac.common.test.MetamacBaseTest;
 import org.siemac.metamac.common.test.dbunit.MetamacDBUnitBaseTests.DataBaseProvider;
 import org.siemac.metamac.common.test.utils.MetamacAsserts;
-import org.siemac.metamac.notices.core.constants.NotificationsConstants;
+import org.siemac.metamac.notices.core.constants.NoticesConstants;
 import org.siemac.metamac.notices.core.utils.mocks.configuration.MockAnnotationRule;
 import org.siemac.metamac.sso.client.MetamacPrincipal;
 import org.siemac.metamac.sso.client.MetamacPrincipalAccess;
@@ -21,9 +21,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 
-public abstract class NotificationsBaseTest extends MetamacBaseTest {
+public abstract class NoticesBaseTest extends MetamacBaseTest {
 
-    protected static Logger   logger          = LoggerFactory.getLogger(NotificationsBaseTest.class);
+    protected static Logger   logger          = LoggerFactory.getLogger(NoticesBaseTest.class);
 
     protected static String   EMPTY           = StringUtils.EMPTY;
 
@@ -31,7 +31,7 @@ public abstract class NotificationsBaseTest extends MetamacBaseTest {
     protected static String   URN_NOT_EXISTS  = "not_exists";
     protected static String   CODE_NOT_EXISTS = "NOT_EXISTS";
 
-    @Value("${metamac.notifications.db.provider}")
+    @Value("${metamac.notices.db.provider}")
     private String            databaseProvider;
 
     @Rule
@@ -53,7 +53,7 @@ public abstract class NotificationsBaseTest extends MetamacBaseTest {
     private void putMetamacPrincipalInServiceContext(ServiceContext serviceContext, String rolName) {
         MetamacPrincipal metamacPrincipal = new MetamacPrincipal();
         metamacPrincipal.setUserId(serviceContext.getUserId());
-        metamacPrincipal.getAccesses().add(new MetamacPrincipalAccess(rolName, NotificationsConstants.SECURITY_APPLICATION_ID, null));
+        metamacPrincipal.getAccesses().add(new MetamacPrincipalAccess(rolName, NoticesConstants.SECURITY_APPLICATION_ID, null));
         serviceContext.setProperty(SsoClientConstants.PRINCIPAL_ATTRIBUTE, metamacPrincipal);
     }
 

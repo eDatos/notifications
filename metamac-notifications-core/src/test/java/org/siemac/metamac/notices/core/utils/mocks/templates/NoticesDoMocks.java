@@ -16,61 +16,61 @@ import org.siemac.metamac.notices.core.common.domain.ExternalItem;
 import org.siemac.metamac.notices.core.common.domain.InternationalString;
 import org.siemac.metamac.notices.core.common.domain.LocalisedString;
 import org.siemac.metamac.notices.core.notice.domain.Message;
-import org.siemac.metamac.notices.core.notice.domain.Notification;
+import org.siemac.metamac.notices.core.notice.domain.Notice;
 import org.siemac.metamac.notices.core.notice.domain.Receiver;
 import org.siemac.metamac.notices.core.notice.domain.Role;
 import org.siemac.metamac.notices.core.notice.domain.StatisticalOperation;
-import org.siemac.metamac.notices.core.notice.enume.domain.NotificationType;
+import org.siemac.metamac.notices.core.notice.enume.domain.NoticeType;
 
-public abstract class NotificationsDoMocks extends MetamacMocks {
+public abstract class NoticesDoMocks extends MetamacMocks {
 
     // -----------------------------------------------------------------
     // NOTIFICATIONS
     // -----------------------------------------------------------------
 
-    public static Notification mockNotificationWithResources() {
-        Notification notification = buildNotification();
-        notification.getMessages().add(mockMessageWithResources());
-        return notification;
+    public static Notice mockNoticeWithResources() {
+        Notice notice = buildNotice();
+        notice.getMessages().add(mockMessageWithResources());
+        return notice;
     }
 
-    public static Notification mockNotificationWithoutResources() {
-        Notification notification = buildNotification();
-        notification.getMessages().add(mockMessageWithoutResources());
-        return notification;
+    public static Notice mockNoticeWithoutResources() {
+        Notice notice = buildNotice();
+        notice.getMessages().add(mockMessageWithoutResources());
+        return notice;
     }
 
-    public static Notification mockNotificationWithoutResources(String urn, String sendingApplication, String messageText) {
-        Notification notification = mockNotificationWithoutResources();
-        notification.setUrn(urn);
-        notification.setSendingApplication(sendingApplication);
-        notification.getMessages().get(0).setText(messageText);
+    public static Notice mockNoticeWithoutResources(String urn, String sendingApplication, String messageText) {
+        Notice notice = mockNoticeWithoutResources();
+        notice.setUrn(urn);
+        notice.setSendingApplication(sendingApplication);
+        notice.getMessages().get(0).setText(messageText);
 
-        return notification;
+        return notice;
     }
 
-    private static Notification buildNotification() {
-        Notification notification = new Notification(mockString(6), mockSentence(4), NotificationType.NOTIFICATION);
-        notification.setCreatedDate(new DateTime(2012, 1, 1, 1, 1, 1, 1));
-        notification.setExpirationDate(new DateTime(2013, 1, 1, 1, 1, 1, 1));
+    private static Notice buildNotice() {
+        Notice notice = new Notice(mockString(6), mockSentence(4), NoticeType.NOTIFICATION);
+        notice.setCreatedDate(new DateTime(2012, 1, 1, 1, 1, 1, 1));
+        notice.setExpirationDate(new DateTime(2013, 1, 1, 1, 1, 1, 1));
 
         // Role
         Role role = new Role();
         role.setName("ADMINISTRADOR");
-        notification.addRole(role);
+        notice.addRole(role);
 
         // StatisticalOperation
         StatisticalOperation statisticalOperation = new StatisticalOperation();
         statisticalOperation.setName("urn:siemac:org.siemac.metamac.infomodel.statisticaloperations.Operation=operation01");
-        notification.addStatisticalOperation(statisticalOperation);
+        notice.addStatisticalOperation(statisticalOperation);
 
         // Receivers
         for (int i = 1; i < 6; i++) {
             Receiver receiverElement = new Receiver();
             receiverElement.setUsername("user-" + i);
-            notification.addReceiver(receiverElement);
+            notice.addReceiver(receiverElement);
         }
-        return notification;
+        return notice;
     }
 
     // -----------------------------------------------------------------

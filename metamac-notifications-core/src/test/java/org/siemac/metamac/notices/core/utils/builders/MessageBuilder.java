@@ -2,14 +2,14 @@ package org.siemac.metamac.notices.core.utils.builders;
 
 import org.siemac.metamac.notices.core.common.domain.ExternalItem;
 import org.siemac.metamac.notices.core.notice.domain.Message;
-import org.siemac.metamac.notices.core.utils.mocks.templates.NotificationsDoMocks;
+import org.siemac.metamac.notices.core.utils.mocks.templates.NoticesDoMocks;
 
 public class MessageBuilder extends MessageBuilderBase<MessageBuilder> {
 
     // By default we generate mock values for required-in-creation fields
     // This lets a simple interface for the builder
     public static MessageBuilder message() {
-        String text = NotificationsDoMocks.mockSentence(10);
+        String text = NoticesDoMocks.mockSentence(10);
         return new MessageBuilder(text);
     }
 
