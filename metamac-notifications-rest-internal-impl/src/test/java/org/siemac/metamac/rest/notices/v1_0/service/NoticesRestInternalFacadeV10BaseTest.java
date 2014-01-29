@@ -1,4 +1,4 @@
-package org.siemac.metamac.rest.notifications.v1_0.service;
+package org.siemac.metamac.rest.notices.v1_0.service;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
@@ -29,8 +29,8 @@ import org.junit.Test;
 import org.siemac.metamac.core.common.conf.ConfigurationService;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.core.common.util.ApplicationContextProvider;
-import org.siemac.metamac.notices.core.notice.serviceapi.NotificationService;
-import org.siemac.metamac.notices.core.utils.mocks.factories.NotificationMockFactory;
+import org.siemac.metamac.notices.core.notice.serviceapi.NoticesService;
+import org.siemac.metamac.notices.core.utils.mocks.factories.NoticeMockFactory;
 import org.siemac.metamac.notices.rest.internal.v1_0.service.NoticesV1_0;
 import org.siemac.metamac.rest.common.test.MetamacRestBaseTest;
 import org.siemac.metamac.rest.common.test.ServerResource;
@@ -39,19 +39,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 
-public abstract class NotificationsRestInternalFacadeV10BaseTest extends MetamacRestBaseTest {
+public abstract class NoticesRestInternalFacadeV10BaseTest extends MetamacRestBaseTest {
 
-    protected static Logger             logger             = LoggerFactory.getLogger(NotificationsRestInternalFacadeV10BaseTest.class);
+    protected static Logger             logger             = LoggerFactory.getLogger(NoticesRestInternalFacadeV10BaseTest.class);
 
     protected static String             NOT_EXISTS         = "NOT_EXISTS";
 
-    private static String               jaxrsServerAddress = "http://localhost:" + ServerResource.PORT + "/apis/notifications-internal";
+    private static String               jaxrsServerAddress = "http://localhost:" + ServerResource.PORT + "/apis/notices-internal";
     protected String                    baseApi            = jaxrsServerAddress + "/v1.0";
     protected static ApplicationContext applicationContext = null;
     protected static NoticesV1_0        noticesRestInternalFacadeClientXml;
     private static String               apiEndpointv10;
 
-    private NotificationService         notificationService;
+    private NoticesService              noticesService;
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     @BeforeClass
@@ -75,7 +75,7 @@ public abstract class NotificationsRestInternalFacadeV10BaseTest extends Metamac
     @Before
     public void setUp() throws Exception {
         ConfigurationService configurationService = applicationContext.getBean(ConfigurationService.class);
-        apiEndpointv10 = configurationService.retrieveNotificationsInternalApiUrlBase() + "/v1.0";
+        apiEndpointv10 = configurationService.retrieveNoticesInternalApiUrlBase() + "/v1.0";
 
         resetMocks();
     }
@@ -92,7 +92,7 @@ public abstract class NotificationsRestInternalFacadeV10BaseTest extends Metamac
         assertTrue(StringUtils.isBlank(IOUtils.toString(responseActual)));
     }
 
-    protected NoticesV1_0 getNotificationsRestInternalFacadeClientXml() {
+    protected NoticesV1_0 getNoticesRestInternalFacadeClientXml() {
         WebClient.client(noticesRestInternalFacadeClientXml).reset();
         WebClient.client(noticesRestInternalFacadeClientXml).accept(APPLICATION_XML);
         return noticesRestInternalFacadeClientXml;
@@ -131,21 +131,18 @@ public abstract class NotificationsRestInternalFacadeV10BaseTest extends Metamac
         System.out.println("-------------------");
     }
 
-    private void mockRetrieveNotificationByUrn() throws MetamacException {
-        when(notificationService.retrieveNotificationByUrn(any(ServiceContext.class), eq(NotificationMockFactory.NOTIFICATION_01_URN))).thenReturn(
-                NotificationMockFactory.getNotification01WithConditions());
-        when(notificationService.retrieveNotificationByUrn(any(ServiceContext.class), eq(NotificationMockFactory.NOTIFICATION_02_URN))).thenReturn(
-                NotificationMockFactory.getNotification02WithReceivers());
-        when(notificationService.retrieveNotificationByUrn(any(ServiceContext.class), eq(NotificationMockFactory.NOTIFICATION_03_URN))).thenReturn(
-                NotificationMockFactory.getNotification03WithResources());
-        when(notificationService.retrieveNotificationByUrn(any(ServiceContext.class), eq(NOT_EXISTS))).thenReturn(null);
+    private void mockRetrieveNoticeByUrn() throws MetamacException {
+        when(noticesService.retrieveNoticeByUrn(any(ServiceContext.class), eq(NoticeMockFactory.NOTIFICATION_01_URN))).thenReturn(NoticeMockFactory.getNotice01WithConditions());
+        when(noticesService.retrieveNoticeByUrn(any(ServiceContext.class), eq(NoticeMockFactory.NOTIFICATION_02_URN))).thenReturn(NoticeMockFactory.getNotice02WithReceivers());
+        when(noticesService.retrieveNoticeByUrn(any(ServiceContext.class), eq(NoticeMockFactory.NOTIFICATION_03_URN))).thenReturn(NoticeMockFactory.getNotice03WithResources());
+        when(noticesService.retrieveNoticeByUrn(any(ServiceContext.class), eq(NOT_EXISTS))).thenReturn(null);
     }
 
     private void resetMocks() throws Exception {
-        notificationService = applicationContext.getBean(NotificationService.class);
-        reset(notificationService);
+        noticesService = applicationContext.getBean(NoticesService.class);
+        reset(noticesService);
 
-        mockRetrieveNotificationByUrn();
+        mockRetrieveNoticeByUrn();
     }
 
 }

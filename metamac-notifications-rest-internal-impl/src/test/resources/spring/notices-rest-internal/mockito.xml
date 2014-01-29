@@ -4,8 +4,8 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"    
         xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
     
-    <bean id="notificationService" class="org.mockito.Mockito" factory-method="mock">
-        <constructor-arg value="org.siemac.metamac.notices.core.notice.serviceapi.NotificationService" />
+    <bean id="noticeService" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="org.siemac.metamac.notices.core.notice.serviceapi.NoticesService" />
     </bean>
     
     <bean id="externalItemRepository" class="org.mockito.Mockito" factory-method="mock">

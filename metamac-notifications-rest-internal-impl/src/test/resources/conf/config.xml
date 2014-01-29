@@ -4,6 +4,6 @@
         <system />
         <properties fileName="${environment.metamac.data}/common/conf/static/resources.xml" basePath="" config-optional="false" />
         <properties fileName="${environment.metamac.data}/common/conf/static/api-endpoints.xml" basePath="" config-optional="false" />
-        <properties fileName="${environment.metamac.data}/notifications/conf/static/resources.xml" basePath="" config-optional="false" />
+        <properties fileName="${environment.metamac.data}/notices/conf/static/resources.xml" basePath="" config-optional="false" />
     </override>
 </configuration>

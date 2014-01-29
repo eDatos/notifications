@@ -15,9 +15,9 @@
             http://www.springframework.org/schema/tx   http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
 
     <aop:config>
-        <aop:pointcut id="restServiceNotificationsInternal" expression="execution(public * org.siemac.metamac.notifications.rest.internal..service.*.*(..))" />  
+        <aop:pointcut id="restServiceNoticesInternal" expression="execution(public * org.siemac.metamac.notices.rest.internal..service.*.*(..))" />  
         
-        <aop:advisor pointcut-ref="restServiceNotificationsInternal" advice-ref="txAdvice" order="1" />
+        <aop:advisor pointcut-ref="restServiceNoticesInternal" advice-ref="txAdvice" order="1" />
     </aop:config> 
 
 </beans>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<notice:notification xmlns:notice="http://www.siemac.org/metamac/rest/notifications/v1.0/domain" xmlns:cdomain="http://www.siemac.org/metamac/rest/common/v1.0/domain"
-    xsi:schemaLocation="http://www.siemac.org/metamac/rest/notifications/v1.0/domain metamac-notifications-rest-internal-domain-v1.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kind="notifications#notification">
+<notice:notice xmlns:notice="http://www.siemac.org/metamac/rest/notices/v1.0/domain" xmlns:cdomain="http://www.siemac.org/metamac/rest/common/v1.0/domain"
+    xsi:schemaLocation="http://www.siemac.org/metamac/rest/notices/v1.0/domain metamac-notices-rest-internal-domain-v1.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kind="notices#notice">
     <notice:id>urn:siemac:org.siemac.metamac.infomodel.notices.Notice=NOTIFICATION_02_WITH_RECEIVERS</notice:id>
     <notice:urn>urn:siemac:org.siemac.metamac.infomodel.notices.Notice=NOTIFICATION_02_WITH_RECEIVERS</notice:urn>
-    <notice:selfLink kind="notifications#notification" href="http://estadisticas.arte-consultores.com/notices-internal/apis/notifications-internal/v1.0/notifications/urn:siemac:org.siemac.metamac.infomodel.notices.Notice=NOTIFICATION_02_WITH_RECEIVERS"/>
-    <notice:parentLink kind="notifications#notification" href="http://estadisticas.arte-consultores.com/notices-internal/apis/notifications-internal/v1.0/notifications"/>
-    <notice:notificationType>NOTIFICATION</notice:notificationType>
+    <notice:selfLink kind="notices#notice" href="http://estadisticas.arte-consultores.com/notices-internal/apis/notices-internal/v1.0/notices/urn:siemac:org.siemac.metamac.infomodel.notices.Notice=NOTIFICATION_02_WITH_RECEIVERS"/>
+    <notice:parentLink kind="notices#notice" href="http://estadisticas.arte-consultores.com/notices-internal/apis/notices-internal/v1.0/notices"/>
+    <notice:noticeType>NOTIFICATION</notice:noticeType>
     <notice:sendingApplication>TEST-APPLICATION</notice:sendingApplication>
     <notice:sendingDate>2012-01-01T01:01:01.001Z</notice:sendingDate>
     <notice:subject>Test subject</notice:subject>
@@ -31,4 +31,4 @@
             <notice:username>user-5</notice:username>
         </notice:receiver>
     </notice:receivers>
-</notice:notification>
+</notice:notice>

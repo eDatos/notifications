@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<notice:notification
-	xmlns:notice="http://www.siemac.org/metamac/rest/notifications/v1.0/domain"
+<notice:notice
+	xmlns:notice="http://www.siemac.org/metamac/rest/notices/v1.0/domain"
 	xmlns:cdomain="http://www.siemac.org/metamac/rest/common/v1.0/domain"
-    xsi:schemaLocation="http://www.siemac.org/metamac/rest/notifications/v1.0/domain metamac-notifications-rest-internal-domain-v1.0.xsd" 
+    xsi:schemaLocation="http://www.siemac.org/metamac/rest/notices/v1.0/domain metamac-notices-rest-internal-domain-v1.0.xsd" 
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     
 	<notice:sendingApplication>application</notice:sendingApplication>
 	<notice:sendingUser>user</notice:sendingUser>
 	<notice:email>user@domain.com</notice:email>
-	<notice:notificationType>NOTIFICATION</notice:notificationType>
+	<notice:noticeType>NOTIFICATION</notice:noticeType>
 	<notice:expirationDate>2013-11-11T12:15:08.606Z</notice:expirationDate>
 	<notice:role>ADMIN</notice:role>
 	<notice:statisticalOperation kind="operations#operation">
@@ -46,4 +46,4 @@
 			<notice:username>user-4</notice:username>
 		</notice:receiver>
 	</notice:receivers>
-</notice:notification>
+</notice:notice>

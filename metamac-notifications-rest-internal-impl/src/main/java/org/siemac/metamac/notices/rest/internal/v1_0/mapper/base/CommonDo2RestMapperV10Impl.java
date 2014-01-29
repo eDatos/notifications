@@ -1,4 +1,4 @@
-package org.siemac.metamac.notifications.rest.internal.v1_0.mapper.base;
+package org.siemac.metamac.notices.rest.internal.v1_0.mapper.base;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -10,12 +10,12 @@ import org.siemac.metamac.core.common.conf.ConfigurationService;
 import org.siemac.metamac.core.common.enume.utils.TypeExternalArtefactsEnumUtils;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.notices.core.common.domain.ExternalItem;
-import org.siemac.metamac.notifications.rest.internal.NotificationsRestConstants;
+import org.siemac.metamac.notices.rest.internal.constants.NoticesRestConstants;
 import org.siemac.metamac.rest.common.v1_0.domain.InternationalString;
 import org.siemac.metamac.rest.common.v1_0.domain.LocalisedString;
 import org.siemac.metamac.rest.common.v1_0.domain.ResourceLink;
-import org.siemac.metamac.rest.notifications.v1_0.domain.ResourceInternal;
-import org.siemac.metamac.rest.notifications.v1_0.domain.ResourcesInternal;
+import org.siemac.metamac.rest.notices.v1_0.domain.ResourceInternal;
+import org.siemac.metamac.rest.notices.v1_0.domain.ResourcesInternal;
 import org.siemac.metamac.rest.utils.RestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,7 +26,7 @@ public class CommonDo2RestMapperV10Impl implements CommonDo2RestMapperV10 {
     @Autowired
     private ConfigurationService configurationService;
 
-    private String               notificationsApiInternalEndpointV10;
+    private String               noticesApiInternalEndpointV10;
 
     private String               statisticalResourcesApiInternalEndpoint;
     private String               srmApiInternalEndpoint;
@@ -68,9 +68,9 @@ public class CommonDo2RestMapperV10Impl implements CommonDo2RestMapperV10 {
     }
 
     private void initApiEndpoints() throws MetamacException {
-        // Notifications internal API v1.0
-        String notificationsApiInternalEndpoint = configurationService.retrieveNotificationsInternalApiUrlBase();
-        notificationsApiInternalEndpointV10 = RestUtils.createLink(notificationsApiInternalEndpoint, NotificationsRestConstants.API_VERSION_1_0);
+        // Notices internal API v1.0
+        String noticesApiInternalEndpoint = configurationService.retrieveNoticesInternalApiUrlBase();
+        noticesApiInternalEndpointV10 = RestUtils.createLink(noticesApiInternalEndpoint, NoticesRestConstants.API_VERSION_1_0);
 
         // Statistical operations internal Api (do not add api version! it is already stored in database (~latest))
         statisticalOperationsApiInternalEndpoint = configurationService.retrieveStatisticalOperationsInternalApiUrlBase();
@@ -186,7 +186,7 @@ public class CommonDo2RestMapperV10Impl implements CommonDo2RestMapperV10 {
     // API/[ARTEFACT_TYPE]/{code}
     @Override
     public String toResourceLink(String resourceSubpath, String code) {
-        String link = RestUtils.createLink(notificationsApiInternalEndpointV10, resourceSubpath);
+        String link = RestUtils.createLink(noticesApiInternalEndpointV10, resourceSubpath);
 
         if (StringUtils.isNotBlank(code)) {
             link = RestUtils.createLink(link, code);

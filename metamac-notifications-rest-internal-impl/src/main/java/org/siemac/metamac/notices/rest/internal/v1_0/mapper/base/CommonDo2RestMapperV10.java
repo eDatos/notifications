@@ -1,4 +1,4 @@
-package org.siemac.metamac.notifications.rest.internal.v1_0.mapper.base;
+package org.siemac.metamac.notices.rest.internal.v1_0.mapper.base;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.notices.core.common.domain.ExternalItem;
 import org.siemac.metamac.rest.common.v1_0.domain.InternationalString;
 import org.siemac.metamac.rest.common.v1_0.domain.ResourceLink;
-import org.siemac.metamac.rest.notifications.v1_0.domain.ResourceInternal;
-import org.siemac.metamac.rest.notifications.v1_0.domain.ResourcesInternal;
+import org.siemac.metamac.rest.notices.v1_0.domain.ResourceInternal;
+import org.siemac.metamac.rest.notices.v1_0.domain.ResourcesInternal;
 
 public interface CommonDo2RestMapperV10 {
 

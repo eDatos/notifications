@@ -1,4 +1,4 @@
-package org.siemac.metamac.notifications.rest.internal.v1_0.mapper.notification;
+package org.siemac.metamac.notices.rest.internal.v1_0.mapper.notice;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -11,43 +11,43 @@ import org.siemac.metamac.notices.core.notice.domain.Message;
 import org.siemac.metamac.notices.core.notice.domain.Receiver;
 import org.siemac.metamac.notices.core.notice.domain.Role;
 import org.siemac.metamac.notices.core.notice.domain.StatisticalOperation;
-import org.siemac.metamac.notifications.rest.internal.NotificationsRestConstants;
-import org.siemac.metamac.notifications.rest.internal.v1_0.mapper.base.CommonDo2RestMapperV10;
+import org.siemac.metamac.notices.rest.internal.constants.NoticesRestConstants;
+import org.siemac.metamac.notices.rest.internal.v1_0.mapper.base.CommonDo2RestMapperV10;
 import org.siemac.metamac.rest.common.v1_0.domain.ResourceLink;
-import org.siemac.metamac.rest.notifications.v1_0.domain.Application;
-import org.siemac.metamac.rest.notifications.v1_0.domain.Applications;
-import org.siemac.metamac.rest.notifications.v1_0.domain.Messages;
-import org.siemac.metamac.rest.notifications.v1_0.domain.Notification;
-import org.siemac.metamac.rest.notifications.v1_0.domain.NotificationType;
-import org.siemac.metamac.rest.notifications.v1_0.domain.Receivers;
-import org.siemac.metamac.rest.notifications.v1_0.domain.Roles;
-import org.siemac.metamac.rest.notifications.v1_0.domain.StatisticalOperations;
+import org.siemac.metamac.rest.notices.v1_0.domain.Application;
+import org.siemac.metamac.rest.notices.v1_0.domain.Applications;
+import org.siemac.metamac.rest.notices.v1_0.domain.Messages;
+import org.siemac.metamac.rest.notices.v1_0.domain.Notice;
+import org.siemac.metamac.rest.notices.v1_0.domain.NoticeType;
+import org.siemac.metamac.rest.notices.v1_0.domain.Receivers;
+import org.siemac.metamac.rest.notices.v1_0.domain.Roles;
+import org.siemac.metamac.rest.notices.v1_0.domain.StatisticalOperations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class NotificationsDo2RestMapperv10Impl implements NotificationsDo2RestMapperV10 {
+public class NoticesDo2RestMapperv10Impl implements NoticesDo2RestMapperV10 {
 
     @Autowired
     private CommonDo2RestMapperV10 commonDo2RestMapper;
 
     @Override
-    public Notification notificationEntity2Rest(ServiceContext ctx, org.siemac.metamac.notices.core.notice.domain.Notification source) throws MetamacException {
+    public Notice noticeEntity2Rest(ServiceContext ctx, org.siemac.metamac.notices.core.notice.domain.Notice source) throws MetamacException {
         if (source == null) {
             return null;
         }
 
-        Notification target = new Notification();
+        Notice target = new Notice();
 
-        target.setKind(NotificationsRestConstants.KIND_NOTIFICATION);
+        target.setKind(NoticesRestConstants.KIND_NOTICE);
         // FIXME: poner el code en lugar de la URN
         target.setId(source.getUrn());
         target.setUrn(source.getUrn());
         // FIXME: cambiar code por urn
-        target.setSelfLink(toNotificationSelfLink(source.getUrn()));
-        target.setParentLink(toNotificationParentLink(source));
+        target.setSelfLink(toNoticeSelfLink(source.getUrn()));
+        target.setParentLink(toNoticeParentLink(source));
 
-        target.setNotificationType(NotificationType.fromValue(source.getNotificationType().getName()));
+        target.setNoticeType(NoticeType.fromValue(source.getNoticeType().getName()));
         target.setSendingApplication(source.getSendingApplication());
         target.setSendingUser(source.getSendingUser());
         target.setSendingDate(CoreCommonUtil.transformDateTimeToDate(source.getCreatedDate()));
@@ -63,13 +63,13 @@ public class NotificationsDo2RestMapperv10Impl implements NotificationsDo2RestMa
         return target;
     }
 
-    private ResourceLink toNotificationSelfLink(String code) {
-        String link = commonDo2RestMapper.toResourceLink(NotificationsRestConstants.LINK_SUBPATH_NOTIFICATION, code);
-        return commonDo2RestMapper.uriToResourceLink(NotificationsRestConstants.KIND_NOTIFICATION, link);
+    private ResourceLink toNoticeSelfLink(String code) {
+        String link = commonDo2RestMapper.toResourceLink(NoticesRestConstants.LINK_SUBPATH_NOTICES, code);
+        return commonDo2RestMapper.uriToResourceLink(NoticesRestConstants.KIND_NOTICE, link);
     }
 
-    private ResourceLink toNotificationParentLink(org.siemac.metamac.notices.core.notice.domain.Notification source) {
-        return toNotificationSelfLink(null);
+    private ResourceLink toNoticeParentLink(org.siemac.metamac.notices.core.notice.domain.Notice source) {
+        return toNoticeSelfLink(null);
     }
 
     private StatisticalOperations statisticalOperationsToRest(List<StatisticalOperation> source) {
@@ -79,7 +79,7 @@ public class NotificationsDo2RestMapperv10Impl implements NotificationsDo2RestMa
 
         StatisticalOperations statisticalOperations = new StatisticalOperations();
         for (StatisticalOperation statisticalOperation : source) {
-            org.siemac.metamac.rest.notifications.v1_0.domain.StatisticalOperation targetStatisticalOperation = new org.siemac.metamac.rest.notifications.v1_0.domain.StatisticalOperation();
+            org.siemac.metamac.rest.notices.v1_0.domain.StatisticalOperation targetStatisticalOperation = new org.siemac.metamac.rest.notices.v1_0.domain.StatisticalOperation();
             targetStatisticalOperation.setUrn(statisticalOperation.getName());
             statisticalOperations.getStatisticalOperations().add(targetStatisticalOperation);
         }
@@ -96,7 +96,7 @@ public class NotificationsDo2RestMapperv10Impl implements NotificationsDo2RestMa
 
         Roles roles = new Roles();
         for (Role role : source) {
-            org.siemac.metamac.rest.notifications.v1_0.domain.Role targetRole = new org.siemac.metamac.rest.notifications.v1_0.domain.Role();
+            org.siemac.metamac.rest.notices.v1_0.domain.Role targetRole = new org.siemac.metamac.rest.notices.v1_0.domain.Role();
             targetRole.setName(role.getName());
             roles.getRoles().add(targetRole);
         }
@@ -130,7 +130,7 @@ public class NotificationsDo2RestMapperv10Impl implements NotificationsDo2RestMa
 
         Receivers receivers = new Receivers();
         for (org.siemac.metamac.notices.core.notice.domain.Receiver sourceReceiver : source) {
-            org.siemac.metamac.rest.notifications.v1_0.domain.Receiver targetReceiver = new org.siemac.metamac.rest.notifications.v1_0.domain.Receiver();
+            org.siemac.metamac.rest.notices.v1_0.domain.Receiver targetReceiver = new org.siemac.metamac.rest.notices.v1_0.domain.Receiver();
             targetReceiver.setUsername(sourceReceiver.getUsername());
             receivers.getReceivers().add(targetReceiver);
         }
@@ -147,7 +147,7 @@ public class NotificationsDo2RestMapperv10Impl implements NotificationsDo2RestMa
 
         Messages messages = new Messages();
         for (Message sourceMessage : source) {
-            org.siemac.metamac.rest.notifications.v1_0.domain.Message targetMessage = new org.siemac.metamac.rest.notifications.v1_0.domain.Message();
+            org.siemac.metamac.rest.notices.v1_0.domain.Message targetMessage = new org.siemac.metamac.rest.notices.v1_0.domain.Message();
             targetMessage.setText(sourceMessage.getText());
             targetMessage.setResources(commonDo2RestMapper.externalItemEntityListToRest(sourceMessage.getResources()));
             messages.getMessages().add(targetMessage);

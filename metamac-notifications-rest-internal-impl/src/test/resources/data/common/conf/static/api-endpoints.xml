@@ -6,7 +6,7 @@
     <entry key="metamac.common_metadata.rest.external">http://estadisticas.arte-consultores.com/common-metadata/apis/cmetadata</entry>
     <entry key="metamac.statistical_resources.rest.internal">http://estadisticas.arte-consultores.com/statistical-resources-internal/apis/statistical-resources</entry>
     <entry key="metamac.access_control.rest.internal">http://estadisticas.arte-consultores.com/access-control-internal/apis/access-control-internal</entry>
-    <entry key="metamac.notifications.rest.internal">http://estadisticas.arte-consultores.com/notices-internal/apis/notifications-internal</entry>
+    <entry key="metamac.notices.rest.internal">http://estadisticas.arte-consultores.com/notices-internal/apis/notices-internal</entry>
     
     <entry key="metamac.srm.web.internal">http://estadisticas.arte-consultores.com/structural-resources-internal/</entry>
     <entry key="metamac.statistical_operations.web.internal">http://estadisticas.arte-consultores.com/statistical-operations-internal/</entry>

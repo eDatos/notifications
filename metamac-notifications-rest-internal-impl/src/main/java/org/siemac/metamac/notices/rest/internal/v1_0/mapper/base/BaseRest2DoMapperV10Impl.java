@@ -1,4 +1,4 @@
-package org.siemac.metamac.notifications.rest.internal.v1_0.mapper.base;
+package org.siemac.metamac.notices.rest.internal.v1_0.mapper.base;
 
 import javax.ws.rs.core.Response.Status;
 
@@ -6,7 +6,7 @@ import org.fornax.cartridges.sculptor.framework.domain.LeafProperty;
 import org.fornax.cartridges.sculptor.framework.domain.Property;
 import org.siemac.metamac.core.common.constants.CoreCommonConstants;
 import org.siemac.metamac.core.common.util.CoreCommonUtil;
-import org.siemac.metamac.notifications.rest.internal.exception.NotificationsRestServiceExceptionType;
+import org.siemac.metamac.notices.rest.internal.exception.NoticesRestServiceExceptionType;
 import org.siemac.metamac.rest.common.query.domain.MetamacRestQueryPropertyRestriction;
 import org.siemac.metamac.rest.exception.RestException;
 import org.siemac.metamac.rest.exception.utils.RestExceptionUtils;
@@ -82,7 +82,7 @@ public abstract class BaseRest2DoMapperV10Impl {
     }
 
     protected RestException toRestExceptionParameterIncorrect(String parameter) {
-        org.siemac.metamac.rest.common.v1_0.domain.Exception exception = RestExceptionUtils.getException(NotificationsRestServiceExceptionType.PARAMETER_INCORRECT, parameter);
+        org.siemac.metamac.rest.common.v1_0.domain.Exception exception = RestExceptionUtils.getException(NoticesRestServiceExceptionType.PARAMETER_INCORRECT, parameter);
         throw new RestException(exception, Status.INTERNAL_SERVER_ERROR);
     }
 

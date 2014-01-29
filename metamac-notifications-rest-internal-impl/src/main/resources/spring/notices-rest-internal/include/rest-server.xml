@@ -10,14 +10,14 @@
     <import resource="classpath:META-INF/cxf/cxf.xml" />
     <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
 
-    <jaxrs:server id="restInternal" address="/notifications-internal">
+    <jaxrs:server id="restInternal" address="/notices-internal">
 
         <jaxrs:features>
             <cxf:logging />
         </jaxrs:features>
 
         <jaxrs:serviceBeans>
-            <ref bean="notificationsRestInternalFacadeV10" />
+            <ref bean="noticesRestInternalFacadeV10" />
         </jaxrs:serviceBeans>
 
         <jaxrs:extensionMappings>
@@ -47,7 +47,7 @@
             <value type="java.lang.Boolean">true</value>
         </entry>
         <entry key="jaxb.schemaLocation">
-            <value type="java.lang.String">http://www.siemac.org/metamac/rest/notifications/v1.0/domain metamac-notifications-rest-internal-domain-v1.0.xsd</value>
+            <value type="java.lang.String">http://www.siemac.org/metamac/rest/notices/v1.0/domain metamac-notices-rest-internal-domain-v1.0.xsd</value>
         </entry>
     </util:map>
 </beans>
