@@ -25,8 +25,6 @@
         </property>
     </bean>
     
-<!--     <bean id="translateExceptions" class="org.siemac.metamac.notices.core.error.utils.NotificationsTranslateExceptions"/> -->
-    
     <!-- metamac-core-common -->
     <import resource="classpath:/spring/error-beans-advice.xml" />
     <import resource="classpath:/spring/general-beans-advice.xml" />
