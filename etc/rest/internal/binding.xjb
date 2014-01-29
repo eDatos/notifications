@@ -3,7 +3,7 @@
 	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	xmlns:xjc= "http://java.sun.com/xml/ns/jaxb/xjc" jaxb:extensionBindingPrefixes="xjc"
-	schemaLocation="metamac-notifications-rest-internal-domain-v1.0.xsd">
+	schemaLocation="metamac-notices-rest-internal-domain-v1.0.xsd">
 
 	<jaxb:globalBindings> 
 		<xjc:simple/> 
