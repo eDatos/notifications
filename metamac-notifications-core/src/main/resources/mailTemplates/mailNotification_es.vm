@@ -3,15 +3,15 @@ Avisos de ISTACbase
 
 -----------------------------------------------------
 
-- Aplicación emisora: ${notification.sendingApplication}
+- Aplicación emisora: ${notice.sendingApplication}
 - Fecha de creación: ${createdDate}
-#if( "$!notification.sendingUser" != "" )
-- Usuario emisor:  ${notification.sendingUser}
+#if( "$!notice.sendingUser" != "" )
+- Usuario emisor:  ${notice.sendingUser}
 #end
-- Urn de aviso: ${notification.urn}
-- Tipo de aviso: ${notification.notificationType}
+- Urn de aviso: ${notice.urn}
+- Tipo de aviso: ${notice.noticeType}
 
 - Mensajes:
-	#foreach( $item in ${notification.messages} )
+	#foreach( $item in ${notice.messages} )
 	  -- $item.text
 	#end

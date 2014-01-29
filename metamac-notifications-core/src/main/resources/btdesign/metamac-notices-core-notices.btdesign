@@ -1,4 +1,4 @@
-import "classpath:/btdesign/metamac-notifications-core-common.btdesign"
+import "classpath:/btdesign/metamac-notices-core-common.btdesign"
 
 Application Notices { 
 	basePackage=unused
@@ -6,7 +6,7 @@ Application Notices {
 	Module enume_notice {
 		basePackage=org.siemac.metamac.notices.core.notice.enume
 		
-		enum NotificationType {
+		enum NoticeType {
     		NOTIFICATION,
     		ADVERTISEMENT
     	}
@@ -20,18 +20,18 @@ Application Notices {
 		// 							SERVICES
 		// ----------------------------------------------------------------
 		
-		Service NotificationService {
-			> @NotificationRepository
+		Service NoticesService {
+			> @NoticeRepository
 			> @ReceiverRepository
 			
-			// Notifications
-			@Notification findNotificationById(Long id) throws MetamacException;
-			@Notification retrieveNotificationByUrn(String urn) throws MetamacException;
-			@Notification createNotification(@Notification notification) throws MetamacException;
-    		@Notification updateNotification(@Notification notification) throws MetamacException;
-    		deleteNotification(Long id) throws MetamacException;
-    		List<@Notification> findAllNotification throws MetamacException;
-    		List<@Notification> findNotificationByCondition(List<ConditionalCriteria> condition) throws MetamacException;
+			// Notices
+			@Notice findNoticeById(Long id) throws MetamacException;
+			@Notice retrieveNoticeByUrn(String urn) throws MetamacException;
+			@Notice createNotice(@Notice notice) throws MetamacException;
+    		@Notice updateNotice(@Notice notice) throws MetamacException;
+    		deleteNotice(Long id) throws MetamacException;
+    		List<@Notice> findAllNotice throws MetamacException;
+    		List<@Notice> findNoticeByCondition(List<ConditionalCriteria> condition) throws MetamacException;
 			
 		}  
 
@@ -39,9 +39,9 @@ Application Notices {
 		// 							ENTITIES
 		// ---------------------------------------------------------------- 
 
-		Entity Notification {
-			databaseTable="TB_NOTIFICATIONS"
-			hint="idSequence=NOTIFICATIONS"
+		Entity Notice {
+			databaseTable="TB_NOTICES"
+			hint="idSequence=NOTICES"
 			
 			"Added explicitly to avoid that Sculptor generate UUID"
 			Long id key;
@@ -52,27 +52,27 @@ Application Notices {
 			String sendingApplication required;
 			"Sending user"
 			String sendingUser nullable;
-       		"Expiration date. Only valid when notificationType is ADVERTISEMENT"
+       		"Expiration date. Only valid when noticeType is ADVERTISEMENT"
 			DateTimeTZ expirationDate nullable; 
-       		"Type of notification"
-       		- @NotificationType notificationType required;
+       		"Type of notice"
+       		- @NoticeType noticeType required;
        		"Mark"
 			boolean mark;
 			
 			"Subject"
 			String subject required length="4000";
 			"Messages"
-			- Bag<@Message> messages cascade="all-delete-orphan" fetch="lazy" inverse <-> notification;
-       		"Required roles access for notification"
-       		- Bag<@Role> roles cascade="all-delete-orphan" fetch="lazy" inverse <-> notification;
+			- Bag<@Message> messages cascade="all-delete-orphan" fetch="lazy" inverse <-> notice;
+       		"Required roles access for notice"
+       		- Bag<@Role> roles cascade="all-delete-orphan" fetch="lazy" inverse <-> notice;
        		"Receivers"
-			- Bag<@Receiver> receivers cascade="all-delete-orphan" fetch="lazy" inverse <-> notification;
+			- Bag<@Receiver> receivers cascade="all-delete-orphan" fetch="lazy" inverse <-> notice;
 			"Applications"
-			- Bag<@App> apps cascade="all-delete-orphan" fetch="lazy" inverse <-> notification;
-       		"Required statistical operations access for notification"
-			- Bag<@StatisticalOperation> statisticalOperations cascade="all-delete-orphan" fetch="lazy" inverse <-> notification;
+			- Bag<@App> apps cascade="all-delete-orphan" fetch="lazy" inverse <-> notice;
+       		"Required statistical operations access for notice"
+			- Bag<@StatisticalOperation> statisticalOperations cascade="all-delete-orphan" fetch="lazy" inverse <-> notice;
 			
-			Repository NotificationRepository {
+			Repository NoticeRepository {
 				save;
 				delete;
 				findAll;
@@ -80,7 +80,7 @@ Application Notices {
 				findByCondition;
 				findByCondition(PagingParameter pagingParameter);
 				findByQuery(String query, Map<String, Object> parameters, int maxResult);
-				@Notification retrieveByUrn(String urn) throws MetamacException;
+				@Notice retrieveByUrn(String urn) throws MetamacException;
 			}
 		}
 
@@ -98,8 +98,8 @@ Application Notices {
 			"Resources"
 			- Bag<@ExternalItem> resources databaseColumn="RESOURCE_FK" databaseJoinColumn="MESSAGE_FK" databaseJoinTable="TB_MESSAGE_RESOURCES" cascade="all-delete-orphan";
 
-			"Notification"
-			- @Notification notification not nullable cascade="none" databaseColumn="MESSAGE_FK" <-> messages;
+			"Notice"
+			- @Notice notice not nullable cascade="none" databaseColumn="MESSAGE_FK" <-> messages;
 			
 			Repository MessageRepository {
 				save;
@@ -126,8 +126,8 @@ Application Notices {
        		"Acknowledge‎"
        		boolean acknowledge;
 
-			"Notification"
-			- @Notification notification not nullable cascade="none" databaseColumn="RECEIVER_FK" <-> receivers;
+			"Notice"
+			- @Notice notice not nullable cascade="none" databaseColumn="RECEIVER_FK" <-> receivers;
 			
 			Repository ReceiverRepository {
 				save;
@@ -151,8 +151,8 @@ Application Notices {
 			"Semantic identifier"
        		String name not nullable;
 
-			"Notification"
-			- @Notification notification not nullable cascade="none" databaseColumn="ROLE_FK" <-> roles;
+			"Notice"
+			- @Notice notice not nullable cascade="none" databaseColumn="ROLE_FK" <-> roles;
 			
 			Repository RoleRepository {
 				save;
@@ -176,8 +176,8 @@ Application Notices {
 			"Semantic identifier"
        		String name not nullable;
 
-			"Notification"
-			- @Notification notification not nullable cascade="none" databaseColumn="APP_FK" <-> apps;
+			"Notice"
+			- @Notice notice not nullable cascade="none" databaseColumn="APP_FK" <-> apps;
 			
 			Repository AppRepository {
 				save;
@@ -201,8 +201,8 @@ Application Notices {
 			"Semantic identifier"
        		String name not nullable;
 
-			"Notification"
-			- @Notification notification not nullable cascade="none" databaseColumn="STATISTICAL_OPERATION_FK" <-> statisticalOperations;
+			"Notice"
+			- @Notice notice not nullable cascade="none" databaseColumn="STATISTICAL_OPERATION_FK" <-> statisticalOperations;
 			
 			Repository StatisticalOperationRepository {
 				save;
