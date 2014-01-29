@@ -68,5 +68,5 @@
     <import resource="classpath:/spring/notices/applicationContext.xml" />
     
     <!-- Rest -->
-    <import resource="classpath:/spring/notifications-rest-internal/applicationContext.xml" />
+    <import resource="classpath:/spring/notices-rest-internal/applicationContext.xml" />
 </beans>
