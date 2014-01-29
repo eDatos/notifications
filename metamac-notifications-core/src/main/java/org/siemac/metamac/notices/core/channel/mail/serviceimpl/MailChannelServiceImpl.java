@@ -10,10 +10,10 @@ import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.core.common.lang.LocaleUtil;
 import org.siemac.metamac.core.common.util.CoreCommonUtil;
-import org.siemac.metamac.notices.core.conf.NotificationsConfiguration;
-import org.siemac.metamac.notices.core.constants.NotificationsConstants;
-import org.siemac.metamac.notices.core.notice.domain.Notification;
-import org.siemac.metamac.notices.core.notice.enume.domain.NotificationType;
+import org.siemac.metamac.notices.core.conf.NoticesConfiguration;
+import org.siemac.metamac.notices.core.constants.NoticesConstants;
+import org.siemac.metamac.notices.core.notice.domain.Notice;
+import org.siemac.metamac.notices.core.notice.enume.domain.NoticeType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -24,21 +24,21 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
 @Component
 public class MailChannelServiceImpl implements MailChannelService {
 
-    private static final String        SUBJECT_NOTIFICATION_KEY   = "info.notifications.channel.mail.subject.notification";
-    private String                     subjectNotificationMessage = null;
+    private static final String  SUBJECT_NOTIFICATION_KEY = "info.notices.channel.mail.subject.notice";
+    private String               subjectNoticeMessage     = null;
 
     @Autowired
-    private JavaMailSender             mailSender;
+    private JavaMailSender       mailSender;
 
     @Autowired
-    private VelocityEngine             velocityEngine;
+    private VelocityEngine       velocityEngine;
 
     @Autowired
-    private NotificationsConfiguration notificationsConfiguration;
+    private NoticesConfiguration noticesConfiguration;
 
     @Override
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public void sendMail(ServiceContext serviceContext, final Notification notification, final String[] mailsTo, final String replyTo) throws MetamacException {
+    public void sendMail(ServiceContext serviceContext, final Notice notice, final String[] mailsTo, final String replyTo) throws MetamacException {
         // Prepare email
         MimeMessagePreparator preparator = new MimeMessagePreparator() {
 
@@ -46,21 +46,21 @@ public class MailChannelServiceImpl implements MailChannelService {
             public void prepare(MimeMessage mimeMessage) throws Exception {
                 // Mail configuration
                 MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
-                message.setSubject(getNotificationMailSubject());
+                message.setSubject(getNoticeMailSubject());
                 message.setTo(mailsTo);
                 message.setReplyTo(replyTo);
-                message.setFrom(notificationsConfiguration.retrieveChannelMailUsername());
+                message.setFrom(noticesConfiguration.retrieveChannelMailUsername());
 
                 // Mail data
                 Map model = new HashMap();
-                model.put("notification", notification);
-                model.put("createdDate", CoreCommonUtil.transformDateTimeToISODateTimeLexicalRepresentation(notification.getCreatedDate()));
+                model.put("notice", notice);
+                model.put("createdDate", CoreCommonUtil.transformDateTimeToISODateTimeLexicalRepresentation(notice.getCreatedDate()));
 
-                if (NotificationType.ADVERTISEMENT.equals(notification.getNotificationType())) {
-                    model.put("expirationDate", CoreCommonUtil.transformDateTimeToISODateTimeLexicalRepresentation(notification.getExpirationDate()));
+                if (NoticeType.ADVERTISEMENT.equals(notice.getNoticeType())) {
+                    model.put("expirationDate", CoreCommonUtil.transformDateTimeToISODateTimeLexicalRepresentation(notice.getExpirationDate()));
                 }
 
-                String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, NotificationsConstants.CHANNEL_MAIL_TEMPLATE_NOTIFICATION, "UTF-8", model);
+                String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, NoticesConstants.CHANNEL_MAIL_TEMPLATE_NOTIFICATION, "UTF-8", model);
                 message.setText(text, false); // Text Plain
             }
 
@@ -69,10 +69,10 @@ public class MailChannelServiceImpl implements MailChannelService {
         this.mailSender.send(preparator);
     }
 
-    private String getNotificationMailSubject() throws MetamacException {
-        if (subjectNotificationMessage == null) {
-            subjectNotificationMessage = LocaleUtil.getMessageForCode(SUBJECT_NOTIFICATION_KEY, LocaleUtil.getLocaleFromLocaleString(notificationsConfiguration.retrieveLanguageDefault()));
+    private String getNoticeMailSubject() throws MetamacException {
+        if (subjectNoticeMessage == null) {
+            subjectNoticeMessage = LocaleUtil.getMessageForCode(SUBJECT_NOTIFICATION_KEY, LocaleUtil.getLocaleFromLocaleString(noticesConfiguration.retrieveLanguageDefault()));
         }
-        return subjectNotificationMessage;
+        return subjectNoticeMessage;
     }
 }
