@@ -13,7 +13,7 @@ import org.siemac.metamac.notices.core.utils.NoticesValidationUtils;
 public class NoticesServiceInvocationValidatorImpl {
 
     // ------------------------------------------------------------------------------------
-    // NOTIFICATIONS
+    // NOTICES
     // ------------------------------------------------------------------------------------
 
     public static void checkFindNoticeById(Long id, List<MetamacExceptionItem> exceptions) {
@@ -48,7 +48,7 @@ public class NoticesServiceInvocationValidatorImpl {
     // PRIVATE METHODS
     // ------------------------------------------------------------------------
 
-    // NOTIFICATIONS
+    // NOTICES
     // --------------
 
     private static void checkNewNotice(Notice notice, List<MetamacExceptionItem> exceptions) {
