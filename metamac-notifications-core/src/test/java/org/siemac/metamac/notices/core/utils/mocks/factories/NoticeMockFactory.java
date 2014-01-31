@@ -35,7 +35,7 @@ public class NoticeMockFactory extends MetamacNoticesMockFactory<Notice> {
 
     public static Notice getNotice01WithConditions() {
         Notice notice = NoticeBuilder
-                .notice()
+                .notification()
                 .withSendingApplication("TEST-APPLICATION")
                 .withSubject("Test subject")
                 .withUrn(NOTIFICATION_01_URN)
@@ -48,7 +48,7 @@ public class NoticeMockFactory extends MetamacNoticesMockFactory<Notice> {
     }
 
     public static Notice getNotice02WithReceivers() {
-        Notice notice = NoticeBuilder.notice().withSendingApplication("TEST-APPLICATION").withSubject("Test subject").withUrn(NOTIFICATION_02_URN).withAddedMessage("Test message")
+        Notice notice = NoticeBuilder.notification().withSendingApplication("TEST-APPLICATION").withSubject("Test subject").withUrn(NOTIFICATION_02_URN).withAddedMessage("Test message")
                 .withReceivers("user-1", "user-2", "user-3", "user-4", "user-5").fillEmptyAuditableFields().build();
         return notice;
     }
@@ -64,7 +64,7 @@ public class NoticeMockFactory extends MetamacNoticesMockFactory<Notice> {
 
         Message message02 = MessageBuilder.message().withText("Message 02: without resources").build();
 
-        Notice notice = NoticeBuilder.notice().withSendingApplication("TEST-APPLICATION").withSubject("Test subject").withUrn(NOTIFICATION_03_URN)
+        Notice notice = NoticeBuilder.notification().withSendingApplication("TEST-APPLICATION").withSubject("Test subject").withUrn(NOTIFICATION_03_URN)
                 .withReceivers("user-1", "user-2", "user-3", "user-4", "user-5").withMessages(message01, message02).fillEmptyAuditableFields().build();
         return notice;
     }

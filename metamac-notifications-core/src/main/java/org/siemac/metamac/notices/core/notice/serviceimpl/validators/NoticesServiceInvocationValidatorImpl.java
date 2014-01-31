@@ -88,8 +88,8 @@ public class NoticesServiceInvocationValidatorImpl {
         NoticesValidationUtils.checkMetadataRequired(notice.getSubject(), ServiceExceptionParameters.NOTICE__SUBJECT, exceptions);
         NoticesValidationUtils.checkMetadataRequired(notice.getMessages(), ServiceExceptionParameters.NOTICE__MESSAGES, exceptions);
 
-        // when noticeType is "ADVERTISEMENT"
-        if (NoticeType.ADVERTISEMENT.equals(notice.getNoticeType())) {
+        // when noticeType is "ANNOUNCEMENT"
+        if (NoticeType.ANNOUNCEMENT.equals(notice.getNoticeType())) {
             NoticesValidationUtils.checkMetadataRequired(notice.getExpirationDate(), ServiceExceptionParameters.NOTICE__EXPIRATION_DATE, exceptions);
         }
 

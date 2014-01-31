@@ -16,17 +16,17 @@ public class NoticeBuilder extends NoticeBuilderBase<NoticeBuilder> {
     // By default we generate mock values for required-in-creation fields
     // This lets a simple interface for the builder
 
-    public static NoticeBuilder notice() {
+    public static NoticeBuilder notification() {
         String sendingApplication = NoticesDoMocks.mockString(8);
         String subject = NoticesDoMocks.mockSentence(5);
         NoticeType noticeType = NoticeType.NOTIFICATION;
         return new NoticeBuilder(sendingApplication, subject, noticeType);
     }
 
-    public static NoticeBuilder advertisement() {
+    public static NoticeBuilder announcement() {
         String sendingApplication = NoticesDoMocks.mockString(8);
         String subject = NoticesDoMocks.mockSentence(5);
-        NoticeType noticeType = NoticeType.ADVERTISEMENT;
+        NoticeType noticeType = NoticeType.ANNOUNCEMENT;
         return new NoticeBuilder(sendingApplication, subject, noticeType);
     }
 

@@ -56,7 +56,7 @@ public class MailChannelServiceImpl implements MailChannelService {
                 model.put("notice", notice);
                 model.put("createdDate", CoreCommonUtil.transformDateTimeToISODateTimeLexicalRepresentation(notice.getCreatedDate()));
 
-                if (NoticeType.ADVERTISEMENT.equals(notice.getNoticeType())) {
+                if (NoticeType.ANNOUNCEMENT.equals(notice.getNoticeType())) {
                     model.put("expirationDate", CoreCommonUtil.transformDateTimeToISODateTimeLexicalRepresentation(notice.getExpirationDate()));
                 }
 

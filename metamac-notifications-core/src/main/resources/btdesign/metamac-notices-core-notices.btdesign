@@ -8,7 +8,7 @@ Application Notices {
 		
 		enum NoticeType {
     		NOTIFICATION,
-    		ADVERTISEMENT
+    		ANNOUNCEMENT
     	}
     	
 	}
