@@ -1,6 +1,9 @@
 package org.siemac.metamac.rest.notices.v1_0.domain.utils;
 
+import java.math.BigInteger;
+
 import org.siemac.metamac.rest.notices.v1_0.domain.Message;
+import org.siemac.metamac.rest.notices.v1_0.domain.ResourceInternal;
 import org.siemac.metamac.rest.notices.v1_0.domain.ResourcesInternal;
 
 public class MessageBuilder extends MessageBuilderBase<MessageBuilder> {
@@ -35,6 +38,16 @@ class MessageBuilderBase<GeneratorT extends MessageBuilderBase<GeneratorT>> {
         instance.setText(aValue);
 
         return (GeneratorT) this;
+    }
+
+    public GeneratorT withResources(ResourceInternal... aValue) {
+        ResourcesInternal resourcesInternal = new ResourcesInternal();
+        for (ResourceInternal resourceInternal : aValue) {
+            resourcesInternal.getResources().add(resourceInternal);
+        }
+        resourcesInternal.setTotal(BigInteger.valueOf(aValue.length));
+
+        return withResources(resourcesInternal);
     }
 
     @SuppressWarnings("unchecked")
