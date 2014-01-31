@@ -95,6 +95,18 @@ class NoticeBuilderBase<GeneratorT extends NoticeBuilderBase<GeneratorT>> {
         return (GeneratorT) this;
     }
 
+    public GeneratorT withMessagesWithoutResources(String... aValue) {
+        Messages messages = new Messages();
+        for (String messageText : aValue) {
+            Message message = new Message();
+            message.setText(messageText);
+            messages.getMessages().add(message);
+        }
+        messages.setTotal(BigInteger.valueOf(aValue.length));
+
+        return withMessages(messages);
+    }
+
     public GeneratorT withMessages(Message... aValue) {
         Messages messages = new Messages();
         for (Message message : aValue) {
