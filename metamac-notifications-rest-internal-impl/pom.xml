@@ -91,6 +91,12 @@
 
         <!-- Test -->
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.siemac.metamac.metamac-notifications</groupId>
             <artifactId>metamac-notifications-core</artifactId>
             <type>test-jar</type>

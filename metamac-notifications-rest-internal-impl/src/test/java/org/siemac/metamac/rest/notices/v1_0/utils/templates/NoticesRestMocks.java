@@ -1,4 +1,4 @@
-package org.siemac.metamac.rest.notices.v1_0.utils;
+package org.siemac.metamac.rest.notices.v1_0.utils.templates;
 
 import java.util.Date;
 

@@ -11,11 +11,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
-
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
 import org.apache.cxf.jaxrs.client.ClientConfiguration;
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
 import org.apache.cxf.jaxrs.client.WebClient;
@@ -25,8 +21,8 @@ import org.apache.cxf.transports.http.configuration.ConnectionType;
 import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Test;
 import org.siemac.metamac.core.common.conf.ConfigurationService;
+import org.siemac.metamac.core.common.constants.shared.ConfigurationConstants;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.core.common.util.ApplicationContextProvider;
 import org.siemac.metamac.notices.core.notice.serviceapi.NoticesService;
@@ -50,6 +46,9 @@ public abstract class NoticesRestInternalFacadeV10BaseTest extends MetamacRestBa
     protected static ApplicationContext applicationContext = null;
     protected static NoticesV1_0        noticesRestInternalFacadeClientXml;
     private static String               apiEndpointv10;
+
+    public static String                srmInternalWebApplication;
+    public static String                srmApiInternalEndpoint;
 
     private NoticesService              noticesService;
 
@@ -77,19 +76,15 @@ public abstract class NoticesRestInternalFacadeV10BaseTest extends MetamacRestBa
         ConfigurationService configurationService = applicationContext.getBean(ConfigurationService.class);
         apiEndpointv10 = configurationService.retrieveNoticesInternalApiUrlBase() + "/v1.0";
 
+        // Configuration
+        srmInternalWebApplication = configurationService.getProperty(ConfigurationConstants.WEB_APPLICATION_SRM_INTERNAL_WEB);
+        srmApiInternalEndpoint = configurationService.getProperty(ConfigurationConstants.ENDPOINT_SRM_INTERNAL_API);
+
         resetMocks();
     }
 
-    @Test
-    public void testErrorWithoutMatchError404() throws Exception {
-        String requestUri = baseApi + "/nomatch";
-
-        WebClient webClient = WebClient.create(requestUri).accept(APPLICATION_XML);
-        Response response = webClient.get();
-
-        assertEquals(Status.NOT_FOUND.getStatusCode(), response.getStatus());
-        InputStream responseActual = (InputStream) response.getEntity();
-        assertTrue(StringUtils.isBlank(IOUtils.toString(responseActual)));
+    protected ServiceContext getServiceContextWithoutPrincipal() {
+        return new ServiceContext("junit", "junit", "app");
     }
 
     protected NoticesV1_0 getNoticesRestInternalFacadeClientXml() {

@@ -8,6 +8,7 @@ import java.util.Set;
 import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.core.common.util.CoreCommonUtil;
+import org.siemac.metamac.notices.core.common.domain.ExternalItem;
 import org.siemac.metamac.notices.core.notice.enume.domain.NoticeType;
 import org.siemac.metamac.notices.rest.internal.v1_0.mapper.base.BaseRest2DoMapperV10Impl;
 import org.siemac.metamac.notices.rest.internal.v1_0.mapper.base.CommonRest2DoMapperV10;
@@ -17,6 +18,7 @@ import org.siemac.metamac.rest.notices.v1_0.domain.Message;
 import org.siemac.metamac.rest.notices.v1_0.domain.Messages;
 import org.siemac.metamac.rest.notices.v1_0.domain.Notice;
 import org.siemac.metamac.rest.notices.v1_0.domain.Receivers;
+import org.siemac.metamac.rest.notices.v1_0.domain.ResourceInternal;
 import org.siemac.metamac.rest.notices.v1_0.domain.Role;
 import org.siemac.metamac.rest.notices.v1_0.domain.Roles;
 import org.siemac.metamac.rest.notices.v1_0.domain.StatisticalOperation;
@@ -115,16 +117,22 @@ public class NoticesRest2DoMapperV10Impl extends BaseRest2DoMapperV10Impl implem
         return target;
     }
 
-    private List<org.siemac.metamac.notices.core.notice.domain.Message> messagesRestToEntity(Messages source) {
+    private List<org.siemac.metamac.notices.core.notice.domain.Message> messagesRestToEntity(Messages source) throws MetamacException {
         List<org.siemac.metamac.notices.core.notice.domain.Message> target = new ArrayList<org.siemac.metamac.notices.core.notice.domain.Message>();
 
         // Messages
         if (source != null) {
             for (Message sourceMessage : source.getMessages()) {
-                org.siemac.metamac.notices.core.notice.domain.Message messageElement = new org.siemac.metamac.notices.core.notice.domain.Message(sourceMessage.getText());
+                org.siemac.metamac.notices.core.notice.domain.Message targetMessage = new org.siemac.metamac.notices.core.notice.domain.Message(sourceMessage.getText());
 
-                // TODO: Añadir resources
-                target.add(messageElement);
+                if (sourceMessage != null && sourceMessage.getResources() != null && !sourceMessage.getResources().getResources().isEmpty()) {
+                    for (ResourceInternal sourceResource : sourceMessage.getResources().getResources()) {
+                        ExternalItem targetResource = commonRest2DoMapper.externalItemRestToExternalItemDo(sourceResource);
+                        targetMessage.addResource(targetResource);
+                    }
+                }
+
+                target.add(targetMessage);
             }
         }
 

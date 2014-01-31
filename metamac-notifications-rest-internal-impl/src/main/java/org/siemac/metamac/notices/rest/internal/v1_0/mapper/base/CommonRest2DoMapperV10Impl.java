@@ -7,6 +7,7 @@ import java.util.Set;
 import org.siemac.metamac.core.common.conf.ConfigurationService;
 import org.siemac.metamac.core.common.constants.CoreCommonConstants;
 import org.siemac.metamac.core.common.enume.domain.TypeExternalArtefactsEnum;
+import org.siemac.metamac.core.common.enume.utils.TypeExternalArtefactsEnumUtils;
 import org.siemac.metamac.core.common.exception.CommonServiceExceptionType;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.core.common.exception.MetamacExceptionBuilder;
@@ -34,8 +35,55 @@ public class CommonRest2DoMapperV10Impl implements CommonRest2DoMapperV10 {
     @Autowired
     private InternationalStringRepository internationalStringRepository;
 
+    // -------------------------------------------------------------------
+    // EXTERNAL ITEM: GENERAL
+    // -------------------------------------------------------------------
+
     @Override
-    public ExternalItem externalItemRestStatisticalOperationToExternalItemDo(Resource source, ExternalItem target) throws MetamacException {
+    public ExternalItem externalItemRestToExternalItemDo(Resource source) throws MetamacException {
+        TypeExternalArtefactsEnum typeExternalItem = TypeExternalArtefactsEnum.fromValue(source.getKind());
+
+        if (TypeExternalArtefactsEnumUtils.isExternalItemOfCommonMetadataApp(typeExternalItem)) {
+            return externalItemRestCommonMetadataToExternalItemDo(source, null);
+        } else if (TypeExternalArtefactsEnumUtils.isExternalItemOfSrmApp(typeExternalItem)) {
+            return externalItemRestSrmToExternalItemDo(source, null);
+        } else if (TypeExternalArtefactsEnumUtils.isExternalItemOfStatisticalOperationsApp(typeExternalItem)) {
+            return externalItemRestStatisticalOperationToExternalItemDo(source, null);
+        } else if (TypeExternalArtefactsEnumUtils.isExternalItemOfStatisticalResourcesApp(typeExternalItem)) {
+            return externalItemRestStatisticalResourceToExternalItemDo(source, null);
+        } else {
+            throw new MetamacException(ServiceExceptionType.UNKNOWN, "Unknown type of external Item");
+        }
+
+    }
+
+    // -------------------------------------------------------------------
+    // EXTERNAL ITEM: COMMON METADATA
+    // -------------------------------------------------------------------
+
+    private ExternalItem externalItemRestCommonMetadataToExternalItemDo(Resource source, ExternalItem target) throws MetamacException {
+
+        target = externalItemDtoToExternalItem(source, target);
+        if (target != null) {
+            target.setUri(CoreCommonUtil.externalItemUrlDtoToUrlDo(getCommonMetadataExternalApiUrlBase(), target.getUri()));
+            target.setManagementAppUrl(CoreCommonUtil.externalItemUrlDtoToUrlDo(getCommonMetadataInternalWebApplicationUrlBase(), target.getManagementAppUrl()));
+        }
+        return target;
+    }
+
+    private String getCommonMetadataInternalWebApplicationUrlBase() throws MetamacException {
+        return configurationService.retrieveCommonMetadataInternalWebApplicationUrlBase();
+    }
+
+    private String getCommonMetadataExternalApiUrlBase() throws MetamacException {
+        return configurationService.retrieveCommonMetadataExternalApiUrlBase();
+    }
+
+    // -------------------------------------------------------------------
+    // EXTERNAL ITEM: STATISTICAL OPERATIONS
+    // -------------------------------------------------------------------
+
+    private ExternalItem externalItemRestStatisticalOperationToExternalItemDo(Resource source, ExternalItem target) throws MetamacException {
 
         target = externalItemDtoToExternalItem(source, target);
         if (target != null) {
@@ -53,6 +101,54 @@ public class CommonRest2DoMapperV10Impl implements CommonRest2DoMapperV10 {
         return configurationService.retrieveStatisticalOperationsInternalApiUrlBase();
     }
 
+    // -------------------------------------------------------------------
+    // EXTERNAL ITEM: SRM
+    // -------------------------------------------------------------------
+
+    private ExternalItem externalItemRestSrmToExternalItemDo(Resource source, ExternalItem target) throws MetamacException {
+
+        target = externalItemDtoToExternalItem(source, target);
+        if (target != null) {
+            target.setUri(CoreCommonUtil.externalItemUrlDtoToUrlDo(getSrmInternalApiUrlBase(), target.getUri()));
+            target.setManagementAppUrl(CoreCommonUtil.externalItemUrlDtoToUrlDo(getSrmInternalWebApplicationUrlBase(), target.getManagementAppUrl()));
+        }
+        return target;
+    }
+
+    private String getSrmInternalWebApplicationUrlBase() throws MetamacException {
+        return configurationService.retrieveSrmInternalWebApplicationUrlBase();
+    }
+
+    private String getSrmInternalApiUrlBase() throws MetamacException {
+        return configurationService.retrieveSrmInternalApiUrlBase();
+    }
+
+    // -------------------------------------------------------------------
+    // EXTERNAL ITEM: STATISTICAL RESOURCES
+    // -------------------------------------------------------------------
+
+    private ExternalItem externalItemRestStatisticalResourceToExternalItemDo(Resource source, ExternalItem target) throws MetamacException {
+
+        target = externalItemDtoToExternalItem(source, target);
+        if (target != null) {
+            target.setUri(CoreCommonUtil.externalItemUrlDtoToUrlDo(getStatisticalResourceInternalApiUrlBase(), target.getUri()));
+            target.setManagementAppUrl(CoreCommonUtil.externalItemUrlDtoToUrlDo(getStatisticalResourceInternalWebApplicationUrlBase(), target.getManagementAppUrl()));
+        }
+        return target;
+    }
+
+    private String getStatisticalResourceInternalWebApplicationUrlBase() throws MetamacException {
+        return configurationService.retrieveStatisticalResourcesInternalWebApplicationUrlBase();
+    }
+
+    private String getStatisticalResourceInternalApiUrlBase() throws MetamacException {
+        return configurationService.retrieveStatisticalResourcesInternalApiUrlBase();
+    }
+
+    // -------------------------------------------------------------------
+    // EXTERNAL ITEM: BASE
+    // -------------------------------------------------------------------
+
     public ExternalItem externalItemDtoToExternalItem(Resource source, ExternalItem target) throws MetamacException {
         if (source == null) {
             if (target != null) {
@@ -68,16 +164,18 @@ public class CommonRest2DoMapperV10Impl implements CommonRest2DoMapperV10 {
         }
         target.setCode(source.getId());
         target.setCodeNested(source.getNestedId());
-        // target.setUri(source.getUri());
         target.setUrn(source.getUrn());
-        // target.setUrnProvider(source.getUrnProvider());
         target.setType(TypeExternalArtefactsEnum.STATISTICAL_OPERATION);
-        // target.setManagementAppUrl(source.getManagementAppUrl());
         target.setTitle(internationalStringToEntity(source.getName(), target.getTitle(), "metadataName + ServiceExceptionParametersInternal.EXTERNAL_ITEM_TITLE"));
 
         return target;
     }
 
+    // -------------------------------------------------------------------
+    // INTERNATIONAL STRING
+    // -------------------------------------------------------------------
+
+    @Override
     public InternationalString internationalStringToEntity(org.siemac.metamac.rest.common.v1_0.domain.InternationalString source, InternationalString target, String metadataName)
             throws MetamacException {
 

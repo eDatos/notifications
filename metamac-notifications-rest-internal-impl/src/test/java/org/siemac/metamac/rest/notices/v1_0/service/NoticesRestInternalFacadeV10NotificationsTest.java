@@ -3,11 +3,14 @@ package org.siemac.metamac.rest.notices.v1_0.service;
 import java.io.InputStream;
 
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.cxf.jaxrs.client.WebClient;
 import org.junit.Test;
 import org.siemac.metamac.notices.core.utils.mocks.factories.NoticeMockFactory;
-import org.siemac.metamac.rest.notices.v1_0.utils.NoticesRestMocks;
+import org.siemac.metamac.rest.notices.v1_0.utils.factories.NoticesRestMockFactory;
 
 public class NoticesRestInternalFacadeV10NotificationsTest extends NoticesRestInternalFacadeV10BaseTest {
 
@@ -18,7 +21,20 @@ public class NoticesRestInternalFacadeV10NotificationsTest extends NoticesRestIn
             WebClient create = WebClient.create(baseApi);
             incrementRequestTimeOut(create); // Timeout
             create.path("notices");
-            Response response = create.put(NoticesRestMocks.mockNotice_TYPE_NOTIFICATION());
+            Response response = create.put(NoticesRestMockFactory.getNotification01Basic());
+
+            assertEquals(Response.Status.CREATED.getStatusCode(), response.getStatus());
+        }
+    }
+
+    @Test
+    public void test_PUT_Notice_WithResourcesAndMultiplesMessages() throws Exception {
+
+        {
+            WebClient create = WebClient.create(baseApi);
+            incrementRequestTimeOut(create); // Timeout
+            create.path("notices");
+            Response response = create.put(NoticesRestMockFactory.getNotification03WithMultiplesMessagesAndResources());
 
             assertEquals(Response.Status.CREATED.getStatusCode(), response.getStatus());
         }
@@ -79,4 +95,17 @@ public class NoticesRestInternalFacadeV10NotificationsTest extends NoticesRestIn
             assertInputStream(responseExpected, (InputStream) response.getEntity(), false);
         }
     }
+
+    @Test
+    public void testErrorWithoutMatchError404() throws Exception {
+        String requestUri = baseApi + "/nomatch";
+
+        WebClient webClient = WebClient.create(requestUri).accept(APPLICATION_XML);
+        Response response = webClient.get();
+
+        assertEquals(Status.NOT_FOUND.getStatusCode(), response.getStatus());
+        InputStream responseActual = (InputStream) response.getEntity();
+        assertTrue(StringUtils.isBlank(IOUtils.toString(responseActual)));
+    }
+
 }
