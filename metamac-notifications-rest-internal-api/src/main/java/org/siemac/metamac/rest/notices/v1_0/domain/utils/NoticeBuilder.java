@@ -15,6 +15,8 @@ import org.siemac.metamac.rest.notices.v1_0.domain.Role;
 import org.siemac.metamac.rest.notices.v1_0.domain.Roles;
 import org.siemac.metamac.rest.notices.v1_0.domain.StatisticalOperation;
 import org.siemac.metamac.rest.notices.v1_0.domain.StatisticalOperations;
+import org.siemac.metamac.rest.notices.v1_0.domain.enume.MetamacApplicationsEnum;
+import org.siemac.metamac.rest.notices.v1_0.domain.enume.MetamacRolesEnum;
 
 public class NoticeBuilder extends NoticeBuilderBase<NoticeBuilder> {
 
@@ -110,6 +112,17 @@ class NoticeBuilderBase<GeneratorT extends NoticeBuilderBase<GeneratorT>> {
         return (GeneratorT) this;
     }
 
+    public GeneratorT withRoles(MetamacRolesEnum... aValue) {
+        Roles roles = new Roles();
+        for (MetamacRolesEnum roleName : aValue) {
+            Role role = RoleBuilder.role().withName(roleName.toString()).build();
+            roles.getRoles().add(role);
+        }
+        roles.setTotal(BigInteger.valueOf(aValue.length));
+
+        return withRoles(roles);
+    }
+
     public GeneratorT withRoles(String... aValue) {
         Roles roles = new Roles();
         for (String roleName : aValue) {
@@ -126,6 +139,17 @@ class NoticeBuilderBase<GeneratorT extends NoticeBuilderBase<GeneratorT>> {
         instance.setRoles(aValue);
 
         return (GeneratorT) this;
+    }
+
+    public GeneratorT withApplications(MetamacApplicationsEnum... aValue) {
+        Applications applications = new Applications();
+        for (MetamacApplicationsEnum applicationName : aValue) {
+            Application application = ApplicationBuilder.application().withName(applicationName.toString()).build();
+            applications.getApplications().add(application);
+        }
+        applications.setTotal(BigInteger.valueOf(aValue.length));
+
+        return withApplications(applications);
     }
 
     public GeneratorT withApplications(String... aValue) {
