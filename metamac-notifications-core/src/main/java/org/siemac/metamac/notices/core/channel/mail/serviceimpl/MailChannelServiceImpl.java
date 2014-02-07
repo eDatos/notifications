@@ -8,7 +8,7 @@ import javax.mail.internet.MimeMessage;
 import org.apache.velocity.app.VelocityEngine;
 import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.siemac.metamac.core.common.exception.MetamacException;
-import org.siemac.metamac.core.common.lang.LocaleUtil;
+import org.siemac.metamac.core.common.mapper.BaseDo2DtoMapper;
 import org.siemac.metamac.core.common.util.CoreCommonUtil;
 import org.siemac.metamac.notices.core.conf.NoticesConfiguration;
 import org.siemac.metamac.notices.core.constants.NoticesConstants;
@@ -24,9 +24,6 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
 @Component
 public class MailChannelServiceImpl implements MailChannelService {
 
-    private static final String  SUBJECT_NOTIFICATION_KEY = "info.notices.channel.mail.subject.notice";
-    private String               subjectNoticeMessage     = null;
-
     @Autowired
     private JavaMailSender       mailSender;
 
@@ -35,6 +32,9 @@ public class MailChannelServiceImpl implements MailChannelService {
 
     @Autowired
     private NoticesConfiguration noticesConfiguration;
+
+    @Autowired
+    private BaseDo2DtoMapper     baseDo2DtoMapper;
 
     @Override
     @SuppressWarnings({"rawtypes", "unchecked"})
@@ -46,7 +46,7 @@ public class MailChannelServiceImpl implements MailChannelService {
             public void prepare(MimeMessage mimeMessage) throws Exception {
                 // Mail configuration
                 MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
-                message.setSubject(getNoticeMailSubject());
+                message.setSubject(notice.getSubject());
                 message.setTo(mailsTo);
                 message.setReplyTo(replyTo);
                 message.setFrom(noticesConfiguration.retrieveChannelMailUsername());
@@ -55,6 +55,7 @@ public class MailChannelServiceImpl implements MailChannelService {
                 Map model = new HashMap();
                 model.put("notice", notice);
                 model.put("createdDate", CoreCommonUtil.transformDateTimeToISODateTimeLexicalRepresentation(notice.getCreatedDate()));
+                model.put("baseDo2DtoMapper", baseDo2DtoMapper);
 
                 if (NoticeType.ANNOUNCEMENT.equals(notice.getNoticeType())) {
                     model.put("expirationDate", CoreCommonUtil.transformDateTimeToISODateTimeLexicalRepresentation(notice.getExpirationDate()));
@@ -67,12 +68,5 @@ public class MailChannelServiceImpl implements MailChannelService {
         };
 
         this.mailSender.send(preparator);
-    }
-
-    private String getNoticeMailSubject() throws MetamacException {
-        if (subjectNoticeMessage == null) {
-            subjectNoticeMessage = LocaleUtil.getMessageForCode(SUBJECT_NOTIFICATION_KEY, LocaleUtil.getLocaleFromLocaleString(noticesConfiguration.retrieveLanguageDefault()));
-        }
-        return subjectNoticeMessage;
     }
 }

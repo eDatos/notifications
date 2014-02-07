@@ -55,10 +55,10 @@ public class NoticeMockFactory extends MetamacNoticesMockFactory<Notice> {
 
     public static Notice getNotice03WithResources() {
         ExternalItem resource01 = NoticesDoMocks.mockConceptExternalItem("TEST-CONCEPT");
-        resource01.setTitle(new InternationalString("en", "Test concept"));
+        resource01.setTitle(new InternationalString(new String[]{"en", "es"}, (new String[]{"Test concept", "Test concepto"})));
 
         ExternalItem resource02 = NoticesDoMocks.mockAgencyExternalItem("TEST-AGENCY");
-        resource02.setTitle(new InternationalString("en", "Test agency"));
+        resource02.setTitle(new InternationalString(new String[]{"en", "es"}, (new String[]{"Test agency", "Test agencia"})));
 
         Message message01 = MessageBuilder.message().withText("Message 01: with resources").withResources(resource01, resource02).build();
 
@@ -66,6 +66,7 @@ public class NoticeMockFactory extends MetamacNoticesMockFactory<Notice> {
 
         Notice notice = NoticeBuilder.notification().withSendingApplication("TEST-APPLICATION").withSubject("Test subject").withUrn(NOTIFICATION_03_URN)
                 .withReceivers("user-1", "user-2", "user-3", "user-4", "user-5").withMessages(message01, message02).fillEmptyAuditableFields().build();
+
         return notice;
     }
 

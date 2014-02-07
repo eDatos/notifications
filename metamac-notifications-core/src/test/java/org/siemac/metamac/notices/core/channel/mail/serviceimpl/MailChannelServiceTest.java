@@ -14,7 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.siemac.metamac.notices.core.NoticesBaseTest;
 import org.siemac.metamac.notices.core.notice.domain.Notice;
-import org.siemac.metamac.notices.core.utils.mocks.templates.NoticesNotPersistedDoMocks;
+import org.siemac.metamac.notices.core.utils.mocks.factories.NoticeMockFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -45,10 +45,9 @@ public class MailChannelServiceTest extends NoticesBaseTest /* implements Notice
         greenMail.start();
     }
 
-    // TODO: Cambiar el mock de este test por el mock 03 para que tenga varios mensajes y recursos asociados
     @Test
     public void testMailChannel() throws Exception {
-        Notice notice = NoticesNotPersistedDoMocks.mockNoticeWithoutResources("urn:siemac:org.siemac.metamac.infomodel.notices.Notice=NOTICE_UUID", "application", "My message");
+        Notice notice = NoticeMockFactory.getNotice03WithResources();
 
         mailChannelService.sendMail(getServiceContextAdministrador(), notice, new String[]{"count@domain.com"}, "count@domain.com");
 
@@ -58,7 +57,7 @@ public class MailChannelServiceTest extends NoticesBaseTest /* implements Notice
 
         InputStream responseExpected = MailChannelServiceTest.class.getResourceAsStream("/responses/email/notice.mail");
         assertInputStream(responseExpected, IOUtils.toInputStream((String) messages[0].getContent()), false);
-        assertEquals("Metamac Notification", messages[0].getSubject());
+        assertEquals("Test subject", messages[0].getSubject());
     }
 
     @After

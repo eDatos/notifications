@@ -1,8 +1,3 @@
-Instituto Canario de Estadística
-Avisos de ISTACbase
-
------------------------------------------------------
-
 - Aplicación emisora: ${notice.sendingApplication}
 - Fecha de creación: ${createdDate}
 #if( "$!notice.sendingUser" != "" )
@@ -12,6 +7,15 @@ Avisos de ISTACbase
 - Tipo de aviso: ${notice.noticeType}
 
 - Mensajes:
-	#foreach( $item in ${notice.messages} )
-	  -- $item.text
-	#end
+#foreach( $item in ${notice.messages} )
+	--> $item.text
+#foreach( $resource in ${item.resources} )
+		- Título: $resource.title.getLocalisedLabel("es")
+		- Código: $resource.code
+		- URN: $resource.urn
+		- Tipo: $resource.type
+		- Link API: $baseDo2DtoMapper.externalItemApiUrlDoToDto($resource.type, $resource.uri)
+		- Link gestión: $baseDo2DtoMapper.externalItemWebAppUrlDoToDto($resource.type, $resource.managementAppUrl)
+
+#end
+#end
