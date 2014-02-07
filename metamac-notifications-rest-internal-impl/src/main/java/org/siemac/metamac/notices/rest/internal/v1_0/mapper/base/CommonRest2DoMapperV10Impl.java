@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.siemac.metamac.core.common.conf.ConfigurationService;
 import org.siemac.metamac.core.common.constants.CoreCommonConstants;
 import org.siemac.metamac.core.common.enume.domain.TypeExternalArtefactsEnum;
 import org.siemac.metamac.core.common.enume.utils.TypeExternalArtefactsEnumUtils;
@@ -18,6 +17,7 @@ import org.siemac.metamac.notices.core.common.domain.ExternalItemRepository;
 import org.siemac.metamac.notices.core.common.domain.InternationalString;
 import org.siemac.metamac.notices.core.common.domain.InternationalStringRepository;
 import org.siemac.metamac.notices.core.common.domain.LocalisedString;
+import org.siemac.metamac.notices.core.conf.NoticesConfiguration;
 import org.siemac.metamac.notices.core.error.ServiceExceptionType;
 import org.siemac.metamac.rest.common.v1_0.domain.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ import org.springframework.stereotype.Component;
 public class CommonRest2DoMapperV10Impl implements CommonRest2DoMapperV10 {
 
     @Autowired
-    private ConfigurationService          configurationService;
+    private NoticesConfiguration          configurationService;
 
     @Autowired
     private ExternalItemRepository        externalItemRepository;

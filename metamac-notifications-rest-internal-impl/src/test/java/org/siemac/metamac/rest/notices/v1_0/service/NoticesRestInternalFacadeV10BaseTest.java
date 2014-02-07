@@ -21,10 +21,10 @@ import org.apache.cxf.transports.http.configuration.ConnectionType;
 import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.siemac.metamac.core.common.conf.ConfigurationService;
 import org.siemac.metamac.core.common.constants.shared.ConfigurationConstants;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.core.common.util.ApplicationContextProvider;
+import org.siemac.metamac.notices.core.conf.NoticesConfiguration;
 import org.siemac.metamac.notices.core.notice.serviceapi.NoticesService;
 import org.siemac.metamac.notices.core.utils.mocks.factories.NoticeMockFactory;
 import org.siemac.metamac.notices.rest.internal.v1_0.service.NoticesV1_0;
@@ -73,7 +73,7 @@ public abstract class NoticesRestInternalFacadeV10BaseTest extends MetamacRestBa
 
     @Before
     public void setUp() throws Exception {
-        ConfigurationService configurationService = applicationContext.getBean(ConfigurationService.class);
+        NoticesConfiguration configurationService = applicationContext.getBean(NoticesConfiguration.class);
         apiEndpointv10 = configurationService.retrieveNoticesInternalApiUrlBase() + "/v1.0";
 
         // Configuration

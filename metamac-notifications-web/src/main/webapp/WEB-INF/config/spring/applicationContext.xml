@@ -46,19 +46,6 @@
 <!--         </constructor-arg> -->
 <!--     </bean> -->
 
-    <!-- METAMAC environment configuration -->
-    <bean id="configurationService" class="org.siemac.metamac.core.common.conf.ConfigurationServiceImpl">
-        <property name="systemConfigurationFile">
-            <value>classpath:metamac/environment.xml</value>
-        </property>
-    </bean>
-
-    <bean id="propertyPlaceholderConfigurer" class="org.siemac.metamac.core.common.conf.ConfigurationServicePropertyPlaceholderConfigurer">
-        <property name="configurationService">
-            <ref bean="configurationService" />
-        </property>
-    </bean>
-
     <!-- Configure externalized logging configuration file -->
     <bean id="loggingSetup" class="org.siemac.metamac.core.common.logging.LoggingSetup">
         <property name="logConfigurationFile" value="${environment.metamac.data}/notices/conf/logback-notifications-web.xml" />

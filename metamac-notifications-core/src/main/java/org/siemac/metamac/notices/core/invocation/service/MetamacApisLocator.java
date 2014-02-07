@@ -5,7 +5,7 @@ import javax.annotation.PostConstruct;
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
 import org.apache.cxf.jaxrs.client.WebClient;
 import org.siemac.metamac.access_control.rest.internal.v1_0.service.AccessControlRestInternalFacadeV1_0;
-import org.siemac.metamac.core.common.conf.ConfigurationService;
+import org.siemac.metamac.notices.core.conf.NoticesConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 public class MetamacApisLocator {
 
     @Autowired
-    private ConfigurationService                configurationService;
+    private NoticesConfiguration                configurationService;
 
     private AccessControlRestInternalFacadeV1_0 accessControlRestInternalFacadeV1_0 = null;
 
