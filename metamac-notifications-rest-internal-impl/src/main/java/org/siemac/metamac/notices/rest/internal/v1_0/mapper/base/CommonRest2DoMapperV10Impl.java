@@ -19,7 +19,7 @@ import org.siemac.metamac.notices.core.common.domain.InternationalStringReposito
 import org.siemac.metamac.notices.core.common.domain.LocalisedString;
 import org.siemac.metamac.notices.core.conf.NoticesConfiguration;
 import org.siemac.metamac.notices.core.error.ServiceExceptionType;
-import org.siemac.metamac.rest.common.v1_0.domain.Resource;
+import org.siemac.metamac.rest.notices.v1_0.domain.ResourceInternal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -40,7 +40,7 @@ public class CommonRest2DoMapperV10Impl implements CommonRest2DoMapperV10 {
     // -------------------------------------------------------------------
 
     @Override
-    public ExternalItem externalItemRestToExternalItemDo(Resource source) throws MetamacException {
+    public ExternalItem externalItemRestToExternalItemDo(ResourceInternal source) throws MetamacException {
         TypeExternalArtefactsEnum typeExternalItem = TypeExternalArtefactsEnum.fromValue(source.getKind());
 
         if (TypeExternalArtefactsEnumUtils.isExternalItemOfCommonMetadataApp(typeExternalItem)) {
@@ -61,12 +61,12 @@ public class CommonRest2DoMapperV10Impl implements CommonRest2DoMapperV10 {
     // EXTERNAL ITEM: COMMON METADATA
     // -------------------------------------------------------------------
 
-    private ExternalItem externalItemRestCommonMetadataToExternalItemDo(Resource source, ExternalItem target) throws MetamacException {
+    private ExternalItem externalItemRestCommonMetadataToExternalItemDo(ResourceInternal source, ExternalItem target) throws MetamacException {
 
         target = externalItemDtoToExternalItem(source, target);
         if (target != null) {
-            target.setUri(CoreCommonUtil.externalItemUrlDtoToUrlDo(getCommonMetadataExternalApiUrlBase(), target.getUri()));
-            target.setManagementAppUrl(CoreCommonUtil.externalItemUrlDtoToUrlDo(getCommonMetadataInternalWebApplicationUrlBase(), target.getManagementAppUrl()));
+            target.setUri(CoreCommonUtil.externalItemUrlDtoToUrlDo(getCommonMetadataExternalApiUrlBase(), source.getSelfLink().getHref()));
+            target.setManagementAppUrl(CoreCommonUtil.externalItemUrlDtoToUrlDo(getCommonMetadataInternalWebApplicationUrlBase(), source.getManagementAppLink()));
         }
         return target;
     }
@@ -83,12 +83,12 @@ public class CommonRest2DoMapperV10Impl implements CommonRest2DoMapperV10 {
     // EXTERNAL ITEM: STATISTICAL OPERATIONS
     // -------------------------------------------------------------------
 
-    private ExternalItem externalItemRestStatisticalOperationToExternalItemDo(Resource source, ExternalItem target) throws MetamacException {
+    private ExternalItem externalItemRestStatisticalOperationToExternalItemDo(ResourceInternal source, ExternalItem target) throws MetamacException {
 
         target = externalItemDtoToExternalItem(source, target);
         if (target != null) {
-            target.setUri(CoreCommonUtil.externalItemUrlDtoToUrlDo(getStatisticalOperationsInternalApiUrlBase(), target.getUri()));
-            target.setManagementAppUrl(CoreCommonUtil.externalItemUrlDtoToUrlDo(getStatisticalOperationsInternalWebApplicationUrlBase(), target.getManagementAppUrl()));
+            target.setUri(CoreCommonUtil.externalItemUrlDtoToUrlDo(getStatisticalOperationsInternalApiUrlBase(), source.getSelfLink().getHref()));
+            target.setManagementAppUrl(CoreCommonUtil.externalItemUrlDtoToUrlDo(getStatisticalOperationsInternalWebApplicationUrlBase(), source.getManagementAppLink()));
         }
         return target;
     }
@@ -105,12 +105,12 @@ public class CommonRest2DoMapperV10Impl implements CommonRest2DoMapperV10 {
     // EXTERNAL ITEM: SRM
     // -------------------------------------------------------------------
 
-    private ExternalItem externalItemRestSrmToExternalItemDo(Resource source, ExternalItem target) throws MetamacException {
+    private ExternalItem externalItemRestSrmToExternalItemDo(ResourceInternal source, ExternalItem target) throws MetamacException {
 
         target = externalItemDtoToExternalItem(source, target);
         if (target != null) {
-            target.setUri(CoreCommonUtil.externalItemUrlDtoToUrlDo(getSrmInternalApiUrlBase(), target.getUri()));
-            target.setManagementAppUrl(CoreCommonUtil.externalItemUrlDtoToUrlDo(getSrmInternalWebApplicationUrlBase(), target.getManagementAppUrl()));
+            target.setUri(CoreCommonUtil.externalItemUrlDtoToUrlDo(getSrmInternalApiUrlBase(), source.getSelfLink().getHref()));
+            target.setManagementAppUrl(CoreCommonUtil.externalItemUrlDtoToUrlDo(getSrmInternalWebApplicationUrlBase(), source.getManagementAppLink()));
         }
         return target;
     }
@@ -127,12 +127,12 @@ public class CommonRest2DoMapperV10Impl implements CommonRest2DoMapperV10 {
     // EXTERNAL ITEM: STATISTICAL RESOURCES
     // -------------------------------------------------------------------
 
-    private ExternalItem externalItemRestStatisticalResourceToExternalItemDo(Resource source, ExternalItem target) throws MetamacException {
+    private ExternalItem externalItemRestStatisticalResourceToExternalItemDo(ResourceInternal source, ExternalItem target) throws MetamacException {
 
         target = externalItemDtoToExternalItem(source, target);
         if (target != null) {
-            target.setUri(CoreCommonUtil.externalItemUrlDtoToUrlDo(getStatisticalResourceInternalApiUrlBase(), target.getUri()));
-            target.setManagementAppUrl(CoreCommonUtil.externalItemUrlDtoToUrlDo(getStatisticalResourceInternalWebApplicationUrlBase(), target.getManagementAppUrl()));
+            target.setUri(CoreCommonUtil.externalItemUrlDtoToUrlDo(getStatisticalResourceInternalApiUrlBase(), source.getSelfLink().getHref()));
+            target.setManagementAppUrl(CoreCommonUtil.externalItemUrlDtoToUrlDo(getStatisticalResourceInternalWebApplicationUrlBase(), source.getManagementAppLink()));
         }
         return target;
     }
@@ -149,7 +149,7 @@ public class CommonRest2DoMapperV10Impl implements CommonRest2DoMapperV10 {
     // EXTERNAL ITEM: BASE
     // -------------------------------------------------------------------
 
-    public ExternalItem externalItemDtoToExternalItem(Resource source, ExternalItem target) throws MetamacException {
+    public ExternalItem externalItemDtoToExternalItem(ResourceInternal source, ExternalItem target) throws MetamacException {
         if (source == null) {
             if (target != null) {
                 // delete previous entity
