@@ -43,16 +43,16 @@ public class NoticesRest2DoMapperV10Impl extends BaseRest2DoMapperV10Impl implem
         target.setSendingUser(source.getSendingUser());
         target.setExpirationDate(CoreCommonUtil.transformDateToDateTime(source.getExpirationDate()));
 
-        target.getMessages().addAll(messagesRestToEntity(source.getMessages()));
-        target.getReceivers().addAll(receiversRestToEntity(source.getReceivers()));
-        target.getApps().addAll(applicationsRestToEntity(source.getApplications()));
-        target.getStatisticalOperations().addAll(statisticalOperationsRestToEntity(source.getStatisticalOperations()));
-        target.getRoles().addAll(rolesRestToEntity(source.getRoles()));
+        target.getMessages().addAll(messagesRestToEntity(source.getMessages(), target));
+        target.getReceivers().addAll(receiversRestToEntity(source.getReceivers(), target));
+        target.getApps().addAll(applicationsRestToEntity(source.getApplications(), target));
+        target.getStatisticalOperations().addAll(statisticalOperationsRestToEntity(source.getStatisticalOperations(), target));
+        target.getRoles().addAll(rolesRestToEntity(source.getRoles(), target));
 
         return target;
     }
 
-    private List<org.siemac.metamac.notices.core.notice.domain.Role> rolesRestToEntity(Roles source) {
+    private List<org.siemac.metamac.notices.core.notice.domain.Role> rolesRestToEntity(Roles source, org.siemac.metamac.notices.core.notice.domain.Notice notice) {
         List<org.siemac.metamac.notices.core.notice.domain.Role> target = new ArrayList<org.siemac.metamac.notices.core.notice.domain.Role>();
         if (source != null) {
             Set<String> rolCodes = new HashSet<String>();
@@ -61,6 +61,7 @@ public class NoticesRest2DoMapperV10Impl extends BaseRest2DoMapperV10Impl implem
                     rolCodes.add(role.getName());
                     org.siemac.metamac.notices.core.notice.domain.Role roleElement = new org.siemac.metamac.notices.core.notice.domain.Role();
                     roleElement.setName(role.getName());
+                    roleElement.setNotice(notice);
                     target.add(roleElement);
                 }
             }
@@ -68,7 +69,8 @@ public class NoticesRest2DoMapperV10Impl extends BaseRest2DoMapperV10Impl implem
         return target;
     }
 
-    private List<org.siemac.metamac.notices.core.notice.domain.StatisticalOperation> statisticalOperationsRestToEntity(StatisticalOperations source) {
+    private List<org.siemac.metamac.notices.core.notice.domain.StatisticalOperation> statisticalOperationsRestToEntity(StatisticalOperations source,
+            org.siemac.metamac.notices.core.notice.domain.Notice notice) {
         List<org.siemac.metamac.notices.core.notice.domain.StatisticalOperation> target = new ArrayList<org.siemac.metamac.notices.core.notice.domain.StatisticalOperation>();
         if (source != null) {
             Set<String> rolCodes = new HashSet<String>();
@@ -77,6 +79,7 @@ public class NoticesRest2DoMapperV10Impl extends BaseRest2DoMapperV10Impl implem
                     rolCodes.add(statisticalOperation.getUrn());
                     org.siemac.metamac.notices.core.notice.domain.StatisticalOperation statisticalOperationElement = new org.siemac.metamac.notices.core.notice.domain.StatisticalOperation();
                     statisticalOperationElement.setName(statisticalOperation.getUrn());
+                    statisticalOperationElement.setNotice(notice);
                     target.add(statisticalOperationElement);
                 }
             }
@@ -84,7 +87,7 @@ public class NoticesRest2DoMapperV10Impl extends BaseRest2DoMapperV10Impl implem
         return target;
     }
 
-    private List<org.siemac.metamac.notices.core.notice.domain.App> applicationsRestToEntity(Applications source) {
+    private List<org.siemac.metamac.notices.core.notice.domain.App> applicationsRestToEntity(Applications source, org.siemac.metamac.notices.core.notice.domain.Notice notice) {
         List<org.siemac.metamac.notices.core.notice.domain.App> target = new ArrayList<org.siemac.metamac.notices.core.notice.domain.App>();
         if (source != null) {
             Set<String> applicationCodes = new HashSet<String>();
@@ -93,6 +96,7 @@ public class NoticesRest2DoMapperV10Impl extends BaseRest2DoMapperV10Impl implem
                     applicationCodes.add(application.getName());
                     org.siemac.metamac.notices.core.notice.domain.App app = new org.siemac.metamac.notices.core.notice.domain.App();
                     app.setName(application.getName());
+                    app.setNotice(notice);
                     target.add(app);
                 }
             }
@@ -100,7 +104,7 @@ public class NoticesRest2DoMapperV10Impl extends BaseRest2DoMapperV10Impl implem
         return target;
     }
 
-    private List<org.siemac.metamac.notices.core.notice.domain.Receiver> receiversRestToEntity(Receivers source) {
+    private List<org.siemac.metamac.notices.core.notice.domain.Receiver> receiversRestToEntity(Receivers source, org.siemac.metamac.notices.core.notice.domain.Notice notice) {
         List<org.siemac.metamac.notices.core.notice.domain.Receiver> target = new ArrayList<org.siemac.metamac.notices.core.notice.domain.Receiver>();
 
         if (source != null) {
@@ -110,6 +114,7 @@ public class NoticesRest2DoMapperV10Impl extends BaseRest2DoMapperV10Impl implem
                     usernamesInNotices.add(sourceReceiver.getUsername());
                     org.siemac.metamac.notices.core.notice.domain.Receiver receiverElement = new org.siemac.metamac.notices.core.notice.domain.Receiver();
                     receiverElement.setUsername(sourceReceiver.getUsername());
+                    receiverElement.setNotice(notice);
                     target.add(receiverElement);
                 }
             }
@@ -117,13 +122,14 @@ public class NoticesRest2DoMapperV10Impl extends BaseRest2DoMapperV10Impl implem
         return target;
     }
 
-    private List<org.siemac.metamac.notices.core.notice.domain.Message> messagesRestToEntity(Messages source) throws MetamacException {
+    private List<org.siemac.metamac.notices.core.notice.domain.Message> messagesRestToEntity(Messages source, org.siemac.metamac.notices.core.notice.domain.Notice notice) throws MetamacException {
         List<org.siemac.metamac.notices.core.notice.domain.Message> target = new ArrayList<org.siemac.metamac.notices.core.notice.domain.Message>();
 
         // Messages
         if (source != null) {
             for (Message sourceMessage : source.getMessages()) {
                 org.siemac.metamac.notices.core.notice.domain.Message targetMessage = new org.siemac.metamac.notices.core.notice.domain.Message(sourceMessage.getText());
+                targetMessage.setNotice(notice);
 
                 if (sourceMessage != null && sourceMessage.getResources() != null && !sourceMessage.getResources().getResources().isEmpty()) {
                     for (ResourceInternal sourceResource : sourceMessage.getResources().getResources()) {

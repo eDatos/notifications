@@ -1,6 +1,7 @@
 package org.siemac.metamac.rest.notices.v1_0.utils.asserts;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.notices.core.error.ServiceExceptionType;
@@ -41,6 +42,7 @@ public class NoticesAsserts extends CommonAsserts {
             boolean found = false;
             for (org.siemac.metamac.rest.notices.v1_0.domain.Message restMessage : restCollection.getMessages()) {
                 if (doMessage.getText().equals(restMessage.getText())) {
+                    assertNotNull(doMessage.getNotice());
                     found = true;
                     assertEqualsExternalItemCollection(doMessage.getResources(), restMessage.getResources());
                     return;
@@ -63,6 +65,7 @@ public class NoticesAsserts extends CommonAsserts {
             boolean found = false;
             for (org.siemac.metamac.rest.notices.v1_0.domain.Role restRole : restCollection.getRoles()) {
                 if (doRole.getName().equals(restRole.getName())) {
+                    assertNotNull(doRole.getNotice());
                     found = true;
                     return;
                 }
@@ -84,6 +87,7 @@ public class NoticesAsserts extends CommonAsserts {
             boolean found = false;
             for (org.siemac.metamac.rest.notices.v1_0.domain.Application restApplication : restCollection.getApplications()) {
                 if (doApplication.getName().equals(restApplication.getName())) {
+                    assertNotNull(doApplication.getNotice());
                     found = true;
                     return;
                 }
@@ -107,6 +111,7 @@ public class NoticesAsserts extends CommonAsserts {
             boolean found = false;
             for (org.siemac.metamac.rest.notices.v1_0.domain.Receiver restReceiver : restCollection.getReceivers()) {
                 if (doReceiver.getUsername().equals(restReceiver.getUsername())) {
+                    assertNotNull(doReceiver.getNotice());
                     found = true;
                     return;
                 }
@@ -129,6 +134,7 @@ public class NoticesAsserts extends CommonAsserts {
             boolean found = false;
             for (org.siemac.metamac.rest.notices.v1_0.domain.StatisticalOperation restStatisticalOperation : restCollection.getStatisticalOperations()) {
                 if (doStatisticalOperation.getName().equals(restStatisticalOperation.getUrn())) {
+                    assertNotNull(doStatisticalOperation.getNotice());
                     found = true;
                     return;
                 }
