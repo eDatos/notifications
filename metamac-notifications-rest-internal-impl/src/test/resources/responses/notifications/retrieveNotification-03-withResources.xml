@@ -18,6 +18,7 @@
                     <cdomain:urn>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=MaintainerMock:ConceptSchemeMock(1.0).TEST-CONCEPT</cdomain:urn>
                     <cdomain:selfLink kind="structuralResources#concept" href="http://estadisticas.arte-consultores.com/structural-resources-internal/apis/structural-resources-internal/latest/TEST-CONCEPT" />
                     <cdomain:name>
+                        <cdomain:text xml:lang="es">Test concepto</cdomain:text>
                         <cdomain:text xml:lang="en">Test concept</cdomain:text>
                     </cdomain:name>
                     <notice:managementAppLink>http://estadisticas.arte-consultores.com/structural-resources-internal/TEST-CONCEPT</notice:managementAppLink>
@@ -28,6 +29,7 @@
                     <cdomain:urn>urn:sdmx:org.sdmx.infomodel.base.Agency=MaintainerMock:AgencySchemeMock(1.0).TEST-AGENCY</cdomain:urn>
                     <cdomain:selfLink kind="structuralResources#agency" href="http://estadisticas.arte-consultores.com/structural-resources-internal/apis/structural-resources-internal/latest/TEST-AGENCY" />
                     <cdomain:name>
+                        <cdomain:text xml:lang="es">Test agencia</cdomain:text>
                         <cdomain:text xml:lang="en">Test agency</cdomain:text>
                     </cdomain:name>
                     <notice:managementAppLink>http://estadisticas.arte-consultores.com/structural-resources-internal/TEST-AGENCY</notice:managementAppLink>

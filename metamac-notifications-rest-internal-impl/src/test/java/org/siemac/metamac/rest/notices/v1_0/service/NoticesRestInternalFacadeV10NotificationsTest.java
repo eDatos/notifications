@@ -22,7 +22,6 @@ public class NoticesRestInternalFacadeV10NotificationsTest extends NoticesRestIn
             incrementRequestTimeOut(create); // Timeout
             create.path("notices");
             Response response = create.put(NoticesRestMockFactory.getNotification01Basic());
-
             assertEquals(Response.Status.CREATED.getStatusCode(), response.getStatus());
         }
     }

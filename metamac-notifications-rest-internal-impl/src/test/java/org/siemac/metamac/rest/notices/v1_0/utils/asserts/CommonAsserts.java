@@ -22,7 +22,11 @@ import org.siemac.metamac.rest.notices.v1_0.domain.ResourcesInternal;
 public class CommonAsserts extends MetamacRestAsserts {
 
     public static void assertEqualsExternalItemCollection(java.util.List<ExternalItem> doCollection, ResourcesInternal restCollection) throws MetamacException {
-        assertEquals(doCollection.size(), restCollection.getTotal());
+        if (doCollection.isEmpty() && (restCollection == null || restCollection.getResources().isEmpty())) {
+            return;
+        }
+
+        assertEquals(doCollection.size(), restCollection.getTotal().intValue());
 
         for (ExternalItem doResource : doCollection) {
             boolean found = false;

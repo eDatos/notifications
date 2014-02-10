@@ -1,49 +1,57 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<notice:notice
-	xmlns:notice="http://www.siemac.org/metamac/rest/notices/v1.0/domain"
-	xmlns:cdomain="http://www.siemac.org/metamac/rest/common/v1.0/domain"
-    xsi:schemaLocation="http://www.siemac.org/metamac/rest/notices/v1.0/domain metamac-notices-rest-internal-domain-v1.0.xsd" 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<notice:notice xmlns:notice="http://www.siemac.org/metamac/rest/notices/v1.0/domain" xmlns:cdomain="http://www.siemac.org/metamac/rest/common/v1.0/domain"
+    xsi:schemaLocation="http://www.siemac.org/metamac/rest/notices/v1.0/domain metamac-notices-rest-internal-domain-v1.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kind="notices#notice">
     
-	<notice:sendingApplication>application</notice:sendingApplication>
-	<notice:sendingUser>user</notice:sendingUser>
-	<notice:email>user@domain.com</notice:email>
-	<notice:noticeType>NOTIFICATION</notice:noticeType>
-	<notice:expirationDate>2013-11-11T12:15:08.606Z</notice:expirationDate>
-	<notice:role>ADMIN</notice:role>
-	<notice:statisticalOperation kind="operations#operation">
-		<cdomain:id>operation01</cdomain:id>
-		<cdomain:urn>urn:siemac:org.siemac.metamac.infomodel.statisticaloperations.Operation=operation01
-		</cdomain:urn>
-		<cdomain:selfLink kind="operations#operation"
-			href="http://domain.com/metamac-statistical-operations-web/apis/operations-internal/v1.0/operations/operation01" />
-		<cdomain:name>
-			<cdomain:text xml:lang="es">operation01 en EspaÃ±ol
-			</cdomain:text>
-			<cdomain:text xml:lang="en">operation01 in English
-			</cdomain:text>
-		</cdomain:name>
-	</notice:statisticalOperation>
-	<notice:messages>
+    <notice:noticeType>NOTIFICATION</notice:noticeType>
+    <notice:sendingApplication>TEST-APPLICATION</notice:sendingApplication>
+    <notice:sendingUser>rdiaada</notice:sendingUser>
+    <notice:subject>Test subject</notice:subject>
+    <notice:messages total="2">
         <notice:message>
-            <notice:text>My message</notice:text>
+            <notice:text>Message 01: with resources</notice:text>
+            <notice:resources total="2">
+                <notice:resource kind="structuralResources#concept">
+                    <cdomain:id>TEST-CONCEPT</cdomain:id>
+                    <cdomain:urn>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=MaintainerMock:ConceptSchemeMock(1.0).TEST-CONCEPT</cdomain:urn>
+                    <cdomain:selfLink kind="structuralResources#concept" href="http://estadisticas.arte-consultores.com/structural-resources-internal/apis/structural-resources-internal/latest/TEST-CONCEPT" />
+                    <cdomain:name>
+                        <cdomain:text xml:lang="es">Test concepto</cdomain:text>
+                        <cdomain:text xml:lang="en">Test concept</cdomain:text>
+                    </cdomain:name>
+                    <notice:managementAppLink>http://estadisticas.arte-consultores.com/structural-resources-internal/TEST-CONCEPT</notice:managementAppLink>
+                </notice:resource>
+                <notice:resource kind="structuralResources#agency">
+                    <cdomain:id>TEST-AGENCY</cdomain:id>
+                    <cdomain:nestedId>TEST-AGENCY</cdomain:nestedId>
+                    <cdomain:urn>urn:sdmx:org.sdmx.infomodel.base.Agency=MaintainerMock:AgencySchemeMock(1.0).TEST-AGENCY</cdomain:urn>
+                    <cdomain:selfLink kind="structuralResources#agency" href="http://estadisticas.arte-consultores.com/structural-resources-internal/apis/structural-resources-internal/latest/TEST-AGENCY" />
+                    <cdomain:name>
+                        <cdomain:text xml:lang="es">Test agencia</cdomain:text>
+                        <cdomain:text xml:lang="en">Test agency</cdomain:text>
+                    </cdomain:name>
+                    <notice:managementAppLink>http://estadisticas.arte-consultores.com/structural-resources-internal/TEST-AGENCY</notice:managementAppLink>
+                </notice:resource>
+            </notice:resources>
+        </notice:message>
+        <notice:message>
+            <notice:text>Message 02: without resources</notice:text>
         </notice:message>
     </notice:messages>
-	<notice:receivers total="5">
-		<notice:receiver>
-			<notice:username>user-0</notice:username>
-		</notice:receiver>
-		<notice:receiver>
-			<notice:username>user-1</notice:username>
-		</notice:receiver>
-		<notice:receiver>
-			<notice:username>user-2</notice:username>
-		</notice:receiver>
-		<notice:receiver>
-			<notice:username>user-3</notice:username>
-		</notice:receiver>
-		<notice:receiver>
-			<notice:username>user-4</notice:username>
-		</notice:receiver>
-	</notice:receivers>
+    <notice:receivers total="5">
+        <notice:receiver>
+            <notice:username>user-1</notice:username>
+        </notice:receiver>
+        <notice:receiver>
+            <notice:username>user-2</notice:username>
+        </notice:receiver>
+        <notice:receiver>
+            <notice:username>user-3</notice:username>
+        </notice:receiver>
+        <notice:receiver>
+            <notice:username>user-4</notice:username>
+        </notice:receiver>
+        <notice:receiver>
+            <notice:username>user-5</notice:username>
+        </notice:receiver>
+    </notice:receivers>
 </notice:notice>

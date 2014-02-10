@@ -32,7 +32,10 @@ public class NoticesAsserts extends CommonAsserts {
     }
 
     private static void assertEqualsMessagesCollection(java.util.List<Message> doCollection, Messages restCollection) throws MetamacException {
-        assertEquals(doCollection.size(), restCollection.getTotal());
+        if (doCollection.isEmpty() && (restCollection == null || restCollection.getMessages().isEmpty())) {
+            return;
+        }
+        assertEquals(doCollection.size(), restCollection.getTotal().intValue());
 
         for (Message doMessage : doCollection) {
             boolean found = false;
@@ -51,7 +54,10 @@ public class NoticesAsserts extends CommonAsserts {
     }
 
     private static void assertEqualsRolesCollection(java.util.List<Role> doCollection, Roles restCollection) throws MetamacException {
-        assertEquals(doCollection.size(), restCollection.getTotal());
+        if (doCollection.isEmpty() && (restCollection == null || restCollection.getRoles().isEmpty())) {
+            return;
+        }
+        assertEquals(doCollection.size(), restCollection.getTotal().intValue());
 
         for (Role doRole : doCollection) {
             boolean found = false;
@@ -69,7 +75,10 @@ public class NoticesAsserts extends CommonAsserts {
     }
 
     private static void assertEqualsApplicationsCollection(java.util.List<App> doCollection, Applications restCollection) throws MetamacException {
-        assertEquals(doCollection.size(), restCollection.getTotal());
+        if (doCollection.isEmpty() && (restCollection == null || restCollection.getApplications().isEmpty())) {
+            return;
+        }
+        assertEquals(doCollection.size(), restCollection.getTotal().intValue());
 
         for (App doApplication : doCollection) {
             boolean found = false;
@@ -88,7 +97,11 @@ public class NoticesAsserts extends CommonAsserts {
     }
 
     private static void assertEqualsReceiversCollection(java.util.List<Receiver> doCollection, Receivers restCollection) throws MetamacException {
-        assertEquals(doCollection.size(), restCollection.getTotal());
+        if (doCollection.isEmpty() && (restCollection == null || restCollection.getReceivers().isEmpty())) {
+            return;
+        }
+
+        assertEquals(doCollection.size(), restCollection.getTotal().intValue());
 
         for (Receiver doReceiver : doCollection) {
             boolean found = false;
@@ -107,7 +120,10 @@ public class NoticesAsserts extends CommonAsserts {
     }
 
     private static void assertEqualsStatisticalOperationsCollection(java.util.List<StatisticalOperation> doCollection, StatisticalOperations restCollection) throws MetamacException {
-        assertEquals(doCollection.size(), restCollection.getTotal());
+        if (doCollection.isEmpty() && (restCollection == null || restCollection.getStatisticalOperations().isEmpty())) {
+            return;
+        }
+        assertEquals(doCollection.size(), restCollection.getTotal().intValue());
 
         for (StatisticalOperation doStatisticalOperation : doCollection) {
             boolean found = false;
