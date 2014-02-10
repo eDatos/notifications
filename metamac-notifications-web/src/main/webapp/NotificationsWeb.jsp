@@ -21,7 +21,7 @@
     <!-- If you add any GWT meta tags, they must   -->
     <!-- be added before this line.                -->
     <!--                                           -->
-    <script type="text/javascript" language="javascript" src="CommonMetadataWeb/CommonMetadataWeb.nocache.js"></script>
+    <script type="text/javascript" language="javascript" src="NotificationsWeb/NotificationsWeb.nocache.js"></script>
   </head>
 
   <!--                                           -->
