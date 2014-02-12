@@ -6,6 +6,7 @@ import java.util.List;
 import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.core.common.util.CoreCommonUtil;
+import org.siemac.metamac.core.common.util.shared.UrnUtils;
 import org.siemac.metamac.notices.core.notice.domain.App;
 import org.siemac.metamac.notices.core.notice.domain.Message;
 import org.siemac.metamac.notices.core.notice.domain.Receiver;
@@ -40,11 +41,9 @@ public class NoticesDo2RestMapperv10Impl implements NoticesDo2RestMapperV10 {
         Notice target = new Notice();
 
         target.setKind(NoticesRestConstants.KIND_NOTICE);
-        // FIXME: poner el code en lugar de la URN
-        target.setId(source.getUrn());
+        target.setId(UrnUtils.removePrefix(source.getUrn()));
         target.setUrn(source.getUrn());
-        // FIXME: cambiar code por urn
-        target.setSelfLink(toNoticeSelfLink(source.getUrn()));
+        target.setSelfLink(toNoticeSelfLink(UrnUtils.removePrefix(source.getUrn())));
         target.setParentLink(toNoticeParentLink(source));
 
         target.setNoticeType(NoticeType.fromValue(source.getNoticeType().getName()));

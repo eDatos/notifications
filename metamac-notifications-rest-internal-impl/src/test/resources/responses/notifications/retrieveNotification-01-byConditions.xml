@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <notice:notice xmlns:notice="http://www.siemac.org/metamac/rest/notices/v1.0/domain" xmlns:cdomain="http://www.siemac.org/metamac/rest/common/v1.0/domain"
     xsi:schemaLocation="http://www.siemac.org/metamac/rest/notices/v1.0/domain metamac-notices-rest-internal-domain-v1.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kind="notices#notice">
-    <notice:id>urn:siemac:org.siemac.metamac.infomodel.notices.Notice=NOTIFICATION_01_WITH_CONDITIONS</notice:id>
+    <notice:id>NOTIFICATION_01_WITH_CONDITIONS</notice:id>
     <notice:urn>urn:siemac:org.siemac.metamac.infomodel.notices.Notice=NOTIFICATION_01_WITH_CONDITIONS</notice:urn>
-    <notice:selfLink kind="notices#notice" href="http://estadisticas.arte-consultores.com/notices-internal/apis/notices-internal/v1.0/notices/urn:siemac:org.siemac.metamac.infomodel.notices.Notice=NOTIFICATION_01_WITH_CONDITIONS"/>
+    <notice:selfLink kind="notices#notice" href="http://estadisticas.arte-consultores.com/notices-internal/apis/notices-internal/v1.0/notices/NOTIFICATION_01_WITH_CONDITIONS"/>
     <notice:parentLink kind="notices#notice" href="http://estadisticas.arte-consultores.com/notices-internal/apis/notices-internal/v1.0/notices"/>
     <notice:noticeType>NOTIFICATION</notice:noticeType>
     <notice:sendingApplication>TEST-APPLICATION</notice:sendingApplication>

@@ -66,7 +66,6 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
         noticeServiceInvocationValidator.checkCreateNotice(ctx, notice);
 
         // Generate URN
-        // FIXME: change el random por un get del uuid - añadir a la entity
         notice.setUrn(GeneratorUrnUtils.generateSiemacNoticeUrn(java.util.UUID.randomUUID().toString()));
 
         notice = getNoticeRepository().save(notice);
