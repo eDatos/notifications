@@ -21,48 +21,48 @@ public class NoticesServiceTest extends NoticesBaseTest implements NoticesServic
     @Override
     @Test
     public void testFindNoticeById() throws Exception {
-        // TODO Auto-generated method stub
+        // TODO: Implement (METAMAC-2147)
 
     }
 
     @Override
     @Test
     public void testCreateNotice() throws Exception {
-        // TODO Auto-generated method stub
+        // TODO: Implement (METAMAC-2147)
 
     }
 
     @Override
     @Test
     public void testUpdateNotice() throws Exception {
-        // TODO Auto-generated method stub
+        // TODO: Implement (METAMAC-2147)
 
     }
 
     @Override
     @Test
     public void testDeleteNotice() throws Exception {
-        // TODO Auto-generated method stub
+        // TODO: Implement (METAMAC-2147)
 
     }
 
     @Override
     @Test
     public void testFindAllNotice() throws Exception {
-        // TODO Auto-generated method stub
+        // TODO: Implement (METAMAC-2147)
 
     }
 
     @Override
     @Test
     public void testFindNoticeByCondition() throws Exception {
-        // TODO Auto-generated method stub
+        // TODO: Implement (METAMAC-2147)
 
     }
 
     @Override
     public void testRetrieveNoticeByUrn() throws Exception {
-        // TODO Auto-generated method stub
+        // TODO: Implement (METAMAC-2147)
 
     }
 }

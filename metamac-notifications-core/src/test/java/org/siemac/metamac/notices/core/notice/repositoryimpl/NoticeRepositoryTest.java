@@ -22,6 +22,6 @@ public class NoticeRepositoryTest extends NoticesBaseTest implements NoticeRepos
     @Override
     @Test
     public void testRetrieveByUrn() throws Exception {
-        // TODO "testRetrieveByUrn not implemented"
+        // TODO "testRetrieveByUrn not implemented" (METAMAC-2147)
     }
 }

@@ -74,7 +74,7 @@ public class NoticesServiceInvocationValidatorImpl {
         }
 
         if (notice.isMark()) {
-            // TODO lanzar exepcion de modificar un aviso que ya está marcado
+            // TODO lanzar exepcion de modificar un aviso que ya está marcado (METAMAC-2048)
             // TODO EN realidad este campo no se puede mapear en este servicio. Se modifica en un servicio diferente
             throw new RuntimeException("The notice is unmodifiable, is already marked.");
         }
