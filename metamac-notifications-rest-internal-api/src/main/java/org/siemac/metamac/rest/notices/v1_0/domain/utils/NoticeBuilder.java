@@ -68,13 +68,6 @@ class NoticeBuilderBase<GeneratorT extends NoticeBuilderBase<GeneratorT>> {
     }
 
     @SuppressWarnings("unchecked")
-    public GeneratorT withSendingDate(Date aValue) {
-        instance.setSendingDate(aValue);
-
-        return (GeneratorT) this;
-    }
-
-    @SuppressWarnings("unchecked")
     public GeneratorT withNoticeType(NoticeType aValue) {
         instance.setNoticeType(aValue);
 
