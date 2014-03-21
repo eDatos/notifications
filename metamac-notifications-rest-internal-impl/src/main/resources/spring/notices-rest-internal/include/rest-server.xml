@@ -12,9 +12,9 @@
 
     <jaxrs:server id="restInternal" address="/notices-internal">
 
-        <jaxrs:features>
-            <cxf:logging />
-        </jaxrs:features>
+<!--         <jaxrs:features> -->
+<!--             <cxf:logging /> -->
+<!--         </jaxrs:features> -->
 
         <jaxrs:serviceBeans>
             <ref bean="noticesRestInternalFacadeV10" />
