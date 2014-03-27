@@ -60,9 +60,17 @@
 «AROUND templates::domain::DomainObjectAttributeAnnotation::idAnnotations FOR Attribute»
     «IF getDomainObject().hasHint("idSequence")»
         @javax.persistence.Id
-        @javax.persistence.SequenceGenerator(name="«getDomainObject().getHint('idSequence')»", sequenceName="SEQ_«getDomainObject().getHint('idSequence')»", allocationSize=1)
-        @javax.persistence.GeneratedValue(strategy=javax.persistence.GenerationType.SEQUENCE,
-            generator="«getDomainObject().getHint('idSequence')»")
+        @javax.persistence.GeneratedValue(generator="«getDomainObject().getHint('idSequence')»", strategy=javax.persistence.GenerationType.TABLE)
+        @org.hibernate.annotations.GenericGenerator(
+			name = "«getDomainObject().getHint('idSequence')»",
+			strategy = "org.siemac.metamac.core.common.hibernate.id.TableGenerator",
+			parameters = {
+				@org.hibernate.annotations.Parameter(name = "table_name", value = "TB_SEQUENCES"),
+				@org.hibernate.annotations.Parameter(name = "segment_column_name", value = "SEQUENCE_NAME"),
+				@org.hibernate.annotations.Parameter(name = "value_column_name", value = "SEQUENCE_NEXT_VALUE"),
+				@org.hibernate.annotations.Parameter(name = "optimizer", value = "pooled-lo"),
+				@org.hibernate.annotations.Parameter(name = "increment_size", value = "50"),
+				@org.hibernate.annotations.Parameter(name = "segment_value", value = "«getDomainObject().getHint('idSequence')»")})
         @javax.persistence.Column(name="«getDatabaseName()»")
     «ELSE»
     	«targetDef.proceed()»
@@ -79,18 +87,11 @@
 	«ENDIF -»
 «ENDAROUND»
 
-«REM»HibernateSeuence is not needed in this project «ENDREM»
-«AROUND templates::db::OracleDDL::dropSequence FOR Application»
- 	«FOREACH getDomainObjectsInCreateOrder(true).select(d | !isInheritanceTypeSingleTable(getRootExtends(d.extends)) && d.getHint('idSequence') != null) AS domainObject»
-drop sequence SEQ_«domainObject.getHint('idSequence')»;
- 	«ENDFOREACH»
-«ENDAROUND»
+«REM»Skip script database generation for hibernate_sequence«ENDREM»
+«AROUND templates::db::OracleDDL::dropSequence FOR Application» 
+«ENDAROUND» 
 
-«REM»HibernateSeuence is not needed in this project «ENDREM»
-«AROUND templates::db::OracleDDL::createSequence FOR Application»
- 	«FOREACH getDomainObjectsInCreateOrder(true).select(d | !isInheritanceTypeSingleTable(getRootExtends(d.extends)) && d.getHint('idSequence') != null) AS domainObject»
-CREATE sequence SEQ_«domainObject.getHint('idSequence')»;
- 	«ENDFOREACH»
+«AROUND templates::db::OracleDDL::createSequence FOR Application» 
 «ENDAROUND»
 
 «REM»Generete tests for non generated repository methods «ENDREM»

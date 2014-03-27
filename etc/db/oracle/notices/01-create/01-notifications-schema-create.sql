@@ -4,26 +4,7 @@
 -- # Create
 -- ###########################################
 -- Create pk sequence
-    
- 	
-CREATE sequence SEQ_I18NSTRS;
- 	
-CREATE sequence SEQ_EXTERNAL_ITEMS;
- 	
-CREATE sequence SEQ_L10NSTRS;
- 	
-CREATE sequence SEQ_NOTICES;
- 	
-CREATE sequence SEQ_APPS;
- 	
-CREATE sequence SEQ_MESSAGES;
- 	
-CREATE sequence SEQ_RECEIVERS;
- 	
-CREATE sequence SEQ_ROLES;
- 	
-CREATE sequence SEQ_STATISTICAL_OPERATIONS;
- 	
+     
 
 
 -- Create normal entities

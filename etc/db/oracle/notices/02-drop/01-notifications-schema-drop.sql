@@ -32,26 +32,7 @@ DROP TABLE TB_INTERNATIONAL_STRINGS CASCADE CONSTRAINTS PURGE;
 
 
 -- Drop pk sequence
-    
- 	
-drop sequence SEQ_I18NSTRS;
- 	
-drop sequence SEQ_EXTERNAL_ITEMS;
- 	
-drop sequence SEQ_L10NSTRS;
- 	
-drop sequence SEQ_NOTICES;
- 	
-drop sequence SEQ_APPS;
- 	
-drop sequence SEQ_MESSAGES;
- 	
-drop sequence SEQ_RECEIVERS;
- 	
-drop sequence SEQ_ROLES;
- 	
-drop sequence SEQ_STATISTICAL_OPERATIONS;
- 	
+     
 
 
 	
