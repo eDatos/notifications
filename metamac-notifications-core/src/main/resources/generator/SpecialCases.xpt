@@ -136,12 +136,3 @@
 
 	«EXPAND generatorcommon::ServiceParameters::serviceParameters»
 «ENDAROUND»
-
-
-
-
-
-
-«AROUND templates::db::OracleDDL::ddl FOR Application»
-	«EXPAND generatorcommon::MetamacOracleDDL::generateDdl»
-«ENDAROUND»
