@@ -13,3 +13,69 @@ Por favor, consulta nuestro gestor de incidencia para obtener más información
 de las incidencias con el id [METAMAC-xxx].
 http://jira.arte-consultores.com/browse/METAMAC
 
+
+------------------------------------------------------------------------------
+Release 1.0.0
+------------------------------------------------------------------------------
+
+Notas de publicación - Metamac - Versión notifications - 1.0.0
+
+** Error
+    * [METAMAC-1962] - Proyecto de notificaciones
+    * [METAMAC-1967] - Api Rest de notificaciones
+    * [METAMAC-1969] - Configuraciones de aplicaciones en Base de datos en vez de en archivo de propiedades
+    * [METAMAC-2004] - Añadir funcionalidades a la API para que cumpla los requerimientos de los clientes
+    * [METAMAC-2043] - Corregir problema con factorypathentry para el gwtplatform 0.6
+    * [METAMAC-2044] - Corregir ubicación de los bean de configurationService
+    * [METAMAC-2120] - Corregir error en el valor de las propiedades del datasource en el fichero environment.xml
+    * [METAMAC-2181] - [CORE] Eliminar el sendingDate del Builder de una notificación porque esto no lo pueden setear los clientes
+
+** Mejora
+    * [METAMAC-2008] - [API] Generar utilidades para poder construir con facilidad las entidades de la API
+    * [METAMAC-2073] - Revisar los CSS necesarios en las aplicaciones y eliminar lo obsoleto
+
+** Nueva función
+    * [METAMAC-1976] - Posibilidad de setear en la WEB los datos por defecto de data
+
+** Soporte
+    * [METAMAC-1113] - Cambio en la configuración de Maven: uniqueVersion
+    * [METAMAC-2003] - Añadir RELEASE-NOTES al proyecto
+    * [METAMAC-2107] - [API] Enriqueces los builder de las entidades de la API
+
+** Tarea
+    * [METAMAC-972] - Propuesta del sistema
+    * [METAMAC-1719] - [Excepciones]: traducción de excepciones en el CORE. Intersector de traduccion de mensajes.
+    * [METAMAC-2020] - Revisar los TODO y FIXME antes de dar por finalizado cada módulo
+    * [METAMAC-2046] - Añadir la Suite de tests
+    * [METAMAC-2050] - Añadir utilidades de validación
+    * [METAMAC-2051] - Añadir Suite de Tests al proyecto api-impl
+    * [METAMAC-2054] - Añadir a los xml de ejemplos el XSD con el que deben corresponderse
+    * [METAMAC-2055] - Refactor de algunas de las clases del proyecto
+    * [METAMAC-2056] - Hacer que el proyecto de la api reutilice los objetos de mock del core
+    * [METAMAC-2058] - Añadir asunto a las notificaciones
+    * [METAMAC-2059] - Simplificar la creación de mocks de la api para que se reutilicen los del CORE cuando se necesiten entidades
+    * [METAMAC-2060] - Cambiar tipo de statisticalOperations para que no sea ExternalItem sino String
+    * [METAMAC-2061] - Modificar las utilidades de creación de listas de la API para que setee el total
+    * [METAMAC-2062] - Añadir utilidades de creación de mensajes a la interfaz de la API
+    * [METAMAC-2063] - Simplificar la creación de los mocks rest haciendo uso de las utilidades de la interfaz de la API
+    * [METAMAC-2064] - Refactorizar métodos de transformación de rest2entity y entity2rest
+    * [METAMAC-2067] - Mapear campos generales de todas las respuesta de la api: kind, id, selflink
+    * [METAMAC-2068] - Eliminar elementos vacíos de los XML de respuesta
+    * [METAMAC-2082] - Cambio de los nombres de los war
+    * [METAMAC-2086] - [CORE] Crear Builder para facilitar la creación de los objetos de mock
+    * [METAMAC-2087] - [CORE] Crear infraestructura de tests
+    * [METAMAC-2089] - [API] Cuando se intenta obtener una notificación que no existe debe devolverse un 404
+    * [METAMAC-2095] - [API] Modificar el orden de los atributos para que notificationType sea el primero
+    * [METAMAC-2096] - [APIS] Modificar la API externa del GPE por la API interna
+    * [METAMAC-2097] - Añadir al TypeExternalArtefactEnum los tipos de recursos gestionados por el aplicativos de recursos estadísticos
+    * [METAMAC-2098] - [API] En la conversión de externalItem, dar soporte a aquellos que son de la app de recursos estadísticos
+    * [METAMAC-2099] - [CORE] [API] Añadir a las notificaciones un campo código
+    * [METAMAC-2100] - [API] Cambiar el nombre de la API por notices
+    * [METAMAC-2103] - [CORE] [API] Refactor notification por notices
+    * [METAMAC-2108] - Refactor de ADVERTISMENT por ANNOUNCEMENT para que coincida con lo definido en la API
+    * [METAMAC-2131] - [CORE] Añadir método para comprobar que no faltan traducciones de parámetros ni mensajes de error
+    * [METAMAC-2133] - Cambiar driver a oracle 11 para pasar los tests en jenkins
+    * [METAMAC-2203] - [LOGS] Desactivar que en el log se impriman las respuestas de la API
+
+** Subtarea
+    * [METAMAC-2047] - Eliminar campo email de las notificaciones
