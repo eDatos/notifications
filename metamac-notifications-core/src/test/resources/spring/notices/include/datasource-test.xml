@@ -29,15 +29,16 @@
                 <prop key="query.substitutions">true 1, false 0</prop>
                 <prop key="hibernate.cache.use_query_cache">true</prop>
                 <prop key="hibernate.cache.provider_class">net.sf.ehcache.hibernate.EhCacheProvider</prop>
-                <prop key="hibernate.default_schema">${datasource.username}</prop>
+                <prop key="hibernate.default_schema">${metamac.notices.db.username}</prop>
             </props>
         </property>
     </bean>
 
-    <bean id="dataSource" class="oracle.jdbc.pool.OracleDataSource" destroy-method="close">
-        <property name="URL" value="${datasource.url}" />
-        <property name="user" value="${datasource.username}" />
-        <property name="password" value="${datasource.password}" />
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName"    value="${metamac.notices.db.driver_name}" />
+        <property name="url"                value="${metamac.notices.db.url}" />
+        <property name="username"           value="${metamac.notices.db.username}" />
+        <property name="password"           value="${metamac.notices.db.password}" />
     </bean>
 
     <bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">

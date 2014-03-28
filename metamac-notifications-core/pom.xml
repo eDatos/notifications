@@ -278,6 +278,12 @@
 			<!-- Add scope provided when deployed in jboss -->
 			<!--scope>provided</scope -->
 		</dependency>
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>sqljdbc</artifactId>
+            <version>${mssql.version}</version>
+            <scope>test</scope>
+        </dependency>
 		<dependency>
 			<groupId>com.oracle</groupId>
 			<artifactId>oracle</artifactId>
@@ -494,7 +500,7 @@
 					</properties>
 
 					<jvmSettings>
-						<copySysProperties>true</copySysProperties>
+						<!-- <copySysProperties>true</copySysProperties> -->
 						<jvmArgs>
 							<jvmArg>-client</jvmArg>
 							<jvmArg>-Xms256m</jvmArg>
