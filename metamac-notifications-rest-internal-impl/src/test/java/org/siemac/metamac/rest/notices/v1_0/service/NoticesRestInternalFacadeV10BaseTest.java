@@ -21,7 +21,6 @@ import org.apache.cxf.transports.http.configuration.ConnectionType;
 import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.siemac.metamac.core.common.constants.shared.ConfigurationConstants;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.core.common.util.ApplicationContextProvider;
 import org.siemac.metamac.notices.core.conf.NoticesConfiguration;
@@ -77,8 +76,8 @@ public abstract class NoticesRestInternalFacadeV10BaseTest extends MetamacRestBa
         apiEndpointv10 = configurationService.retrieveNoticesInternalApiUrlBase() + "/v1.0";
 
         // Configuration
-        srmInternalWebApplication = configurationService.getProperty(ConfigurationConstants.WEB_APPLICATION_SRM_INTERNAL_WEB);
-        srmApiInternalEndpoint = configurationService.getProperty(ConfigurationConstants.ENDPOINT_SRM_INTERNAL_API);
+        srmInternalWebApplication = configurationService.retrieveSrmInternalWebApplicationUrlBase();
+        srmApiInternalEndpoint = configurationService.retrieveSrmInternalApiUrlBase();
 
         resetMocks();
     }
