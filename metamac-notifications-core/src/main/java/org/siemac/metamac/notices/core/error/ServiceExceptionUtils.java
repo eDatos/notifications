@@ -4,7 +4,6 @@ import javax.ws.rs.core.Response.Status;
 
 import org.apache.cxf.jaxrs.client.ServerWebApplicationException;
 import org.apache.cxf.jaxrs.client.WebClient;
-import org.siemac.metamac.core.common.exception.MetamacException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +26,7 @@ public class ServiceExceptionUtils {
         MetamacException metamacException;
 
         if (exception == null) {
-            if (Status.NOT_FOUND.equals(e.getStatus())) {
+            if (Status.NOT_FOUND.getStatusCode().equals(e.getStatus())) {
                 metamacException = new MetamacException(ServiceExceptionType.REST_API_INVOCATION_ERROR_NOT_FOUND_API, apiName);
             } else {
                 metamacException = new MetamacException(ServiceExceptionType.REST_API_INVOCATION_ERROR_UNKNOWN_API, e);
