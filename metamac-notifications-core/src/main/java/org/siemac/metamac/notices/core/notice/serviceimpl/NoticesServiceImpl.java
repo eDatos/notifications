@@ -71,7 +71,10 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
         notice = getNoticeRepository().save(notice);
 
         // Send notice
-        mailChannelService.sendMail(ctx, notice, extractMailsTo(notice), extractReplyTo(notice));
+        String[] mailsTo = extractMailsTo(notice);
+        String replyTo = extractReplyTo(notice);
+
+        mailChannelService.sendMail(ctx, notice, mailsTo, replyTo);
 
         return notice;
     }
@@ -137,7 +140,7 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
         List<User> users = accessControlRestInternalFacade.findUsers(queryForFindUsers);
 
         if (users.isEmpty()) {
-            throw new MetamacException(ServiceExceptionType.NOTICE_RECEIVERS_NOT_FOUND);
+            throw new MetamacException(ServiceExceptionType.NOTICE_RECEIVERS_NOT_FOUND, queryForFindUsers);
         }
 
         String[] mailsTo = new String[users.size()];
@@ -157,7 +160,7 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
         List<User> users = accessControlRestInternalFacade.findUsers(queryForFindUsers);
 
         if (users.isEmpty()) {
-            throw new MetamacException(ServiceExceptionType.NOTICE_RECEIVERS_NOT_FOUND);
+            throw new MetamacException(ServiceExceptionType.NOTICE_RECEIVERS_NOT_FOUND, queryForFindUsers);
         }
 
         return users.iterator().next().getMail();
