@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
-import org.siemac.metamac.core.common.exception.MetamacException;
-import org.siemac.metamac.core.common.util.CoreCommonUtil;
 import org.siemac.metamac.notices.core.common.domain.ExternalItem;
 import org.siemac.metamac.notices.core.notice.enume.domain.NoticeType;
 import org.siemac.metamac.notices.rest.internal.v1_0.mapper.base.BaseRest2DoMapperV10Impl;
@@ -128,17 +126,19 @@ public class NoticesRest2DoMapperV10Impl extends BaseRest2DoMapperV10Impl implem
         // Messages
         if (source != null) {
             for (Message sourceMessage : source.getMessages()) {
-                org.siemac.metamac.notices.core.notice.domain.Message targetMessage = new org.siemac.metamac.notices.core.notice.domain.Message(sourceMessage.getText());
-                targetMessage.setNotice(notice);
+                if (sourceMessage != null) {
+                    org.siemac.metamac.notices.core.notice.domain.Message targetMessage = new org.siemac.metamac.notices.core.notice.domain.Message(sourceMessage.getText());
+                    targetMessage.setNotice(notice);
 
-                if (sourceMessage != null && sourceMessage.getResources() != null && !sourceMessage.getResources().getResources().isEmpty()) {
-                    for (ResourceInternal sourceResource : sourceMessage.getResources().getResources()) {
-                        ExternalItem targetResource = commonRest2DoMapper.externalItemRestToExternalItemDo(sourceResource);
-                        targetMessage.addResource(targetResource);
+                    if (sourceMessage.getResources() != null && !sourceMessage.getResources().getResources().isEmpty()) {
+                        for (ResourceInternal sourceResource : sourceMessage.getResources().getResources()) {
+                            ExternalItem targetResource = commonRest2DoMapper.externalItemRestToExternalItemDo(sourceResource);
+                            targetMessage.addResource(targetResource);
+                        }
                     }
-                }
 
-                target.add(targetMessage);
+                    target.add(targetMessage);
+                }
             }
         }
 
