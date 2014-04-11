@@ -30,7 +30,7 @@
     </repositories>
 
     <properties>
-        <metamac-core-common.version>1.9.3-SNAPSHOT</metamac-core-common.version>
+        <metamac-core-common.version>2.0.0-SNAPSHOT</metamac-core-common.version>
         <metamac-rest-api.version>1.3.3-SNAPSHOT</metamac-rest-api.version>
         <metamac-sso.version>1.5.2-SNAPSHOT</metamac-sso.version>
         <metamac-rest-common.version>1.3.3-SNAPSHOT</metamac-rest-common.version>
