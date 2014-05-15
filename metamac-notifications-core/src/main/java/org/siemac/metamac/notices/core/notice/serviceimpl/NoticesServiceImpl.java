@@ -134,7 +134,7 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
         String queryForFindUsers = NoticesServiceUtil.createQueryForFindUsers(notice);
 
         if (StringUtils.isEmpty(queryForFindUsers)) {
-            throw new RuntimeException("Unexpected error: Impossible to create query for acces-control api");
+            throw new RuntimeException("Unexpected error: Impossible to create query for access-control api");
         }
 
         List<User> users = accessControlRestInternalFacade.findUsers(queryForFindUsers);
