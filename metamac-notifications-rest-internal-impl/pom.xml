@@ -21,7 +21,7 @@
 		<dependency>
 			<groupId>org.siemac.metamac.metamac-notifications</groupId>
 			<artifactId>metamac-notifications-rest-internal-api</artifactId>
-			<version>${project.version}</version>
+			<version>${metamac-notifications-rest-internal-api.version}</version>
 		</dependency>
         <dependency>
             <groupId>org.siemac.metamac.metamac-notifications</groupId>
