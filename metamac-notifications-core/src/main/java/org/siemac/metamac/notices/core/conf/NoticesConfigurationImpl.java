@@ -6,49 +6,28 @@ import org.siemac.metamac.notices.core.constants.NoticesConfigurationConstants;
 
 public class NoticesConfigurationImpl extends ConfigurationServiceImpl implements NoticesConfiguration {
 
-    private String channelMailHost;
-    private String channelMailPort;
-    private String channelMailUsername;
-    private String channelMailPassword;
-    private String channelMailProtocol;
-
     @Override
     public String retrieveChannelMailHost() throws MetamacException {
-        if (channelMailHost == null) {
-            channelMailHost = retrieveProperty(NoticesConfigurationConstants.METAMAC_NOTIFICATION_CHANNEL_MAIL_HOST, Boolean.TRUE);
-        }
-        return channelMailHost;
+        return retrieveProperty(NoticesConfigurationConstants.METAMAC_NOTIFICATION_CHANNEL_MAIL_HOST);
     }
 
     @Override
     public String retrieveChannelMailPort() throws MetamacException {
-        if (channelMailPort == null) {
-            channelMailPort = retrieveProperty(NoticesConfigurationConstants.METAMAC_NOTIFICATION_CHANNEL_MAIL_PORT, Boolean.TRUE);
-        }
-        return channelMailPort;
+        return retrieveProperty(NoticesConfigurationConstants.METAMAC_NOTIFICATION_CHANNEL_MAIL_PORT);
     }
 
     @Override
     public String retrieveChannelMailUsername() throws MetamacException {
-        if (channelMailUsername == null) {
-            channelMailUsername = retrieveProperty(NoticesConfigurationConstants.METAMAC_NOTIFICATION_CHANNEL_MAIL_USERNAME, Boolean.TRUE);
-        }
-        return channelMailUsername;
+        return retrieveProperty(NoticesConfigurationConstants.METAMAC_NOTIFICATION_CHANNEL_MAIL_USERNAME);
     }
 
     @Override
     public String retrieveChannelMailPassword() throws MetamacException {
-        if (channelMailPassword == null) {
-            channelMailPassword = retrieveProperty(NoticesConfigurationConstants.METAMAC_NOTIFICATION_CHANNEL_MAIL_PASSWORD, Boolean.TRUE);
-        }
-        return channelMailPassword;
+        return retrieveProperty(NoticesConfigurationConstants.METAMAC_NOTIFICATION_CHANNEL_MAIL_PASSWORD);
     }
 
     @Override
     public String retrieveChannelMailProtocol() throws MetamacException {
-        if (channelMailProtocol == null) {
-            channelMailProtocol = retrieveProperty(NoticesConfigurationConstants.METAMAC_NOTIFICATION_CHANNEL_MAIL_PROTOCOL, Boolean.TRUE);
-        }
-        return channelMailProtocol;
+        return retrieveProperty(NoticesConfigurationConstants.METAMAC_NOTIFICATION_CHANNEL_MAIL_PROTOCOL);
     }
 }
