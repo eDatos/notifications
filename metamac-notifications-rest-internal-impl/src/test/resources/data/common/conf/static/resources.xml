@@ -3,4 +3,5 @@
 <properties>
     <comment>Rest endpoints</comment>
     <entry key="metamac.statistical_operations.web.internal">http://FILL_ME_WITH_HOST:FILL_ME_WITH_PORT/metamac-statistical-operations-web</entry>
+    <entry key="metamac.edition.languages">es,pt,en,ca</entry>
 </properties>
