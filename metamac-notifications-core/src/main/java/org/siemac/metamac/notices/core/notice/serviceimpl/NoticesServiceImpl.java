@@ -13,6 +13,7 @@ import org.siemac.metamac.notices.core.error.ServiceExceptionType;
 import org.siemac.metamac.notices.core.invocation.service.AccessControlRestInternalFacade;
 import org.siemac.metamac.notices.core.notice.domain.Notice;
 import org.siemac.metamac.notices.core.notice.exception.NoticeNotFoundException;
+import org.siemac.metamac.notices.core.notice.serviceapi.NoticesService;
 import org.siemac.metamac.notices.core.notice.serviceapi.validators.NoticesServiceInvocationValidator;
 import org.siemac.metamac.notices.core.notice.serviceimpl.util.NoticesServiceUtil;
 import org.siemac.metamac.rest.access_control.v1_0.domain.User;
@@ -22,7 +23,7 @@ import org.springframework.stereotype.Service;
 /**
  * Implementation of NoticeService.
  */
-@Service("noticeService")
+@Service(NoticesService.BEAN_ID)
 public class NoticesServiceImpl extends NoticesServiceImplBase {
 
     @Autowired
