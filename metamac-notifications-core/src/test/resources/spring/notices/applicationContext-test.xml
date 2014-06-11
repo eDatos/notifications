@@ -30,7 +30,7 @@
     
 
     <!-- Metamac environment configuration -->
-    <bean id="configurationService" class="org.siemac.metamac.notices.core.conf.NoticesConfigurationImpl">
+    <bean id="configurationService" class="org.siemac.metamac.core.common.conf.ConfigurationServiceImpl">
         <property name="systemConfigurationFile">
             <value>classpath:metamac/environment-test.xml</value>
         </property>
