@@ -19,7 +19,7 @@
     </context:component-scan>
 
     <!-- Metamac environment configuration -->
-    <bean id="configurationService" class="org.siemac.metamac.notices.core.conf.NoticesConfigurationImpl">
+    <bean id="configurationService" class="org.siemac.metamac.notices.core.conf.NoticesConfiguration">
         <property name="systemConfigurationFile">
             <value>classpath:metamac/environment.xml</value>
         </property>
