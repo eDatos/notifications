@@ -13,9 +13,6 @@
     <context:exclude-filter type="regex" expression=".*web.*"/> 
   </context:component-scan>
   
-  <!-- Core -->
-  <import resource="classpath:/spring/notices/include/applicationContext.xml" />
-  
   <!-- Includes -->
   <import resource="classpath:/spring/notices-rest-internal/include/rest-server.xml"/>
   <import resource="classpath:/spring/notices-rest-internal/include/interceptor.xml"/>
