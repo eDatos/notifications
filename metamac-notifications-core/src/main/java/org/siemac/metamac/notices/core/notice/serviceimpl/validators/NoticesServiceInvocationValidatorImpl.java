@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.fornax.cartridges.sculptor.framework.accessapi.ConditionalCriteria;
 import org.siemac.metamac.core.common.exception.MetamacExceptionItem;
+import org.siemac.metamac.notices.core.error.ServiceExceptionBaseParameters;
 import org.siemac.metamac.notices.core.error.ServiceExceptionParameters;
-import org.siemac.metamac.notices.core.error.ServiceExceptionSingleParameters;
 import org.siemac.metamac.notices.core.notice.domain.Notice;
 import org.siemac.metamac.notices.core.notice.enume.domain.NoticeType;
 import org.siemac.metamac.notices.core.utils.NoticesValidationUtils;
@@ -17,7 +17,7 @@ public class NoticesServiceInvocationValidatorImpl {
     // ------------------------------------------------------------------------------------
 
     public static void checkFindNoticeById(Long id, List<MetamacExceptionItem> exceptions) {
-        NoticesValidationUtils.checkParameterRequired(id, ServiceExceptionSingleParameters.ID, exceptions);
+        NoticesValidationUtils.checkParameterRequired(id, ServiceExceptionBaseParameters.ID, exceptions);
     }
 
     public static void checkCreateNotice(Notice notice, List<MetamacExceptionItem> exceptions) {
@@ -94,5 +94,4 @@ public class NoticesServiceInvocationValidatorImpl {
         }
 
     }
-
 }
