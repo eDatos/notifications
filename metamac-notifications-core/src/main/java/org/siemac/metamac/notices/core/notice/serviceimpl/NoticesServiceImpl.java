@@ -163,7 +163,24 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
     }
 
     private List<User> calculateReceiversOfAccessControl(Notice notice) throws MetamacException {
-        String queryForFindUsers = NoticesServiceUtil.createQueryForFindUsers(notice);
+        String queryForFindUsers = NoticesServiceUtil.createQueryForFindNoticeReceivers(notice);
+
+        if (StringUtils.isEmpty(queryForFindUsers)) {
+            // If the user does not specify any user (receivers or conditions), the notice is for all users that exists in access-control database
+            queryForFindUsers = null;
+        }
+
+        List<User> users = accessControlRestInternalFacade.findUsers(queryForFindUsers);
+
+        if (users.isEmpty()) {
+            throw new MetamacException(ServiceExceptionType.NOTICE_RECEIVERS_NOT_FOUND, queryForFindUsers);
+        }
+
+        return users;
+    }
+
+    private List<User> calculateReceiversOfMail(Notice notice) throws MetamacException {
+        String queryForFindUsers = NoticesServiceUtil.createQueryForFindNoticeReveiversThatReceiveMail(notice);
 
         if (StringUtils.isEmpty(queryForFindUsers)) {
             // If the user does not specify any user (receivers or conditions), the notice is for all users that exists in access-control database
@@ -180,7 +197,7 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
     }
 
     private String[] extractMailsTo(Notice notice) throws MetamacException {
-        List<User> users = calculateReceiversOfAccessControl(notice);
+        List<User> users = calculateReceiversOfMail(notice);
 
         String[] mailsTo = new String[users.size()];
         for (int i = 0; i < users.size(); i++) {

@@ -1,10 +1,5 @@
 package org.siemac.metamac.notices.core.notice.serviceimpl.util;
 
-import static org.siemac.metamac.notices.core.invocation.utils.RestCriteriaUtils.appendCommaSeparatedQuotedElement;
-import static org.siemac.metamac.notices.core.invocation.utils.RestCriteriaUtils.appendConditionDisjuctionToQuery;
-import static org.siemac.metamac.notices.core.invocation.utils.RestCriteriaUtils.appendConditionToQuery;
-import static org.siemac.metamac.notices.core.invocation.utils.RestCriteriaUtils.fieldComparison;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -18,9 +13,24 @@ import org.siemac.metamac.notices.core.notice.domain.Role;
 import org.siemac.metamac.rest.access_control.v1_0.domain.UserCriteriaPropertyRestriction;
 import org.siemac.metamac.rest.common.v1_0.domain.ComparisonOperator;
 
+import static org.siemac.metamac.notices.core.invocation.utils.RestCriteriaUtils.appendCommaSeparatedQuotedElement;
+import static org.siemac.metamac.notices.core.invocation.utils.RestCriteriaUtils.appendConditionDisjuctionToQuery;
+import static org.siemac.metamac.notices.core.invocation.utils.RestCriteriaUtils.appendConditionToQuery;
+import static org.siemac.metamac.notices.core.invocation.utils.RestCriteriaUtils.fieldComparison;
+
 public class NoticesServiceUtil {
 
-    public static String createQueryForFindUsers(Notice notice) {
+    public static String createQueryForFindNoticeReveiversThatReceiveMail(Notice notice) {
+        StringBuilder query = new StringBuilder(createQueryForFindNoticeReceivers(notice));
+
+        // Add filter: send mail = true
+        appendConditionToQuery(query, fieldComparison(UserCriteriaPropertyRestriction.SEND_MAIL, ComparisonOperator.EQ, Boolean.TRUE));
+
+        return query.toString();
+
+    }
+
+    public static String createQueryForFindNoticeReceivers(Notice notice) {
         StringBuilder query = new StringBuilder();
 
         // Add filter: by usernames
