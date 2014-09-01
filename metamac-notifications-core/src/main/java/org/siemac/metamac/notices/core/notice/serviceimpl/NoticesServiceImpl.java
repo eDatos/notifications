@@ -1,5 +1,6 @@
 package org.siemac.metamac.notices.core.notice.serviceimpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -12,6 +13,7 @@ import org.siemac.metamac.notices.core.channel.mail.serviceimpl.MailChannelServi
 import org.siemac.metamac.notices.core.error.ServiceExceptionType;
 import org.siemac.metamac.notices.core.invocation.service.AccessControlRestInternalFacade;
 import org.siemac.metamac.notices.core.notice.domain.Notice;
+import org.siemac.metamac.notices.core.notice.domain.Receiver;
 import org.siemac.metamac.notices.core.notice.exception.NoticeNotFoundException;
 import org.siemac.metamac.notices.core.notice.serviceapi.NoticesService;
 import org.siemac.metamac.notices.core.notice.serviceapi.validators.NoticesServiceInvocationValidator;
@@ -69,6 +71,10 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
         // Generate URN
         notice.setUrn(GeneratorUrnUtils.generateSiemacNoticeUrn(java.util.UUID.randomUUID().toString()));
 
+        // Calculate receivers
+        List<User> users = calculateReceiversOfAccessControl(notice);
+        addReceiversToNotice(users, notice);
+
         notice = getNoticeRepository().save(notice);
 
         // Send notice
@@ -79,7 +85,6 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
 
         return notice;
     }
-
     @Override
     public Notice updateNotice(ServiceContext ctx, Notice notice) throws MetamacException {
 
@@ -131,7 +136,24 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
         return conditionsEntity;
     }
 
-    private String[] extractMailsTo(Notice notice) throws MetamacException {
+    private Notice addReceiversToNotice(List<User> users, Notice notice) throws MetamacException {
+        List<Receiver> receivers = new ArrayList<Receiver>();
+
+        for (User user : users) {
+            Receiver receiver = new Receiver();
+            receiver.setNotice(notice);
+            receiver.setUsername(user.getUsername());
+            receiver.setAcknowledge(Boolean.FALSE);
+            receivers.add(receiver);
+        }
+
+        notice.getReceivers().clear();
+        notice.getReceivers().addAll(receivers);
+
+        return notice;
+    }
+
+    private List<User> calculateReceiversOfAccessControl(Notice notice) throws MetamacException {
         String queryForFindUsers = NoticesServiceUtil.createQueryForFindUsers(notice);
 
         if (StringUtils.isEmpty(queryForFindUsers)) {
@@ -144,6 +166,12 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
         if (users.isEmpty()) {
             throw new MetamacException(ServiceExceptionType.NOTICE_RECEIVERS_NOT_FOUND, queryForFindUsers);
         }
+
+        return users;
+    }
+
+    private String[] extractMailsTo(Notice notice) throws MetamacException {
+        List<User> users = calculateReceiversOfAccessControl(notice);
 
         String[] mailsTo = new String[users.size()];
         for (int i = 0; i < users.size(); i++) {
@@ -162,7 +190,7 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
         List<User> users = accessControlRestInternalFacade.findUsers(queryForFindUsers);
 
         if (users.isEmpty()) {
-            throw new MetamacException(ServiceExceptionType.NOTICE_RECEIVERS_NOT_FOUND, queryForFindUsers);
+            throw new MetamacException(ServiceExceptionType.NOTICE_REPLYTO_NOT_FOUND, queryForFindUsers);
         }
 
         return users.iterator().next().getMail();
