@@ -44,6 +44,10 @@ public class NoticesServiceInvocationValidatorImpl {
         NoticesValidationUtils.checkParameterRequired(urn, ServiceExceptionParameters.URN, exceptions);
     }
 
+    public static void checkFindUserNotices(String username, List<MetamacExceptionItem> exceptions) {
+        NoticesValidationUtils.checkParameterRequired(username, ServiceExceptionParameters.RECEIVER__USERNAME, exceptions);
+    }
+
     // ------------------------------------------------------------------------
     // PRIVATE METHODS
     // ------------------------------------------------------------------------

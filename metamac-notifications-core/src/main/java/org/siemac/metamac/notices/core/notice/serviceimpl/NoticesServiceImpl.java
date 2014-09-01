@@ -85,6 +85,7 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
 
         return notice;
     }
+
     @Override
     public Notice updateNotice(ServiceContext ctx, Notice notice) throws MetamacException {
 
@@ -122,6 +123,14 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
         initCriteriaConditions(condition, Notice.class);
 
         return getNoticeRepository().findByCondition(condition);
+    }
+
+    @Override
+    public List<Notice> findUserNotices(ServiceContext ctx, String receiverUsername) throws MetamacException {
+        // Validations
+        noticeServiceInvocationValidator.checkFindUserNotices(ctx, receiverUsername);
+
+        return getNoticeRepository().findByReceiverUsername(receiverUsername);
     }
 
     // ----------------------------------------------------------------------

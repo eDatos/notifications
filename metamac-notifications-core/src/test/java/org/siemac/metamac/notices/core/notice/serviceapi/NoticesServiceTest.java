@@ -69,9 +69,16 @@ public class NoticesServiceTest extends NoticesBaseTest implements NoticesServic
     }
 
     @Override
+    @Test
     public void testRetrieveNoticeByUrn() throws Exception {
         // TODO: Implement (METAMAC-2147)
 
+    }
+
+    @Override
+    @Test
+    public void testFindUserNotices() throws Exception {
+        // TODO: Implement (METAMAC-2147)
     }
 
     private static Notice mockNotice() {
@@ -95,4 +102,5 @@ public class NoticesServiceTest extends NoticesBaseTest implements NoticesServic
         message.setNotice(notice);
         return message;
     }
+
 }
