@@ -1,7 +1,10 @@
 package org.siemac.metamac.notices.core.notice.serviceimpl.util;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import static org.siemac.metamac.notices.core.invocation.utils.RestCriteriaUtils.appendCommaSeparatedQuotedElement;
+import static org.siemac.metamac.notices.core.invocation.utils.RestCriteriaUtils.appendConditionDisjuctionToQuery;
+import static org.siemac.metamac.notices.core.invocation.utils.RestCriteriaUtils.appendConditionToQuery;
+import static org.siemac.metamac.notices.core.invocation.utils.RestCriteriaUtils.fieldComparison;
+
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -10,13 +13,9 @@ import org.siemac.metamac.notices.core.notice.domain.App;
 import org.siemac.metamac.notices.core.notice.domain.Notice;
 import org.siemac.metamac.notices.core.notice.domain.Receiver;
 import org.siemac.metamac.notices.core.notice.domain.Role;
+import org.siemac.metamac.notices.core.notice.domain.StatisticalOperation;
 import org.siemac.metamac.rest.access_control.v1_0.domain.UserCriteriaPropertyRestriction;
 import org.siemac.metamac.rest.common.v1_0.domain.ComparisonOperator;
-
-import static org.siemac.metamac.notices.core.invocation.utils.RestCriteriaUtils.appendCommaSeparatedQuotedElement;
-import static org.siemac.metamac.notices.core.invocation.utils.RestCriteriaUtils.appendConditionDisjuctionToQuery;
-import static org.siemac.metamac.notices.core.invocation.utils.RestCriteriaUtils.appendConditionToQuery;
-import static org.siemac.metamac.notices.core.invocation.utils.RestCriteriaUtils.fieldComparison;
 
 public class NoticesServiceUtil {
 
@@ -41,7 +40,10 @@ public class NoticesServiceUtil {
 
         // Add filter: by statistic operations
         if (notice.getStatisticalOperations() != null && !notice.getStatisticalOperations().isEmpty()) {
-            appendConditionDisjuctionToQuery(query, fieldComparison(UserCriteriaPropertyRestriction.STATISTICAL_OPERATION_URN, ComparisonOperator.EQ, notice.getStatisticalOperations()),
+            appendConditionDisjuctionToQuery(
+                    query,
+                    fieldComparison(UserCriteriaPropertyRestriction.STATISTICAL_OPERATION_URN, ComparisonOperator.IN,
+                            transformStatisticalOperationsIntoCommaSeparatedUrns(notice.getStatisticalOperations())),
                     fieldComparison(UserCriteriaPropertyRestriction.STATISTICAL_OPERATION_URN, ComparisonOperator.IS_NULL, null));
         }
 
@@ -103,11 +105,15 @@ public class NoticesServiceUtil {
         return externalItem.getUrn();
     }
 
-    public static List<String> processExternalItemsUrns(Collection<ExternalItem> externalItems) {
-        List<String> urns = new ArrayList<String>();
-        for (ExternalItem item : externalItems) {
-            urns.add(processExternalItemsUrn(item));
+    public static String processStatisticalOperationUrn(StatisticalOperation statisticalOperation) {
+        return statisticalOperation.getName();
+    }
+
+    public static String transformStatisticalOperationsIntoCommaSeparatedUrns(List<StatisticalOperation> statisticalOperations) {
+        StringBuilder result = new StringBuilder();
+        for (StatisticalOperation statisticalOperation : statisticalOperations) {
+            appendCommaSeparatedQuotedElement(result, processStatisticalOperationUrn(statisticalOperation));
         }
-        return urns;
+        return result.toString();
     }
 }
