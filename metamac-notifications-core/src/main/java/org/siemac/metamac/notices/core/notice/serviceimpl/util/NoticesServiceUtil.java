@@ -23,7 +23,7 @@ public class NoticesServiceUtil {
         StringBuilder query = new StringBuilder(createQueryForFindNoticeReceivers(notice));
 
         // Add filter: send mail = true
-        appendConditionToQuery(query, fieldComparison(UserCriteriaPropertyRestriction.SEND_MAIL, ComparisonOperator.EQ, Boolean.TRUE));
+        appendConditionToQuery(query, fieldComparison(UserCriteriaPropertyRestriction.SEND_EMAIL, ComparisonOperator.EQ, Boolean.TRUE));
 
         return query.toString();
 
