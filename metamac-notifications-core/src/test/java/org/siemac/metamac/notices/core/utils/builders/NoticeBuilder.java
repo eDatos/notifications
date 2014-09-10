@@ -101,13 +101,6 @@ class NoticeBuilderBase<GeneratorT extends NoticeBuilderBase<GeneratorT>> {
     }
 
     @SuppressWarnings("unchecked")
-    public GeneratorT withMark(boolean aValue) {
-        instance.setMark(aValue);
-
-        return (GeneratorT) this;
-    }
-
-    @SuppressWarnings("unchecked")
     public GeneratorT withSubject(String aValue) {
         instance.setSubject(aValue);
 
