@@ -12,6 +12,9 @@ import org.siemac.metamac.notices.core.utils.NoticesValidationUtils;
 
 public class NoticesServiceInvocationValidatorImpl {
 
+    private NoticesServiceInvocationValidatorImpl() {
+    }
+
     // ------------------------------------------------------------------------------------
     // NOTICES
     // ------------------------------------------------------------------------------------
@@ -75,12 +78,6 @@ public class NoticesServiceInvocationValidatorImpl {
 
         if (notice == null) {
             return;
-        }
-
-        if (notice.isMark()) {
-            // TODO lanzar exepcion de modificar un aviso que ya está marcado (METAMAC-2048)
-            // TODO EN realidad este campo no se puede mapear en este servicio. Se modifica en un servicio diferente
-            throw new RuntimeException("The notice is unmodifiable, is already marked.");
         }
 
         checkNoticeMetadata(notice, exceptions);
