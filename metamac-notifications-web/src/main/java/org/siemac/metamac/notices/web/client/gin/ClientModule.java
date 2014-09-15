@@ -1,0 +1,46 @@
+package org.siemac.metamac.notices.web.client.gin;
+
+import org.siemac.metamac.notices.web.client.LoggedInGatekeeper;
+import org.siemac.metamac.notices.web.client.NameTokens;
+import org.siemac.metamac.notices.web.client.NoticesPlaceManager;
+import org.siemac.metamac.notices.web.client.NoticesWebConstants;
+import org.siemac.metamac.notices.web.client.presenter.ErrorPagePresenter;
+import org.siemac.metamac.notices.web.client.presenter.MainPagePresenter;
+import org.siemac.metamac.notices.web.client.presenter.UnauthorizedPagePresenter;
+import org.siemac.metamac.notices.web.client.view.ErrorPageViewImpl;
+import org.siemac.metamac.notices.web.client.view.MainPageViewImpl;
+import org.siemac.metamac.notices.web.client.view.UnauthorizedPageViewImpl;
+
+import com.google.inject.Singleton;
+import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
+import com.gwtplatform.mvp.client.gin.DefaultModule;
+
+public class ClientModule extends AbstractPresenterModule {
+
+    @Override
+    protected void configure() {
+        // Default implementation of standard resources
+        // |_ bind(EventBus.class).to(SimpleEventBus.class).in(Singleton.class);
+        // |_ bind(TokenFormatter.class).to(ParameterTokenFormatter.class).in(Singleton.class);
+        // |_ bind(RootPresenter.class).asEagerSingleton();
+        // |_ bind(PlaceManager.class).to(MyPlaceManager.class).in(Singleton.class);
+        // |_ bind(GoogleAnalytics.class).to(GoogleAnalyticsImpl.class).in(Singleton.class);
+        install(new DefaultModule(NoticesPlaceManager.class));
+
+        // Constants
+        bindConstant().annotatedWith(DefaultPlace.class).to(NameTokens.mainPage);
+
+        // Gate keeper
+        bind(LoggedInGatekeeper.class).in(Singleton.class);
+
+        // Presenters
+        bindPresenter(MainPagePresenter.class, MainPagePresenter.MainPageView.class, MainPageViewImpl.class, MainPagePresenter.MainPageProxy.class);
+
+        // Error pages
+        bindPresenter(ErrorPagePresenter.class, ErrorPagePresenter.ErrorPageView.class, ErrorPageViewImpl.class, ErrorPagePresenter.ErrorPageProxy.class);
+        bindPresenter(UnauthorizedPagePresenter.class, UnauthorizedPagePresenter.UnauthorizedPageView.class, UnauthorizedPageViewImpl.class, UnauthorizedPagePresenter.UnauthorizedPageProxy.class);
+
+        // Interfaces
+        bind(NoticesWebConstants.class).in(Singleton.class);
+    }
+}

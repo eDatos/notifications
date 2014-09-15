@@ -1,0 +1,165 @@
+/*
+ * Sections
+ */
+.title {
+	font-size: 28px;
+	color: #008BD0; /* Blue */
+}
+
+.sectionTitle {
+	font-size: 20px;
+	color: #008BD0; /* Blue */
+}
+
+.subsectionTitle {
+	font-size: 16px;
+	color: #008BD0; /* Blue */
+}
+
+/*
+ * Forms
+ */
+.form {
+	padding-bottom: 8px;
+	padding-top: 6px ;
+}
+
+.formLabel {
+	color: #003168;
+	font-family: Arial, Verdana, sans-serif;
+	font-size: 11px;
+	text-align: right;
+	width: 45px;
+}
+
+.requiredFormLabel {
+	color: #003168;
+	font-family: Arial, Verdana, sans-serif;
+	font-size: 11px;
+	text-align: right;
+	width: 45px;
+	font-weight: bold;
+}
+
+.staticFormTitle {
+	font-weight: 700;
+	color: #003168;
+	font-family: Arial,Verdana,sans-serif;
+	font-size: 11px;
+}
+
+.staticFormItemTitle, .staticFormItemTitleError {
+    font-weight: 700;
+    color: #003168;
+    font-family: Arial, Verdana, sans-serif;
+    font-size: 11px;
+    vertical-align: top;
+}
+
+/*
+ * BreadCrumbs
+ */
+ 
+.clickable {
+	color: blue;
+	font-size: 11px;
+	font-family: Arial, Verdana, sans-serif;
+	text-decoration: underline;
+	cursor: pointer;
+	font-style: italic;
+}
+
+/*
+ * Overridden styles
+ */
+
+.formTitle {
+/* 	font-weight: bold; */
+}
+
+
+/*
+ * Messages
+ */
+ 
+.errorMessage {
+	font-weight: bold;
+	color: black;
+    font-family: Arial,Verdana,sans-serif;
+    font-size: 11px;
+}
+
+
+.successMessage {
+	font-weight: bold;
+	color: black;
+    font-family: Arial,Verdana,sans-serif;
+    font-size: 11px;
+}
+
+/**
+ * BreadCrumbs
+ */
+
+.breadCrumbPanel {
+	margin-left: 5px;
+}
+
+a:HOVER {
+	color: #A68A20;
+}
+
+/**
+* Buttons
+*/
+
+.publishButton, .publishButtonOver, .publishButtonDown {
+	font-family: Arial,Verdana,sans-serif;
+	font-size: 11px;
+}
+
+.orderListStyle {
+    margin-bottom: 10px;
+}
+
+/****************** HEADER ******************/
+.titleHeaderPanel {
+ font-size: 26px;
+ font-weight: normal;
+ color: #008BD0; /* Azul */
+ text-align: center;
+}
+
+/******************** FOOTER ****************/
+.footerPanel {
+ background-color: #FFDF61; /* Amarillo */
+}
+
+.footerText {
+ font-size: 10px;
+ font-weight: normal;
+ text-align: right;
+ padding-right: 20px;
+}
+
+/******************** TITLE ****************/
+.titleViewLabel {
+ font-size: 22px;
+ font-weight: normal;
+ color: #008BD0; /* Azul */
+ text-align: left;
+}
+
+.sectionTitleLeftMargin {
+ padding-left: 10px;
+ font-size: 20px;
+ color: #008BD0; /* Blue */
+}
+
+.versionSectionStackStyle {
+	margin-top: 15px;
+	margin-left: 15px;
+	margin-right: 15px;
+	border-left: 1px solid #A7ABB4;
+	border-right: 1px solid #A7ABB4;
+}
