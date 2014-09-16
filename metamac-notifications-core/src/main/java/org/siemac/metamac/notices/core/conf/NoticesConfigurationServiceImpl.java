@@ -4,7 +4,12 @@ import org.siemac.metamac.core.common.conf.ConfigurationServiceImpl;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.notices.core.constants.NoticesConfigurationConstants;
 
-public class NoticesConfigurationImpl extends ConfigurationServiceImpl implements NoticesConfiguration {
+public class NoticesConfigurationServiceImpl extends ConfigurationServiceImpl implements NoticesConfigurationService {
+
+    @Override
+    public String retrieveUserGuideFileName() throws MetamacException {
+        return retrieveProperty(NoticesConfigurationConstants.USER_GUIDE_FILE_NAME);
+    }
 
     @Override
     public String retrieveChannelMailHost() throws MetamacException {

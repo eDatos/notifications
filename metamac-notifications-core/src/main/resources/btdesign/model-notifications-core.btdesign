@@ -1,4 +1,5 @@
 import "classpath:/btdesign/metamac-notices-core-notices.btdesign"
+import "classpath:/btdesign/metamac-notices-core-enums.btdesign"
 
 Application Notifications {
 	basePackage=org.siemac.metamac.notices.core

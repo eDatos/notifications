@@ -10,7 +10,7 @@ import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.core.common.mapper.BaseDo2DtoMapper;
 import org.siemac.metamac.core.common.util.CoreCommonUtil;
-import org.siemac.metamac.notices.core.conf.NoticesConfiguration;
+import org.siemac.metamac.notices.core.conf.NoticesConfigurationService;
 import org.siemac.metamac.notices.core.constants.NoticesConstants;
 import org.siemac.metamac.notices.core.notice.domain.Notice;
 import org.siemac.metamac.notices.core.notice.enume.domain.NoticeType;
@@ -25,16 +25,16 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
 public class MailChannelServiceImpl implements MailChannelService {
 
     @Autowired
-    private JavaMailSender       mailSender;
+    private JavaMailSender              mailSender;
 
     @Autowired
-    private VelocityEngine       velocityEngine;
+    private VelocityEngine              velocityEngine;
 
     @Autowired
-    private NoticesConfiguration noticesConfiguration;
+    private NoticesConfigurationService noticesConfiguration;
 
     @Autowired
-    private BaseDo2DtoMapper     baseDo2DtoMapper;
+    private BaseDo2DtoMapper            baseDo2DtoMapper;
 
     @Override
     @SuppressWarnings({"rawtypes", "unchecked"})

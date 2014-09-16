@@ -4,6 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.siemac.metamac.notices.core.constants.NoticesConstants;
+import org.siemac.metamac.notices.core.enume.domain.NoticesRoleEnum;
 import org.siemac.metamac.sso.client.MetamacPrincipal;
 import org.siemac.metamac.sso.client.MetamacPrincipalAccess;
 import org.siemac.metamac.web.common.client.events.LoginAuthenticatedEvent;
@@ -43,7 +44,11 @@ public class LoggedInGatekeeper implements Gatekeeper {
     }
 
     private boolean isRoleAllowed(String role) {
-        // TODO METAMAC-1984
-        return true;
+        for (NoticesRoleEnum roleEnum : NoticesRoleEnum.values()) {
+            if (roleEnum.toString().equals(role)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

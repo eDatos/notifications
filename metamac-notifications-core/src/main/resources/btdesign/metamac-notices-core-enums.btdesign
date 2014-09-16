@@ -1,0 +1,13 @@
+
+Application NoticesCoreEnum {
+    basePackage=unused
+
+    Module enums {
+        basePackage=org.siemac.metamac.notices.core.enume
+
+    	enum NoticesRoleEnum {
+    		ADMINISTRADOR,
+    		ANY_ROLE_ALLOWED
+    	}
+    }
+}
