@@ -1,0 +1,25 @@
+import "classpath:/btdesign/metamac-core-common-dtos.btdesign"
+import "classpath:/btdesign/metamac-notices-core-notices.btdesign"
+
+Application NoticesDto {
+	basePackage=org.siemac.metamac.notices
+
+	Module common_dtos {
+		basePackage=org.siemac.metamac.notices.core.dto 
+		
+		DataTransferObject NoticeDto extends @IdentityDto {
+            String urn;
+            String sendingApplication nullable;
+            String sendingUser nullable;
+            JAVADATE expirationDate;
+            - @NoticeType type;
+            String subject;
+            - List<@ReceiverDto> receivers;
+        }
+        
+        DataTransferObject ReceiverDto extends @IdentityDto {
+            String username;
+            boolean read;
+        }
+	}
+}

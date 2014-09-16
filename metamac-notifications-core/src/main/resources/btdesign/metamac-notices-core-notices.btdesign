@@ -11,6 +11,10 @@ Application Notices {
     		ANNOUNCEMENT
     	}
     	
+    	enum NoticesRoleEnum {
+    		ADMINISTRADOR,
+    		ANY_ROLE_ALLOWED
+    	}
 	}
 	
 	Module domain_notice {
@@ -53,7 +57,7 @@ Application Notices {
 			String sendingApplication required;
 			"Sending user"
 			String sendingUser nullable;
-       		"Expiration date. Only valid when noticeType is ADVERTISEMENT"
+       		"Expiration date. Only valid when noticeType is ANNOUNCEMENT"
 			DateTimeTZ expirationDate nullable; 
        		"Type of notice"
        		- @NoticeType noticeType required;

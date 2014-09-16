@@ -17,7 +17,7 @@ import org.siemac.metamac.notices.core.common.domain.ExternalItemRepository;
 import org.siemac.metamac.notices.core.common.domain.InternationalString;
 import org.siemac.metamac.notices.core.common.domain.InternationalStringRepository;
 import org.siemac.metamac.notices.core.common.domain.LocalisedString;
-import org.siemac.metamac.notices.core.conf.NoticesConfiguration;
+import org.siemac.metamac.notices.core.conf.NoticesConfigurationService;
 import org.siemac.metamac.notices.core.error.ServiceExceptionParameters;
 import org.siemac.metamac.notices.core.error.ServiceExceptionType;
 import org.siemac.metamac.rest.notices.v1_0.domain.ResourceInternal;
@@ -28,7 +28,7 @@ import org.springframework.stereotype.Component;
 public class CommonRest2DoMapperV10Impl implements CommonRest2DoMapperV10 {
 
     @Autowired
-    private NoticesConfiguration          configurationService;
+    private NoticesConfigurationService   configurationService;
 
     @Autowired
     private ExternalItemRepository        externalItemRepository;

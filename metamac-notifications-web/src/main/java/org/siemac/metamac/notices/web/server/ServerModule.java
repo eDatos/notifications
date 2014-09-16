@@ -1,7 +1,9 @@
 package org.siemac.metamac.notices.web.server;
 
+import org.siemac.metamac.notices.web.server.handlers.GetNoticesActionHandler;
 import org.siemac.metamac.notices.web.server.handlers.GetUserGuideUrlActionHandler;
 import org.siemac.metamac.notices.web.server.handlers.ValidateTicketActionHandler;
+import org.siemac.metamac.notices.web.shared.GetNoticesAction;
 import org.siemac.metamac.notices.web.shared.GetUserGuideUrlAction;
 import org.siemac.metamac.web.common.server.handlers.CloseSessionActionHandler;
 import org.siemac.metamac.web.common.server.handlers.GetLoginPageUrlActionHandler;
@@ -37,6 +39,8 @@ public class ServerModule extends HandlerModule {
 
         bindHandler(LoadConfigurationPropertiesAction.class, LoadConfigurationPropertiesActionHandler.class);
         bindHandler(GetUserGuideUrlAction.class, GetUserGuideUrlActionHandler.class);
+
+        bindHandler(GetNoticesAction.class, GetNoticesActionHandler.class);
 
         // This action should be removed to use CAS authentication
         bindHandler(MockCASUserAction.class, MockCASUserActionHandler.class);

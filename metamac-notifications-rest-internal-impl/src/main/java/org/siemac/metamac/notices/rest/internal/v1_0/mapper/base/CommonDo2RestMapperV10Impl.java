@@ -9,7 +9,7 @@ import org.apache.commons.lang.StringUtils;
 import org.siemac.metamac.core.common.enume.utils.TypeExternalArtefactsEnumUtils;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.notices.core.common.domain.ExternalItem;
-import org.siemac.metamac.notices.core.conf.NoticesConfiguration;
+import org.siemac.metamac.notices.core.conf.NoticesConfigurationService;
 import org.siemac.metamac.notices.rest.internal.constants.NoticesRestConstants;
 import org.siemac.metamac.rest.common.v1_0.domain.InternationalString;
 import org.siemac.metamac.rest.common.v1_0.domain.LocalisedString;
@@ -24,21 +24,21 @@ import org.springframework.stereotype.Component;
 public class CommonDo2RestMapperV10Impl implements CommonDo2RestMapperV10 {
 
     @Autowired
-    private NoticesConfiguration configurationService;
+    private NoticesConfigurationService configurationService;
 
-    private String               noticesApiInternalEndpointV10;
+    private String                      noticesApiInternalEndpointV10;
 
-    private String               statisticalResourcesApiInternalEndpoint;
-    private String               srmApiInternalEndpoint;
-    private String               statisticalOperationsApiInternalEndpoint;
-    private String               commonMetadataApiExternalEndpoint;
+    private String                      statisticalResourcesApiInternalEndpoint;
+    private String                      srmApiInternalEndpoint;
+    private String                      statisticalOperationsApiInternalEndpoint;
+    private String                      commonMetadataApiExternalEndpoint;
 
-    private String               statisticalResourcesInternalWebApplication;
-    private String               srmInternalWebApplication;
-    private String               statisticalOperationsInternalWebApplication;
-    private String               commonMetadataInternalWebApplication;
+    private String                      statisticalResourcesInternalWebApplication;
+    private String                      srmInternalWebApplication;
+    private String                      statisticalOperationsInternalWebApplication;
+    private String                      commonMetadataInternalWebApplication;
 
-    private String               defaultLanguage;
+    private String                      defaultLanguage;
 
     @PostConstruct
     public void init() throws Exception {

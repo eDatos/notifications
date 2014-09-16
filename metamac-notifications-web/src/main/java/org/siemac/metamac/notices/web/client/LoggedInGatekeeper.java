@@ -4,7 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.siemac.metamac.notices.core.constants.NoticesConstants;
-import org.siemac.metamac.notices.core.enume.domain.NoticesRoleEnum;
+import org.siemac.metamac.notices.core.notice.enume.domain.NoticesRoleEnum;
 import org.siemac.metamac.sso.client.MetamacPrincipal;
 import org.siemac.metamac.sso.client.MetamacPrincipalAccess;
 import org.siemac.metamac.web.common.client.events.LoginAuthenticatedEvent;
