@@ -15,11 +15,17 @@ Application NoticesDto {
             - @NoticeType type;
             String subject;
             - List<@ReceiverDto> receivers;
+            - List<@MessageDto> messages;
         }
-        
+
         DataTransferObject ReceiverDto extends @IdentityDto {
             String username;
             boolean acknowledge;
+        }
+
+        DataTransferObject MessageDto extends @IdentityDto {
+            String text;
+            - List<@ExternalItemDto> resources;
         }
 	}
 }
