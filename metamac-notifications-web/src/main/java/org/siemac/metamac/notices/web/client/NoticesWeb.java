@@ -19,6 +19,7 @@ public class NoticesWeb extends MetamacSecurityEntryPoint {
 
     private static MetamacPrincipal         principal;
     private static NoticesWebConstants      constants;
+    private static NoticesWebCoreMessages   coreMessages;
 
     public static final NoticesWebGinjector ginjector        = GWT.create(NoticesWebGinjector.class);
 
@@ -48,6 +49,13 @@ public class NoticesWeb extends MetamacSecurityEntryPoint {
             constants = (NoticesWebConstants) GWT.create(NoticesWebConstants.class);
         }
         return constants;
+    }
+
+    public static NoticesWebCoreMessages getCoreMessages() {
+        if (coreMessages == null) {
+            coreMessages = (NoticesWebCoreMessages) GWT.create(NoticesWebCoreMessages.class);
+        }
+        return coreMessages;
     }
 
     public static NoticesWebGinjector getResourcesWebGinjector() {

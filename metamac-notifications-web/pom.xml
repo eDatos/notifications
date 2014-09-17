@@ -246,7 +246,7 @@
 							<servicePattern>**/client/service/**/*Service.java</servicePattern>
 							<i18nConstantsBundle>org.siemac.metamac.notices.web.client.NoticesWebConstants</i18nConstantsBundle>
 							<!-- <i18nMessagesBundle>org.siemac.metamac.notices.web.client.NoticesWebMessages</i18nMessagesBundle> -->
-							<!-- <i18nConstantsWithLookupBundle>org.siemac.metamac.notices.web.client.NoticesWebCoreMessages</i18nConstantsWithLookupBundle> -->
+							<i18nConstantsWithLookupBundle>org.siemac.metamac.notices.web.client.NoticesWebCoreMessages</i18nConstantsWithLookupBundle>
 						</configuration>
 						<goals>
 							<goal>resources</goal>

@@ -1,13 +1,14 @@
 package org.siemac.metamac.notices.web.shared.criteria;
 
 import org.siemac.metamac.notices.core.notice.enume.domain.NoticeType;
+import org.siemac.metamac.web.common.client.constants.CommonWebConstants;
 import org.siemac.metamac.web.common.shared.criteria.MetamacWebCriteria;
 
 public class NoticeWebCriteria extends MetamacWebCriteria {
 
     private static final long serialVersionUID = 3266436132524273569L;
 
-    private boolean           read;
+    private boolean           acknowledge;
     private String            senginApplication;
     private String            sendingUser;
     private NoticeType        type;
@@ -15,12 +16,17 @@ public class NoticeWebCriteria extends MetamacWebCriteria {
     private int               firstResult;
     private int               maxResults;
 
-    public boolean isRead() {
-        return read;
+    public NoticeWebCriteria() {
+        setFirstResult(0);
+        setMaxResults(CommonWebConstants.MAIN_LIST_MAX_RESULTS);
     }
 
-    public void setRead(boolean read) {
-        this.read = read;
+    public boolean isAcknowledge() {
+        return acknowledge;
+    }
+
+    public void setAcknowledge(boolean acknowledge) {
+        this.acknowledge = acknowledge;
     }
 
     public String getSenginApplication() {

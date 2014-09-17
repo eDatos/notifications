@@ -2,12 +2,19 @@ package org.siemac.metamac.notices.web.client.presenter;
 
 import static org.siemac.metamac.notices.web.client.NoticesWeb.getConstants;
 
+import java.util.List;
+
+import org.siemac.metamac.notices.core.dto.NoticeDto;
 import org.siemac.metamac.notices.web.client.LoggedInGatekeeper;
 import org.siemac.metamac.notices.web.client.NameTokens;
 import org.siemac.metamac.notices.web.client.NoticesWeb;
 import org.siemac.metamac.notices.web.client.enums.NoticesToolStripButtonEnum;
 import org.siemac.metamac.notices.web.client.events.SelectMainSectionEvent;
 import org.siemac.metamac.notices.web.client.view.handlers.NoticesUiHandlers;
+import org.siemac.metamac.notices.web.shared.GetNoticesAction;
+import org.siemac.metamac.notices.web.shared.GetNoticesResult;
+import org.siemac.metamac.notices.web.shared.criteria.NoticeWebCriteria;
+import org.siemac.metamac.web.common.client.utils.WaitingAsyncCallbackHandlingError;
 
 import com.google.gwt.event.shared.GwtEvent.Type;
 import com.google.inject.Inject;
@@ -48,6 +55,8 @@ public class NoticesPresenter extends Presenter<NoticesPresenter.NoticesView, No
     }
 
     public interface NoticesView extends View, HasUiHandlers<NoticesUiHandlers> {
+
+        void setNotices(List<NoticeDto> notices, int firstResult, int totalResults);
     }
 
     @Inject
@@ -68,16 +77,23 @@ public class NoticesPresenter extends Presenter<NoticesPresenter.NoticesView, No
 
         SelectMainSectionEvent.fire(this, NoticesToolStripButtonEnum.NOTICES);
         MainPagePresenter.getMasterHead().setTitleLabel(NoticesWeb.getConstants().notices());
-        retrieveNotices();
+        retrieveNotices(new NoticeWebCriteria());
     }
 
     @Override
     public void prepareFromRequest(PlaceRequest request) {
         super.prepareFromRequest(request);
-        retrieveNotices();
+        retrieveNotices(new NoticeWebCriteria());
     }
 
-    private void retrieveNotices() {
-        // TODO METAMAC-1984
+    @Override
+    public void retrieveNotices(NoticeWebCriteria criteria) {
+        dispatcher.execute(new GetNoticesAction(criteria), new WaitingAsyncCallbackHandlingError<GetNoticesResult>(this) {
+
+            @Override
+            public void onWaitSuccess(GetNoticesResult result) {
+                getView().setNotices(result.getNotices(), result.getFirstResult(), result.getTotalResults());
+            }
+        });
     }
 }

@@ -19,6 +19,7 @@ import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -29,16 +30,14 @@ public class MainPageViewImpl extends ViewWithUiHandlers<MainPageUiHandlers> imp
     private static final int       NORTH_HEIGHT   = 85;
     private static final String    DEFAULT_MARGIN = "0px";
 
-    private MainPageUiHandlers     uiHandlers;
-
     private final MasterHead       masterHead;
     private final BreadCrumbsPanel breadCrumbsPanel;
-    private WaitPopup              waitPopup;
-
     private final MessagePanel     messagePanel;
 
+    private WaitPopup              waitPopup;
+
     private VLayout                panel;
-    private HLayout                northLayout;
+    private VLayout                northLayout;
     private HLayout                southLayout;
     private VLayout                footerLayout;
 
@@ -60,20 +59,18 @@ public class MainPageViewImpl extends ViewWithUiHandlers<MainPageUiHandlers> imp
         panel.setCanDrag(false);
 
         // Initialize the North layout container
-        northLayout = new HLayout();
+        northLayout = new VLayout();
         northLayout.setHeight(NORTH_HEIGHT);
-
-        // Nested layout container
-        VLayout vLayout = new VLayout();
-        vLayout.addMember(this.masterHead);
 
         VLayout breadCrumbLayout = new VLayout();
         breadCrumbLayout.addMember(this.breadCrumbsPanel);
         breadCrumbLayout.setMargin(10);
-        vLayout.addMember(breadCrumbLayout);
+
+        // Nested layout container
 
         // Nested layout container to the North layout container
-        northLayout.addMember(vLayout);
+        northLayout.addMember(this.masterHead);
+        northLayout.addMember(breadCrumbLayout);
         northLayout.setHeight(65);
 
         // Initialize the South layout container
@@ -92,15 +89,16 @@ public class MainPageViewImpl extends ViewWithUiHandlers<MainPageUiHandlers> imp
 
             @Override
             public void onClick(ClickEvent event) {
-                uiHandlers.closeSession();
+                getUiHandlers().closeSession();
             }
         });
 
+        // Help section
         masterHead.getHelpLink().addClickHandler(new ClickHandler() {
 
             @Override
             public void onClick(ClickEvent event) {
-                uiHandlers.downloadUserGuide();
+                getUiHandlers().downloadUserGuide();
             }
         });
 
@@ -108,6 +106,7 @@ public class MainPageViewImpl extends ViewWithUiHandlers<MainPageUiHandlers> imp
         northLayout.setZIndex(0);
         southLayout.setZIndex(0);
         footerLayout.setZIndex(0);
+
         // Add the North and South layout containers to the main layout
         // container
         panel.addMember(navBar);
@@ -119,6 +118,24 @@ public class MainPageViewImpl extends ViewWithUiHandlers<MainPageUiHandlers> imp
     @Override
     public Widget asWidget() {
         return panel;
+    }
+
+    @Override
+    public void setUiHandlers(MainPageUiHandlers uiHandlers) {
+        super.setUiHandlers(uiHandlers);
+    }
+
+    @Override
+    public void showWaitPopup() {
+        waitPopup = new WaitPopup();
+        waitPopup.show(StringUtils.EMPTY);
+    }
+
+    @Override
+    public void hideWaitPopup() {
+        if (waitPopup != null) {
+            waitPopup.hideFinal();
+        }
     }
 
     /****************************************************
@@ -136,7 +153,7 @@ public class MainPageViewImpl extends ViewWithUiHandlers<MainPageUiHandlers> imp
             }
         } else if (slot == MainPagePresenter.TYPE_SetContextAreaContent) {
             if (content != null) {
-                southLayout.setMembers((VLayout) content);
+                southLayout.setMembers((Canvas) content);
             }
         } else {
             // To support inheritance in your views it is good practice to call super.setInSlot when you can't handle the call.
@@ -155,11 +172,6 @@ public class MainPageViewImpl extends ViewWithUiHandlers<MainPageUiHandlers> imp
      ***************************************************/
 
     @Override
-    public BreadCrumbsPanel getBreadCrumbsPanel() {
-        return breadCrumbsPanel;
-    }
-
-    @Override
     public MasterHead getMasterHead() {
         return masterHead;
     }
@@ -175,8 +187,12 @@ public class MainPageViewImpl extends ViewWithUiHandlers<MainPageUiHandlers> imp
     }
 
     @Override
+    public BreadCrumbsPanel getBreadCrumbsPanel() {
+        return breadCrumbsPanel;
+    }
+
+    @Override
     public void showMessage(Throwable throwable, String message, MessageTypeEnum type) {
-        // Hide messages before showing the new ones
         messagePanel.showMessage(throwable, message, type);
     }
 
@@ -190,24 +206,11 @@ public class MainPageViewImpl extends ViewWithUiHandlers<MainPageUiHandlers> imp
         masterHead.setTitleLabel(title);
     }
 
-    @Override
-    public void showWaitPopup() {
-        waitPopup = new WaitPopup();
-        waitPopup.show(StringUtils.EMPTY);
-    }
-
-    @Override
-    public void hideWaitPopup() {
-        if (waitPopup != null) {
-            waitPopup.hideFinal();
-        }
-    }
-
     private String getUserName() {
         MetamacPrincipal metamacPrincipal = NoticesWeb.getCurrentUser();
         if (metamacPrincipal != null) {
             return metamacPrincipal.getUserId();
         }
-        return StringUtils.EMPTY;
+        return new String();
     }
 }
