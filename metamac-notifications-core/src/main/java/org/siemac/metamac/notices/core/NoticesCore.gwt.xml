@@ -3,8 +3,9 @@
 	<!-- Inherit the core Web Toolkit stuff. -->
 	<inherits name='com.google.gwt.user.User' />
 
-	<source path='constants' />
 	<source path='notice/enume/domain' />
+	<source path='security/shared' />
+	<source path='constants' />
 	<source path='dto' />
 
 </module>
