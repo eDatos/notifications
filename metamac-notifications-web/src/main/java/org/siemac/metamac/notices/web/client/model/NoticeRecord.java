@@ -53,4 +53,8 @@ public class NoticeRecord extends ListGridRecord {
     public void setReceiverAcknowledge(boolean value) {
         setAttribute(NoticeDS.RECEIVER_ACKNOWLEDGE, value);
     }
+
+    public boolean getReceiverAcknowledge() {
+        return getAttributeAsBoolean(NoticeDS.RECEIVER_ACKNOWLEDGE);
+    }
 }

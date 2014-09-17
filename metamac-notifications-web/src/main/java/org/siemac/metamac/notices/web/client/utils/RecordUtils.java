@@ -12,17 +12,14 @@ public class RecordUtils {
     public static NoticeRecord[] getNoticesRecords(List<NoticeDto> notices) {
         List<NoticeRecord> records = new ArrayList<NoticeRecord>();
         for (NoticeDto noticeDto : notices) {
-            records.addAll(getNoticesRecord(noticeDto));
+            records.add(getNoticeRecord(noticeDto));
         }
         return records.toArray(new NoticeRecord[records.size()]);
     }
 
-    public static List<NoticeRecord> getNoticesRecord(NoticeDto noticeDto) {
-        List<NoticeRecord> records = new ArrayList<NoticeRecord>();
-        for (ReceiverDto receiverDto : noticeDto.getReceivers()) {
-            records.add(getNoticeRecord(noticeDto, receiverDto));
-        }
-        return records;
+    public static NoticeRecord getNoticeRecord(NoticeDto noticeDto) {
+        ReceiverDto receiverDto = CommonUtils.getCurrentReceiverFromNotice(noticeDto);
+        return getNoticeRecord(noticeDto, receiverDto);
     }
 
     public static NoticeRecord getNoticeRecord(NoticeDto noticeDto, ReceiverDto receiverDto) {
@@ -34,9 +31,11 @@ public class RecordUtils {
         record.setExpirationDate(noticeDto.getExpirationDate());
         record.setSubject(noticeDto.getSubject());
         record.setType(noticeDto.getType());
-        record.setReceiverId(receiverDto.getId());
-        record.setReceiverUsername(receiverDto.getUsername());
-        record.setReceiverAcknowledge(receiverDto.isAcknowledge());
+        if (receiverDto != null) {
+            record.setReceiverId(receiverDto.getId());
+            record.setReceiverUsername(receiverDto.getUsername());
+            record.setReceiverAcknowledge(receiverDto.isAcknowledge());
+        }
         return record;
     }
 }
