@@ -23,7 +23,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.core.common.util.ApplicationContextProvider;
-import org.siemac.metamac.notices.core.conf.NoticesConfiguration;
+import org.siemac.metamac.notices.core.conf.NoticesConfigurationService;
 import org.siemac.metamac.notices.core.notice.serviceapi.NoticesService;
 import org.siemac.metamac.notices.core.utils.mocks.factories.NoticeMockFactory;
 import org.siemac.metamac.notices.rest.internal.v1_0.service.NoticesV1_0;
@@ -72,7 +72,7 @@ public abstract class NoticesRestInternalFacadeV10BaseTest extends MetamacRestBa
 
     @Before
     public void setUp() throws Exception {
-        NoticesConfiguration configurationService = applicationContext.getBean(NoticesConfiguration.class);
+        NoticesConfigurationService configurationService = applicationContext.getBean(NoticesConfigurationService.class);
         apiEndpointv10 = configurationService.retrieveNoticesInternalApiUrlBase() + "/v1.0";
 
         // Configuration
@@ -96,6 +96,7 @@ public abstract class NoticesRestInternalFacadeV10BaseTest extends MetamacRestBa
         return apiEndpointv10;
     }
 
+    @Override
     protected void incrementRequestTimeOut(WebClient create) {
         ClientConfiguration config = WebClient.getConfig(create);
         HTTPConduit conduit = config.getHttpConduit();
@@ -104,6 +105,7 @@ public abstract class NoticesRestInternalFacadeV10BaseTest extends MetamacRestBa
         conduit.getClient().setConnection(ConnectionType.CLOSE);
     }
 
+    @Override
     protected void assertInputStream(InputStream expected, InputStream actual, boolean onlyPrint) throws IOException {
         byte[] expectedByteArray = IOUtils.toByteArray(expected);
         byte[] actualByteArray = IOUtils.toByteArray(actual);

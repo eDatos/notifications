@@ -25,14 +25,14 @@ public class NoticesPlaceManager extends PlaceManagerImpl {
 
     @Override
     public void revealUnauthorizedPlace(String unauthorizedHistoryToken) {
-        PlaceRequest placeRequest = new PlaceRequest(NameTokens.unauthorizedAccessPage);
+        PlaceRequest placeRequest = new PlaceRequest(NameTokens.UNAUTHORIZED_ACCESS_PAGE);
         placeRequest = placeRequest.with("redirect", unauthorizedHistoryToken);
         revealPlace(placeRequest);
     }
 
     @Override
     public void revealErrorPlace(String invalidHistoryToken) {
-        PlaceRequest placeRequest = new PlaceRequest(NameTokens.errorPage);
+        PlaceRequest placeRequest = new PlaceRequest(NameTokens.ERROR_PAGE);
         revealPlace(placeRequest);
     }
 }

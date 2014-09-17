@@ -19,7 +19,7 @@ import com.gwtplatform.mvp.client.proxy.RevealContentEvent;
 public class UnauthorizedPagePresenter extends Presenter<UnauthorizedPagePresenter.UnauthorizedPageView, UnauthorizedPagePresenter.UnauthorizedPageProxy> implements UnauthorizedPageUiHandlers {
 
     @ProxyCodeSplit
-    @NameToken(NameTokens.unauthorizedAccessPage)
+    @NameToken(NameTokens.UNAUTHORIZED_ACCESS_PAGE)
     @NoGatekeeper
     public interface UnauthorizedPageProxy extends Proxy<UnauthorizedPagePresenter>, Place {
     }

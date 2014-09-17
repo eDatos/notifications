@@ -261,7 +261,7 @@
 				<configuration>
 					<hostedWebapp>${webappDirectory}</hostedWebapp>
 					<noServer>true</noServer>
-					<runTarget>http://localhost:8080/metamac-notifications-web/NotificationsWeb.jsp</runTarget>
+					<runTarget>http://localhost:8080/metamac-notifications-web/NoticesWeb.jsp</runTarget>
 					<debugPort>9997</debugPort>
 					<compileSourcesArtifacts>
 						<artifact>org.siemac.metamac.metamac-notifications:metamac-notifications-core:jar:client</artifact>

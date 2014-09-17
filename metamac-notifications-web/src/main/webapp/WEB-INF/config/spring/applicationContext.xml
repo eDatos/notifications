@@ -15,36 +15,30 @@
 
 
     <!-- SpringBeanProvider GWTP -->
-    <context:component-scan base-package="org.siemac.metamac.notifications.web, org.siemac.metamac.web.common.server.handlers" />
-<!--     <context:component-scan base-package="com.gwtplatform.dispatch.server.spring, org.siemac.metamac.notifications.web,org.siemac.metamac.web.common.server.handlers" /> -->
+    <context:component-scan base-package="com.gwtplatform.dispatch.server.spring, org.siemac.metamac.notifications.web, org.siemac.metamac.web.common.server.handlers" />
 
     <!-- activates annotation-based bean configuration -->
     <context:annotation-config />
 
     <!-- Spring Beans for side server of GWT -->
-<!--     <bean class="com.gwtplatform.dispatch.server.spring.configuration.DefaultModule" /> -->
-<!--     <bean class="com.gwtplatform.dispatch.server.spring.actionvalidator.DefaultActionValidator" /> -->
+    <bean class="com.gwtplatform.dispatch.server.spring.configuration.DefaultModule" />
+    <bean class="com.gwtplatform.dispatch.server.spring.actionvalidator.DefaultActionValidator" />
 
     <!-- if proxy-target-class is false, error in actionHandlers beans (spring cannot find them) -->
     <aop:aspectj-autoproxy proxy-target-class="true" />
 
-    <!-- Component to translate exceptions in web, but in server side -->
-    <bean id="webTranslateExceptions" class="org.siemac.metamac.web.common.server.utils.WebTranslateExceptions">
-        <property name="bundleName" value="messages-notifications-web" />
-    </bean>
-
     <!-- Logger aspect for logging exceptions thrown by actionHandlers -->
     <bean id="logAspect" class="org.siemac.metamac.web.common.server.aspects.ActionHandlerLoggerAspect" />
 
-<!--     <bean id="logger" class="com.gwtplatform.dispatch.server.spring.LoggerFactoryBean"> -->
-<!--         <constructor-arg> -->
-<!--             <bean class="java.util.logging.Logger" factory-method="getAnonymousLogger"> -->
-<!--                 <property name="level"> -->
-<!--                     <value>FINEST</value> -->
-<!--                 </property> -->
-<!--             </bean> -->
-<!--         </constructor-arg> -->
-<!--     </bean> -->
+    <bean id="logger" class="com.gwtplatform.dispatch.server.spring.LoggerFactoryBean">
+        <constructor-arg>
+            <bean class="java.util.logging.Logger" factory-method="getAnonymousLogger">
+                <property name="level">
+                    <value>FINEST</value>
+                </property>
+            </bean>
+        </constructor-arg>
+    </bean>
 
     <!-- Configure externalized logging configuration file -->
     <bean id="loggingSetup" class="org.siemac.metamac.core.common.logging.LoggingSetup">

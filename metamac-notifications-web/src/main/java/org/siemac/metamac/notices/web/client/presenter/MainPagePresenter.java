@@ -6,7 +6,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.siemac.metamac.notices.web.client.NameTokens;
+import org.siemac.metamac.notices.web.client.events.SelectMainSectionEvent;
+import org.siemac.metamac.notices.web.client.events.SelectMainSectionEvent.SelectMainSectionEventHandler;
 import org.siemac.metamac.notices.web.client.view.handlers.MainPageUiHandlers;
+import org.siemac.metamac.notices.web.client.widgets.presenter.NoticesToolStripPresenterWidget;
 import org.siemac.metamac.notices.web.shared.GetUserGuideUrlAction;
 import org.siemac.metamac.notices.web.shared.GetUserGuideUrlResult;
 import org.siemac.metamac.web.common.client.enums.MessageTypeEnum;
@@ -54,17 +57,23 @@ public class MainPagePresenter extends Presenter<MainPagePresenter.MainPageView,
             ShowMessageHandler,
             HideMessageHandler,
             SetTitleHandler,
+            SelectMainSectionEventHandler,
             ChangeWaitPopupVisibilityHandler {
 
-    private static Logger       logger = Logger.getLogger(MainPagePresenter.class.getName());
+    private static Logger                             logger                 = Logger.getLogger(MainPagePresenter.class.getName());
 
-    private final PlaceManager  placeManager;
-    private final DispatchAsync dispatcher;
+    private final PlaceManager                        placeManager;
+    private final DispatchAsync                       dispatcher;
 
-    private static MasterHead   masterHead;
+    private static MasterHead                         masterHead;
+
+    private final NoticesToolStripPresenterWidget     toolStripPresenterWidget;
+
+    @ContentSlot
+    public static final Type<RevealContentHandler<?>> TYPE_SetNoticesToolBar = new Type<RevealContentHandler<?>>();
 
     @ProxyStandard
-    @NameToken(NameTokens.mainPage)
+    @NameToken(NameTokens.MAIN_PAGE)
     @NoGatekeeper
     public interface MainPageProxy extends Proxy<MainPagePresenter>, Place {
 
@@ -94,8 +103,10 @@ public class MainPagePresenter extends Presenter<MainPagePresenter.MainPageView,
     public static final Type<RevealContentHandler<?>> TYPE_SetContextAreaContent = new Type<RevealContentHandler<?>>();
 
     @Inject
-    public MainPagePresenter(EventBus eventBus, MainPageView view, MainPageProxy proxy, PlaceManager placeManager, DispatchAsync dispatcher) {
+    public MainPagePresenter(EventBus eventBus, MainPageView view, MainPageProxy proxy, PlaceManager placeManager, DispatchAsync dispatcher,
+            NoticesToolStripPresenterWidget noticesToolStripPresenterWidget) {
         super(eventBus, view, proxy);
+        this.toolStripPresenterWidget = noticesToolStripPresenterWidget;
         getView().setUiHandlers(this);
         this.placeManager = placeManager;
         this.dispatcher = dispatcher;
@@ -105,6 +116,12 @@ public class MainPagePresenter extends Presenter<MainPagePresenter.MainPageView,
     @Override
     public void prepareFromRequest(PlaceRequest request) {
         super.prepareFromRequest(request);
+    }
+
+    @Override
+    protected void onReveal() {
+        super.onReveal();
+        setInSlot(TYPE_SetNoticesToolBar, toolStripPresenterWidget);
     }
 
     @Override
@@ -147,6 +164,13 @@ public class MainPagePresenter extends Presenter<MainPagePresenter.MainPageView,
             PlaceRequest placeRequest = new PlaceRequest(place);
             placeManager.revealPlace(placeRequest);
         }
+    }
+
+    @ProxyEvent
+    @Override
+    public void onSelectMainSection(SelectMainSectionEvent event) {
+        toolStripPresenterWidget.deselectButtons();
+        toolStripPresenterWidget.selectButton(event.getButtonId().getValue());
     }
 
     public static MasterHead getMasterHead() {

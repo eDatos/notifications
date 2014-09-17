@@ -22,7 +22,7 @@ import com.gwtplatform.mvp.client.proxy.RevealContentEvent;
 public class ErrorPagePresenter extends Presenter<ErrorPagePresenter.ErrorPageView, ErrorPagePresenter.ErrorPageProxy> implements ErrorPageUiHandlers {
 
     @ProxyCodeSplit
-    @NameToken(NameTokens.errorPage)
+    @NameToken(NameTokens.ERROR_PAGE)
     @NoGatekeeper
     public interface ErrorPageProxy extends Proxy<ErrorPagePresenter>, Place {
 

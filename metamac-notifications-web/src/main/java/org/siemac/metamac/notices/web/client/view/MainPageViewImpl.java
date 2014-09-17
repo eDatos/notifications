@@ -130,7 +130,11 @@ public class MainPageViewImpl extends ViewWithUiHandlers<MainPageUiHandlers> imp
      */
     @Override
     public void setInSlot(Object slot, Widget content) {
-        if (slot == MainPagePresenter.TYPE_SetContextAreaContent) {
+        if (slot == MainPagePresenter.TYPE_SetNoticesToolBar) {
+            if (content != null) {
+                northLayout.addMember(content, 1);
+            }
+        } else if (slot == MainPagePresenter.TYPE_SetContextAreaContent) {
             if (content != null) {
                 southLayout.setMembers((VLayout) content);
             }

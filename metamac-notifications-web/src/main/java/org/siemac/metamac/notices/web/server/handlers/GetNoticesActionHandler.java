@@ -11,9 +11,11 @@ import org.siemac.metamac.notices.core.dto.NoticeDto;
 import org.siemac.metamac.notices.web.shared.GetNoticesAction;
 import org.siemac.metamac.notices.web.shared.GetNoticesResult;
 import org.siemac.metamac.web.common.server.handlers.SecurityActionHandler;
+import org.springframework.stereotype.Component;
 
 import com.gwtplatform.dispatch.shared.ActionException;
 
+@Component
 public class GetNoticesActionHandler extends SecurityActionHandler<GetNoticesAction, GetNoticesResult> {
 
     public GetNoticesActionHandler() {
