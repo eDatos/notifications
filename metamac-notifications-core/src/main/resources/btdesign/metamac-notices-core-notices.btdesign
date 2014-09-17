@@ -13,6 +13,8 @@ Application Notices {
     	
     	enum NoticesRoleEnum {
     		ADMINISTRADOR,
+    		LECTOR_AVISOS,
+    		REDACTOR_AVISOS,
     		ANY_ROLE_ALLOWED
     	}
 	}

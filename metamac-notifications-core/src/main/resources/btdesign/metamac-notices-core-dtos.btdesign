@@ -19,7 +19,7 @@ Application NoticesDto {
         
         DataTransferObject ReceiverDto extends @IdentityDto {
             String username;
-            boolean read;
+            boolean acknowledge;
         }
 	}
 }
