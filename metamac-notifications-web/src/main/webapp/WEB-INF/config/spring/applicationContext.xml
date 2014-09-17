@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
-    xmlns:oxm="http://www.springframework.org/schema/oxm" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:oxm="http://www.springframework.org/schema/oxm" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx" 
     xsi:schemaLocation="http://www.springframework.org/schema/beans 
-						http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+						http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 						http://www.springframework.org/schema/context 
-						http://www.springframework.org/schema/context/spring-context-2.5.xsd
+						http://www.springframework.org/schema/context/spring-context-3.0.xsd
 						http://www.springframework.org/schema/oxm 
 						http://www.springframework.org/schema/oxm/spring-oxm-3.0.xsd
 					    http://www.springframework.org/schema/tx 
@@ -15,9 +15,9 @@
 
 
     <!-- SpringBeanProvider GWTP -->
-    <context:component-scan base-package="com.gwtplatform.dispatch.server.spring, org.siemac.metamac.notifications.web, org.siemac.metamac.web.common.server.handlers" />
+    <context:component-scan base-package="com.gwtplatform.dispatch.server.spring,org.siemac.metamac.notices.web,org.siemac.metamac.web.common.server.handlers" />
 
-    <!-- activates annotation-based bean configuration -->
+    <!-- Activates annotation-based bean configuration -->
     <context:annotation-config />
 
     <!-- Spring Beans for side server of GWT -->
@@ -25,8 +25,16 @@
     <bean class="com.gwtplatform.dispatch.server.spring.actionvalidator.DefaultActionValidator" />
 
     <!-- if proxy-target-class is false, error in actionHandlers beans (spring cannot find them) -->
-    <aop:aspectj-autoproxy proxy-target-class="true" />
+    <aop:aspectj-autoproxy proxy-target-class="true" >
+    </aop:aspectj-autoproxy>
 
+    <!-- Component to translate exceptions in web, but in server side -->
+    <bean id="webTranslateExceptions" class="org.siemac.metamac.web.common.server.utils.WebTranslateExceptions">
+        <property name="bundleName" value="messages-notifications-web"/>
+    </bean>
+    
+    <bean id="restExceptionUtils" class="org.siemac.metamac.web.common.server.rest.utils.RestExceptionUtils" />
+    
     <!-- Logger aspect for logging exceptions thrown by actionHandlers -->
     <bean id="logAspect" class="org.siemac.metamac.web.common.server.aspects.ActionHandlerLoggerAspect" />
 
@@ -51,3 +59,4 @@
     <!-- Rest -->
     <import resource="classpath:/spring/notices-rest-internal/applicationContext.xml" />
 </beans>
+

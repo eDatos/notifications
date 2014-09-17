@@ -31,11 +31,11 @@ public class ClientModule extends AbstractPresenterModule {
         // |_ bind(GoogleAnalytics.class).to(GoogleAnalyticsImpl.class).in(Singleton.class);
         install(new DefaultModule(NoticesPlaceManager.class));
 
-        // Constants
-        bindConstant().annotatedWith(DefaultPlace.class).to(NameTokens.NOTICES_PAGE);
-
         // Gate keeper
         bind(LoggedInGatekeeper.class).in(Singleton.class);
+
+        // Constants
+        bindConstant().annotatedWith(DefaultPlace.class).to(NameTokens.NOTICES_PAGE);
 
         // Presenters
         bindPresenter(MainPagePresenter.class, MainPagePresenter.MainPageView.class, MainPageViewImpl.class, MainPagePresenter.MainPageProxy.class);

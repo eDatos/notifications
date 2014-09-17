@@ -1,7 +1,7 @@
 package org.siemac.metamac.notices.web.server.handlers;
 
 import org.siemac.metamac.core.common.exception.MetamacException;
-import org.siemac.metamac.notices.core.conf.NoticesConfigurationServiceImpl;
+import org.siemac.metamac.notices.core.conf.NoticesConfigurationService;
 import org.siemac.metamac.notices.web.shared.GetUserGuideUrlAction;
 import org.siemac.metamac.notices.web.shared.GetUserGuideUrlResult;
 import org.siemac.metamac.web.common.server.handlers.SecurityActionHandler;
@@ -15,7 +15,7 @@ import com.gwtplatform.dispatch.shared.ActionException;
 public class GetUserGuideUrlActionHandler extends SecurityActionHandler<GetUserGuideUrlAction, GetUserGuideUrlResult> {
 
     @Autowired
-    private NoticesConfigurationServiceImpl configurationService;
+    private NoticesConfigurationService configurationService;
 
     public GetUserGuideUrlActionHandler() {
         super(GetUserGuideUrlAction.class);

@@ -31,6 +31,7 @@ public class ServerModule extends HandlerModule {
 
     @Override
     protected void configureHandlers() {
+        bindHandler(GetNoticesAction.class, GetNoticesActionHandler.class);
 
         bindHandler(ValidateTicketAction.class, ValidateTicketActionHandler.class);
         bindHandler(GetLoginPageUrlAction.class, GetLoginPageUrlActionHandler.class);
@@ -39,8 +40,6 @@ public class ServerModule extends HandlerModule {
 
         bindHandler(LoadConfigurationPropertiesAction.class, LoadConfigurationPropertiesActionHandler.class);
         bindHandler(GetUserGuideUrlAction.class, GetUserGuideUrlActionHandler.class);
-
-        bindHandler(GetNoticesAction.class, GetNoticesActionHandler.class);
 
         // This action should be removed to use CAS authentication
         bindHandler(MockCASUserAction.class, MockCASUserActionHandler.class);

@@ -7,4 +7,7 @@ public class NameTokens {
     public static final String UNAUTHORIZED_ACCESS_PAGE   = "unauthorizedAccess";
     public static final String NOTICES_PAGE               = "notices";
     public static final String ANNOUNCEMENT_CREATION_PAGE = "announcementCreation";
+
+    private NameTokens() {
+    }
 }
