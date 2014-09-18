@@ -7,6 +7,8 @@ import org.siemac.metamac.notices.core.dto.NoticeDto;
 import org.siemac.metamac.notices.core.dto.ReceiverDto;
 import org.siemac.metamac.notices.web.client.model.NoticeRecord;
 
+import com.smartgwt.client.widgets.grid.ListGridRecord;
+
 public class RecordUtils {
 
     public static NoticeRecord[] getNoticesRecords(List<NoticeDto> notices) {
@@ -37,5 +39,15 @@ public class RecordUtils {
             record.setReceiverAcknowledge(receiverDto.isAcknowledge());
         }
         return record;
+    }
+
+    public static List<NoticeDto> getNoticeDtos(ListGridRecord[] records) {
+        List<NoticeDto> notices = new ArrayList<NoticeDto>();
+        for (ListGridRecord record : records) {
+            if (record instanceof NoticeRecord) {
+                notices.add(((NoticeRecord) record).getNoticeDto());
+            }
+        }
+        return notices;
     }
 }

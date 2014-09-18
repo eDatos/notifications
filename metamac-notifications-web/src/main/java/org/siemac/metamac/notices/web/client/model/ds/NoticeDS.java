@@ -16,6 +16,8 @@ public class NoticeDS extends DataSource {
     public static final String RECEIVER_USERNAME    = "notice-rec-username";
     public static final String RECEIVER_ACKNOWLEDGE = "notice-rec-acknowledge";
 
+    public static final String DTO                  = "notice-dto";
+
     public NoticeDS() {
         DataSourceTextField noticeId = new DataSourceTextField(NOTICE_ID);
         noticeId.setPrimaryKey(true);

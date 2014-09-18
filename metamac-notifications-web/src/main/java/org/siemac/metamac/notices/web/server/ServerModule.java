@@ -2,9 +2,11 @@ package org.siemac.metamac.notices.web.server;
 
 import org.siemac.metamac.notices.web.server.handlers.GetNoticesActionHandler;
 import org.siemac.metamac.notices.web.server.handlers.GetUserGuideUrlActionHandler;
+import org.siemac.metamac.notices.web.server.handlers.UpdateNoticeRecieverAcknowledgeActionHandler;
 import org.siemac.metamac.notices.web.server.handlers.ValidateTicketActionHandler;
 import org.siemac.metamac.notices.web.shared.GetNoticesAction;
 import org.siemac.metamac.notices.web.shared.GetUserGuideUrlAction;
+import org.siemac.metamac.notices.web.shared.UpdateNoticeRecieverAcknowledgeAction;
 import org.siemac.metamac.web.common.server.handlers.CloseSessionActionHandler;
 import org.siemac.metamac.web.common.server.handlers.GetLoginPageUrlActionHandler;
 import org.siemac.metamac.web.common.server.handlers.GetNavigationBarUrlActionHandler;
@@ -32,6 +34,7 @@ public class ServerModule extends HandlerModule {
     @Override
     protected void configureHandlers() {
         bindHandler(GetNoticesAction.class, GetNoticesActionHandler.class);
+        bindHandler(UpdateNoticeRecieverAcknowledgeAction.class, UpdateNoticeRecieverAcknowledgeActionHandler.class);
 
         bindHandler(ValidateTicketAction.class, ValidateTicketActionHandler.class);
         bindHandler(GetLoginPageUrlAction.class, GetLoginPageUrlActionHandler.class);

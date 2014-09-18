@@ -16,6 +16,9 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 import com.smartgwt.client.types.Overflow;
+import com.smartgwt.client.widgets.events.ClickEvent;
+import com.smartgwt.client.widgets.events.ClickHandler;
+import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.grid.events.SelectionChangedHandler;
 import com.smartgwt.client.widgets.grid.events.SelectionEvent;
 import com.smartgwt.client.widgets.layout.VLayout;
@@ -49,6 +52,20 @@ public class NoticesViewImpl extends ViewWithUiHandlers<NoticesUiHandlers> imple
 
     private void createToolStrip() {
         toolStrip = new NoticesToolStrip();
+        toolStrip.getMarkAsReadButton().addClickHandler(new ClickHandler() {
+
+            @Override
+            public void onClick(ClickEvent event) {
+                getUiHandlers().markAsRead(RecordUtils.getNoticeDtos(noticesListGrid.getListGrid().getSelectedRecords()));
+            }
+        });
+        toolStrip.getMarkAsUnreadButton().addClickHandler(new ClickHandler() {
+
+            @Override
+            public void onClick(ClickEvent event) {
+                getUiHandlers().markAsUnread(RecordUtils.getNoticeDtos(noticesListGrid.getListGrid().getSelectedRecords()));
+            }
+        });
     }
 
     private void createNoticesListGrid() {
@@ -64,7 +81,7 @@ public class NoticesViewImpl extends ViewWithUiHandlers<NoticesUiHandlers> imple
 
             @Override
             public void onSelectionChanged(SelectionEvent event) {
-                // TODO METAMAC-1984
+                updateToolStripButtonsVisibility(noticesListGrid.getListGrid().getSelectedRecords());
             }
         });
     }
@@ -79,5 +96,28 @@ public class NoticesViewImpl extends ViewWithUiHandlers<NoticesUiHandlers> imple
     @Override
     public Widget asWidget() {
         return panel;
+    }
+
+    private void updateToolStripButtonsVisibility(ListGridRecord[] selectedRecords) {
+        toolStrip.hideButtons();
+        if (selectedRecords != null && selectedRecords.length > 0) {
+            boolean allNoticesRead = true;
+            boolean allNoticesUnread = true;
+            for (ListGridRecord record : selectedRecords) {
+                if (record instanceof NoticeRecord) {
+                    boolean noticeRead = ((NoticeRecord) record).getReceiverAcknowledge();
+                    if (noticeRead) {
+                        allNoticesUnread = false;
+                    } else {
+                        allNoticesRead = false;
+                    }
+                }
+            }
+            if (allNoticesRead) {
+                toolStrip.showMarkAsUnreadButton();
+            } else if (allNoticesUnread) {
+                toolStrip.showMarkAsReadButton();
+            }
+        }
     }
 }

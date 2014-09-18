@@ -13,6 +13,8 @@ import org.siemac.metamac.notices.web.client.events.SelectMainSectionEvent;
 import org.siemac.metamac.notices.web.client.view.handlers.NoticesUiHandlers;
 import org.siemac.metamac.notices.web.shared.GetNoticesAction;
 import org.siemac.metamac.notices.web.shared.GetNoticesResult;
+import org.siemac.metamac.notices.web.shared.UpdateNoticeRecieverAcknowledgeAction;
+import org.siemac.metamac.notices.web.shared.UpdateNoticeRecieverAcknowledgeResult;
 import org.siemac.metamac.notices.web.shared.criteria.NoticeWebCriteria;
 import org.siemac.metamac.web.common.client.utils.WaitingAsyncCallbackHandlingError;
 
@@ -29,7 +31,6 @@ import com.gwtplatform.mvp.client.annotations.ProxyCodeSplit;
 import com.gwtplatform.mvp.client.annotations.TitleFunction;
 import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
 import com.gwtplatform.mvp.client.proxy.Place;
-import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.Proxy;
 import com.gwtplatform.mvp.client.proxy.RevealContentEvent;
@@ -38,7 +39,6 @@ import com.gwtplatform.mvp.client.proxy.RevealContentHandler;
 public class NoticesPresenter extends Presenter<NoticesPresenter.NoticesView, NoticesPresenter.NoticesProxy> implements NoticesUiHandlers {
 
     private final DispatchAsync dispatcher;
-    private final PlaceManager  placeManager;
 
     @ProxyCodeSplit
     @NameToken(NameTokens.NOTICES_PAGE)
@@ -60,12 +60,12 @@ public class NoticesPresenter extends Presenter<NoticesPresenter.NoticesView, No
     }
 
     @Inject
-    public NoticesPresenter(EventBus eventBus, NoticesView noticesView, NoticesProxy noticesProxy, DispatchAsync dispatcher, PlaceManager placeManager) {
+    public NoticesPresenter(EventBus eventBus, NoticesView noticesView, NoticesProxy noticesProxy, DispatchAsync dispatcher) {
         super(eventBus, noticesView, noticesProxy);
         this.dispatcher = dispatcher;
-        this.placeManager = placeManager;
         getView().setUiHandlers(this);
     }
+
     @Override
     protected void revealInParent() {
         RevealContentEvent.fire(this, MainPagePresenter.TYPE_SetContextAreaContent, this);
@@ -93,6 +93,27 @@ public class NoticesPresenter extends Presenter<NoticesPresenter.NoticesView, No
             @Override
             public void onWaitSuccess(GetNoticesResult result) {
                 getView().setNotices(result.getNotices(), result.getFirstResult(), result.getTotalResults());
+            }
+        });
+    }
+
+    @Override
+    public void markAsRead(List<NoticeDto> notices) {
+        updateNoticeReceiverStatus(notices, true);
+    }
+
+    @Override
+    public void markAsUnread(List<NoticeDto> notices) {
+        updateNoticeReceiverStatus(notices, false);
+    }
+
+    private void updateNoticeReceiverStatus(List<NoticeDto> notices, boolean receiverAcknowledgeStatus) {
+        String username = NoticesWeb.getCurrentUser().getUserId();
+        dispatcher.execute(new UpdateNoticeRecieverAcknowledgeAction(notices, username, receiverAcknowledgeStatus), new WaitingAsyncCallbackHandlingError<UpdateNoticeRecieverAcknowledgeResult>(this) {
+
+            @Override
+            public void onWaitSuccess(UpdateNoticeRecieverAcknowledgeResult result) {
+                retrieveNotices(new NoticeWebCriteria()); // TODO METAMAC-1984 get the current criteria
             }
         });
     }

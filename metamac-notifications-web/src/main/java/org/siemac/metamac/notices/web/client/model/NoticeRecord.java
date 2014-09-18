@@ -4,6 +4,7 @@ import static org.siemac.metamac.notices.web.client.NoticesWeb.getCoreMessages;
 
 import java.util.Date;
 
+import org.siemac.metamac.notices.core.dto.NoticeDto;
 import org.siemac.metamac.notices.core.notice.enume.domain.NoticeType;
 import org.siemac.metamac.notices.web.client.model.ds.NoticeDS;
 import org.siemac.metamac.web.common.client.utils.DateUtils;
@@ -56,5 +57,13 @@ public class NoticeRecord extends ListGridRecord {
 
     public boolean getReceiverAcknowledge() {
         return getAttributeAsBoolean(NoticeDS.RECEIVER_ACKNOWLEDGE);
+    }
+
+    public void setNoticeDto(NoticeDto value) {
+        setAttribute(NoticeDS.DTO, value);
+    }
+
+    public NoticeDto getNoticeDto() {
+        return (NoticeDto) getAttributeAsObject(NoticeDS.DTO);
     }
 }
