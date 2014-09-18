@@ -70,7 +70,7 @@ public class MainPageViewImpl extends ViewWithUiHandlers<MainPageUiHandlers> imp
 
         // Nested layout container to the North layout container
         northLayout.addMember(this.masterHead);
-        northLayout.addMember(breadCrumbLayout);
+        // northLayout.addMember(breadCrumbLayout);
         northLayout.setHeight(65);
 
         // Initialize the South layout container

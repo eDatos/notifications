@@ -59,6 +59,11 @@ public class NoticesViewImpl extends ViewWithUiHandlers<NoticesUiHandlers> imple
     }
 
     @Override
+    public void setNotice(NoticeDto notice) {
+        noticeLayout.setNotice(notice);
+    }
+
+    @Override
     public Widget asWidget() {
         return panel;
     }
@@ -111,7 +116,7 @@ public class NoticesViewImpl extends ViewWithUiHandlers<NoticesUiHandlers> imple
     private void selectNotice(ListGridRecord[] selectedRecords) {
         if (selectedRecords != null && selectedRecords.length == 1) {
             if (selectedRecords[0] instanceof NoticeRecord) {
-                noticeLayout.setNotice(((NoticeRecord) selectedRecords[0]).getNoticeDto());
+                getUiHandlers().retrieveNotice(((NoticeRecord) selectedRecords[0]).getNoticeDto());
             }
         }
     }

@@ -7,17 +7,18 @@ import org.siemac.metamac.notices.core.dto.NoticeDto;
 import org.siemac.metamac.notices.core.dto.ReceiverDto;
 import org.siemac.metamac.notices.core.notice.enume.domain.NoticeType;
 import org.siemac.metamac.notices.web.client.NoticesWeb;
+import org.siemac.metamac.notices.web.shared.utils.CommonSharedUtils;
 
 public class CommonUtils {
 
+    public static boolean isRead(NoticeDto noticeDto) {
+        ReceiverDto receiverDto = getCurrentReceiverFromNotice(noticeDto);
+        return receiverDto.isAcknowledge();
+    }
+
     public static ReceiverDto getCurrentReceiverFromNotice(NoticeDto noticeDto) {
         String currentUsername = NoticesWeb.getCurrentUser().getUserId();
-        for (ReceiverDto receiverDto : noticeDto.getReceivers()) {
-            if (StringUtils.equals(currentUsername, receiverDto.getUsername())) {
-                return receiverDto;
-            }
-        }
-        return null;
+        return CommonSharedUtils.getCurrentReceiverFromNotice(noticeDto, currentUsername);
     }
 
     public static String getNoticeTypeName(NoticeType type) {

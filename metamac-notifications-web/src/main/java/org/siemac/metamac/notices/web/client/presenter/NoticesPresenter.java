@@ -10,7 +10,10 @@ import org.siemac.metamac.notices.web.client.NameTokens;
 import org.siemac.metamac.notices.web.client.NoticesWeb;
 import org.siemac.metamac.notices.web.client.enums.NoticesToolStripButtonEnum;
 import org.siemac.metamac.notices.web.client.events.SelectMainSectionEvent;
+import org.siemac.metamac.notices.web.client.utils.CommonUtils;
 import org.siemac.metamac.notices.web.client.view.handlers.NoticesUiHandlers;
+import org.siemac.metamac.notices.web.shared.GetNoticeAction;
+import org.siemac.metamac.notices.web.shared.GetNoticeResult;
 import org.siemac.metamac.notices.web.shared.GetNoticesAction;
 import org.siemac.metamac.notices.web.shared.GetNoticesResult;
 import org.siemac.metamac.notices.web.shared.UpdateNoticeRecieverAcknowledgeAction;
@@ -57,6 +60,7 @@ public class NoticesPresenter extends Presenter<NoticesPresenter.NoticesView, No
     public interface NoticesView extends View, HasUiHandlers<NoticesUiHandlers> {
 
         void setNotices(List<NoticeDto> notices, int firstResult, int totalResults);
+        void setNotice(NoticeDto notice);
     }
 
     @Inject
@@ -98,6 +102,21 @@ public class NoticesPresenter extends Presenter<NoticesPresenter.NoticesView, No
     }
 
     @Override
+    public void retrieveNotice(NoticeDto notice) {
+        if (CommonUtils.isRead(notice)) {
+            getView().setNotice(notice);
+        } else {
+            dispatcher.execute(new GetNoticeAction(notice), new WaitingAsyncCallbackHandlingError<GetNoticeResult>(this) {
+
+                @Override
+                public void onWaitSuccess(GetNoticeResult result) {
+                    getView().setNotice(result.getUpdatedNotice());
+                }
+            });
+        }
+    }
+
+    @Override
     public void markAsRead(List<NoticeDto> notices) {
         updateNoticeReceiverStatus(notices, true);
     }
@@ -108,8 +127,7 @@ public class NoticesPresenter extends Presenter<NoticesPresenter.NoticesView, No
     }
 
     private void updateNoticeReceiverStatus(List<NoticeDto> notices, boolean receiverAcknowledgeStatus) {
-        String username = NoticesWeb.getCurrentUser().getUserId();
-        dispatcher.execute(new UpdateNoticeRecieverAcknowledgeAction(notices, username, receiverAcknowledgeStatus), new WaitingAsyncCallbackHandlingError<UpdateNoticeRecieverAcknowledgeResult>(this) {
+        dispatcher.execute(new UpdateNoticeRecieverAcknowledgeAction(notices, receiverAcknowledgeStatus), new WaitingAsyncCallbackHandlingError<UpdateNoticeRecieverAcknowledgeResult>(this) {
 
             @Override
             public void onWaitSuccess(UpdateNoticeRecieverAcknowledgeResult result) {

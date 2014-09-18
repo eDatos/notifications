@@ -10,6 +10,7 @@ import com.gwtplatform.mvp.client.UiHandlers;
 public interface NoticesUiHandlers extends UiHandlers {
 
     void retrieveNotices(NoticeWebCriteria criteria);
+    void retrieveNotice(NoticeDto notice);
     void markAsRead(List<NoticeDto> notices);
     void markAsUnread(List<NoticeDto> notices);
 }
