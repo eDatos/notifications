@@ -2,6 +2,7 @@ package org.siemac.metamac.notices.web.client.gin;
 
 import org.siemac.metamac.notices.web.client.LoggedInGatekeeper;
 import org.siemac.metamac.notices.web.client.NoticesWebConstants;
+import org.siemac.metamac.notices.web.client.presenter.AnnouncementCreationPresenter;
 import org.siemac.metamac.notices.web.client.presenter.ErrorPagePresenter;
 import org.siemac.metamac.notices.web.client.presenter.MainPagePresenter;
 import org.siemac.metamac.notices.web.client.presenter.NoticesPresenter;
@@ -20,6 +21,7 @@ public interface NoticesWebGinjector extends MetamacWebGinjector {
 
     Provider<MainPagePresenter> getMainPagePresenter();
     AsyncProvider<NoticesPresenter> getNoticesPresenter();
+    AsyncProvider<AnnouncementCreationPresenter> getAnnouncementCreationPresenter();
 
     AsyncProvider<ErrorPagePresenter> getErrorPagePresenter();
     AsyncProvider<UnauthorizedPagePresenter> getUnauthorizedPagePresenter();

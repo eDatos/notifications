@@ -4,10 +4,12 @@ import org.siemac.metamac.notices.web.client.LoggedInGatekeeper;
 import org.siemac.metamac.notices.web.client.NameTokens;
 import org.siemac.metamac.notices.web.client.NoticesPlaceManager;
 import org.siemac.metamac.notices.web.client.NoticesWebConstants;
+import org.siemac.metamac.notices.web.client.presenter.AnnouncementCreationPresenter;
 import org.siemac.metamac.notices.web.client.presenter.ErrorPagePresenter;
 import org.siemac.metamac.notices.web.client.presenter.MainPagePresenter;
 import org.siemac.metamac.notices.web.client.presenter.NoticesPresenter;
 import org.siemac.metamac.notices.web.client.presenter.UnauthorizedPagePresenter;
+import org.siemac.metamac.notices.web.client.view.AnnouncementCreationViewImpl;
 import org.siemac.metamac.notices.web.client.view.ErrorPageViewImpl;
 import org.siemac.metamac.notices.web.client.view.MainPageViewImpl;
 import org.siemac.metamac.notices.web.client.view.NoticesViewImpl;
@@ -40,6 +42,8 @@ public class ClientModule extends AbstractPresenterModule {
         // Presenters
         bindPresenter(MainPagePresenter.class, MainPagePresenter.MainPageView.class, MainPageViewImpl.class, MainPagePresenter.MainPageProxy.class);
         bindPresenter(NoticesPresenter.class, NoticesPresenter.NoticesView.class, NoticesViewImpl.class, NoticesPresenter.NoticesProxy.class);
+        bindPresenter(AnnouncementCreationPresenter.class, AnnouncementCreationPresenter.AnnouncementCreationView.class, AnnouncementCreationViewImpl.class,
+                AnnouncementCreationPresenter.AnnouncementCreationProxy.class);
 
         // Error pages
         bindPresenter(ErrorPagePresenter.class, ErrorPagePresenter.ErrorPageView.class, ErrorPageViewImpl.class, ErrorPagePresenter.ErrorPageProxy.class);
