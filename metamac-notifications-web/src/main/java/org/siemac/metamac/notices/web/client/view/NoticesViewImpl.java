@@ -7,9 +7,10 @@ import org.siemac.metamac.notices.web.client.model.NoticeRecord;
 import org.siemac.metamac.notices.web.client.presenter.NoticesPresenter;
 import org.siemac.metamac.notices.web.client.utils.RecordUtils;
 import org.siemac.metamac.notices.web.client.view.handlers.NoticesUiHandlers;
+import org.siemac.metamac.notices.web.client.widgets.NoticeLayout;
+import org.siemac.metamac.notices.web.client.widgets.NoticeSearchSectionStack;
 import org.siemac.metamac.notices.web.client.widgets.NoticesListGrid;
 import org.siemac.metamac.notices.web.client.widgets.NoticesToolStrip;
-import org.siemac.metamac.web.common.client.widgets.SearchSectionStack;
 import org.siemac.metamac.web.common.client.widgets.actions.PaginatedAction;
 
 import com.google.gwt.user.client.ui.Widget;
@@ -25,29 +26,45 @@ import com.smartgwt.client.widgets.layout.VLayout;
 
 public class NoticesViewImpl extends ViewWithUiHandlers<NoticesUiHandlers> implements NoticesPresenter.NoticesView {
 
-    private VLayout            panel;
-    private NoticesToolStrip   toolStrip;
-    private NoticesListGrid    noticesListGrid;
-
-    private SearchSectionStack searchSectionStack;
+    private VLayout                  panel;
+    private NoticeSearchSectionStack searchSectionStack;
+    private NoticesToolStrip         toolStrip;
+    private NoticesListGrid          noticesListGrid;
+    private NoticeLayout             noticeLayout;
 
     @Inject
     public NoticesViewImpl() {
-        panel = new VLayout();
+
         createSearchSectionStack();
         createToolStrip();
         createNoticesListGrid();
+        createNoticeLayout();
+
         VLayout subPanel = new VLayout();
         subPanel.setOverflow(Overflow.SCROLL);
         subPanel.addMember(searchSectionStack);
         subPanel.addMember(toolStrip);
         subPanel.addMember(noticesListGrid);
+        subPanel.addMember(noticeLayout);
 
+        panel = new VLayout();
         panel.addMember(subPanel);
     }
 
+    @Override
+    public void setNotices(List<NoticeDto> notices, int firstResult, int totalResults) {
+        NoticeRecord[] records = RecordUtils.getNoticesRecords(notices);
+        noticesListGrid.getListGrid().setData(records);
+        noticesListGrid.refreshPaginationInfo(firstResult, records.length, totalResults);
+    }
+
+    @Override
+    public Widget asWidget() {
+        return panel;
+    }
+
     private void createSearchSectionStack() {
-        searchSectionStack = new SearchSectionStack();
+        searchSectionStack = new NoticeSearchSectionStack();
     }
 
     private void createToolStrip() {
@@ -73,7 +90,7 @@ public class NoticesViewImpl extends ViewWithUiHandlers<NoticesUiHandlers> imple
 
             @Override
             public void retrieveResultSet(int firstResult, int maxResults) {
-                // TODO METAMAC-1984
+                getUiHandlers().retrieveNotices(searchSectionStack.getCriteria());
             }
         });
 
@@ -82,20 +99,21 @@ public class NoticesViewImpl extends ViewWithUiHandlers<NoticesUiHandlers> imple
             @Override
             public void onSelectionChanged(SelectionEvent event) {
                 updateToolStripButtonsVisibility(noticesListGrid.getListGrid().getSelectedRecords());
+                selectNotice(noticesListGrid.getListGrid().getSelectedRecords());
             }
         });
     }
 
-    @Override
-    public void setNotices(List<NoticeDto> notices, int firstResult, int totalResults) {
-        NoticeRecord[] records = RecordUtils.getNoticesRecords(notices);
-        noticesListGrid.getListGrid().setData(records);
-        noticesListGrid.refreshPaginationInfo(firstResult, records.length, totalResults);
+    private void createNoticeLayout() {
+        noticeLayout = new NoticeLayout();
     }
 
-    @Override
-    public Widget asWidget() {
-        return panel;
+    private void selectNotice(ListGridRecord[] selectedRecords) {
+        if (selectedRecords != null && selectedRecords.length == 1) {
+            if (selectedRecords[0] instanceof NoticeRecord) {
+                noticeLayout.setNotice(((NoticeRecord) selectedRecords[0]).getNoticeDto());
+            }
+        }
     }
 
     private void updateToolStripButtonsVisibility(ListGridRecord[] selectedRecords) {

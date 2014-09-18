@@ -1,7 +1,8 @@
 package org.siemac.metamac.notices.web.shared.criteria;
 
+import static org.siemac.metamac.notices.web.client.utils.NoticesWebConstants.NOTICES_LIST_MAX_RESULTS;
+
 import org.siemac.metamac.notices.core.notice.enume.domain.NoticeType;
-import org.siemac.metamac.web.common.client.constants.CommonWebConstants;
 import org.siemac.metamac.web.common.shared.criteria.MetamacWebCriteria;
 
 public class NoticeWebCriteria extends MetamacWebCriteria {
@@ -18,7 +19,7 @@ public class NoticeWebCriteria extends MetamacWebCriteria {
 
     public NoticeWebCriteria() {
         setFirstResult(0);
-        setMaxResults(CommonWebConstants.MAIN_LIST_MAX_RESULTS);
+        setMaxResults(NOTICES_LIST_MAX_RESULTS);
     }
 
     public boolean isAcknowledge() {

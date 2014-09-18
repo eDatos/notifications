@@ -14,6 +14,7 @@ public class ResourceListFieldUtils {
         CustomListGridField type = new CustomListGridField(NoticeDS.TYPE, getConstants().noticeType());
         CustomListGridField sendingApplication = new CustomListGridField(NoticeDS.SENDING_APPLICATION, getConstants().noticeSendingApplication());
         CustomListGridField sendingUser = new CustomListGridField(NoticeDS.SENDING_USER, getConstants().noticeSendingUser());
+        CustomListGridField creationDate = new CustomListGridField(NoticeDS.CREATION_DATE, getConstants().noticeCreationDate());
 
         CustomListGridField expirationDate = new CustomListGridField(NoticeDS.EXPIRATION_DATE, getConstants().noticeExpirationDate());
         expirationDate.setShowIfCondition(ListGridUtils.getFalseListGridFieldIfFunction());
@@ -21,6 +22,6 @@ public class ResourceListFieldUtils {
         CustomListGridField urn = new CustomListGridField(NoticeDS.URN, getConstants().noticeURN());
         urn.setShowIfCondition(ListGridUtils.getFalseListGridFieldIfFunction());
 
-        return new CustomListGridField[]{subject, type, sendingApplication, sendingUser, expirationDate, urn};
+        return new CustomListGridField[]{subject, type, sendingApplication, sendingUser, creationDate, expirationDate, urn};
     }
 }

@@ -33,6 +33,8 @@ public class RecordUtils {
         record.setExpirationDate(noticeDto.getExpirationDate());
         record.setSubject(noticeDto.getSubject());
         record.setType(noticeDto.getType());
+        record.setCreationDate(noticeDto.getCreationDate());
+        record.setNoticeDto(noticeDto);
         if (receiverDto != null) {
             record.setReceiverId(receiverDto.getId());
             record.setReceiverUsername(receiverDto.getUsername());
