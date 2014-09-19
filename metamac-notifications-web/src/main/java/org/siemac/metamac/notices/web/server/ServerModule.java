@@ -1,6 +1,7 @@
 package org.siemac.metamac.notices.web.server;
 
 import org.siemac.metamac.notices.web.server.handlers.CreateNoticeActionHandler;
+import org.siemac.metamac.notices.web.server.handlers.GetAccessControlRolesAndAppsActionHandler;
 import org.siemac.metamac.notices.web.server.handlers.GetNoticeActionHandler;
 import org.siemac.metamac.notices.web.server.handlers.GetNoticesActionHandler;
 import org.siemac.metamac.notices.web.server.handlers.GetStatisticalOperationsActionHandler;
@@ -8,6 +9,7 @@ import org.siemac.metamac.notices.web.server.handlers.GetUserGuideUrlActionHandl
 import org.siemac.metamac.notices.web.server.handlers.UpdateNoticeRecieverAcknowledgeActionHandler;
 import org.siemac.metamac.notices.web.server.handlers.ValidateTicketActionHandler;
 import org.siemac.metamac.notices.web.shared.CreateNoticeAction;
+import org.siemac.metamac.notices.web.shared.GetAccessControlRolesAndAppsAction;
 import org.siemac.metamac.notices.web.shared.GetNoticeAction;
 import org.siemac.metamac.notices.web.shared.GetNoticesAction;
 import org.siemac.metamac.notices.web.shared.GetStatisticalOperationsAction;
@@ -44,6 +46,7 @@ public class ServerModule extends HandlerModule {
         bindHandler(UpdateNoticeRecieverAcknowledgeAction.class, UpdateNoticeRecieverAcknowledgeActionHandler.class);
         bindHandler(CreateNoticeAction.class, CreateNoticeActionHandler.class);
         bindHandler(GetStatisticalOperationsAction.class, GetStatisticalOperationsActionHandler.class);
+        bindHandler(GetAccessControlRolesAndAppsAction.class, GetAccessControlRolesAndAppsActionHandler.class);
 
         bindHandler(ValidateTicketAction.class, ValidateTicketActionHandler.class);
         bindHandler(GetLoginPageUrlAction.class, GetLoginPageUrlActionHandler.class);

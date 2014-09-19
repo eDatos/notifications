@@ -7,6 +7,7 @@ import java.util.Date;
 import org.siemac.metamac.notices.core.dto.NoticeDto;
 import org.siemac.metamac.notices.core.notice.enume.domain.NoticeType;
 import org.siemac.metamac.notices.web.client.model.ds.NoticeDS;
+import org.siemac.metamac.notices.web.client.utils.AccessControlValues;
 import org.siemac.metamac.web.common.client.utils.DateUtils;
 
 import com.smartgwt.client.widgets.grid.ListGridRecord;
@@ -26,7 +27,8 @@ public class NoticeRecord extends ListGridRecord {
     }
 
     public void setSendingApplication(String value) {
-        setAttribute(NoticeDS.SENDING_APPLICATION, value);
+        String appTitle = AccessControlValues.getAppTitle(value);
+        setAttribute(NoticeDS.SENDING_APPLICATION, appTitle);
     }
 
     public void setSendingUser(String value) {

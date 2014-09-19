@@ -19,6 +19,8 @@ public class NoticeDS extends DataSource {
     public static final String MESSAGE               = "notice-message";
     public static final String CREATION_DATE         = "notice-creation-date";
     public static final String STATISTICAL_OPERATION = "notice-sta-operation";
+    public static final String APPLICATION           = "notice-application";
+    public static final String ROLE                  = "notice-role";
 
     public static final String DTO                   = "notice-dto";
 

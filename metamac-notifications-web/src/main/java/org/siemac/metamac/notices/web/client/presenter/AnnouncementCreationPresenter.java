@@ -59,6 +59,7 @@ public class AnnouncementCreationPresenter extends Presenter<AnnouncementCreatio
 
     public interface AnnouncementCreationView extends View, HasUiHandlers<AnnouncementCreationUiHandlers> {
 
+        void clearValues();
         void setStatisticalOperations(GetStatisticalOperationsResult result);
     }
 
@@ -86,6 +87,7 @@ public class AnnouncementCreationPresenter extends Presenter<AnnouncementCreatio
     @Override
     public void prepareFromRequest(PlaceRequest request) {
         super.prepareFromRequest(request);
+        getView().clearValues();
     }
 
     @Override

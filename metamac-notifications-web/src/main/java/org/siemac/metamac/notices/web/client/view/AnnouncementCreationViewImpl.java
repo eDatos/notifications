@@ -48,4 +48,9 @@ public class AnnouncementCreationViewImpl extends ViewWithUiHandlers<Announcemen
     public void setStatisticalOperations(GetStatisticalOperationsResult result) {
         announcementCreationLayout.setStatisticalOperations(result);
     }
+
+    @Override
+    public void clearValues() {
+        announcementCreationLayout.clearValues();
+    }
 }

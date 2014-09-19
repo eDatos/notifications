@@ -8,6 +8,7 @@ import org.siemac.metamac.notices.core.dto.MessageDto;
 import org.siemac.metamac.notices.core.dto.NoticeDto;
 import org.siemac.metamac.notices.core.notice.enume.domain.NoticeType;
 import org.siemac.metamac.notices.web.client.model.ds.NoticeDS;
+import org.siemac.metamac.notices.web.client.utils.AccessControlValues;
 import org.siemac.metamac.notices.web.client.utils.CommonUtils;
 import org.siemac.metamac.web.common.client.utils.DateUtils;
 import org.siemac.metamac.web.common.client.utils.ExternalItemUtils;
@@ -41,7 +42,7 @@ public class NoticeLayout extends VLayout {
         mainFormLayout.setTitleLabelContents(notice.getSubject());
 
         form.setValue(NoticeDS.URN, notice.getUrn());
-        form.setValue(NoticeDS.SENDING_APPLICATION, notice.getSendingApplication()); // TODO METAMAC-1984 set the application name, not the code!
+        form.setValue(NoticeDS.SENDING_APPLICATION, AccessControlValues.getAppTitle(notice.getSendingApplication()));
         form.setValue(NoticeDS.SENDING_USER, notice.getSendingUser());
         form.setValue(NoticeDS.EXPIRATION_DATE, DateUtils.getFormattedDate(notice.getExpirationDate()));
         form.setValue(NoticeDS.TYPE, CommonUtils.getNoticeTypeName(notice.getType()));

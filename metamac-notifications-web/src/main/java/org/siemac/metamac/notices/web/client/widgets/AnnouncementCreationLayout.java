@@ -70,7 +70,10 @@ public class AnnouncementCreationLayout extends VLayout {
             }
         };
 
-        form.setFields(subjectItem, messageItem, expirationDateItem, operationsItem);
+        SearchRolesItem rolesItem = new SearchRolesItem(NoticeDS.ROLE, getConstants().noticeRoles());
+        SearchAppsItem appsItem = new SearchAppsItem(NoticeDS.APPLICATION, getConstants().noticeApplications());
+
+        form.setFields(subjectItem, messageItem, expirationDateItem, operationsItem, rolesItem, appsItem);
     }
 
     public void setStatisticalOperations(GetStatisticalOperationsResult result) {
@@ -91,5 +94,10 @@ public class AnnouncementCreationLayout extends VLayout {
 
     public AnnouncementCreationUiHandlers getUiHandlers() {
         return uiHandlers;
+    }
+
+    public void clearValues() {
+        form.clearValues();
+        ((SearchMultiExternalItemSimpleItem) form.getItem(NoticeDS.STATISTICAL_OPERATION)).clearRelatedResourceList();
     }
 }

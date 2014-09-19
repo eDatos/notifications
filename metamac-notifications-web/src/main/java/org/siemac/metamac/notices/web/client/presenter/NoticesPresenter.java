@@ -5,8 +5,8 @@ import static org.siemac.metamac.notices.web.client.NoticesWeb.getConstants;
 import java.util.List;
 
 import org.siemac.metamac.notices.core.dto.NoticeDto;
-import org.siemac.metamac.notices.web.client.NoticesLoggedInGatekeeper;
 import org.siemac.metamac.notices.web.client.NameTokens;
+import org.siemac.metamac.notices.web.client.NoticesLoggedInGatekeeper;
 import org.siemac.metamac.notices.web.client.NoticesWeb;
 import org.siemac.metamac.notices.web.client.enums.NoticesToolStripButtonEnum;
 import org.siemac.metamac.notices.web.client.events.SelectMainSectionEvent;
