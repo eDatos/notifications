@@ -1,19 +1,27 @@
 package org.siemac.metamac.notices.web.client;
 
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.siemac.metamac.notices.core.constants.NoticesConstants;
 import org.siemac.metamac.notices.web.client.gin.NoticesWebGinjector;
+import org.siemac.metamac.notices.web.client.utils.AccessControlValues;
+import org.siemac.metamac.notices.web.shared.GetAccessControlRolesAndAppsAction;
+import org.siemac.metamac.notices.web.shared.GetAccessControlRolesAndAppsResult;
 import org.siemac.metamac.sso.client.MetamacPrincipal;
 import org.siemac.metamac.web.common.client.MetamacSecurityEntryPoint;
 import org.siemac.metamac.web.common.client.gin.MetamacWebGinjector;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class NoticesWeb extends MetamacSecurityEntryPoint {
+
+    private static Logger                   logger           = Logger.getLogger(NoticesWeb.class.getName());
 
     private static final boolean            SECURITY_ENABLED = true;
 
@@ -29,6 +37,25 @@ public class NoticesWeb extends MetamacSecurityEntryPoint {
         setUncaughtExceptionHandler();
 
         prepareApplication(SECURITY_ENABLED);
+    }
+
+    @Override
+    protected void onBeforeLoadApplication() {
+
+        ginjector.getDispatcher().execute(new GetAccessControlRolesAndAppsAction(), new AsyncCallback<GetAccessControlRolesAndAppsResult>() {
+
+            @Override
+            public void onFailure(Throwable caught) {
+                logger.log(Level.SEVERE, "Error retrieving access control values (roles and apps): " + caught.getMessage());
+                loadApplication();
+            }
+            @Override
+            public void onSuccess(GetAccessControlRolesAndAppsResult result) {
+                AccessControlValues.setRoles(result.getRoles());
+                AccessControlValues.setApps(result.getApps());
+                loadApplication();
+            }
+        });
     }
 
     @Override

@@ -13,5 +13,5 @@ public class CreateNotice {
     NoticeDto notice;
 
     @Out(1)
-    NoticeDto createNotice;
+    NoticeDto createdNotice;
 }
