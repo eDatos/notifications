@@ -7,6 +7,8 @@ import org.junit.runner.RunWith;
 import org.siemac.metamac.notices.core.NoticesBaseTest;
 import org.siemac.metamac.notices.core.common.domain.InternationalStringRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
@@ -16,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 @ContextConfiguration(locations = {"classpath:spring/notices/applicationContext-test.xml", "classpath:/spring/notices/include/more.xml"})
 @TransactionConfiguration(transactionManager = "txManager", defaultRollback = true)
 @Transactional
+@DirtiesContext(classMode = ClassMode.AFTER_CLASS)
 public class InternationalStringRepositoryTest extends NoticesBaseTest implements InternationalStringRepositoryTestBase {
 
     @Autowired

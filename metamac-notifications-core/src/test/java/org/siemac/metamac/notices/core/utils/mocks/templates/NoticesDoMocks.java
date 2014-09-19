@@ -1,8 +1,5 @@
 package org.siemac.metamac.notices.core.utils.mocks.templates;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,7 +19,10 @@ import org.siemac.metamac.notices.core.notice.domain.Role;
 import org.siemac.metamac.notices.core.notice.domain.StatisticalOperation;
 import org.siemac.metamac.notices.core.notice.enume.domain.NoticeType;
 
-public abstract class NoticesDoMocks extends MetamacMocks {
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
+
+public class NoticesDoMocks extends MetamacMocks {
 
     // -----------------------------------------------------------------
     // NOTICES
@@ -30,13 +30,13 @@ public abstract class NoticesDoMocks extends MetamacMocks {
 
     public static Notice mockNoticeWithResources() {
         Notice notice = buildNotice();
-        notice.getMessages().add(mockMessageWithResources());
+        notice.getMessages().add(mockMessageWithResources(notice));
         return notice;
     }
 
     public static Notice mockNoticeWithoutResources() {
         Notice notice = buildNotice();
-        notice.getMessages().add(mockMessageWithoutResources());
+        notice.getMessages().add(mockMessageWithoutResources(notice));
         return notice;
     }
 
@@ -53,6 +53,7 @@ public abstract class NoticesDoMocks extends MetamacMocks {
         Notice notice = new Notice(mockString(6), mockSentence(4), NoticeType.NOTIFICATION);
         notice.setCreatedDate(new DateTime(2012, 1, 1, 1, 1, 1, 1));
         notice.setExpirationDate(new DateTime(2013, 1, 1, 1, 1, 1, 1));
+        notice.setSendingUser("admin");
 
         // Role
         Role role = new Role();
@@ -77,13 +78,14 @@ public abstract class NoticesDoMocks extends MetamacMocks {
     // MESSAGES
     // -----------------------------------------------------------------
 
-    public static Message mockMessageWithoutResources() {
+    public static Message mockMessageWithoutResources(Notice notice) {
         Message message = new Message(mockSentence(10));
+        message.setNotice(notice);
         return message;
     }
 
-    public static Message mockMessageWithResources() {
-        Message message = mockMessageWithoutResources();
+    public static Message mockMessageWithResources(Notice notice) {
+        Message message = mockMessageWithoutResources(notice);
         message.getResources().add(mockStatisticalOperationExternalItem());
         message.getResources().add(mockStatisticalOperationExternalItem());
         return message;

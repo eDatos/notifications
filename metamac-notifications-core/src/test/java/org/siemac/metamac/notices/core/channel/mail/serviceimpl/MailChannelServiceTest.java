@@ -1,53 +1,38 @@
 package org.siemac.metamac.notices.core.channel.mail.serviceimpl;
 
-import static org.junit.Assert.assertEquals;
-
 import java.io.InputStream;
-import java.security.Security;
 
 import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.io.IOUtils;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.siemac.metamac.notices.core.NoticesBaseTest;
 import org.siemac.metamac.notices.core.notice.domain.Notice;
 import org.siemac.metamac.notices.core.utils.mocks.factories.NoticeMockFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.icegreen.greenmail.util.DummySSLSocketFactory;
-import com.icegreen.greenmail.util.GreenMail;
-import com.icegreen.greenmail.util.ServerSetupTest;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring/notices/applicationContext-test.xml", "classpath:/spring/notices/include/more.xml"})
 @TransactionConfiguration(transactionManager = "txManager", defaultRollback = true)
 @Transactional
-public class MailChannelServiceTest extends NoticesBaseTest /* implements NoticeServiceTestBase */{
+@DirtiesContext(classMode = ClassMode.AFTER_CLASS)
+public class MailChannelServiceTest extends NoticesBaseTest {
 
     @Autowired
     protected MailChannelService mailChannelService;
 
-    private GreenMail            greenMail;
-
-    @Before
-    public void testSmtpInit() {
-        // The SSL certificate used on the Greenmail server must be signed by a "known" certificate authority, OR you must add the CA certificate that was used to sign the cert to Java's keystore.
-        Security.setProperty("ssl.SocketFactory.provider", DummySSLSocketFactory.class.getName());
-
-        greenMail = new GreenMail(ServerSetupTest.SMTPS);
-        greenMail.start();
-    }
-
     @Test
     public void testMailChannel() throws Exception {
-        Notice notice = NoticeMockFactory.getNotice03WithResources();
+        Notice notice = NoticeMockFactory.getNotification03WithResources();
 
         mailChannelService.sendMail(getServiceContextAdministrador(), notice, new String[]{"count@domain.com"}, "count@domain.com");
 
@@ -58,10 +43,5 @@ public class MailChannelServiceTest extends NoticesBaseTest /* implements Notice
         InputStream responseExpected = MailChannelServiceTest.class.getResourceAsStream("/responses/email/notice.mail");
         assertInputStream(responseExpected, IOUtils.toInputStream((String) messages[0].getContent()), false);
         assertEquals("Test subject", messages[0].getSubject());
-    }
-
-    @After
-    public void cleanup() {
-        greenMail.stop();
     }
 }

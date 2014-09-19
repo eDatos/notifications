@@ -39,6 +39,11 @@ Application Notices {
     		List<@Notice> findAllNotice throws MetamacException;
     		List<@Notice> findNoticeByCondition(List<ConditionalCriteria> condition) throws MetamacException;
     		List<@Notice> findUserNotices(String receiverUsername) throws MetamacException;
+    		markNoticeForReceiverAsRead(String noticeUrn, String username) throws MetamacException;
+    		
+    		// Receivers
+    		@Receiver retrieveReceiver(String noticeUrn, String username) throws MetamacException;
+    		@Receiver updateReceiver(@Receiver receiver)  throws MetamacException;
 			
 		}  
 
@@ -143,6 +148,7 @@ Application Notices {
 				findByCondition;
 				findByCondition(PagingParameter pagingParameter);
 				findByQuery(String query, Map<String, Object> parameters, int maxResult);
+				@Receiver retrieveReceiver(String noticeUrn, String username)  throws MetamacException ;
 			}
 		}
 		

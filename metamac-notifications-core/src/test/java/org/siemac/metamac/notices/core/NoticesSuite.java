@@ -6,6 +6,7 @@ import org.siemac.metamac.notices.core.channel.mail.serviceimpl.MailChannelServi
 import org.siemac.metamac.notices.core.common.repositoryimpl.InternationalStringRepositoryTest;
 import org.siemac.metamac.notices.core.error.NoticesCheckTranslationsTest;
 import org.siemac.metamac.notices.core.notice.repositoryimpl.NoticeRepositoryTest;
+import org.siemac.metamac.notices.core.notice.repositoryimpl.ReceiverRepositoryTest;
 import org.siemac.metamac.notices.core.notice.serviceapi.NoticesServiceTest;
 
 // @formatter:off
@@ -14,6 +15,7 @@ import org.siemac.metamac.notices.core.notice.serviceapi.NoticesServiceTest;
                         MailChannelServiceTest.class,
                         InternationalStringRepositoryTest.class,
                         NoticeRepositoryTest.class,
+                        ReceiverRepositoryTest.class,
                         NoticesServiceTest.class})
 // @formatter:on
 public class NoticesSuite {

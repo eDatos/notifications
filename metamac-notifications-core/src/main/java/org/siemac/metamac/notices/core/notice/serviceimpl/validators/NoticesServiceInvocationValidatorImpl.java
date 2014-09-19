@@ -7,6 +7,7 @@ import org.siemac.metamac.core.common.exception.MetamacExceptionItem;
 import org.siemac.metamac.notices.core.error.ServiceExceptionBaseParameters;
 import org.siemac.metamac.notices.core.error.ServiceExceptionParameters;
 import org.siemac.metamac.notices.core.notice.domain.Notice;
+import org.siemac.metamac.notices.core.notice.domain.Receiver;
 import org.siemac.metamac.notices.core.notice.enume.domain.NoticeType;
 import org.siemac.metamac.notices.core.utils.NoticesValidationUtils;
 
@@ -49,6 +50,20 @@ public class NoticesServiceInvocationValidatorImpl {
 
     public static void checkFindUserNotices(String username, List<MetamacExceptionItem> exceptions) {
         NoticesValidationUtils.checkParameterRequired(username, ServiceExceptionParameters.RECEIVER__USERNAME, exceptions);
+    }
+
+    public static void checkMarkNoticeForReceiverAsRead(String noticeUrn, String username, List<MetamacExceptionItem> exceptions) {
+        NoticesValidationUtils.checkParameterRequired(username, ServiceExceptionParameters.RECEIVER__USERNAME, exceptions);
+        NoticesValidationUtils.checkParameterRequired(noticeUrn, ServiceExceptionParameters.NOTICE__URN, exceptions);
+    }
+
+    public static void checkUpdateReceiver(Receiver receiver, List<MetamacExceptionItem> exceptions) {
+        checkExistingReceiver(receiver, exceptions);
+    }
+
+    public static void checkRetrieveReceiver(String noticeUrn, String username, List<MetamacExceptionItem> exceptions) {
+        NoticesValidationUtils.checkParameterRequired(username, ServiceExceptionParameters.RECEIVER__USERNAME, exceptions);
+        NoticesValidationUtils.checkParameterRequired(noticeUrn, ServiceExceptionParameters.NOTICE__URN, exceptions);
     }
 
     // ------------------------------------------------------------------------
@@ -95,4 +110,21 @@ public class NoticesServiceInvocationValidatorImpl {
         }
 
     }
+
+    private static void checkExistingReceiver(Receiver receiver, List<MetamacExceptionItem> exceptions) {
+        NoticesValidationUtils.checkParameterRequired(receiver, ServiceExceptionParameters.RECEIVER, exceptions);
+
+        if (receiver == null) {
+            return;
+        }
+
+        checkReceiverMetadata(receiver, exceptions);
+
+    }
+
+    private static void checkReceiverMetadata(Receiver receiver, List<MetamacExceptionItem> exceptions) {
+        NoticesValidationUtils.checkMetadataRequired(receiver.getNotice(), ServiceExceptionParameters.RECEIVER__NOTICE, exceptions);
+        NoticesValidationUtils.checkMetadataRequired(receiver.getUsername(), ServiceExceptionParameters.RECEIVER__USERNAME, exceptions);
+    }
+
 }

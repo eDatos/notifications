@@ -19,6 +19,8 @@ import org.siemac.metamac.notices.core.notice.serviceapi.NoticesService;
 import org.siemac.metamac.notices.core.notice.serviceapi.validators.NoticesServiceInvocationValidator;
 import org.siemac.metamac.notices.core.notice.serviceimpl.util.NoticesServiceUtil;
 import org.siemac.metamac.rest.access_control.v1_0.domain.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,8 @@ import org.springframework.stereotype.Service;
  */
 @Service(NoticesService.BEAN_ID)
 public class NoticesServiceImpl extends NoticesServiceImplBase {
+
+    private final static Logger               logger = LoggerFactory.getLogger(NoticesServiceImpl.class);
 
     @Autowired
     private NoticesServiceInvocationValidator noticeServiceInvocationValidator;
@@ -49,10 +53,10 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
         try {
             return getNoticeRepository().findById(id);
         } catch (NoticeNotFoundException e) {
+            logger.error(ServiceExceptionType.NOTICE_NOT_FOUND.getCode(), e);
             throw new MetamacException(ServiceExceptionType.NOTICE_NOT_FOUND, id);
         }
     }
-
     @Override
     public Notice retrieveNoticeByUrn(ServiceContext ctx, String urn) throws MetamacException {
 
@@ -96,6 +100,18 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
     }
 
     @Override
+    public void markNoticeForReceiverAsRead(ServiceContext ctx, String noticeUrn, String username) throws MetamacException {
+        // Validations
+        noticeServiceInvocationValidator.checkMarkNoticeForReceiverAsRead(ctx, noticeUrn, username);
+
+        // Retrieve receiver
+        Receiver receiver = retrieveReceiver(ctx, noticeUrn, username);
+
+        receiver.setAcknowledge(Boolean.TRUE);
+        updateReceiver(ctx, receiver);
+    }
+
+    @Override
     public void deleteNotice(ServiceContext ctx, Long id) throws MetamacException {
 
         // Validations
@@ -131,6 +147,22 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
         noticeServiceInvocationValidator.checkFindUserNotices(ctx, receiverUsername);
 
         return getNoticeRepository().findByReceiverUsername(receiverUsername);
+    }
+
+    @Override
+    public Receiver retrieveReceiver(ServiceContext ctx, String noticeUrn, String username) throws MetamacException {
+        // Validations
+        noticeServiceInvocationValidator.checkRetrieveReceiver(ctx, noticeUrn, username);
+
+        return getReceiverRepository().retrieveReceiver(noticeUrn, username);
+    }
+
+    @Override
+    public Receiver updateReceiver(ServiceContext ctx, Receiver receiver) throws MetamacException {
+        // Validations
+        noticeServiceInvocationValidator.checkUpdateReceiver(ctx, receiver);
+
+        return getReceiverRepository().save(receiver);
     }
 
     // ----------------------------------------------------------------------

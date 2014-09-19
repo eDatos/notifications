@@ -150,27 +150,12 @@ class NoticeBuilderBase<GeneratorT extends NoticeBuilderBase<GeneratorT>> {
     }
 
     @SuppressWarnings("unchecked")
-    public GeneratorT withAddedMessage(String aValue) {
-        Message message = MessageBuilder.message().withText(aValue).build();
-        instance.getMessages().add(message);
-
-        return (GeneratorT) this;
-    }
-
-    @SuppressWarnings("unchecked")
     public GeneratorT withMessages(String... aValue) {
         instance.getMessages().clear();
         for (String messageText : aValue) {
-            Message message = MessageBuilder.message().withText(messageText).build();
+            Message message = MessageBuilder.message(instance).withText(messageText).build();
             instance.getMessages().add(message);
         }
-
-        return (GeneratorT) this;
-    }
-
-    @SuppressWarnings("unchecked")
-    public GeneratorT withAddedMessage(Message aValue) {
-        instance.getMessages().add(aValue);
 
         return (GeneratorT) this;
     }
@@ -186,28 +171,13 @@ class NoticeBuilderBase<GeneratorT extends NoticeBuilderBase<GeneratorT>> {
     }
 
     @SuppressWarnings("unchecked")
-    public GeneratorT withAddedStatisticalOperation(String aValue) {
-        StatisticalOperation statisticalOperation = StatisticalOperationBuilder.statisticalOperation().withName(aValue).build();
-        instance.getStatisticalOperations().add(statisticalOperation);
-
-        return (GeneratorT) this;
-    }
-
-    @SuppressWarnings("unchecked")
     public GeneratorT withStatisticalOperations(String... aValue) {
         instance.getStatisticalOperations().clear();
         for (String statisticalOperationName : aValue) {
             StatisticalOperation statisticalOperation = StatisticalOperationBuilder.statisticalOperation().withName(statisticalOperationName).build();
+            statisticalOperation.setNotice(instance);
             instance.getStatisticalOperations().add(statisticalOperation);
         }
-
-        return (GeneratorT) this;
-    }
-
-    @SuppressWarnings("unchecked")
-    public GeneratorT withAddedApp(String aValue) {
-        App app = AppBuilder.app().withName(aValue).build();
-        instance.getApps().add(app);
 
         return (GeneratorT) this;
     }
@@ -217,16 +187,9 @@ class NoticeBuilderBase<GeneratorT extends NoticeBuilderBase<GeneratorT>> {
         instance.getApps().clear();
         for (String appName : aValue) {
             App app = AppBuilder.app().withName(appName).build();
+            app.setNotice(instance);
             instance.getApps().add(app);
         }
-
-        return (GeneratorT) this;
-    }
-
-    @SuppressWarnings("unchecked")
-    public GeneratorT withAddedRole(String aValue) {
-        Role role = RoleBuilder.role().withName(aValue).build();
-        instance.getRoles().add(role);
 
         return (GeneratorT) this;
     }
@@ -236,16 +199,9 @@ class NoticeBuilderBase<GeneratorT extends NoticeBuilderBase<GeneratorT>> {
         instance.getRoles().clear();
         for (String roleName : aValue) {
             Role role = RoleBuilder.role().withName(roleName).build();
+            role.setNotice(instance);
             instance.getRoles().add(role);
         }
-
-        return (GeneratorT) this;
-    }
-
-    @SuppressWarnings("unchecked")
-    public GeneratorT withAddedReceiver(String aValue) {
-        Receiver receiver = ReceiverBuilder.receiver().withUsername(aValue).build();
-        instance.getReceivers().add(receiver);
 
         return (GeneratorT) this;
     }
@@ -255,6 +211,7 @@ class NoticeBuilderBase<GeneratorT extends NoticeBuilderBase<GeneratorT>> {
         instance.getReceivers().clear();
         for (String receiverUsername : aValue) {
             Receiver receiver = ReceiverBuilder.receiver().withUsername(receiverUsername).build();
+            receiver.setNotice(instance);
             instance.getReceivers().add(receiver);
         }
         return (GeneratorT) this;

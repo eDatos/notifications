@@ -2,15 +2,16 @@ package org.siemac.metamac.notices.core.utils.builders;
 
 import org.siemac.metamac.notices.core.common.domain.ExternalItem;
 import org.siemac.metamac.notices.core.notice.domain.Message;
+import org.siemac.metamac.notices.core.notice.domain.Notice;
 import org.siemac.metamac.notices.core.utils.mocks.templates.NoticesDoMocks;
 
 public class MessageBuilder extends MessageBuilderBase<MessageBuilder> {
 
     // By default we generate mock values for required-in-creation fields
     // This lets a simple interface for the builder
-    public static MessageBuilder message() {
+    public static MessageBuilder message(Notice notice) {
         String text = NoticesDoMocks.mockSentence(10);
-        return new MessageBuilder(text);
+        return new MessageBuilder(text).withNotice(notice);
     }
 
     public MessageBuilder(String text) {
@@ -37,14 +38,18 @@ class MessageBuilderBase<GeneratorT extends MessageBuilderBase<GeneratorT>> {
     @SuppressWarnings("unchecked")
     public GeneratorT withText(String aValue) {
         instance.setText(aValue);
+        return (GeneratorT) this;
+    }
 
+    @SuppressWarnings("unchecked")
+    public GeneratorT withNotice(Notice aValue) {
+        instance.setNotice(aValue);
         return (GeneratorT) this;
     }
 
     @SuppressWarnings("unchecked")
     public GeneratorT withAddedResource(ExternalItem externalItem) {
         instance.getResources().add(externalItem);
-
         return (GeneratorT) this;
     }
 
