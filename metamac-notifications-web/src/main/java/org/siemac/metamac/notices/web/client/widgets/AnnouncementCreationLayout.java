@@ -41,7 +41,7 @@ public class AnnouncementCreationLayout extends VLayout {
         mainFormLayout.getSave().setVisible(false);
         mainFormLayout.getCancelToolStripButton().setVisible(false);
 
-        sendButton = new ToolStripButton(getConstants().actionSend());
+        sendButton = new ToolStripButton(getConstants().actionCreate());
         mainFormLayout.getToolStrip().addButton(sendButton);
 
         createForm();

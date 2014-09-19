@@ -96,7 +96,7 @@ public class AnnouncementCreationPresenter extends Presenter<AnnouncementCreatio
 
             @Override
             public void onWaitSuccess(CreateNoticeResult result) {
-                fireSuccessMessage(NoticesWeb.getMessages().announcementSent());
+                fireSuccessMessage(NoticesWeb.getMessages().announcementCreated());
                 // TODO METAMAC-1984 show message with warning??
                 placeManager.revealPlaceHierarchy(PlaceRequestUtils.buildAbsoluteNoticesPlaceRequest());
             }
