@@ -16,6 +16,7 @@ Application NoticesDto {
             String subject;
             - List<@ReceiverDto> receivers;
             - List<@MessageDto> messages;
+            JAVADATE creationDate;
         }
 
         DataTransferObject ReceiverDto extends @IdentityDto {
