@@ -25,6 +25,8 @@ public class NoticeMockFactory {
     public static final String       NOTIFICATION_03_WITH_RESOURCES_NAME  = "NOTIFICATION_03_WITH_RESOURCES";
     public static final String       NOTIFICATION_03_URN                  = "urn:siemac:org.siemac.metamac.infomodel.notices.Notice=NOTIFICATION_03_WITH_RESOURCES";
 
+    public static final String       NOTIFICATION_04_URN                  = "urn:siemac:org.siemac.metamac.infomodel.notices.Notice=NOTIFICATION_04";
+
     private static NoticeMockFactory instance                             = null;
 
     private NoticeMockFactory() {
