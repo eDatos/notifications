@@ -5,7 +5,7 @@ import static org.siemac.metamac.notices.web.client.NoticesWeb.getConstants;
 import java.util.List;
 
 import org.siemac.metamac.notices.core.dto.NoticeDto;
-import org.siemac.metamac.notices.web.client.LoggedInGatekeeper;
+import org.siemac.metamac.notices.web.client.NoticesLoggedInGatekeeper;
 import org.siemac.metamac.notices.web.client.NameTokens;
 import org.siemac.metamac.notices.web.client.NoticesWeb;
 import org.siemac.metamac.notices.web.client.enums.NoticesToolStripButtonEnum;
@@ -45,7 +45,7 @@ public class NoticesPresenter extends Presenter<NoticesPresenter.NoticesView, No
 
     @ProxyCodeSplit
     @NameToken(NameTokens.NOTICES_PAGE)
-    @UseGatekeeper(LoggedInGatekeeper.class)
+    @UseGatekeeper(NoticesLoggedInGatekeeper.class)
     public interface NoticesProxy extends Proxy<NoticesPresenter>, Place {
     }
 

@@ -3,14 +3,18 @@ package org.siemac.metamac.notices.web.client.presenter;
 import static org.siemac.metamac.notices.web.client.NoticesWeb.getConstants;
 
 import org.siemac.metamac.notices.core.dto.NoticeDto;
-import org.siemac.metamac.notices.web.client.LoggedInGatekeeper;
+import org.siemac.metamac.notices.web.client.AnnouncementCreationLoggedInGatekeeper;
 import org.siemac.metamac.notices.web.client.NameTokens;
+import org.siemac.metamac.notices.web.client.NoticesWeb;
 import org.siemac.metamac.notices.web.client.enums.NoticesToolStripButtonEnum;
 import org.siemac.metamac.notices.web.client.events.SelectMainSectionEvent;
 import org.siemac.metamac.notices.web.client.utils.PlaceRequestUtils;
 import org.siemac.metamac.notices.web.client.view.handlers.AnnouncementCreationUiHandlers;
 import org.siemac.metamac.notices.web.shared.CreateNoticeAction;
 import org.siemac.metamac.notices.web.shared.CreateNoticeResult;
+import org.siemac.metamac.notices.web.shared.GetStatisticalOperationsAction;
+import org.siemac.metamac.notices.web.shared.GetStatisticalOperationsResult;
+import org.siemac.metamac.notices.web.shared.criteria.PaginationWebCriteria;
 import org.siemac.metamac.web.common.client.utils.WaitingAsyncCallbackHandlingError;
 
 import com.google.gwt.event.shared.GwtEvent.Type;
@@ -41,7 +45,7 @@ public class AnnouncementCreationPresenter extends Presenter<AnnouncementCreatio
 
     @ProxyCodeSplit
     @NameToken(NameTokens.ANNOUNCEMENT_CREATION_PAGE)
-    @UseGatekeeper(LoggedInGatekeeper.class)
+    @UseGatekeeper(AnnouncementCreationLoggedInGatekeeper.class)
     public interface AnnouncementCreationProxy extends Proxy<AnnouncementCreationPresenter>, Place {
     }
 
@@ -54,6 +58,8 @@ public class AnnouncementCreationPresenter extends Presenter<AnnouncementCreatio
     }
 
     public interface AnnouncementCreationView extends View, HasUiHandlers<AnnouncementCreationUiHandlers> {
+
+        void setStatisticalOperations(GetStatisticalOperationsResult result);
     }
 
     @Inject
@@ -88,8 +94,20 @@ public class AnnouncementCreationPresenter extends Presenter<AnnouncementCreatio
 
             @Override
             public void onWaitSuccess(CreateNoticeResult result) {
-                // TODO METAMAC-1984 show message with successful creation/send
+                fireSuccessMessage(NoticesWeb.getMessages().announcementSent());
+                // TODO METAMAC-1984 show message with warning??
                 placeManager.revealPlaceHierarchy(PlaceRequestUtils.buildAbsoluteNoticesPlaceRequest());
+            }
+        });
+    }
+
+    @Override
+    public void retrieveStatisticalOperations(PaginationWebCriteria criteria) {
+        dispatcher.execute(new GetStatisticalOperationsAction(criteria), new WaitingAsyncCallbackHandlingError<GetStatisticalOperationsResult>(this) {
+
+            @Override
+            public void onWaitSuccess(GetStatisticalOperationsResult result) {
+                getView().setStatisticalOperations(result);
             }
         });
     }

@@ -3,9 +3,8 @@ package org.siemac.metamac.notices.web.shared.criteria;
 import static org.siemac.metamac.notices.web.client.utils.NoticesWebConstants.NOTICES_LIST_MAX_RESULTS;
 
 import org.siemac.metamac.notices.core.notice.enume.domain.NoticeType;
-import org.siemac.metamac.web.common.shared.criteria.MetamacWebCriteria;
 
-public class NoticeWebCriteria extends MetamacWebCriteria {
+public class NoticeWebCriteria extends PaginationWebCriteria {
 
     private static final long serialVersionUID = 3266436132524273569L;
 
@@ -14,8 +13,6 @@ public class NoticeWebCriteria extends MetamacWebCriteria {
     private String            sendingUser;
     private NoticeType        type;
     private String            receiverUsername;
-    private int               firstResult;
-    private int               maxResults;
 
     public NoticeWebCriteria() {
         setFirstResult(0);
@@ -60,21 +57,5 @@ public class NoticeWebCriteria extends MetamacWebCriteria {
 
     public void setReceiverUsername(String receiverUsername) {
         this.receiverUsername = receiverUsername;
-    }
-
-    public int getFirstResult() {
-        return firstResult;
-    }
-
-    public void setFirstResult(int firstResult) {
-        this.firstResult = firstResult;
-    }
-
-    public int getMaxResults() {
-        return maxResults;
-    }
-
-    public void setMaxResults(int maxResults) {
-        this.maxResults = maxResults;
     }
 }

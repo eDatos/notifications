@@ -3,6 +3,7 @@ package org.siemac.metamac.notices.web.client.view;
 import org.siemac.metamac.notices.web.client.presenter.AnnouncementCreationPresenter;
 import org.siemac.metamac.notices.web.client.view.handlers.AnnouncementCreationUiHandlers;
 import org.siemac.metamac.notices.web.client.widgets.AnnouncementCreationLayout;
+import org.siemac.metamac.notices.web.shared.GetStatisticalOperationsResult;
 
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
@@ -33,7 +34,18 @@ public class AnnouncementCreationViewImpl extends ViewWithUiHandlers<Announcemen
     }
 
     @Override
+    public void setUiHandlers(AnnouncementCreationUiHandlers uiHandlers) {
+        super.setUiHandlers(uiHandlers);
+        announcementCreationLayout.setUiHandlers(uiHandlers);
+    }
+
+    @Override
     public Widget asWidget() {
         return panel;
+    }
+
+    @Override
+    public void setStatisticalOperations(GetStatisticalOperationsResult result) {
+        announcementCreationLayout.setStatisticalOperations(result);
     }
 }

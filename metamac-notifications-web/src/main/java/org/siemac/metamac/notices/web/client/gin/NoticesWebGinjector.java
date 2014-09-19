@@ -1,7 +1,9 @@
 package org.siemac.metamac.notices.web.client.gin;
 
-import org.siemac.metamac.notices.web.client.LoggedInGatekeeper;
+import org.siemac.metamac.notices.web.client.AnnouncementCreationLoggedInGatekeeper;
+import org.siemac.metamac.notices.web.client.NoticesLoggedInGatekeeper;
 import org.siemac.metamac.notices.web.client.NoticesWebConstants;
+import org.siemac.metamac.notices.web.client.NoticesWebMessages;
 import org.siemac.metamac.notices.web.client.presenter.AnnouncementCreationPresenter;
 import org.siemac.metamac.notices.web.client.presenter.ErrorPagePresenter;
 import org.siemac.metamac.notices.web.client.presenter.MainPagePresenter;
@@ -17,7 +19,8 @@ import com.gwtplatform.dispatch.client.gin.DispatchAsyncModule;
 @GinModules({DispatchAsyncModule.class, ClientModule.class})
 public interface NoticesWebGinjector extends MetamacWebGinjector {
 
-    LoggedInGatekeeper getLoggedInGatekeeper();
+    NoticesLoggedInGatekeeper getNoticesLoggedInGatekeeper();
+    AnnouncementCreationLoggedInGatekeeper getAnnouncementCreationLoggedInGatekeeper();
 
     Provider<MainPagePresenter> getMainPagePresenter();
     AsyncProvider<NoticesPresenter> getNoticesPresenter();
@@ -28,4 +31,5 @@ public interface NoticesWebGinjector extends MetamacWebGinjector {
 
     // Interfaces
     public NoticesWebConstants getNoticesWebConstants();
+    public NoticesWebMessages getNoticesWebMessages();
 }

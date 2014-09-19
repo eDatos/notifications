@@ -1,9 +1,10 @@
 package org.siemac.metamac.notices.web.client.gin;
 
-import org.siemac.metamac.notices.web.client.LoggedInGatekeeper;
 import org.siemac.metamac.notices.web.client.NameTokens;
+import org.siemac.metamac.notices.web.client.NoticesLoggedInGatekeeper;
 import org.siemac.metamac.notices.web.client.NoticesPlaceManager;
 import org.siemac.metamac.notices.web.client.NoticesWebConstants;
+import org.siemac.metamac.notices.web.client.NoticesWebMessages;
 import org.siemac.metamac.notices.web.client.presenter.AnnouncementCreationPresenter;
 import org.siemac.metamac.notices.web.client.presenter.ErrorPagePresenter;
 import org.siemac.metamac.notices.web.client.presenter.MainPagePresenter;
@@ -34,7 +35,7 @@ public class ClientModule extends AbstractPresenterModule {
         install(new DefaultModule(NoticesPlaceManager.class));
 
         // Gate keeper
-        bind(LoggedInGatekeeper.class).in(Singleton.class);
+        bind(NoticesLoggedInGatekeeper.class).in(Singleton.class);
 
         // Constants
         bindConstant().annotatedWith(DefaultPlace.class).to(NameTokens.NOTICES_PAGE);
@@ -54,5 +55,6 @@ public class ClientModule extends AbstractPresenterModule {
 
         // Interfaces
         bind(NoticesWebConstants.class).in(Singleton.class);
+        bind(NoticesWebMessages.class).in(Singleton.class);
     }
 }
