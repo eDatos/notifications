@@ -112,6 +112,18 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
     }
 
     @Override
+    public void markNoticeForReceiverAsUnread(ServiceContext ctx, String noticeUrn, String username) throws MetamacException {
+        // Validations
+        noticeServiceInvocationValidator.checkMarkNoticeForReceiverAsUnread(ctx, noticeUrn, username);
+
+        // Retrieve receiver
+        Receiver receiver = retrieveReceiver(ctx, noticeUrn, username);
+
+        receiver.setAcknowledge(Boolean.FALSE);
+        updateReceiver(ctx, receiver);
+    }
+
+    @Override
     public void deleteNotice(ServiceContext ctx, Long id) throws MetamacException {
 
         // Validations

@@ -40,6 +40,7 @@ Application Notices {
     		List<@Notice> findNoticeByCondition(List<ConditionalCriteria> condition) throws MetamacException;
     		List<@Notice> findUserNotices(String receiverUsername) throws MetamacException;
     		markNoticeForReceiverAsRead(String noticeUrn, String username) throws MetamacException;
+    		markNoticeForReceiverAsUnread(String noticeUrn, String username) throws MetamacException;
     		
     		// Receivers
     		@Receiver retrieveReceiver(String noticeUrn, String username) throws MetamacException;

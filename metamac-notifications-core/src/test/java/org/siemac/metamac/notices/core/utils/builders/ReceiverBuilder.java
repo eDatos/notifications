@@ -32,7 +32,12 @@ class ReceiverBuilderBase<GeneratorT extends ReceiverBuilderBase<GeneratorT>> {
     @SuppressWarnings("unchecked")
     public GeneratorT withUsername(String aValue) {
         instance.setUsername(aValue);
+        return (GeneratorT) this;
+    }
 
+    @SuppressWarnings("unchecked")
+    public GeneratorT withAcknowledge(Boolean aValue) {
+        instance.setAcknowledge(aValue);
         return (GeneratorT) this;
     }
 }

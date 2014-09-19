@@ -57,6 +57,11 @@ public class NoticesServiceInvocationValidatorImpl {
         NoticesValidationUtils.checkParameterRequired(noticeUrn, ServiceExceptionParameters.NOTICE__URN, exceptions);
     }
 
+    public static void checkMarkNoticeForReceiverAsUnread(String noticeUrn, String username, List<MetamacExceptionItem> exceptions) {
+        NoticesValidationUtils.checkParameterRequired(username, ServiceExceptionParameters.RECEIVER__USERNAME, exceptions);
+        NoticesValidationUtils.checkParameterRequired(noticeUrn, ServiceExceptionParameters.NOTICE__URN, exceptions);
+    }
+
     public static void checkUpdateReceiver(Receiver receiver, List<MetamacExceptionItem> exceptions) {
         checkExistingReceiver(receiver, exceptions);
     }

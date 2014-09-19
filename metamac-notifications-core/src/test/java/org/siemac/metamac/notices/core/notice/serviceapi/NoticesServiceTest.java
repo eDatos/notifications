@@ -8,6 +8,7 @@ import org.siemac.metamac.notices.core.notice.domain.NoticeRepository;
 import org.siemac.metamac.notices.core.notice.domain.Receiver;
 import org.siemac.metamac.notices.core.notice.domain.ReceiverRepository;
 import org.siemac.metamac.notices.core.utils.builders.NoticeBuilder;
+import org.siemac.metamac.notices.core.utils.builders.ReceiverBuilder;
 import org.siemac.metamac.notices.core.utils.mocks.factories.NoticeMockFactory;
 import org.siemac.metamac.notices.core.utils.mocks.templates.NoticesDoMocks;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -119,6 +120,32 @@ public class NoticesServiceTest extends NoticesBaseTest implements NoticesServic
 
         Receiver receiverAfter = receiverRepository.retrieveReceiver(noticeUrn, username);
         assertTrue(receiverAfter.isAcknowledge());
+    }
+
+    @Override
+    public void testMarkNoticeForReceiverAsUnread() throws Exception {
+        // Constants
+        String noticeUrn = NoticeMockFactory.NOTIFICATION_01_URN;
+        String username = NoticeMockFactory.NOTICE_USER_1;
+
+        // Prepare test
+        Notice notice01 = NoticeBuilder.notification().withUrn(NoticeMockFactory.NOTIFICATION_01_URN).build();
+        Receiver receiver01 = ReceiverBuilder.receiver().withUsername(NoticeMockFactory.NOTICE_USER_1).withAcknowledge(Boolean.TRUE).build();
+        Receiver receiver02 = ReceiverBuilder.receiver().withUsername(NoticeMockFactory.NOTICE_USER_2).withAcknowledge(Boolean.FALSE).build();
+        notice01.addReceiver(receiver01);
+        notice01.addReceiver(receiver02);
+
+        noticeRepository.save(notice01);
+
+        // Test
+        Receiver receiverBefore = receiverRepository.retrieveReceiver(noticeUrn, username);
+        assertTrue(receiverBefore.isAcknowledge());
+
+        noticeService.markNoticeForReceiverAsUnread(getServiceContextWithoutPrincipal(), noticeUrn, username);
+
+        Receiver receiverAfter = receiverRepository.retrieveReceiver(noticeUrn, username);
+        assertFalse(receiverAfter.isAcknowledge());
+
     }
 
     @Override
