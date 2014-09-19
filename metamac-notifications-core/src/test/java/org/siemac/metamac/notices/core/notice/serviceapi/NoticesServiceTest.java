@@ -102,13 +102,13 @@ public class NoticesServiceTest extends NoticesBaseTest implements NoticesServic
         String username = NoticeMockFactory.NOTICE_USER_1;
 
         // Prepare test
-        Notice notice01 = NoticeBuilder.notification().withReceivers(NoticeMockFactory.NOTICE_USER_1).withUrn(noticeUrn).build();
+        Notice notice01 = NoticeBuilder.notification().withReceivers(NoticeMockFactory.NOTICE_USER_1).withUrn(NoticeMockFactory.NOTIFICATION_01_URN).build();
         noticeRepository.save(notice01);
-        Notice notice02 = NoticeBuilder.notification().withReceivers(NoticeMockFactory.NOTICE_USER_2).build();
+        Notice notice02 = NoticeBuilder.notification().withReceivers(NoticeMockFactory.NOTICE_USER_2).withUrn(NoticeMockFactory.NOTIFICATION_02_URN).build();
         noticeRepository.save(notice02);
-        Notice notice03 = NoticeBuilder.notification().withReceivers(NoticeMockFactory.NOTICE_USER_3).build();
+        Notice notice03 = NoticeBuilder.notification().withReceivers(NoticeMockFactory.NOTICE_USER_3).withUrn(NoticeMockFactory.NOTIFICATION_03_URN).build();
         noticeRepository.save(notice03);
-        Notice notice04 = NoticeBuilder.notification().withReceivers(NoticeMockFactory.NOTICE_USER_1, NoticeMockFactory.NOTICE_USER_4).build();
+        Notice notice04 = NoticeBuilder.notification().withReceivers(NoticeMockFactory.NOTICE_USER_1, NoticeMockFactory.NOTICE_USER_4).withUrn(NoticeMockFactory.NOTIFICATION_04_URN).build();
         noticeRepository.save(notice04);
 
         // Test
