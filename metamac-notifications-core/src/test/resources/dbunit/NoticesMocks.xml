@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dataset> 
+  <TB_MESSAGE_RESOURCES/>  
+  <TB_STATISTICAL_OPERATIONS/>  
+  <TB_ROLES/>  
+  <TB_RECEIVERS/>
+  <TB_MESSAGES/>
+  <TB_APPS/>
+  <TB_NOTICES/>
+  <TB_INTERNATIONAL_STRINGS/>
+  <TB_EXTERNAL_ITEMS/>
+  <TB_LOCALISED_STRINGS/>
+</dataset>

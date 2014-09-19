@@ -9,7 +9,4 @@
 	<!-- Access to Spring Context from anywhere -->
 	<bean id="contextApplicationContextProvider" class="org.siemac.metamac.core.common.util.ApplicationContextProvider"></bean>
 
-    <!--  Mocking framework -->
-    <bean id="mockPersister" class="org.siemac.metamac.core.common.test.utils.sql.DBOracleSqlMockPersister"></bean> 
-    
 </beans>

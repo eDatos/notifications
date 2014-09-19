@@ -7,6 +7,6 @@
     <entry key="metamac.notices.db.driver_name">oracle.jdbc.OracleDriver</entry>
     <entry key="metamac.notices.db.username">JENKINS_METAMAC_NOTIFICATIONS</entry>
     <entry key="metamac.notices.db.password">JENKINS_METAMAC_NOTIFICATIONS</entry>
-    <entry key="jpaVendorAdapter.databasePlatform">org.siemac.metamac.hibernate.dialect.Oracle10gDialectMetamac</entry>
+    <entry key="metamac.notices.db.dialect">org.siemac.metamac.hibernate.dialect.Oracle10gDialectMetamac</entry>
     <entry key="metamac.notices.db.provider">ORACLE</entry>
 </properties>
