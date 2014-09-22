@@ -170,6 +170,8 @@ public class AnnouncementCreationLayout extends VLayout {
         receiversForm.clearValues();
         ((MultiTextItem) receiversForm.getItem(NoticeDS.USERNAMES)).resetFormLayout();
         ((SearchMultiExternalItemSimpleItem) receiversForm.getItem(NoticeDS.STATISTICAL_OPERATION)).clearRelatedResourceList();
+        ((SearchRolesItem) receiversForm.getItem(NoticeDS.ROLE)).clearRelatedResourceList();
+        ((SearchAppsItem) receiversForm.getItem(NoticeDS.APPLICATION)).clearRelatedResourceList();
         form.clearValues();
     }
 
