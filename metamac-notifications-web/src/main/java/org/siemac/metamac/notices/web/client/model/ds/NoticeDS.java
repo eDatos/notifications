@@ -21,6 +21,8 @@ public class NoticeDS extends DataSource {
     public static final String STATISTICAL_OPERATION = "notice-sta-operation";
     public static final String APPLICATION           = "notice-application";
     public static final String ROLE                  = "notice-role";
+    public static final String USERNAMES             = "notice-usernames";
+    public static final String RECEIVER_TYPE         = "notice-receiver-type";
 
     public static final String DTO                   = "notice-dto";
 

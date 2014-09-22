@@ -25,7 +25,9 @@ public class AnnouncementCreationViewImpl extends ViewWithUiHandlers<Announcemen
 
             @Override
             public void onClick(ClickEvent event) {
-                getUiHandlers().create(announcementCreationLayout.getNotice());
+                if (announcementCreationLayout.validate()) {
+                    getUiHandlers().create(announcementCreationLayout.getNotice());
+                }
             }
         });
 

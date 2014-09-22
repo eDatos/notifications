@@ -17,6 +17,9 @@ Application NoticesDto {
             - List<@ReceiverDto> receivers;
             - List<@MessageDto> messages;
             JAVADATE creationDate;
+            List<String> statisticalOperationCodes;
+            List<String> roles;
+            List<String> applications;
         }
 
         DataTransferObject ReceiverDto extends @IdentityDto {
