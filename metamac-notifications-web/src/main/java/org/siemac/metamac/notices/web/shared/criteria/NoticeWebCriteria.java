@@ -3,6 +3,7 @@ package org.siemac.metamac.notices.web.shared.criteria;
 import static org.siemac.metamac.notices.web.client.utils.NoticesWebConstants.NOTICES_LIST_MAX_RESULTS;
 
 import org.siemac.metamac.notices.core.notice.enume.domain.NoticeType;
+import org.siemac.metamac.web.common.shared.criteria.PaginationWebCriteria;
 
 public class NoticeWebCriteria extends PaginationWebCriteria {
 

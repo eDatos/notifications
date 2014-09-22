@@ -3,7 +3,7 @@ package org.siemac.metamac.notices.web.shared;
 import java.util.List;
 
 import org.siemac.metamac.core.common.dto.ExternalItemDto;
-import org.siemac.metamac.notices.web.shared.criteria.PaginationWebCriteria;
+import org.siemac.metamac.web.common.shared.criteria.PaginationWebCriteria;
 
 import com.gwtplatform.dispatch.annotation.GenDispatch;
 import com.gwtplatform.dispatch.annotation.In;

@@ -14,8 +14,8 @@ import org.siemac.metamac.notices.web.shared.CreateNoticeAction;
 import org.siemac.metamac.notices.web.shared.CreateNoticeResult;
 import org.siemac.metamac.notices.web.shared.GetStatisticalOperationsAction;
 import org.siemac.metamac.notices.web.shared.GetStatisticalOperationsResult;
-import org.siemac.metamac.notices.web.shared.criteria.PaginationWebCriteria;
 import org.siemac.metamac.web.common.client.utils.WaitingAsyncCallbackHandlingError;
+import org.siemac.metamac.web.common.shared.criteria.PaginationWebCriteria;
 
 import com.google.gwt.event.shared.GwtEvent.Type;
 import com.google.inject.Inject;

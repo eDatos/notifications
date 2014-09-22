@@ -15,7 +15,6 @@ import org.siemac.metamac.notices.web.client.model.ds.NoticeDS;
 import org.siemac.metamac.notices.web.client.utils.CommonUtils;
 import org.siemac.metamac.notices.web.client.view.handlers.AnnouncementCreationUiHandlers;
 import org.siemac.metamac.notices.web.shared.GetStatisticalOperationsResult;
-import org.siemac.metamac.notices.web.shared.criteria.PaginationWebCriteria;
 import org.siemac.metamac.notices.web.shared.dto.AccessControlValueDto;
 import org.siemac.metamac.web.common.client.constants.CommonWebConstants;
 import org.siemac.metamac.web.common.client.utils.ExternalItemUtils;
@@ -29,6 +28,7 @@ import org.siemac.metamac.web.common.client.widgets.form.fields.MultiTextItem;
 import org.siemac.metamac.web.common.client.widgets.form.fields.RichTextEditorItem;
 import org.siemac.metamac.web.common.client.widgets.form.fields.external.SearchMultiExternalItemSimpleItem;
 import org.siemac.metamac.web.common.shared.criteria.MetamacWebCriteria;
+import org.siemac.metamac.web.common.shared.criteria.PaginationWebCriteria;
 
 import com.smartgwt.client.widgets.events.HasClickHandlers;
 import com.smartgwt.client.widgets.form.DynamicForm;
