@@ -1,0 +1,20 @@
+
+import "classpath:/btdesign/metamac-core-common-dtos.btdesign"
+import "classpath:/btdesign/metamac-core-common-enum.btdesign"
+
+import "classpath:/btdesign/metamac-notices-core-dtos.btdesign"
+import "classpath:/btdesign/metamac-notices-core-notices.btdesign"
+
+Application NoticesFacade {
+	basePackage=unused
+
+	Module core_facades {
+		basePackage=org.siemac.metamac.notices.core.facade
+
+		Service NoticesCoreServiceFacade {
+			> @NoticesService
+
+			MetamacCriteriaResult<@NoticeDto> findNotices(MetamacCriteria criteria) throws MetamacException;
+		}
+	}
+}

@@ -1,9 +1,11 @@
 package org.siemac.metamac.notices.core.utils.mocks.factories;
 
+import org.joda.time.DateTime;
 import org.siemac.metamac.notices.core.common.domain.ExternalItem;
 import org.siemac.metamac.notices.core.common.domain.InternationalString;
 import org.siemac.metamac.notices.core.notice.domain.Message;
 import org.siemac.metamac.notices.core.notice.domain.Notice;
+import org.siemac.metamac.notices.core.notice.enume.domain.NoticeType;
 import org.siemac.metamac.notices.core.utils.builders.MessageBuilder;
 import org.siemac.metamac.notices.core.utils.builders.NoticeBuilder;
 import org.siemac.metamac.notices.core.utils.mocks.templates.NoticesDoMocks;
@@ -66,7 +68,7 @@ public class NoticeMockFactory {
         ExternalItem resource02 = NoticesDoMocks.mockAgencyExternalItem("TEST-AGENCY");
         resource02.setTitle(new InternationalString(new String[]{"en", "es"}, (new String[]{"Test agency", "Test agencia"})));
 
-        Notice notice = NoticeBuilder.notification().withSendingApplication("TEST-APPLICATION").withSubject("Test subject").withUrn(NOTIFICATION_03_URN)
+        Notice notice = NoticeBuilder.notification().withNoticeType(NoticeType.NOTIFICATION).withSendingApplication("TEST-APPLICATION").withSubject("Test subject").withUrn(NOTIFICATION_03_URN)
                 .withReceivers(NOTICE_USER_1, NOTICE_USER_2, NOTICE_USER_3, NOTICE_USER_4, NOTICE_USER_5).fillEmptyAuditableFields().build();
 
         Message message01 = MessageBuilder.message(notice).withText("Message 01: with resources").withResources(resource01, resource02).build();
@@ -77,4 +79,14 @@ public class NoticeMockFactory {
         return notice;
     }
 
+    public static Notice getAnnouncement01() {
+
+        Notice notice = NoticeBuilder.notification().withNoticeType(NoticeType.ANNOUNCEMENT).withSendingApplication("TEST-APPLICATION").withSubject("Test subject").withUrn(NOTIFICATION_03_URN)
+                .withReceivers(NOTICE_USER_1, NOTICE_USER_2, NOTICE_USER_3, NOTICE_USER_4, NOTICE_USER_5).withExpirationDate(new DateTime()).fillEmptyAuditableFields().build();
+
+        Message message01 = MessageBuilder.message(notice).withText("Message 01: without resources").build();
+        notice.addMessage(message01);
+
+        return notice;
+    }
 }

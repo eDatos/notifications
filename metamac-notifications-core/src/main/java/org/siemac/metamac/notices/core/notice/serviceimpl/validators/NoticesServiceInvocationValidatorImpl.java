@@ -3,6 +3,7 @@ package org.siemac.metamac.notices.core.notice.serviceimpl.validators;
 import java.util.List;
 
 import org.fornax.cartridges.sculptor.framework.accessapi.ConditionalCriteria;
+import org.fornax.cartridges.sculptor.framework.domain.PagingParameter;
 import org.siemac.metamac.core.common.exception.MetamacExceptionItem;
 import org.siemac.metamac.notices.core.error.ServiceExceptionBaseParameters;
 import org.siemac.metamac.notices.core.error.ServiceExceptionParameters;
@@ -40,7 +41,7 @@ public class NoticesServiceInvocationValidatorImpl {
         // Nothing to check
     }
 
-    public static void checkFindNoticeByCondition(List<ConditionalCriteria> condition, List<MetamacExceptionItem> exceptions) {
+    public static void checkFindNoticeByCondition(List<ConditionalCriteria> condition, PagingParameter pagingParameter, List<MetamacExceptionItem> exceptions) {
         // Nothing to check
     }
 

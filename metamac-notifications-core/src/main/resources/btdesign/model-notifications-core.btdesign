@@ -1,6 +1,7 @@
 import "classpath:/btdesign/metamac-notices-core-notices.btdesign"
 import "classpath:/btdesign/metamac-notices-core-common.btdesign"
 import "classpath:/btdesign/metamac-notices-core-dtos.btdesign"
+import "classpath:/btdesign/metamac-notices-core-facade.btdesign"
 
 Application Notifications {
 	basePackage=org.siemac.metamac.notices.core

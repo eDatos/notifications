@@ -37,7 +37,7 @@ Application Notices {
     		@Notice updateNotice(@Notice notice) throws MetamacException;
     		deleteNotice(Long id) throws MetamacException;
     		List<@Notice> findAllNotice throws MetamacException;
-    		List<@Notice> findNoticeByCondition(List<ConditionalCriteria> condition) throws MetamacException;
+    		PagedResult<@Notice> findNoticeByCondition(List<ConditionalCriteria> condition, PagingParameter pagingParameter) throws MetamacException;
     		List<@Notice> findUserNotices(String receiverUsername) throws MetamacException;
     		markNoticeForReceiverAsRead(String noticeUrn, String username) throws MetamacException;
     		markNoticeForReceiverAsUnread(String noticeUrn, String username) throws MetamacException;

@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.fornax.cartridges.sculptor.framework.accessapi.ConditionalCriteria;
 import org.fornax.cartridges.sculptor.framework.accessapi.ConditionalCriteriaBuilder;
+import org.fornax.cartridges.sculptor.framework.domain.PagedResult;
+import org.fornax.cartridges.sculptor.framework.domain.PagingParameter;
 import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.core.common.util.GeneratorUrnUtils;
@@ -143,14 +145,14 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
     }
 
     @Override
-    public List<Notice> findNoticeByCondition(ServiceContext ctx, List<ConditionalCriteria> condition) throws MetamacException {
+    public PagedResult<Notice> findNoticeByCondition(ServiceContext ctx, List<ConditionalCriteria> condition, PagingParameter pagingParameter) throws MetamacException {
 
         // Validations
-        noticeServiceInvocationValidator.checkFindNoticeByCondition(ctx, condition);
+        noticeServiceInvocationValidator.checkFindNoticeByCondition(ctx, condition, pagingParameter);
 
         initCriteriaConditions(condition, Notice.class);
 
-        return getNoticeRepository().findByCondition(condition);
+        return getNoticeRepository().findByCondition(condition, pagingParameter);
     }
 
     @Override
