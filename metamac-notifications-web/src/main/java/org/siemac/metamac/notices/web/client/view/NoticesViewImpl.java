@@ -8,9 +8,10 @@ import org.siemac.metamac.notices.web.client.presenter.NoticesPresenter;
 import org.siemac.metamac.notices.web.client.utils.RecordUtils;
 import org.siemac.metamac.notices.web.client.view.handlers.NoticesUiHandlers;
 import org.siemac.metamac.notices.web.client.widgets.NoticeLayout;
-import org.siemac.metamac.notices.web.client.widgets.NoticeSearchSectionStack;
 import org.siemac.metamac.notices.web.client.widgets.NoticesListGrid;
+import org.siemac.metamac.notices.web.client.widgets.NoticesSearchSectionStack;
 import org.siemac.metamac.notices.web.client.widgets.NoticesToolStrip;
+import org.siemac.metamac.notices.web.shared.criteria.NoticeWebCriteria;
 import org.siemac.metamac.web.common.client.widgets.actions.PaginatedAction;
 
 import com.google.gwt.user.client.ui.Widget;
@@ -26,11 +27,11 @@ import com.smartgwt.client.widgets.layout.VLayout;
 
 public class NoticesViewImpl extends ViewWithUiHandlers<NoticesUiHandlers> implements NoticesPresenter.NoticesView {
 
-    private VLayout                  panel;
-    private NoticeSearchSectionStack searchSectionStack;
-    private NoticesToolStrip         toolStrip;
-    private NoticesListGrid          noticesListGrid;
-    private NoticeLayout             noticeLayout;
+    private VLayout                   panel;
+    private NoticesSearchSectionStack searchSectionStack;
+    private NoticesToolStrip          toolStrip;
+    private NoticesListGrid           noticesListGrid;
+    private NoticeLayout              noticeLayout;
 
     @Inject
     public NoticesViewImpl() {
@@ -68,8 +69,14 @@ public class NoticesViewImpl extends ViewWithUiHandlers<NoticesUiHandlers> imple
         return panel;
     }
 
+    @Override
+    public void setUiHandlers(NoticesUiHandlers uiHandlers) {
+        super.setUiHandlers(uiHandlers);
+        searchSectionStack.setUiHandlers(uiHandlers);
+    }
+
     private void createSearchSectionStack() {
-        searchSectionStack = new NoticeSearchSectionStack();
+        searchSectionStack = new NoticesSearchSectionStack();
     }
 
     private void createToolStrip() {
@@ -95,7 +102,10 @@ public class NoticesViewImpl extends ViewWithUiHandlers<NoticesUiHandlers> imple
 
             @Override
             public void retrieveResultSet(int firstResult, int maxResults) {
-                getUiHandlers().retrieveNotices(searchSectionStack.getCriteria());
+                NoticeWebCriteria criteria = searchSectionStack.getNoticeWebCriteria();
+                criteria.setFirstResult(firstResult);
+                criteria.setMaxResults(maxResults);
+                getUiHandlers().retrieveNotices(searchSectionStack.getNoticeWebCriteria());
             }
         });
 

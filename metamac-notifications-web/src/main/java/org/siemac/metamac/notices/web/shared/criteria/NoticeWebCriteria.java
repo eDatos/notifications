@@ -9,31 +9,30 @@ public class NoticeWebCriteria extends PaginationWebCriteria {
 
     private static final long serialVersionUID = 3266436132524273569L;
 
-    private boolean           acknowledge;
-    private String            senginApplication;
+    private Boolean           acknowledge;
+    private String            sendingApplication;
     private String            sendingUser;
     private NoticeType        type;
-    private String            receiverUsername;
 
     public NoticeWebCriteria() {
         setFirstResult(0);
         setMaxResults(NOTICES_LIST_MAX_RESULTS);
     }
 
-    public boolean isAcknowledge() {
+    public Boolean getAcknowledge() {
         return acknowledge;
     }
 
-    public void setAcknowledge(boolean acknowledge) {
+    public void setAcknowledge(Boolean acknowledge) {
         this.acknowledge = acknowledge;
     }
 
-    public String getSenginApplication() {
-        return senginApplication;
+    public String getSendingApplication() {
+        return sendingApplication;
     }
 
-    public void setSenginApplication(String senginApplication) {
-        this.senginApplication = senginApplication;
+    public void setSendingApplication(String sendingApplication) {
+        this.sendingApplication = sendingApplication;
     }
 
     public String getSendingUser() {
@@ -50,13 +49,5 @@ public class NoticeWebCriteria extends PaginationWebCriteria {
 
     public void setType(NoticeType type) {
         this.type = type;
-    }
-
-    public String getReceiverUsername() {
-        return receiverUsername;
-    }
-
-    public void setReceiverUsername(String receiverUsername) {
-        this.receiverUsername = receiverUsername;
     }
 }

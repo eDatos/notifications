@@ -1,5 +1,6 @@
 package org.siemac.metamac.notices.web.client.utils;
 
+import static org.siemac.metamac.notices.web.client.NoticesWeb.getConstants;
 import static org.siemac.metamac.notices.web.client.NoticesWeb.getCoreMessages;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import org.siemac.metamac.notices.core.notice.enume.domain.NoticeType;
 import org.siemac.metamac.notices.web.client.NoticesWeb;
 import org.siemac.metamac.notices.web.client.enums.ReceiverType;
 import org.siemac.metamac.notices.web.shared.dto.AccessControlValueDto;
+import org.siemac.metamac.notices.web.shared.dto.AppDto;
 import org.siemac.metamac.notices.web.shared.utils.CommonSharedUtils;
 
 public class CommonUtils {
@@ -53,8 +55,16 @@ public class CommonUtils {
     public static LinkedHashMap<String, String> getReceiverTypeLinkedHashMap() {
         LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
         valueMap.put(StringUtils.EMPTY, StringUtils.EMPTY);
-        valueMap.put(ReceiverType.USERS.name(), NoticesWeb.getConstants().receiverTypeUsernames());
-        valueMap.put(ReceiverType.CONDITIONS.name(), NoticesWeb.getConstants().receiverTypeConditions());
+        valueMap.put(ReceiverType.USERS.name(), getConstants().receiverTypeUsernames());
+        valueMap.put(ReceiverType.CONDITIONS.name(), getConstants().receiverTypeConditions());
+        return valueMap;
+    }
+
+    public static LinkedHashMap<String, String> getNoticeTypeLinkedHashMap() {
+        LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+        valueMap.put(StringUtils.EMPTY, StringUtils.EMPTY);
+        valueMap.put(NoticeType.NOTIFICATION.name(), getCoreMessages().noticeTypeNOTIFICATION());
+        valueMap.put(NoticeType.ANNOUNCEMENT.name(), getCoreMessages().noticeTypeANNOUNCEMENT());
         return valueMap;
     }
 
@@ -64,5 +74,15 @@ public class CommonUtils {
             codes.add(value.getCode());
         }
         return codes;
+    }
+
+    public static LinkedHashMap<String, String> getAppLinkedHashMap() {
+        List<AppDto> values = AccessControlValues.getApps();
+        LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>(values.size());
+        valueMap.put(StringUtils.EMPTY, StringUtils.EMPTY);
+        for (AppDto value : values) {
+            valueMap.put(value.getCode(), value.getTitle());
+        }
+        return valueMap;
     }
 }
