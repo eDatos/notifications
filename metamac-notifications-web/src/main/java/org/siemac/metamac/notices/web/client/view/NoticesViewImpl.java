@@ -21,6 +21,8 @@ import com.smartgwt.client.types.Overflow;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
+import com.smartgwt.client.widgets.grid.events.RecordClickEvent;
+import com.smartgwt.client.widgets.grid.events.RecordClickHandler;
 import com.smartgwt.client.widgets.grid.events.SelectionChangedHandler;
 import com.smartgwt.client.widgets.grid.events.SelectionEvent;
 import com.smartgwt.client.widgets.layout.VLayout;
@@ -114,7 +116,16 @@ public class NoticesViewImpl extends ViewWithUiHandlers<NoticesUiHandlers> imple
             @Override
             public void onSelectionChanged(SelectionEvent event) {
                 updateToolStripButtonsVisibility(noticesListGrid.getListGrid().getSelectedRecords());
-                selectNotice(noticesListGrid.getListGrid().getSelectedRecords());
+            }
+        });
+
+        noticesListGrid.getListGrid().addRecordClickHandler(new RecordClickHandler() {
+
+            @Override
+            public void onRecordClick(RecordClickEvent event) {
+                if (event.getFieldNum() != 0) {
+                    selectNotice(noticesListGrid.getListGrid().getSelectedRecords());
+                }
             }
         });
     }
@@ -126,7 +137,9 @@ public class NoticesViewImpl extends ViewWithUiHandlers<NoticesUiHandlers> imple
     private void selectNotice(ListGridRecord[] selectedRecords) {
         if (selectedRecords != null && selectedRecords.length == 1) {
             if (selectedRecords[0] instanceof NoticeRecord) {
-                getUiHandlers().retrieveNotice(((NoticeRecord) selectedRecords[0]).getNoticeDto());
+                NoticeWebCriteria criteria = searchSectionStack.getNoticeWebCriteria();
+                criteria.setFirstResult(noticesListGrid.getFirstResult());
+                getUiHandlers().retrieveNotice(((NoticeRecord) selectedRecords[0]).getNoticeDto(), criteria);
             }
         }
     }

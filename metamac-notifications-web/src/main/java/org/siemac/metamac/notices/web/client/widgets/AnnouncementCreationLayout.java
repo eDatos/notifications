@@ -147,6 +147,9 @@ public class AnnouncementCreationLayout extends VLayout {
         updateRoles(noticeDto);
         updateApplications(noticeDto);
 
+        // TODO METAMAC-1984 set sending user?
+        // TODO METAMAC-1984 set sending app?
+
         noticeDto.setSubject(form.getValueAsString(NoticeDS.SUBJECT));
         noticeDto.addMessage(buildMessage(form.getValueAsString(NoticeDS.MESSAGE)));
         noticeDto.setExpirationDate(((CustomDateItem) form.getItem(NoticeDS.EXPIRATION_DATE)).getValueAsDate());

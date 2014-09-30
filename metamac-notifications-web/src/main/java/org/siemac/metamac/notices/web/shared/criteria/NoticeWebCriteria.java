@@ -9,6 +9,7 @@ public class NoticeWebCriteria extends PaginationWebCriteria {
 
     private static final long serialVersionUID = 3266436132524273569L;
 
+    private String            receiverUsername;
     private Boolean           acknowledge;
     private String            sendingApplication;
     private String            sendingUser;
@@ -17,6 +18,14 @@ public class NoticeWebCriteria extends PaginationWebCriteria {
     public NoticeWebCriteria() {
         setFirstResult(0);
         setMaxResults(NOTICES_LIST_MAX_RESULTS);
+    }
+
+    public String getReceiverUsername() {
+        return receiverUsername;
+    }
+
+    public void setReceiverUsername(String receiverUsername) {
+        this.receiverUsername = receiverUsername;
     }
 
     public Boolean getAcknowledge() {

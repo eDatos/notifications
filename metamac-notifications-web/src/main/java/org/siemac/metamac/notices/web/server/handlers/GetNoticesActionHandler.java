@@ -32,19 +32,19 @@ public class GetNoticesActionHandler extends SecurityActionHandler<GetNoticesAct
     public GetNoticesResult executeSecurityAction(GetNoticesAction action) throws ActionException {
 
         MetamacCriteria criteria = new MetamacCriteria();
-
-        // Criteria
-        MetamacCriteriaConjunctionRestriction restriction = new MetamacCriteriaConjunctionRestriction();
-        restriction.getRestrictions().add(MetamacWebCriteriaUtils.buildNoticeCriteriaRestriction(action.getCriteria()));
-        criteria.setRestriction(restriction);
-
-        // Pagination
-        criteria.setPaginator(new MetamacCriteriaPaginator());
-        criteria.getPaginator().setFirstResult(action.getCriteria().getFirstResult());
-        criteria.getPaginator().setMaximumResultSize(action.getCriteria().getMaxResults());
-        criteria.getPaginator().setCountTotalResults(true);
-
         try {
+
+            // Criteria
+            MetamacCriteriaConjunctionRestriction restriction = new MetamacCriteriaConjunctionRestriction();
+            restriction.getRestrictions().add(MetamacWebCriteriaUtils.buildNoticeCriteriaRestriction(action.getCriteria()));
+            criteria.setRestriction(restriction);
+
+            // Pagination
+            criteria.setPaginator(new MetamacCriteriaPaginator());
+            criteria.getPaginator().setFirstResult(action.getCriteria().getFirstResult());
+            criteria.getPaginator().setMaximumResultSize(action.getCriteria().getMaxResults());
+            criteria.getPaginator().setCountTotalResults(true);
+
             MetamacCriteriaResult<NoticeDto> result = noticesServiceFacade.findNotices(ServiceContextHolder.getCurrentServiceContext(), criteria);
             return new GetNoticesResult(result.getResults(), result.getPaginatorResult().getFirstResult(), result.getPaginatorResult().getTotalResults());
         } catch (MetamacException e) {

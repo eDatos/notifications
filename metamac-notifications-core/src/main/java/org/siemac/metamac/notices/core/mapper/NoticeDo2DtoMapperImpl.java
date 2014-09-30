@@ -9,6 +9,7 @@ import org.siemac.metamac.core.common.dto.ExternalItemDto;
 import org.siemac.metamac.core.common.dto.InternationalStringDto;
 import org.siemac.metamac.core.common.dto.LocalisedStringDto;
 import org.siemac.metamac.core.common.exception.MetamacException;
+import org.siemac.metamac.core.common.mapper.BaseDo2DtoMapper;
 import org.siemac.metamac.notices.core.common.domain.ExternalItem;
 import org.siemac.metamac.notices.core.common.domain.InternationalString;
 import org.siemac.metamac.notices.core.common.domain.LocalisedString;
@@ -21,10 +22,14 @@ import org.siemac.metamac.notices.core.notice.domain.Notice;
 import org.siemac.metamac.notices.core.notice.domain.Receiver;
 import org.siemac.metamac.notices.core.notice.domain.Role;
 import org.siemac.metamac.notices.core.notice.domain.StatisticalOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component("noticeDo2DtoMapper")
 public class NoticeDo2DtoMapperImpl implements NoticeDo2DtoMapper {
+
+    @Autowired
+    private BaseDo2DtoMapper baseDo2DtoMapper;
 
     @Override
     public NoticeDto noticeDoToDto(Notice source) throws MetamacException {
@@ -53,7 +58,7 @@ public class NoticeDo2DtoMapperImpl implements NoticeDo2DtoMapper {
         applicationsDo2Dto(source, target);
     }
 
-    private void messagesDoToDto(Notice source, NoticeDto target) {
+    private void messagesDoToDto(Notice source, NoticeDto target) throws MetamacException {
         for (Message message : source.getMessages()) {
             target.addMessage(messageDoToDto(message));
         }
@@ -83,14 +88,14 @@ public class NoticeDo2DtoMapperImpl implements NoticeDo2DtoMapper {
         }
     }
 
-    private MessageDto messageDoToDto(Message source) {
+    private MessageDto messageDoToDto(Message source) throws MetamacException {
         MessageDto target = new MessageDto();
         target.setId(source.getId());
         target.setVersion(source.getVersion());
         target.setText(source.getText());
 
         for (ExternalItem externalItem : source.getResources()) {
-            target.addResource(externalItemDoToDto(externalItem));
+            target.addResource(externalItemToDto(externalItem));
         }
 
         return target;
@@ -137,7 +142,16 @@ public class NoticeDo2DtoMapperImpl implements NoticeDo2DtoMapper {
         return source.toDate();
     }
 
-    private ExternalItemDto externalItemDoToDto(ExternalItem source) {
+    private ExternalItemDto externalItemToDto(ExternalItem source) throws MetamacException {
+        ExternalItemDto target = externalItemDoToDtoWithoutUrls(source);
+        if (target != null) {
+            target.setUri(baseDo2DtoMapper.externalItemApiUrlDoToDto(source.getType(), source.getUri()));
+            target.setManagementAppUrl(baseDo2DtoMapper.externalItemWebAppUrlDoToDto(source.getType(), source.getManagementAppUrl()));
+        }
+        return target;
+    }
+
+    private ExternalItemDto externalItemDoToDtoWithoutUrls(ExternalItem source) {
         if (source == null) {
             return null;
         }

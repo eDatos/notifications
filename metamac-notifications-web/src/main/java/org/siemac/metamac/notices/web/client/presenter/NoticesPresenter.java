@@ -102,15 +102,16 @@ public class NoticesPresenter extends Presenter<NoticesPresenter.NoticesView, No
     }
 
     @Override
-    public void retrieveNotice(NoticeDto notice) {
+    public void retrieveNotice(NoticeDto notice, NoticeWebCriteria criteria) {
         if (CommonUtils.isRead(notice)) {
             getView().setNotice(notice);
         } else {
-            dispatcher.execute(new GetNoticeAction(notice), new WaitingAsyncCallbackHandlingError<GetNoticeResult>(this) {
+            dispatcher.execute(new GetNoticeAction(notice, criteria), new WaitingAsyncCallbackHandlingError<GetNoticeResult>(this) {
 
                 @Override
                 public void onWaitSuccess(GetNoticeResult result) {
                     getView().setNotice(result.getUpdatedNotice());
+                    getView().setNotices(result.getNotices(), result.getFirstResult(), result.getTotalResults());
                 }
             });
         }

@@ -7,12 +7,23 @@ import org.siemac.metamac.core.common.criteria.MetamacCriteriaDisjunctionRestric
 import org.siemac.metamac.core.common.criteria.MetamacCriteriaPropertyRestriction;
 import org.siemac.metamac.core.common.criteria.MetamacCriteriaPropertyRestriction.OperationType;
 import org.siemac.metamac.core.common.criteria.MetamacCriteriaRestriction;
+import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.notices.core.criteria.NoticeCriteriaPropertyEnum;
 import org.siemac.metamac.notices.web.shared.criteria.NoticeWebCriteria;
+import org.siemac.metamac.sso.client.MetamacPrincipal;
+import org.siemac.metamac.sso.utils.SecurityUtils;
+import org.siemac.metamac.web.common.server.ServiceContextHolder;
 
 public class MetamacWebCriteriaUtils {
 
-    public static MetamacCriteriaRestriction buildNoticeCriteriaRestriction(NoticeWebCriteria criteria) {
+    public static MetamacCriteriaRestriction buildNoticeCriteriaRestriction(NoticeWebCriteria criteria) throws MetamacException {
+
+        MetamacPrincipal metamacPrincipal = SecurityUtils.getMetamacPrincipal(ServiceContextHolder.getCurrentServiceContext());
+        String username = metamacPrincipal.getUserId();
+
+        // The web application only shows the notices of the current user
+        criteria.setReceiverUsername(username);
+
         MetamacCriteriaConjunctionRestriction conjunctionRestriction = new MetamacCriteriaConjunctionRestriction();
 
         if (criteria != null) {
@@ -45,6 +56,11 @@ public class MetamacWebCriteriaUtils {
 
             if (criteria.getType() != null) {
                 conjunctionRestriction.getRestrictions().add(new MetamacCriteriaPropertyRestriction(NoticeCriteriaPropertyEnum.TYPE.name(), criteria.getType(), OperationType.EQ));
+            }
+
+            if (StringUtils.isNotBlank(criteria.getReceiverUsername())) {
+                conjunctionRestriction.getRestrictions().add(
+                        new MetamacCriteriaPropertyRestriction(NoticeCriteriaPropertyEnum.RECEIVER_USERNAME.name(), criteria.getReceiverUsername(), OperationType.EQ));
             }
 
             // TODO METAMAC-1984
