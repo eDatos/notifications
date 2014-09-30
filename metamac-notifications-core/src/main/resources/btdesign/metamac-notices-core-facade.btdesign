@@ -11,7 +11,7 @@ Application NoticesFacade {
 	Module core_facades {
 		basePackage=org.siemac.metamac.notices.core.facade
 
-		Service NoticesCoreServiceFacade {
+		Service NoticesServiceFacade {
 			> @NoticesService
 
 			MetamacCriteriaResult<@NoticeDto> findNotices(MetamacCriteria criteria) throws MetamacException;

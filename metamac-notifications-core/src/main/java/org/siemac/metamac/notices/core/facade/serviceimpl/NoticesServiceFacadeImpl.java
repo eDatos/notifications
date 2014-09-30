@@ -15,10 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * Implementation of NoticesCoreServiceFacade.
+ * Implementation of NoticesServiceFacade.
  */
-@Service("noticesCoreServiceFacade")
-public class NoticesCoreServiceFacadeImpl extends NoticesCoreServiceFacadeImplBase {
+@Service("noticesServiceFacade")
+public class NoticesServiceFacadeImpl extends NoticesServiceFacadeImplBase {
 
     @Autowired
     private MetamacCriteria2SculptorCriteriaMapper metamacCriteria2SculptorCriteriaMapper;
@@ -26,7 +26,7 @@ public class NoticesCoreServiceFacadeImpl extends NoticesCoreServiceFacadeImplBa
     @Autowired
     private SculptorCriteria2MetamacCriteriaMapper sculptorCriteria2MetamacCriteriaMapper;
 
-    public NoticesCoreServiceFacadeImpl() {
+    public NoticesServiceFacadeImpl() {
     }
 
     @Override

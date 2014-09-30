@@ -1,19 +1,23 @@
 package org.siemac.metamac.notices.core.facade.serviceapi;
 
+import static org.junit.Assert.fail;
+
 import org.fornax.cartridges.sculptor.framework.test.AbstractDbUnitJpaTests;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Spring based transactional test with DbUnit support.
  */
-public class NoticesCoreServiceFacadeTest extends AbstractDbUnitJpaTests implements NoticesCoreServiceFacadeTestBase {
+public class NoticesServiceFacadeTest extends AbstractDbUnitJpaTests implements NoticesServiceFacadeTestBase {
 
     @Autowired
-    protected NoticesCoreServiceFacade noticesCoreServiceFacade;
+    protected NoticesServiceFacade noticesServiceFacade;
 
     @Override
+    @Test
     public void testFindNotices() throws Exception {
-        // TODO METAMAC-1984
-
+        // TODO Auto-generated method stub
+        fail("testFindNotices not implemented");
     }
 }
