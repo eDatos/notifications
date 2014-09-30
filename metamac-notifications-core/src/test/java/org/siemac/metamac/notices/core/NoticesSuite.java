@@ -5,6 +5,7 @@ import org.junit.runners.Suite;
 import org.siemac.metamac.notices.core.channel.mail.serviceimpl.MailChannelServiceTest;
 import org.siemac.metamac.notices.core.common.repositoryimpl.InternationalStringRepositoryTest;
 import org.siemac.metamac.notices.core.error.NoticesCheckTranslationsTest;
+import org.siemac.metamac.notices.core.facade.serviceapi.NoticesServiceFacadeTest;
 import org.siemac.metamac.notices.core.mapper.NoticeDo2DtoMapperTest;
 import org.siemac.metamac.notices.core.notice.repositoryimpl.NoticeRepositoryTest;
 import org.siemac.metamac.notices.core.notice.repositoryimpl.ReceiverRepositoryTest;
@@ -18,7 +19,8 @@ import org.siemac.metamac.notices.core.notice.serviceapi.NoticesServiceTest;
                         NoticeRepositoryTest.class,
                         ReceiverRepositoryTest.class,
                         NoticesServiceTest.class,
-                        NoticeDo2DtoMapperTest.class})
+                        NoticeDo2DtoMapperTest.class,
+                        NoticesServiceFacadeTest.class})
 // @formatter:on
 public class NoticesSuite {
 }

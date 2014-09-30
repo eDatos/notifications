@@ -45,7 +45,7 @@ public abstract class NoticesBaseTest extends MetamacDBUnitBaseTests {
     protected GreenMail     greenMail;
 
     // --------------------------------------------------------------------------------------------------------------
-    // CONDIFURE GREEN MAIL
+    // CONFIGURE GREEN MAIL
     // --------------------------------------------------------------------------------------------------------------
 
     @Before

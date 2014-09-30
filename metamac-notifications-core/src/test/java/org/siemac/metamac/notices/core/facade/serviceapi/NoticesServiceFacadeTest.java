@@ -17,7 +17,27 @@ public class NoticesServiceFacadeTest extends AbstractDbUnitJpaTests implements 
     @Override
     @Test
     public void testFindNotices() throws Exception {
-        // TODO Auto-generated method stub
+        // TODO METAMAC-1984
         fail("testFindNotices not implemented");
+    }
+
+    @Override
+    @Test
+    public void testMarkNoticeAsRead() throws Exception {
+        // TODO METAMAC-1984
+        fail("testMarkNoticeAsRead not implemented");
+    }
+
+    @Override
+    @Test
+    public void testMarkNoticeAsUnread() throws Exception {
+        // TODO METAMAC-1984
+        fail("testMarkNoticeAsUnread not implemented");
+    }
+
+    @Override
+    public void testSendAnnouncement() throws Exception {
+        // TODO METAMAC-1984
+        fail("testSendAnnouncement not implemented");
     }
 }

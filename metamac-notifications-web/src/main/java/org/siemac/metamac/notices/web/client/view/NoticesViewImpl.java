@@ -105,7 +105,7 @@ public class NoticesViewImpl extends ViewWithUiHandlers<NoticesUiHandlers> imple
                 NoticeWebCriteria criteria = searchSectionStack.getNoticeWebCriteria();
                 criteria.setFirstResult(firstResult);
                 criteria.setMaxResults(maxResults);
-                getUiHandlers().retrieveNotices(searchSectionStack.getNoticeWebCriteria());
+                getUiHandlers().retrieveNotices(criteria);
             }
         });
 

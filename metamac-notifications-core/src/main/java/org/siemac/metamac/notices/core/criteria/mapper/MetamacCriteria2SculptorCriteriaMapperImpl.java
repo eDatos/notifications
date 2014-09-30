@@ -7,6 +7,7 @@ import org.siemac.metamac.core.common.criteria.SculptorPropertyCriteriaBase;
 import org.siemac.metamac.core.common.criteria.mapper.MetamacCriteria2SculptorCriteria;
 import org.siemac.metamac.core.common.criteria.mapper.MetamacCriteria2SculptorCriteria.CriteriaCallback;
 import org.siemac.metamac.core.common.criteria.shared.MetamacCriteriaOrder;
+import org.siemac.metamac.core.common.criteria.utils.CriteriaUtils;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.notices.core.criteria.NoticeCriteriaOrderEnum;
 import org.siemac.metamac.notices.core.criteria.NoticeCriteriaPropertyEnum;
@@ -52,20 +53,22 @@ public class MetamacCriteria2SculptorCriteriaMapperImpl implements MetamacCriter
             }
         }
 
+        @SuppressWarnings("unchecked")
         @Override
         public Property<Notice> retrievePropertyOrder(MetamacCriteriaOrder order) throws MetamacException {
             NoticeCriteriaOrderEnum noticeCriteriaOrderEnum = NoticeCriteriaOrderEnum.fromValue(order.getPropertyName());
             switch (noticeCriteriaOrderEnum) {
                 case CREATED_DATE:
-                    return NoticeProperties.createdDate();
+                    return CriteriaUtils.getDatetimedLeafProperty(NoticeProperties.createdDate(), Notice.class);
                 default:
                     throw new MetamacException(ServiceExceptionType.PARAMETER_INCORRECT, order.getPropertyName());
             }
         }
 
+        @SuppressWarnings("unchecked")
         @Override
         public Property<Notice> retrievePropertyOrderDefault() throws MetamacException {
-            return NoticeProperties.createdDate();
+            return CriteriaUtils.getDatetimedLeafProperty(NoticeProperties.createdDate(), Notice.class);
         }
     }
 }

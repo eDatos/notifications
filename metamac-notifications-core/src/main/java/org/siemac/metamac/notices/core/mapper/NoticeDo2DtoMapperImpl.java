@@ -14,8 +14,13 @@ import org.siemac.metamac.notices.core.common.domain.InternationalString;
 import org.siemac.metamac.notices.core.common.domain.LocalisedString;
 import org.siemac.metamac.notices.core.dto.MessageDto;
 import org.siemac.metamac.notices.core.dto.NoticeDto;
+import org.siemac.metamac.notices.core.dto.ReceiverDto;
+import org.siemac.metamac.notices.core.notice.domain.App;
 import org.siemac.metamac.notices.core.notice.domain.Message;
 import org.siemac.metamac.notices.core.notice.domain.Notice;
+import org.siemac.metamac.notices.core.notice.domain.Receiver;
+import org.siemac.metamac.notices.core.notice.domain.Role;
+import org.siemac.metamac.notices.core.notice.domain.StatisticalOperation;
 import org.springframework.stereotype.Component;
 
 @Component("noticeDo2DtoMapper")
@@ -32,7 +37,6 @@ public class NoticeDo2DtoMapperImpl implements NoticeDo2DtoMapper {
     }
 
     private void noticeDoToDto(Notice source, NoticeDto target) throws MetamacException {
-
         target.setId(source.getId());
         target.setUrn(source.getUrn());
         target.setVersion(source.getVersion());
@@ -42,9 +46,40 @@ public class NoticeDo2DtoMapperImpl implements NoticeDo2DtoMapper {
         target.setExpirationDate(dateDoToDto(source.getExpirationDate()));
         target.setSendingApplication(source.getSendingApplication());
         target.setSendingUser(source.getSendingUser());
+        messagesDoToDto(source, target);
+        receiversDoToDto(source, target);
+        rolesDoToDto(source, target);
+        statisticalOperationsDo2Dto(source, target);
+        applicationsDo2Dto(source, target);
+    }
 
+    private void messagesDoToDto(Notice source, NoticeDto target) {
         for (Message message : source.getMessages()) {
             target.addMessage(messageDoToDto(message));
+        }
+    }
+
+    private void receiversDoToDto(Notice source, NoticeDto target) {
+        for (Receiver receiver : source.getReceivers()) {
+            target.addReceiver(receiverDo2Dto(receiver));
+        }
+    }
+
+    private void rolesDoToDto(Notice source, NoticeDto target) {
+        for (Role role : source.getRoles()) {
+            target.getRoles().add(role.getName());
+        }
+    }
+
+    private void statisticalOperationsDo2Dto(Notice source, NoticeDto target) {
+        for (StatisticalOperation operation : source.getStatisticalOperations()) {
+            target.getStatisticalOperationCodes().add(operation.getName());
+        }
+    }
+
+    private void applicationsDo2Dto(Notice source, NoticeDto target) {
+        for (App app : source.getApps()) {
+            target.getApplications().add(app.getName());
         }
     }
 
@@ -58,6 +93,15 @@ public class NoticeDo2DtoMapperImpl implements NoticeDo2DtoMapper {
             target.addResource(externalItemDoToDto(externalItem));
         }
 
+        return target;
+    }
+
+    private ReceiverDto receiverDo2Dto(Receiver source) {
+        ReceiverDto target = new ReceiverDto();
+        target.setId(source.getId());
+        target.setUsername(source.getUsername());
+        target.setAcknowledge(source.isAcknowledge());
+        target.setVersion(source.getVersion());
         return target;
     }
 

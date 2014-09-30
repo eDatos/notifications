@@ -9,6 +9,8 @@ import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.notices.core.criteria.mapper.MetamacCriteria2SculptorCriteriaMapper;
 import org.siemac.metamac.notices.core.criteria.mapper.SculptorCriteria2MetamacCriteriaMapper;
 import org.siemac.metamac.notices.core.dto.NoticeDto;
+import org.siemac.metamac.notices.core.mapper.NoticeDo2DtoMapper;
+import org.siemac.metamac.notices.core.mapper.NoticeDto2DoMapper;
 import org.siemac.metamac.notices.core.notice.domain.Notice;
 import org.siemac.metamac.notices.core.security.NoticesSecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,26 @@ public class NoticesServiceFacadeImpl extends NoticesServiceFacadeImplBase {
     @Autowired
     private SculptorCriteria2MetamacCriteriaMapper sculptorCriteria2MetamacCriteriaMapper;
 
+    @Autowired
+    private NoticeDto2DoMapper                     dto2DoMapper;
+
+    @Autowired
+    private NoticeDo2DtoMapper                     do2DtoMapper;
+
     public NoticesServiceFacadeImpl() {
+    }
+
+    @Override
+    public NoticeDto retrieveNoticeByUrn(ServiceContext ctx, String urn) throws MetamacException {
+
+        // Security
+        NoticesSecurityUtils.canRetrieveNotice(ctx);
+
+        // Retrieve
+        Notice notice = getNoticesService().retrieveNoticeByUrn(ctx, urn);
+
+        // Transform
+        return do2DtoMapper.noticeDoToDto(notice);
     }
 
     @Override
@@ -43,5 +64,38 @@ public class NoticesServiceFacadeImpl extends NoticesServiceFacadeImplBase {
 
         // Transform
         return sculptorCriteria2MetamacCriteriaMapper.pageResultToMetamacCriteriaResultNoticeDto(result, sculptorCriteria.getPageSize());
+    }
+
+    @Override
+    public void markNoticeAsRead(ServiceContext ctx, String noticeUrn, String username) throws MetamacException {
+
+        // Security
+        NoticesSecurityUtils.canMarkNoticeAsRead(ctx);
+
+        // Mark as read
+        getNoticesService().markNoticeForReceiverAsRead(ctx, noticeUrn, username);
+    }
+
+    @Override
+    public void markNoticeAsUnread(ServiceContext ctx, String noticeUrn, String username) throws MetamacException {
+
+        // Security
+        NoticesSecurityUtils.canMarkNoticeAsUnread(ctx);
+
+        // Mark as unread
+        getNoticesService().markNoticeForReceiverAsUnread(ctx, noticeUrn, username);
+    }
+
+    @Override
+    public void sendAnnouncement(ServiceContext ctx, NoticeDto noticeDto) throws MetamacException {
+
+        // Security
+        NoticesSecurityUtils.canSendAnnouncement(ctx);
+
+        // Transform
+        Notice notice = dto2DoMapper.noticeDtoToDo(noticeDto);
+
+        // Create
+        getNoticesService().createNotice(ctx, notice);
     }
 }
