@@ -15,6 +15,12 @@ public class NoticesServiceFacadeTest extends AbstractDbUnitJpaTests implements 
     protected NoticesServiceFacade noticesServiceFacade;
 
     @Override
+    public void testRetrieveNoticeByUrn() throws Exception {
+        // TODO METAMAC-1984
+        fail("testRetrieveNoticeByUrn not implemented");
+    }
+
+    @Override
     @Test
     public void testFindNotices() throws Exception {
         // TODO METAMAC-1984
