@@ -1,13 +1,17 @@
 package org.siemac.metamac.notices.web.server.utils;
 
-import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
+import org.siemac.metamac.core.common.criteria.MetamacCriteria;
 import org.siemac.metamac.core.common.criteria.MetamacCriteriaConjunctionRestriction;
 import org.siemac.metamac.core.common.criteria.MetamacCriteriaDisjunctionRestriction;
+import org.siemac.metamac.core.common.criteria.MetamacCriteriaPaginator;
 import org.siemac.metamac.core.common.criteria.MetamacCriteriaPropertyRestriction;
 import org.siemac.metamac.core.common.criteria.MetamacCriteriaPropertyRestriction.OperationType;
 import org.siemac.metamac.core.common.criteria.MetamacCriteriaRestriction;
+import org.siemac.metamac.core.common.criteria.shared.MetamacCriteriaOrder;
+import org.siemac.metamac.core.common.criteria.shared.MetamacCriteriaOrder.OrderTypeEnum;
 import org.siemac.metamac.core.common.exception.MetamacException;
+import org.siemac.metamac.notices.core.criteria.NoticeCriteriaOrderEnum;
 import org.siemac.metamac.notices.core.criteria.NoticeCriteriaPropertyEnum;
 import org.siemac.metamac.notices.web.shared.criteria.NoticeWebCriteria;
 import org.siemac.metamac.sso.client.MetamacPrincipal;
@@ -15,6 +19,28 @@ import org.siemac.metamac.sso.utils.SecurityUtils;
 import org.siemac.metamac.web.common.server.ServiceContextHolder;
 
 public class MetamacWebCriteriaUtils {
+
+    public static MetamacCriteria build(NoticeWebCriteria noticeWebCriteria) throws MetamacException {
+        MetamacCriteria criteria = new MetamacCriteria();
+        // Criteria
+        MetamacCriteriaConjunctionRestriction restriction = new MetamacCriteriaConjunctionRestriction();
+        restriction.getRestrictions().add(buildNoticeCriteriaRestriction(noticeWebCriteria));
+        criteria.setRestriction(restriction);
+
+        // Order
+        MetamacCriteriaOrder criteriaOrder = new MetamacCriteriaOrder();
+        criteriaOrder.setPropertyName(NoticeCriteriaOrderEnum.CREATED_DATE.name());
+        criteriaOrder.setType(OrderTypeEnum.DESC);
+        criteria.getOrdersBy().add(criteriaOrder);
+
+        // Pagination
+        criteria.setPaginator(new MetamacCriteriaPaginator());
+        criteria.getPaginator().setFirstResult(noticeWebCriteria.getFirstResult());
+        criteria.getPaginator().setMaximumResultSize(noticeWebCriteria.getMaxResults());
+        criteria.getPaginator().setCountTotalResults(true);
+
+        return criteria;
+    }
 
     public static MetamacCriteriaRestriction buildNoticeCriteriaRestriction(NoticeWebCriteria criteria) throws MetamacException {
 
@@ -50,8 +76,8 @@ public class MetamacWebCriteriaUtils {
                 conjunctionRestriction.getRestrictions().add(new MetamacCriteriaPropertyRestriction(NoticeCriteriaPropertyEnum.SENDING_USER.name(), criteria.getSendingUser(), OperationType.ILIKE));
             }
 
-            if (BooleanUtils.isTrue(criteria.getAcknowledge())) {
-                conjunctionRestriction.getRestrictions().add(new MetamacCriteriaPropertyRestriction(NoticeCriteriaPropertyEnum.ACKNOWLEDGE.name(), true, OperationType.EQ));
+            if (criteria.getAcknowledge() != null) {
+                conjunctionRestriction.getRestrictions().add(new MetamacCriteriaPropertyRestriction(NoticeCriteriaPropertyEnum.ACKNOWLEDGE.name(), criteria.getAcknowledge(), OperationType.EQ));
             }
 
             if (criteria.getType() != null) {

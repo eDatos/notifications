@@ -6,12 +6,15 @@ import java.util.List;
 
 import org.siemac.metamac.core.common.dto.ExternalItemDto;
 import org.siemac.metamac.core.common.util.shared.StringUtils;
+import org.siemac.metamac.notices.core.constants.NoticesConstants;
 import org.siemac.metamac.notices.core.dto.MessageDto;
 import org.siemac.metamac.notices.core.dto.NoticeDto;
 import org.siemac.metamac.notices.core.dto.ReceiverDto;
+import org.siemac.metamac.notices.core.notice.enume.domain.NoticeType;
 import org.siemac.metamac.notices.web.client.NoticesWeb;
 import org.siemac.metamac.notices.web.client.enums.ReceiverType;
 import org.siemac.metamac.notices.web.client.model.ds.NoticeDS;
+import org.siemac.metamac.notices.web.client.utils.AccessControlValues;
 import org.siemac.metamac.notices.web.client.utils.CommonUtils;
 import org.siemac.metamac.notices.web.client.view.handlers.AnnouncementCreationUiHandlers;
 import org.siemac.metamac.notices.web.shared.GetStatisticalOperationsResult;
@@ -128,6 +131,7 @@ public class AnnouncementCreationLayout extends VLayout {
         messageItem.setTitleStyle("formTitle");
 
         CustomDateItem expirationDateItem = new CustomDateItem(NoticeDS.EXPIRATION_DATE, getConstants().noticeExpirationDate());
+        expirationDateItem.setRequired(true);
 
         form.setFields(subjectItem, messageItem, expirationDateItem);
     }
@@ -142,14 +146,13 @@ public class AnnouncementCreationLayout extends VLayout {
 
     public NoticeDto getNotice() {
         NoticeDto noticeDto = new NoticeDto();
+        noticeDto.setType(NoticeType.ANNOUNCEMENT);
         updateUsernames(noticeDto);
         updateStatisticalOperations(noticeDto);
         updateRoles(noticeDto);
         updateApplications(noticeDto);
-
-        // TODO METAMAC-1984 set sending user?
-        // TODO METAMAC-1984 set sending app?
-
+        noticeDto.setSendingUser(NoticesWeb.getCurrentUser().getUserId());
+        noticeDto.setSendingApplication(AccessControlValues.getAppTitle(NoticesConstants.SECURITY_APPLICATION_ID));
         noticeDto.setSubject(form.getValueAsString(NoticeDS.SUBJECT));
         noticeDto.addMessage(buildMessage(form.getValueAsString(NoticeDS.MESSAGE)));
         noticeDto.setExpirationDate(((CustomDateItem) form.getItem(NoticeDS.EXPIRATION_DATE)).getValueAsDate());

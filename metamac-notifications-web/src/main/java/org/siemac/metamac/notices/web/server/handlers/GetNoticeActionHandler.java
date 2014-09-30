@@ -2,8 +2,6 @@ package org.siemac.metamac.notices.web.server.handlers;
 
 import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.siemac.metamac.core.common.criteria.MetamacCriteria;
-import org.siemac.metamac.core.common.criteria.MetamacCriteriaConjunctionRestriction;
-import org.siemac.metamac.core.common.criteria.MetamacCriteriaPaginator;
 import org.siemac.metamac.core.common.criteria.MetamacCriteriaResult;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.notices.core.dto.NoticeDto;
@@ -47,18 +45,7 @@ public class GetNoticeActionHandler extends SecurityActionHandler<GetNoticeActio
 
             // Retrieve notice list
 
-            MetamacCriteria criteria = new MetamacCriteria();
-
-            // Criteria
-            MetamacCriteriaConjunctionRestriction restriction = new MetamacCriteriaConjunctionRestriction();
-            restriction.getRestrictions().add(MetamacWebCriteriaUtils.buildNoticeCriteriaRestriction(action.getCriteria()));
-            criteria.setRestriction(restriction);
-
-            // Pagination
-            criteria.setPaginator(new MetamacCriteriaPaginator());
-            criteria.getPaginator().setFirstResult(action.getCriteria().getFirstResult());
-            criteria.getPaginator().setMaximumResultSize(action.getCriteria().getMaxResults());
-            criteria.getPaginator().setCountTotalResults(true);
+            MetamacCriteria criteria = MetamacWebCriteriaUtils.build(action.getCriteria());
 
             MetamacCriteriaResult<NoticeDto> result = noticesServiceFacade.findNotices(ServiceContextHolder.getCurrentServiceContext(), criteria);
             return new GetNoticeResult(noticeDto, result.getResults(), result.getPaginatorResult().getFirstResult(), result.getPaginatorResult().getTotalResults());

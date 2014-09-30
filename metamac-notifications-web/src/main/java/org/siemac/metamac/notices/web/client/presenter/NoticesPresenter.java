@@ -61,6 +61,7 @@ public class NoticesPresenter extends Presenter<NoticesPresenter.NoticesView, No
 
         void setNotices(List<NoticeDto> notices, int firstResult, int totalResults);
         void setNotice(NoticeDto notice);
+        NoticeWebCriteria getCurrentCriteria();
     }
 
     @Inject
@@ -132,7 +133,7 @@ public class NoticesPresenter extends Presenter<NoticesPresenter.NoticesView, No
 
             @Override
             public void onWaitSuccess(UpdateNoticeRecieverAcknowledgeResult result) {
-                retrieveNotices(new NoticeWebCriteria()); // TODO METAMAC-1984 get the current criteria
+                retrieveNotices(getView().getCurrentCriteria());
             }
         });
     }

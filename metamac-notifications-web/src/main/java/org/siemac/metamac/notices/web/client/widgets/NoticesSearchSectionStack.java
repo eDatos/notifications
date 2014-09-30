@@ -10,8 +10,8 @@ import org.siemac.metamac.notices.web.shared.criteria.NoticeWebCriteria;
 import org.siemac.metamac.web.common.client.MetamacWebCommon;
 import org.siemac.metamac.web.common.client.widgets.BaseAdvancedSearchSectionStack;
 import org.siemac.metamac.web.common.client.widgets.form.GroupDynamicForm;
+import org.siemac.metamac.web.common.client.widgets.form.fields.BooleanSelectItem;
 import org.siemac.metamac.web.common.client.widgets.form.fields.CustomButtonItem;
-import org.siemac.metamac.web.common.client.widgets.form.fields.CustomCheckboxItem;
 
 import com.smartgwt.client.widgets.form.fields.FormItem;
 import com.smartgwt.client.widgets.form.fields.SelectItem;
@@ -35,7 +35,8 @@ public class NoticesSearchSectionStack extends BaseAdvancedSearchSectionStack {
         TextItem sendingUser = new TextItem(NoticeDS.SENDING_USER, getConstants().noticeSendingUser());
         SelectItem type = new SelectItem(NoticeDS.TYPE, getConstants().noticeType());
         type.setValueMap(CommonUtils.getNoticeTypeLinkedHashMap());
-        CustomCheckboxItem acknowledge = new CustomCheckboxItem(NoticeDS.RECEIVER_ACKNOWLEDGE, getConstants().noticeReceiverAcknowledge());
+        BooleanSelectItem acknowledge = new BooleanSelectItem(NoticeDS.RECEIVER_ACKNOWLEDGE, getConstants().noticeReceiverAcknowledge());
+        acknowledge.setWidth(50);
 
         CustomButtonItem searchItem = new CustomButtonItem(ADVANCED_SEARCH_ITEM_NAME, MetamacWebCommon.getConstants().search());
         searchItem.setColSpan(4);
@@ -62,7 +63,7 @@ public class NoticesSearchSectionStack extends BaseAdvancedSearchSectionStack {
         noticeWebCriteria.setSendingApplication(advancedSearchForm.getValueAsString(NoticeDS.SENDING_APPLICATION));
         noticeWebCriteria.setSendingUser(advancedSearchForm.getValueAsString(NoticeDS.SENDING_USER));
         noticeWebCriteria.setType(CommonUtils.getNoticeType(advancedSearchForm.getValueAsString(NoticeDS.TYPE)));
-        noticeWebCriteria.setAcknowledge(((CustomCheckboxItem) advancedSearchForm.getItem(NoticeDS.RECEIVER_ACKNOWLEDGE)).getValueAsBoolean());
+        noticeWebCriteria.setAcknowledge(((BooleanSelectItem) advancedSearchForm.getItem(NoticeDS.RECEIVER_ACKNOWLEDGE)).getBooleanValue());
         return noticeWebCriteria;
     }
 

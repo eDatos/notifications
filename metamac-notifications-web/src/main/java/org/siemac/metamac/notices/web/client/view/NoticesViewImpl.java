@@ -77,6 +77,13 @@ public class NoticesViewImpl extends ViewWithUiHandlers<NoticesUiHandlers> imple
         searchSectionStack.setUiHandlers(uiHandlers);
     }
 
+    @Override
+    public NoticeWebCriteria getCurrentCriteria() {
+        NoticeWebCriteria criteria = searchSectionStack.getNoticeWebCriteria();
+        criteria.setFirstResult(noticesListGrid.getFirstResult());
+        return criteria;
+    }
+
     private void createSearchSectionStack() {
         searchSectionStack = new NoticesSearchSectionStack();
     }
@@ -137,9 +144,7 @@ public class NoticesViewImpl extends ViewWithUiHandlers<NoticesUiHandlers> imple
     private void selectNotice(ListGridRecord[] selectedRecords) {
         if (selectedRecords != null && selectedRecords.length == 1) {
             if (selectedRecords[0] instanceof NoticeRecord) {
-                NoticeWebCriteria criteria = searchSectionStack.getNoticeWebCriteria();
-                criteria.setFirstResult(noticesListGrid.getFirstResult());
-                getUiHandlers().retrieveNotice(((NoticeRecord) selectedRecords[0]).getNoticeDto(), criteria);
+                getUiHandlers().retrieveNotice(((NoticeRecord) selectedRecords[0]).getNoticeDto(), getCurrentCriteria());
             }
         }
     }
