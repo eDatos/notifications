@@ -9,6 +9,7 @@ public class BaseNoticeCustomListGrid extends CustomListGrid {
 
     public BaseNoticeCustomListGrid() {
         setAlternateRecordStyles(false);
+        setCanSort(false);
     }
 
     @Override

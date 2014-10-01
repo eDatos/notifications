@@ -5,7 +5,9 @@ import static org.siemac.metamac.notices.core.invocation.utils.RestCriteriaUtils
 import static org.siemac.metamac.notices.core.invocation.utils.RestCriteriaUtils.appendConditionToQuery;
 import static org.siemac.metamac.notices.core.invocation.utils.RestCriteriaUtils.fieldComparison;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.siemac.metamac.notices.core.common.domain.ExternalItem;
@@ -26,7 +28,6 @@ public class NoticesServiceUtil {
         appendConditionToQuery(query, fieldComparison(UserCriteriaPropertyRestriction.SEND_EMAIL, ComparisonOperator.EQ, Boolean.TRUE));
 
         return query.toString();
-
     }
 
     public static String createQueryForFindNoticeReceivers(Notice notice) {
@@ -57,6 +58,9 @@ public class NoticesServiceUtil {
         if (notice.getRoles() != null && !notice.getRoles().isEmpty()) {
             appendConditionToQuery(query, fieldComparison(UserCriteriaPropertyRestriction.ROLE_CODE, ComparisonOperator.IN, transformRolesIntoQuotedCommaSeparatedUsernameString(notice.getRoles())));
         }
+
+        // Add filter: send mail = true
+        appendConditionToQuery(query, fieldComparison(UserCriteriaPropertyRestriction.SEND_EMAIL, ComparisonOperator.EQ, Boolean.TRUE));
 
         return query.toString();
     }
@@ -115,5 +119,15 @@ public class NoticesServiceUtil {
             appendCommaSeparatedQuotedElement(result, processStatisticalOperationUrn(statisticalOperation));
         }
         return result.toString();
+    }
+
+    public static Set<String> getReceiversUsernames(Notice notice) {
+        Set<String> usernames = new HashSet<String>();
+        for (Receiver receiver : notice.getReceivers()) {
+            if (StringUtils.isNotBlank(receiver.getUsername())) {
+                usernames.add(receiver.getUsername());
+            }
+        }
+        return usernames;
     }
 }

@@ -8,6 +8,7 @@ import org.siemac.metamac.notices.web.shared.GetStatisticalOperationsResult;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
+import com.smartgwt.client.types.Overflow;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.VLayout;
@@ -32,6 +33,7 @@ public class AnnouncementCreationViewImpl extends ViewWithUiHandlers<Announcemen
         });
 
         panel = new VLayout();
+        panel.setOverflow(Overflow.SCROLL);
         panel.addMember(announcementCreationLayout);
     }
 

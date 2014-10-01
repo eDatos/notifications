@@ -2,6 +2,7 @@ package org.siemac.metamac.notices.core.notice.serviceimpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.fornax.cartridges.sculptor.framework.accessapi.ConditionalCriteria;
@@ -217,12 +218,31 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
         }
 
         List<User> users = accessControlRestInternalFacade.findUsers(queryForFindUsers);
+        checkUsersValidity(notice, users, queryForFindUsers);
 
+        return users;
+    }
+
+    private void checkUsersValidity(Notice notice, List<User> users, String queryForFindUsers) throws MetamacException {
         if (users.isEmpty()) {
             throw new MetamacException(ServiceExceptionType.NOTICE_RECEIVERS_NOT_FOUND, queryForFindUsers);
         }
 
-        return users;
+        Set<String> receiverUserNames = NoticesServiceUtil.getReceiversUsernames(notice);
+        for (String receiverUsername : receiverUserNames) {
+            if (!containsUserWithUsername(users, receiverUsername)) {
+                throw new MetamacException(ServiceExceptionType.RECEIVER_USERNAME_NOT_FOUND, receiverUsername);
+            }
+        }
+    }
+
+    private boolean containsUserWithUsername(List<User> users, String username) {
+        for (User user : users) {
+            if (StringUtils.equals(user.getUsername(), username)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private List<User> calculateReceiversOfMail(Notice notice) throws MetamacException {
