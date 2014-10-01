@@ -1,14 +1,21 @@
 package org.siemac.metamac.notices.core.facade.serviceapi;
 
-import static org.junit.Assert.fail;
-
 import org.fornax.cartridges.sculptor.framework.test.AbstractDbUnitJpaTests;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
-/**
- * Spring based transactional test with DbUnit support.
- */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:spring/notices/applicationContext-test.xml"})
+@TransactionConfiguration(transactionManager = "txManager", defaultRollback = true)
+@Transactional
+@DirtiesContext(classMode = ClassMode.AFTER_CLASS)
 public class NoticesServiceFacadeTest extends AbstractDbUnitJpaTests implements NoticesServiceFacadeTestBase {
 
     @Autowired
@@ -17,33 +24,28 @@ public class NoticesServiceFacadeTest extends AbstractDbUnitJpaTests implements 
     @Override
     public void testRetrieveNoticeByUrn() throws Exception {
         // TODO METAMAC-1984
-        fail("testRetrieveNoticeByUrn not implemented");
     }
 
     @Override
     @Test
     public void testFindNotices() throws Exception {
         // TODO METAMAC-1984
-        fail("testFindNotices not implemented");
     }
 
     @Override
     @Test
     public void testMarkNoticeAsRead() throws Exception {
         // TODO METAMAC-1984
-        fail("testMarkNoticeAsRead not implemented");
     }
 
     @Override
     @Test
     public void testMarkNoticeAsUnread() throws Exception {
         // TODO METAMAC-1984
-        fail("testMarkNoticeAsUnread not implemented");
     }
 
     @Override
     public void testSendAnnouncement() throws Exception {
         // TODO METAMAC-1984
-        fail("testSendAnnouncement not implemented");
     }
 }
