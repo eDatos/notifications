@@ -1,8 +1,8 @@
 package org.siemac.metamac.notices.core.facade.serviceapi;
 
-import org.fornax.cartridges.sculptor.framework.test.AbstractDbUnitJpaTests;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.siemac.metamac.notices.core.NoticesBaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @TransactionConfiguration(transactionManager = "txManager", defaultRollback = true)
 @Transactional
 @DirtiesContext(classMode = ClassMode.AFTER_CLASS)
-public class NoticesServiceFacadeTest extends AbstractDbUnitJpaTests implements NoticesServiceFacadeTestBase {
+public class NoticesServiceFacadeTest extends NoticesBaseTest implements NoticesServiceFacadeTestBase {
 
     @Autowired
     protected NoticesServiceFacade noticesServiceFacade;
@@ -45,6 +45,7 @@ public class NoticesServiceFacadeTest extends AbstractDbUnitJpaTests implements 
     }
 
     @Override
+    @Test
     public void testSendAnnouncement() throws Exception {
         // TODO METAMAC-1984
     }
