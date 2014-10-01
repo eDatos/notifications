@@ -89,7 +89,9 @@ public class MetamacWebCriteriaUtils {
                         new MetamacCriteriaPropertyRestriction(NoticeCriteriaPropertyEnum.RECEIVER_USERNAME.name(), criteria.getReceiverUsername(), OperationType.EQ));
             }
 
-            // TODO METAMAC-1984
+            if (criteria.getExpirationDate() != null) {
+                conjunctionRestriction.getRestrictions().add(new MetamacCriteriaPropertyRestriction(NoticeCriteriaPropertyEnum.EXPIRATION_DATE.name(), criteria.getExpirationDate(), OperationType.LE));
+            }
         }
 
         return conjunctionRestriction;

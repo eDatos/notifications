@@ -2,6 +2,8 @@ package org.siemac.metamac.notices.web.shared.criteria;
 
 import static org.siemac.metamac.notices.web.client.utils.NoticesWebConstants.NOTICES_LIST_MAX_RESULTS;
 
+import java.util.Date;
+
 import org.siemac.metamac.notices.core.notice.enume.domain.NoticeType;
 import org.siemac.metamac.web.common.shared.criteria.PaginationWebCriteria;
 
@@ -14,6 +16,7 @@ public class NoticeWebCriteria extends PaginationWebCriteria {
     private String            sendingApplication;
     private String            sendingUser;
     private NoticeType        type;
+    private Date              expirationDate;
 
     public NoticeWebCriteria() {
         setFirstResult(0);
@@ -58,5 +61,13 @@ public class NoticeWebCriteria extends PaginationWebCriteria {
 
     public void setType(NoticeType type) {
         this.type = type;
+    }
+
+    public Date getExpirationDate() {
+        return expirationDate;
+    }
+
+    public void setExpirationDate(Date expirationDate) {
+        this.expirationDate = expirationDate;
     }
 }

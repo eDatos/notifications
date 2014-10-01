@@ -12,6 +12,7 @@ import org.siemac.metamac.web.common.client.widgets.BaseAdvancedSearchSectionSta
 import org.siemac.metamac.web.common.client.widgets.form.GroupDynamicForm;
 import org.siemac.metamac.web.common.client.widgets.form.fields.BooleanSelectItem;
 import org.siemac.metamac.web.common.client.widgets.form.fields.CustomButtonItem;
+import org.siemac.metamac.web.common.client.widgets.form.fields.CustomDateItem;
 
 import com.smartgwt.client.widgets.form.fields.FormItem;
 import com.smartgwt.client.widgets.form.fields.SelectItem;
@@ -37,6 +38,7 @@ public class NoticesSearchSectionStack extends BaseAdvancedSearchSectionStack {
         type.setValueMap(CommonUtils.getNoticeTypeLinkedHashMap());
         BooleanSelectItem acknowledge = new BooleanSelectItem(NoticeDS.RECEIVER_ACKNOWLEDGE, getConstants().noticeReceiverAcknowledge());
         acknowledge.setWidth(50);
+        CustomDateItem expirationDate = new CustomDateItem(NoticeDS.EXPIRATION_DATE, getConstants().noticeExpirationDateBeforeOrEquals());
 
         CustomButtonItem searchItem = new CustomButtonItem(ADVANCED_SEARCH_ITEM_NAME, MetamacWebCommon.getConstants().search());
         searchItem.setColSpan(4);
@@ -48,7 +50,7 @@ public class NoticesSearchSectionStack extends BaseAdvancedSearchSectionStack {
             }
         });
 
-        FormItem[] advancedSearchFormItems = new FormItem[]{sendingApplication, sendingUser, type, acknowledge, searchItem};
+        FormItem[] advancedSearchFormItems = new FormItem[]{sendingApplication, sendingUser, type, acknowledge, expirationDate, searchItem};
         setFormItemsInAdvancedSearchForm(advancedSearchFormItems);
     }
 
@@ -64,6 +66,7 @@ public class NoticesSearchSectionStack extends BaseAdvancedSearchSectionStack {
         noticeWebCriteria.setSendingUser(advancedSearchForm.getValueAsString(NoticeDS.SENDING_USER));
         noticeWebCriteria.setType(CommonUtils.getNoticeType(advancedSearchForm.getValueAsString(NoticeDS.TYPE)));
         noticeWebCriteria.setAcknowledge(((BooleanSelectItem) advancedSearchForm.getItem(NoticeDS.RECEIVER_ACKNOWLEDGE)).getBooleanValue());
+        noticeWebCriteria.setExpirationDate(((CustomDateItem) advancedSearchForm.getItem(NoticeDS.EXPIRATION_DATE)).getValueAsDate());
         return noticeWebCriteria;
     }
 

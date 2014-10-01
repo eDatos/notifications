@@ -1,5 +1,6 @@
 package org.siemac.metamac.notices.core.criteria.mapper;
 
+import org.fornax.cartridges.sculptor.framework.domain.LeafProperty;
 import org.fornax.cartridges.sculptor.framework.domain.Property;
 import org.siemac.metamac.core.common.criteria.MetamacCriteriaPropertyRestriction;
 import org.siemac.metamac.core.common.criteria.SculptorPropertyCriteria;
@@ -48,6 +49,9 @@ public class MetamacCriteria2SculptorCriteriaMapperImpl implements MetamacCriter
                     return new SculptorPropertyCriteria(NoticeProperties.sendingUser(), propertyRestriction.getStringValue(), propertyRestriction.getOperationType());
                 case TYPE:
                     return new SculptorPropertyCriteria(NoticeProperties.noticeType(), propertyRestriction.getEnumValue(), propertyRestriction.getOperationType());
+                case EXPIRATION_DATE:
+                    return new SculptorPropertyCriteria(getDatetimeLeafPropertyEmbedded(NoticeProperties.expirationDate(), Notice.class), propertyRestriction.getDateValue(),
+                            propertyRestriction.getOperationType());
                 default:
                     throw new MetamacException(ServiceExceptionType.PARAMETER_INCORRECT, propertyRestriction.getPropertyName());
             }
@@ -59,7 +63,7 @@ public class MetamacCriteria2SculptorCriteriaMapperImpl implements MetamacCriter
             NoticeCriteriaOrderEnum noticeCriteriaOrderEnum = NoticeCriteriaOrderEnum.fromValue(order.getPropertyName());
             switch (noticeCriteriaOrderEnum) {
                 case CREATED_DATE:
-                    return CriteriaUtils.getDatetimedLeafProperty(NoticeProperties.createdDate(), Notice.class);
+                    return getDatetimeLeafPropertyEmbedded(NoticeProperties.createdDate(), Notice.class);
                 default:
                     throw new MetamacException(ServiceExceptionType.PARAMETER_INCORRECT, order.getPropertyName());
             }
@@ -68,7 +72,12 @@ public class MetamacCriteria2SculptorCriteriaMapperImpl implements MetamacCriter
         @SuppressWarnings("unchecked")
         @Override
         public Property<Notice> retrievePropertyOrderDefault() throws MetamacException {
-            return CriteriaUtils.getDatetimedLeafProperty(NoticeProperties.createdDate(), Notice.class);
+            return getDatetimeLeafPropertyEmbedded(NoticeProperties.createdDate(), Notice.class);
         }
+    }
+
+    @SuppressWarnings("rawtypes")
+    private LeafProperty getDatetimeLeafPropertyEmbedded(Property property, Class entityClass) {
+        return CriteriaUtils.getDatetimeLeafPropertyEmbedded(property, entityClass);
     }
 }
