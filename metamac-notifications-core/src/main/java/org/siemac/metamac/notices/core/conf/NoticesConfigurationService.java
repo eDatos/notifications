@@ -6,6 +6,7 @@ import org.siemac.metamac.core.common.exception.MetamacException;
 public interface NoticesConfigurationService extends ConfigurationService {
 
     public String retrieveUserGuideFileName() throws MetamacException;
+    public String retrieveDocsPath() throws MetamacException;
 
     public String retrieveChannelMailHost() throws MetamacException;
     public String retrieveChannelMailPort() throws MetamacException;

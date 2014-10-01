@@ -35,4 +35,9 @@ public class NoticesConfigurationServiceImpl extends ConfigurationServiceImpl im
     public String retrieveChannelMailProtocol() throws MetamacException {
         return retrieveProperty(NoticesConfigurationConstants.METAMAC_NOTIFICATION_CHANNEL_MAIL_PROTOCOL);
     }
+
+    @Override
+    public String retrieveDocsPath() throws MetamacException {
+        return retrieveProperty(NoticesConfigurationConstants.DOCS_PATH);
+    }
 }

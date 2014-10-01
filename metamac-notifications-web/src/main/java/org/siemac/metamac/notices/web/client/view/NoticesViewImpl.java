@@ -84,6 +84,11 @@ public class NoticesViewImpl extends ViewWithUiHandlers<NoticesUiHandlers> imple
         return criteria;
     }
 
+    @Override
+    public void clearSearchSection() {
+        searchSectionStack.clearSearchSection();
+    }
+
     private void createSearchSectionStack() {
         searchSectionStack = new NoticesSearchSectionStack();
     }

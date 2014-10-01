@@ -62,6 +62,7 @@ public class NoticesPresenter extends Presenter<NoticesPresenter.NoticesView, No
         void setNotices(List<NoticeDto> notices, int firstResult, int totalResults);
         void setNotice(NoticeDto notice);
         NoticeWebCriteria getCurrentCriteria();
+        void clearSearchSection();
     }
 
     @Inject
@@ -89,6 +90,8 @@ public class NoticesPresenter extends Presenter<NoticesPresenter.NoticesView, No
     public void prepareFromRequest(PlaceRequest request) {
         super.prepareFromRequest(request);
         retrieveNotices(new NoticeWebCriteria());
+        // Clear search section
+        getView().clearSearchSection();
     }
 
     @Override

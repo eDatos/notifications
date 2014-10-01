@@ -56,6 +56,15 @@
 		<servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
 	</servlet>
 
+    <servlet>
+        <servlet-name>download</servlet-name>
+        <servlet-class>org.siemac.metamac.notices.web.server.servlet.FileDownloadServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>download</servlet-name>
+        <url-pattern>/files/download/*</url-pattern>
+    </servlet-mapping>
+
 	<servlet>
 		<servlet-name>remoteLogging</servlet-name>
 		<servlet-class>com.google.gwt.logging.server.RemoteLoggingServiceImpl</servlet-class>
