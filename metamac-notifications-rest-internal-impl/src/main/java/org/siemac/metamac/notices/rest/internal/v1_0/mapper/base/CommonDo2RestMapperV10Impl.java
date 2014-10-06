@@ -11,34 +11,41 @@ import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.notices.core.common.domain.ExternalItem;
 import org.siemac.metamac.notices.core.conf.NoticesConfigurationService;
 import org.siemac.metamac.notices.rest.internal.constants.NoticesRestConstants;
+import org.siemac.metamac.notices.rest.internal.invocation.StatisticalOperationsRestInternalFacade;
 import org.siemac.metamac.rest.common.v1_0.domain.InternationalString;
 import org.siemac.metamac.rest.common.v1_0.domain.LocalisedString;
 import org.siemac.metamac.rest.common.v1_0.domain.ResourceLink;
 import org.siemac.metamac.rest.notices.v1_0.domain.ResourceInternal;
 import org.siemac.metamac.rest.notices.v1_0.domain.ResourcesInternal;
+import org.siemac.metamac.rest.statistical_operations_internal.v1_0.domain.Operation;
 import org.siemac.metamac.rest.utils.RestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CommonDo2RestMapperV10Impl implements CommonDo2RestMapperV10 {
 
     @Autowired
-    private NoticesConfigurationService configurationService;
+    private NoticesConfigurationService             configurationService;
 
-    private String                      noticesApiInternalEndpointV10;
+    @Autowired
+    @Qualifier("statisticalOperationsInternalFacade")
+    private StatisticalOperationsRestInternalFacade statisticalOperationsRestInternalFacade;
 
-    private String                      statisticalResourcesApiInternalEndpoint;
-    private String                      srmApiInternalEndpoint;
-    private String                      statisticalOperationsApiInternalEndpoint;
-    private String                      commonMetadataApiExternalEndpoint;
+    private String                                  noticesApiInternalEndpointV10;
 
-    private String                      statisticalResourcesInternalWebApplication;
-    private String                      srmInternalWebApplication;
-    private String                      statisticalOperationsInternalWebApplication;
-    private String                      commonMetadataInternalWebApplication;
+    private String                                  statisticalResourcesApiInternalEndpoint;
+    private String                                  srmApiInternalEndpoint;
+    private String                                  statisticalOperationsApiInternalEndpoint;
+    private String                                  commonMetadataApiExternalEndpoint;
 
-    private String                      defaultLanguage;
+    private String                                  statisticalResourcesInternalWebApplication;
+    private String                                  srmInternalWebApplication;
+    private String                                  statisticalOperationsInternalWebApplication;
+    private String                                  commonMetadataInternalWebApplication;
+
+    private String                                  defaultLanguage;
 
     @PostConstruct
     public void init() throws Exception {
@@ -147,6 +154,9 @@ public class CommonDo2RestMapperV10Impl implements CommonDo2RestMapperV10 {
     }
 
     private ResourceInternal statisticalOperationsExternalItemEntityToRest(ExternalItem source, ResourceInternal target) {
+        // The title of the statistical operation may not be updated
+        target.setName(getUpdatedStatisticalOperationName(source.getCode()));
+
         target.setSelfLink(uriToResourceLink(target.getKind(), RestUtils.createLink(statisticalOperationsApiInternalEndpoint, source.getUri())));
         target.setManagementAppLink(RestUtils.createLink(statisticalOperationsInternalWebApplication, source.getManagementAppUrl()));
         return target;
@@ -168,6 +178,11 @@ public class CommonDo2RestMapperV10Impl implements CommonDo2RestMapperV10 {
         target.setSelfLink(uriToResourceLink(target.getKind(), RestUtils.createLink(statisticalResourcesApiInternalEndpoint, source.getUri())));
         target.setManagementAppLink(RestUtils.createLink(statisticalResourcesInternalWebApplication, source.getManagementAppUrl()));
         return target;
+    }
+
+    private InternationalString getUpdatedStatisticalOperationName(String operationCode) {
+        Operation operation = statisticalOperationsRestInternalFacade.retrieveOperation(operationCode);
+        return operation.getName();
     }
 
     // ------------------------------------------------------------
