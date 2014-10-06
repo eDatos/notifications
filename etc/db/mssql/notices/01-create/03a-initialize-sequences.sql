@@ -10,5 +10,3 @@ ALTER TABLE TB_SEQUENCES ADD CONSTRAINT PK_TB_SEQUENCES
 ;
 
 -- Initialize sequences table
-
-commit;
