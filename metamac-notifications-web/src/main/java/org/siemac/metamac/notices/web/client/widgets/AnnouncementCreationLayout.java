@@ -153,7 +153,7 @@ public class AnnouncementCreationLayout extends VLayout {
         updateApplications(noticeDto);
         noticeDto.setSendingUser(NoticesWeb.getCurrentUser().getUserId());
         noticeDto.setSendingApplication(AccessControlValues.getAppTitle(NoticesConstants.SECURITY_APPLICATION_ID));
-        noticeDto.setSubject(form.getValueAsString(NoticeDS.SUBJECT));
+        noticeDto.setSubject(getConstants().announcementSubjectPrefix() + form.getValueAsString(NoticeDS.SUBJECT));
         noticeDto.addMessage(buildMessage(form.getValueAsString(NoticeDS.MESSAGE)));
         noticeDto.setExpirationDate(((CustomDateItem) form.getItem(NoticeDS.EXPIRATION_DATE)).getValueAsDate());
 
