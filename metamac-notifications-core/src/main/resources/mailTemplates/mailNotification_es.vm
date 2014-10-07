@@ -8,11 +8,11 @@
 
 - Mensajes:
 #foreach( $item in ${notice.messages} )
-	--> $item.text
+	· $item.text
 #foreach( $resource in ${item.resources} )
-		#if( "$!resource.title" != "" )
+#if( "$!resource.title" != "" )
 		- Título: $resource.title.getLocalisedLabel("es")
-		#end
+#end
 		- Código: $resource.code
 		- URN: $resource.urn
 		- Tipo: $resource.type
