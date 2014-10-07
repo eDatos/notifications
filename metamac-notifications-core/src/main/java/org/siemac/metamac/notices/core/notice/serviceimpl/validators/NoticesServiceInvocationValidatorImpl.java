@@ -9,7 +9,6 @@ import org.siemac.metamac.notices.core.error.ServiceExceptionBaseParameters;
 import org.siemac.metamac.notices.core.error.ServiceExceptionParameters;
 import org.siemac.metamac.notices.core.notice.domain.Notice;
 import org.siemac.metamac.notices.core.notice.domain.Receiver;
-import org.siemac.metamac.notices.core.notice.enume.domain.NoticeType;
 import org.siemac.metamac.notices.core.utils.NoticesValidationUtils;
 
 public class NoticesServiceInvocationValidatorImpl {
@@ -109,12 +108,6 @@ public class NoticesServiceInvocationValidatorImpl {
         NoticesValidationUtils.checkMetadataRequired(notice.getNoticeType(), ServiceExceptionParameters.NOTICE__NOTICE_TYPE, exceptions);
         NoticesValidationUtils.checkMetadataRequired(notice.getSubject(), ServiceExceptionParameters.NOTICE__SUBJECT, exceptions);
         NoticesValidationUtils.checkMetadataRequired(notice.getMessages(), ServiceExceptionParameters.NOTICE__MESSAGES, exceptions);
-
-        // when noticeType is "ANNOUNCEMENT"
-        if (NoticeType.ANNOUNCEMENT.equals(notice.getNoticeType())) {
-            NoticesValidationUtils.checkMetadataRequired(notice.getExpirationDate(), ServiceExceptionParameters.NOTICE__EXPIRATION_DATE, exceptions);
-        }
-
     }
 
     private static void checkExistingReceiver(Receiver receiver, List<MetamacExceptionItem> exceptions) {
