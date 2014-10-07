@@ -8,6 +8,7 @@ import javax.mail.internet.MimeMessage;
 import org.apache.velocity.app.VelocityEngine;
 import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.siemac.metamac.core.common.exception.MetamacException;
+import org.siemac.metamac.core.common.lang.LocaleUtil;
 import org.siemac.metamac.core.common.mapper.BaseDo2DtoMapper;
 import org.siemac.metamac.core.common.util.CoreCommonUtil;
 import org.siemac.metamac.notices.core.conf.NoticesConfigurationService;
@@ -29,6 +30,9 @@ public class MailChannelServiceImpl implements MailChannelService {
 
     @Autowired
     private VelocityEngine              velocityEngine;
+
+    @Autowired
+    private LocaleUtil                  localeUtil;
 
     @Autowired
     private NoticesConfigurationService noticesConfiguration;
@@ -56,6 +60,9 @@ public class MailChannelServiceImpl implements MailChannelService {
                 model.put("notice", notice);
                 model.put("createdDate", CoreCommonUtil.transformDateTimeToISODateTimeLexicalRepresentation(notice.getCreatedDate()));
                 model.put("baseDo2DtoMapper", baseDo2DtoMapper);
+                model.put("messages", localeUtil);
+                model.put("locale", noticesConfiguration.retrieveLanguageDefaultLocale());
+                model.put("bundleName", "i18n/messages-notices");
 
                 if (NoticeType.ANNOUNCEMENT.equals(notice.getNoticeType())) {
                     model.put("expirationDate", CoreCommonUtil.transformDateTimeToISODateTimeLexicalRepresentation(notice.getExpirationDate()));
