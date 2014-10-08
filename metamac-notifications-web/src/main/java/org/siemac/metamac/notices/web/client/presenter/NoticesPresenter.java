@@ -4,16 +4,18 @@ import static org.siemac.metamac.notices.web.client.NoticesWeb.getConstants;
 
 import java.util.List;
 
+import org.siemac.metamac.core.common.util.shared.StringUtils;
 import org.siemac.metamac.notices.core.dto.NoticeDto;
 import org.siemac.metamac.notices.web.client.NameTokens;
 import org.siemac.metamac.notices.web.client.NoticesLoggedInGatekeeper;
 import org.siemac.metamac.notices.web.client.NoticesWeb;
 import org.siemac.metamac.notices.web.client.enums.NoticesToolStripButtonEnum;
+import org.siemac.metamac.notices.web.client.events.HideNoticeEvent;
+import org.siemac.metamac.notices.web.client.events.MarkNoticeAsReadEvent;
+import org.siemac.metamac.notices.web.client.events.MarkNoticeAsReadEvent.MarkNoticeAsReadHandler;
 import org.siemac.metamac.notices.web.client.events.SelectMainSectionEvent;
-import org.siemac.metamac.notices.web.client.utils.CommonUtils;
+import org.siemac.metamac.notices.web.client.utils.PlaceRequestUtils;
 import org.siemac.metamac.notices.web.client.view.handlers.NoticesUiHandlers;
-import org.siemac.metamac.notices.web.shared.GetNoticeAction;
-import org.siemac.metamac.notices.web.shared.GetNoticeResult;
 import org.siemac.metamac.notices.web.shared.GetNoticesAction;
 import org.siemac.metamac.notices.web.shared.GetNoticesResult;
 import org.siemac.metamac.notices.web.shared.UpdateNoticeRecieverAcknowledgeAction;
@@ -31,17 +33,20 @@ import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.ContentSlot;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyCodeSplit;
+import com.gwtplatform.mvp.client.annotations.ProxyEvent;
 import com.gwtplatform.mvp.client.annotations.TitleFunction;
 import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
 import com.gwtplatform.mvp.client.proxy.Place;
+import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.Proxy;
 import com.gwtplatform.mvp.client.proxy.RevealContentEvent;
 import com.gwtplatform.mvp.client.proxy.RevealContentHandler;
 
-public class NoticesPresenter extends Presenter<NoticesPresenter.NoticesView, NoticesPresenter.NoticesProxy> implements NoticesUiHandlers {
+public class NoticesPresenter extends Presenter<NoticesPresenter.NoticesView, NoticesPresenter.NoticesProxy> implements NoticesUiHandlers, MarkNoticeAsReadHandler {
 
     private final DispatchAsync dispatcher;
+    private final PlaceManager  placeManager;
 
     @ProxyCodeSplit
     @NameToken(NameTokens.NOTICES_PAGE)
@@ -60,15 +65,16 @@ public class NoticesPresenter extends Presenter<NoticesPresenter.NoticesView, No
     public interface NoticesView extends View, HasUiHandlers<NoticesUiHandlers> {
 
         void setNotices(List<NoticeDto> notices, int firstResult, int totalResults);
-        void setNotice(NoticeDto notice);
         NoticeWebCriteria getCurrentCriteria();
         void clearSearchSection();
+        void marNoticeAsRead(String urn);
     }
 
     @Inject
-    public NoticesPresenter(EventBus eventBus, NoticesView noticesView, NoticesProxy noticesProxy, DispatchAsync dispatcher) {
+    public NoticesPresenter(EventBus eventBus, NoticesView noticesView, NoticesProxy noticesProxy, DispatchAsync dispatcher, PlaceManager placeManager) {
         super(eventBus, noticesView, noticesProxy);
         this.dispatcher = dispatcher;
+        this.placeManager = placeManager;
         getView().setUiHandlers(this);
     }
 
@@ -92,6 +98,7 @@ public class NoticesPresenter extends Presenter<NoticesPresenter.NoticesView, No
         retrieveNotices(new NoticeWebCriteria());
         // Clear search section
         getView().clearSearchSection();
+        HideNoticeEvent.fire(this);
     }
 
     @Override
@@ -106,18 +113,9 @@ public class NoticesPresenter extends Presenter<NoticesPresenter.NoticesView, No
     }
 
     @Override
-    public void retrieveNotice(NoticeDto notice, NoticeWebCriteria criteria) {
-        if (CommonUtils.isRead(notice)) {
-            getView().setNotice(notice);
-        } else {
-            dispatcher.execute(new GetNoticeAction(notice, criteria), new WaitingAsyncCallbackHandlingError<GetNoticeResult>(this) {
-
-                @Override
-                public void onWaitSuccess(GetNoticeResult result) {
-                    getView().setNotice(result.getUpdatedNotice());
-                    getView().setNotices(result.getNotices(), result.getFirstResult(), result.getTotalResults());
-                }
-            });
+    public void goToNotice(String urn) {
+        if (!StringUtils.isBlank(urn)) {
+            placeManager.revealPlaceHierarchy(PlaceRequestUtils.buildAbsoluteNoticePlaceRequest(urn));
         }
     }
 
@@ -129,6 +127,12 @@ public class NoticesPresenter extends Presenter<NoticesPresenter.NoticesView, No
     @Override
     public void markAsUnread(List<NoticeDto> notices) {
         updateNoticeReceiverStatus(notices, false);
+    }
+
+    @ProxyEvent
+    @Override
+    public void onMarkNoticeAsRead(MarkNoticeAsReadEvent event) {
+        getView().marNoticeAsRead(event.getNoticeUrn());
     }
 
     private void updateNoticeReceiverStatus(List<NoticeDto> notices, boolean receiverAcknowledgeStatus) {

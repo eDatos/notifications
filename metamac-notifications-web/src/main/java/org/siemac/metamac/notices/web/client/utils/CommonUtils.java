@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import org.siemac.metamac.core.common.constants.shared.UrnConstants;
 import org.siemac.metamac.core.common.util.shared.StringUtils;
+import org.siemac.metamac.core.common.util.shared.UrnUtils;
 import org.siemac.metamac.notices.core.dto.NoticeDto;
 import org.siemac.metamac.notices.core.dto.ReceiverDto;
 import org.siemac.metamac.notices.core.notice.enume.domain.NoticeType;
@@ -84,5 +86,9 @@ public class CommonUtils {
             valueMap.put(value.getCode(), value.getTitle());
         }
         return valueMap;
+    }
+
+    public static String generateNoticeUrn(String noticeIdentifier) {
+        return UrnUtils.generateUrn(UrnConstants.URN_SIEMAC_CLASS_NOTICE_PREFIX, noticeIdentifier);
     }
 }

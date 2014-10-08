@@ -4,10 +4,11 @@ import java.util.List;
 
 import org.siemac.metamac.notices.core.dto.NoticeDto;
 import org.siemac.metamac.notices.web.client.model.NoticeRecord;
+import org.siemac.metamac.notices.web.client.model.ds.NoticeDS;
+import org.siemac.metamac.notices.web.client.presenter.NoticePresenter.NoticeView;
 import org.siemac.metamac.notices.web.client.presenter.NoticesPresenter;
 import org.siemac.metamac.notices.web.client.utils.RecordUtils;
 import org.siemac.metamac.notices.web.client.view.handlers.NoticesUiHandlers;
-import org.siemac.metamac.notices.web.client.widgets.NoticeLayout;
 import org.siemac.metamac.notices.web.client.widgets.NoticesListGrid;
 import org.siemac.metamac.notices.web.client.widgets.NoticesSearchSectionStack;
 import org.siemac.metamac.notices.web.client.widgets.NoticesToolStrip;
@@ -17,6 +18,8 @@ import org.siemac.metamac.web.common.client.widgets.actions.PaginatedAction;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
+import com.smartgwt.client.data.Record;
+import com.smartgwt.client.data.RecordList;
 import com.smartgwt.client.types.Overflow;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -33,22 +36,20 @@ public class NoticesViewImpl extends ViewWithUiHandlers<NoticesUiHandlers> imple
     private NoticesSearchSectionStack searchSectionStack;
     private NoticesToolStrip          toolStrip;
     private NoticesListGrid           noticesListGrid;
-    private NoticeLayout              noticeLayout;
 
     @Inject
-    public NoticesViewImpl() {
+    public NoticesViewImpl(NoticeView noticeView) {
 
         createSearchSectionStack();
         createToolStrip();
         createNoticesListGrid();
-        createNoticeLayout();
 
         VLayout subPanel = new VLayout();
         subPanel.setOverflow(Overflow.SCROLL);
         subPanel.addMember(searchSectionStack);
         subPanel.addMember(toolStrip);
         subPanel.addMember(noticesListGrid);
-        subPanel.addMember(noticeLayout);
+        subPanel.addMember(noticeView.asWidget());
 
         panel = new VLayout();
         panel.addMember(subPanel);
@@ -59,11 +60,6 @@ public class NoticesViewImpl extends ViewWithUiHandlers<NoticesUiHandlers> imple
         NoticeRecord[] records = RecordUtils.getNoticesRecords(notices);
         noticesListGrid.getListGrid().setData(records);
         noticesListGrid.refreshPaginationInfo(firstResult, records.length, totalResults);
-    }
-
-    @Override
-    public void setNotice(NoticeDto notice) {
-        noticeLayout.setNotice(notice);
     }
 
     @Override
@@ -87,6 +83,18 @@ public class NoticesViewImpl extends ViewWithUiHandlers<NoticesUiHandlers> imple
     @Override
     public void clearSearchSection() {
         searchSectionStack.clearSearchSection();
+    }
+
+    @Override
+    public void marNoticeAsRead(String urn) {
+        RecordList recordList = noticesListGrid.getListGrid().getRecordList();
+        if (recordList != null) {
+            Record record = recordList.find(NoticeDS.URN, urn);
+            if (record != null && record instanceof NoticeRecord) {
+                ((NoticeRecord) record).setReceiverAcknowledge(true);
+                noticesListGrid.getListGrid().updateData(record);
+            }
+        }
     }
 
     private void createSearchSectionStack() {
@@ -142,14 +150,10 @@ public class NoticesViewImpl extends ViewWithUiHandlers<NoticesUiHandlers> imple
         });
     }
 
-    private void createNoticeLayout() {
-        noticeLayout = new NoticeLayout();
-    }
-
     private void selectNotice(ListGridRecord[] selectedRecords) {
         if (selectedRecords != null && selectedRecords.length == 1) {
             if (selectedRecords[0] instanceof NoticeRecord) {
-                getUiHandlers().retrieveNotice(((NoticeRecord) selectedRecords[0]).getNoticeDto(), getCurrentCriteria());
+                getUiHandlers().goToNotice(((NoticeRecord) selectedRecords[0]).getUrn());
             }
         }
     }

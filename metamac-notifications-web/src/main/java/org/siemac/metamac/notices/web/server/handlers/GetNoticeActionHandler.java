@@ -1,12 +1,9 @@
 package org.siemac.metamac.notices.web.server.handlers;
 
 import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
-import org.siemac.metamac.core.common.criteria.MetamacCriteria;
-import org.siemac.metamac.core.common.criteria.MetamacCriteriaResult;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.notices.core.dto.NoticeDto;
 import org.siemac.metamac.notices.core.facade.serviceapi.NoticesServiceFacade;
-import org.siemac.metamac.notices.web.server.utils.MetamacWebCriteriaUtils;
 import org.siemac.metamac.notices.web.shared.GetNoticeAction;
 import org.siemac.metamac.notices.web.shared.GetNoticeResult;
 import org.siemac.metamac.sso.client.MetamacPrincipal;
@@ -31,24 +28,15 @@ public class GetNoticeActionHandler extends SecurityActionHandler<GetNoticeActio
 
     @Override
     public GetNoticeResult executeSecurityAction(GetNoticeAction action) throws ActionException {
-
         try {
-
-            // Retrieve notice
-
             ServiceContext ctx = ServiceContextHolder.getCurrentServiceContext();
             MetamacPrincipal metamacPrincipal = SecurityUtils.getMetamacPrincipal(ServiceContextHolder.getCurrentServiceContext());
             String username = metamacPrincipal.getUserId();
 
-            noticesServiceFacade.markNoticeAsRead(ctx, action.getNotice().getUrn(), username);
-            NoticeDto noticeDto = noticesServiceFacade.retrieveNoticeByUrn(ctx, action.getNotice().getUrn());
+            noticesServiceFacade.markNoticeAsRead(ctx, action.getNoticeUrn(), username);
+            NoticeDto noticeDto = noticesServiceFacade.retrieveNoticeByUrn(ctx, action.getNoticeUrn());
 
-            // Retrieve notice list
-
-            MetamacCriteria criteria = MetamacWebCriteriaUtils.build(action.getCriteria());
-
-            MetamacCriteriaResult<NoticeDto> result = noticesServiceFacade.findNotices(ServiceContextHolder.getCurrentServiceContext(), criteria);
-            return new GetNoticeResult(noticeDto, result.getResults(), result.getPaginatorResult().getFirstResult(), result.getPaginatorResult().getTotalResults());
+            return new GetNoticeResult(noticeDto);
 
         } catch (MetamacException e) {
             throw WebExceptionUtils.createMetamacWebException(e);

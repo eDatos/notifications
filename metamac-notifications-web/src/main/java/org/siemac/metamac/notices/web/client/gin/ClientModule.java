@@ -8,11 +8,13 @@ import org.siemac.metamac.notices.web.client.NoticesWebMessages;
 import org.siemac.metamac.notices.web.client.presenter.AnnouncementCreationPresenter;
 import org.siemac.metamac.notices.web.client.presenter.ErrorPagePresenter;
 import org.siemac.metamac.notices.web.client.presenter.MainPagePresenter;
+import org.siemac.metamac.notices.web.client.presenter.NoticePresenter;
 import org.siemac.metamac.notices.web.client.presenter.NoticesPresenter;
 import org.siemac.metamac.notices.web.client.presenter.UnauthorizedPagePresenter;
 import org.siemac.metamac.notices.web.client.view.AnnouncementCreationViewImpl;
 import org.siemac.metamac.notices.web.client.view.ErrorPageViewImpl;
 import org.siemac.metamac.notices.web.client.view.MainPageViewImpl;
+import org.siemac.metamac.notices.web.client.view.NoticeViewImpl;
 import org.siemac.metamac.notices.web.client.view.NoticesViewImpl;
 import org.siemac.metamac.notices.web.client.view.UnauthorizedPageViewImpl;
 import org.siemac.metamac.notices.web.client.widgets.presenter.NoticesToolStripPresenterWidget;
@@ -43,6 +45,7 @@ public class ClientModule extends AbstractPresenterModule {
         // Presenters
         bindPresenter(MainPagePresenter.class, MainPagePresenter.MainPageView.class, MainPageViewImpl.class, MainPagePresenter.MainPageProxy.class);
         bindPresenter(NoticesPresenter.class, NoticesPresenter.NoticesView.class, NoticesViewImpl.class, NoticesPresenter.NoticesProxy.class);
+        bindPresenter(NoticePresenter.class, NoticePresenter.NoticeView.class, NoticeViewImpl.class, NoticePresenter.NoticeProxy.class);
         bindPresenter(AnnouncementCreationPresenter.class, AnnouncementCreationPresenter.AnnouncementCreationView.class, AnnouncementCreationViewImpl.class,
                 AnnouncementCreationPresenter.AnnouncementCreationProxy.class);
 

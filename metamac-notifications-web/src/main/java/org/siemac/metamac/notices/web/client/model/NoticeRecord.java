@@ -26,6 +26,10 @@ public class NoticeRecord extends ListGridRecord {
         setAttribute(NoticeDS.URN, value);
     }
 
+    public String getUrn() {
+        return getAttributeAsString(NoticeDS.URN);
+    }
+
     public void setSendingApplication(String value) {
         String appTitle = AccessControlValues.getAppTitle(value);
         setAttribute(NoticeDS.SENDING_APPLICATION, appTitle);
