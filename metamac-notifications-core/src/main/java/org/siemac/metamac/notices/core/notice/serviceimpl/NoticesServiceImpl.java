@@ -11,16 +11,22 @@ import org.fornax.cartridges.sculptor.framework.domain.PagedResult;
 import org.fornax.cartridges.sculptor.framework.domain.PagingParameter;
 import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.siemac.metamac.core.common.exception.MetamacException;
+import org.siemac.metamac.core.common.lang.LocaleUtil;
 import org.siemac.metamac.core.common.util.GeneratorUrnUtils;
 import org.siemac.metamac.notices.core.channel.mail.serviceimpl.MailChannelService;
+import org.siemac.metamac.notices.core.conf.NoticesConfigurationService;
+import org.siemac.metamac.notices.core.constants.NoticesMessagesConstants;
 import org.siemac.metamac.notices.core.error.ServiceExceptionType;
 import org.siemac.metamac.notices.core.invocation.service.AccessControlRestInternalFacade;
 import org.siemac.metamac.notices.core.notice.domain.Notice;
 import org.siemac.metamac.notices.core.notice.domain.Receiver;
+import org.siemac.metamac.notices.core.notice.enume.domain.NoticeType;
 import org.siemac.metamac.notices.core.notice.exception.NoticeNotFoundException;
 import org.siemac.metamac.notices.core.notice.serviceapi.NoticesService;
 import org.siemac.metamac.notices.core.notice.serviceapi.validators.NoticesServiceInvocationValidator;
 import org.siemac.metamac.notices.core.notice.serviceimpl.util.NoticesServiceUtil;
+import org.siemac.metamac.rest.access_control.v1_0.domain.App;
+import org.siemac.metamac.rest.access_control.v1_0.domain.Apps;
 import org.siemac.metamac.rest.access_control.v1_0.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,6 +49,9 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
 
     @Autowired
     private AccessControlRestInternalFacade   accessControlRestInternalFacade;
+
+    @Autowired
+    private NoticesConfigurationService       noticesConfigurationService;
 
     public NoticesServiceImpl() {
     }
@@ -75,8 +84,7 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
         // Validations
         noticeServiceInvocationValidator.checkCreateNotice(ctx, notice);
 
-        // Generate URN
-        notice.setUrn(GeneratorUrnUtils.generateSiemacNoticeUrn(java.util.UUID.randomUUID().toString()));
+        fillNoticeMetadata(ctx, notice);
 
         // Calculate receivers
         List<User> users = calculateReceiversOfAccessControl(notice);
@@ -183,6 +191,7 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
     // ----------------------------------------------------------------------
     // UTILS
     // ----------------------------------------------------------------------
+
     @SuppressWarnings({"rawtypes", "unchecked"})
     private List<ConditionalCriteria> initCriteriaConditions(List<ConditionalCriteria> conditions, Class entityClass) {
         List<ConditionalCriteria> conditionsEntity = ConditionalCriteriaBuilder.criteriaFor(entityClass).build();
@@ -286,5 +295,29 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
         }
 
         return users.iterator().next().getMail();
+    }
+
+    private String getSendingApplicationName(ServiceContext serviceContext, Notice notice) throws MetamacException {
+        Apps apps = accessControlRestInternalFacade.retrieveApps(serviceContext);
+        for (App app : apps.getApps()) {
+            if (notice.getSendingApplication().equals(app.getCode())) {
+                return app.getTitle().toUpperCase();
+            }
+        }
+        return notice.getSendingApplication();
+    }
+
+    private void fillNoticeMetadata(ServiceContext serviceContext, Notice notice) throws MetamacException {
+        // Generate URN
+        notice.setUrn(GeneratorUrnUtils.generateSiemacNoticeUrn(java.util.UUID.randomUUID().toString()));
+
+        // Add prefix to subject
+        String prefix = null;
+        if (NoticeType.NOTIFICATION.equals(notice.getNoticeType())) {
+            prefix = getSendingApplicationName(serviceContext, notice);
+        } else {
+            prefix = LocaleUtil.getMessageForCode(NoticesMessagesConstants.NOTICE_TYPE_ANNOUNCEMENT, noticesConfigurationService.retrieveLanguageDefaultLocale()).toUpperCase();
+        }
+        notice.setSubject("[" + prefix + "] " + notice.getSubject());
     }
 }

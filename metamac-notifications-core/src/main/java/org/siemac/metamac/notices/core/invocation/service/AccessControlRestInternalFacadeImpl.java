@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.cxf.jaxrs.client.ServerWebApplicationException;
+import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.notices.core.error.ServiceExceptionParameters;
 import org.siemac.metamac.notices.core.error.ServiceExceptionUtils;
+import org.siemac.metamac.rest.access_control.v1_0.domain.Apps;
 import org.siemac.metamac.rest.access_control.v1_0.domain.User;
 import org.siemac.metamac.rest.access_control.v1_0.domain.Users;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,15 @@ public class AccessControlRestInternalFacadeImpl implements AccessControlRestInt
             } while (users.getTotal().intValue() != results.size());
             return results;
         } catch (ServerWebApplicationException e) {
+            throw manageAccessControlInternalRestException(e);
+        }
+    }
+
+    @Override
+    public Apps retrieveApps(ServiceContext serviceContext) throws MetamacException {
+        try {
+            return restApiLocator.getAccessControlRestInternalFacadeV1_0().findApps();
+        } catch (Exception e) {
             throw manageAccessControlInternalRestException(e);
         }
     }

@@ -1,28 +1,28 @@
-#macro( msg $key )$messages.getLocalizedMessageFromBundle($bundleName, $key, $locale)#end
+#macro( msg $key )$messages.getMessageForCode($key, $locale)#end
 
-- #msg("template.notice.sending_aplication"): ${notice.sendingApplication}
-- #msg("template.notice.creation_date"): ${createdDate}
+- #msg("template.notices.sending_aplication"): ${notice.sendingApplication}
+- #msg("template.notices.creation_date"): ${createdDate}
 #if( "$!notice.sendingUser" != "" )
-- #msg("template.notice.sending_user"):  ${notice.sendingUser}
+- #msg("template.notices.sending_user"):  ${notice.sendingUser}
 #end
-- #msg("template.notice.urn"): ${notice.urn}
-- #msg("template.notice.type"): ${noticeType}
+- #msg("template.notices.urn"): ${notice.urn}
+- #msg("template.notices.type"): ${noticeType}
 #if( "$!expirationDate" != "" )
-- #msg("template.notice.expiration_date"): ${expirationDate}
+- #msg("template.notices.expiration_date"): ${expirationDate}
 #end
 
-- #msg("template.notice.messages"):
+- #msg("template.notices.messages"):
 #foreach( $item in ${notice.messages} )
 	· $item.text
 #foreach( $resource in ${item.resources} )
 #if( "$!resource.title.getLocalisedLabel(${locale.language})" != "" )
-		- #msg("template.notice.message.title"): $resource.title.getLocalisedLabel(${locale.language})
+		- #msg("template.notices.message.title"): $resource.title.getLocalisedLabel(${locale.language})
 #end
-		- #msg("template.notice.message.code"): $resource.code
-		- #msg("template.notice.message.urn"): $resource.urn
-		- #msg("template.notice.message.type"): $resource.type
-		- #msg("template.notice.message.link_api"): $baseDo2DtoMapper.externalItemApiUrlDoToDto($resource.type, $resource.uri)
-		- #msg("template.notice.message.link_management_application"): $baseDo2DtoMapper.externalItemWebAppUrlDoToDto($resource.type, $resource.managementAppUrl)
+		- #msg("template.notices.message.code"): $resource.code
+		- #msg("template.notices.message.urn"): $resource.urn
+		- #msg("template.notices.message.type"): $resource.type
+		- #msg("template.notices.message.link_api"): $baseDo2DtoMapper.externalItemApiUrlDoToDto($resource.type, $resource.uri)
+		- #msg("template.notices.message.link_management_application"): $baseDo2DtoMapper.externalItemWebAppUrlDoToDto($resource.type, $resource.managementAppUrl)
 
 #end
 #end

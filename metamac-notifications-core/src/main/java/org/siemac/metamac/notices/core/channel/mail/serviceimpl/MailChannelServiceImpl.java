@@ -14,7 +14,7 @@ import org.siemac.metamac.core.common.mapper.BaseDo2DtoMapper;
 import org.siemac.metamac.core.common.util.CoreCommonUtil;
 import org.siemac.metamac.notices.core.conf.NoticesConfigurationService;
 import org.siemac.metamac.notices.core.constants.NoticesConstants;
-import org.siemac.metamac.notices.core.constants.NoticesMailTemplateConstants;
+import org.siemac.metamac.notices.core.constants.NoticesMessagesConstants;
 import org.siemac.metamac.notices.core.notice.domain.Notice;
 import org.siemac.metamac.notices.core.notice.enume.domain.NoticeType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +54,6 @@ public class MailChannelServiceImpl implements MailChannelService {
                 message.setReplyTo(replyTo);
                 message.setFrom(noticesConfiguration.retrieveChannelMailUsername());
 
-                String bundleName = "i18n/messages-notices";
                 Locale locale = noticesConfiguration.retrieveLanguageDefaultLocale();
 
                 // Mail data
@@ -64,8 +63,7 @@ public class MailChannelServiceImpl implements MailChannelService {
                 model.put("baseDo2DtoMapper", baseDo2DtoMapper);
                 model.put("messages", LocaleUtil.class);
                 model.put("locale", locale);
-                model.put("bundleName", bundleName);
-                model.put("noticeType", getLocalisedNoticeType(notice, bundleName, locale));
+                model.put("noticeType", getLocalisedNoticeType(notice, locale));
 
                 if (NoticeType.ANNOUNCEMENT.equals(notice.getNoticeType())) {
                     model.put("expirationDate", CoreCommonUtil.transformDateTimeToISODateTimeLexicalRepresentation(notice.getExpirationDate()));
@@ -79,8 +77,8 @@ public class MailChannelServiceImpl implements MailChannelService {
         this.mailSender.send(preparator);
     }
 
-    private String getLocalisedNoticeType(Notice notice, String bundleName, Locale locale) {
-        String code = NoticeType.ANNOUNCEMENT.equals(notice.getNoticeType()) ? NoticesMailTemplateConstants.NOTICE_TYPE_ANNOUNCEMENT : NoticesMailTemplateConstants.NOTICE_TYPE_NOTIFICATION;
-        return LocaleUtil.getLocalizedMessageFromBundle(bundleName, code, locale);
+    private String getLocalisedNoticeType(Notice notice, Locale locale) {
+        String code = NoticeType.ANNOUNCEMENT.equals(notice.getNoticeType()) ? NoticesMessagesConstants.NOTICE_TYPE_ANNOUNCEMENT : NoticesMessagesConstants.NOTICE_TYPE_NOTIFICATION;
+        return LocaleUtil.getMessageForCode(code, locale);
     }
 }
