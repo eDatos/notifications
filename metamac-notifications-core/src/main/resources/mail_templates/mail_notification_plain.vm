@@ -1,5 +1,8 @@
 #macro( msg $key )$messages.getMessageForCode($key, $locale)#end
 
+#msg("template.notices.metamac_notices")
+${organisation}
+
 - #msg("template.notices.sending_aplication"): ${notice.sendingApplication}
 - #msg("template.notices.creation_date"): ${createdDate}
 #if( "$!notice.sendingUser" != "" )

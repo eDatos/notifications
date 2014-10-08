@@ -1,0 +1,54 @@
+#macro( msg $key )$messages.getMessageForCode($key, $locale)#end
+
+<html>
+	<body>
+		<div style="clear: both; text-align: center">
+			<h4 style="margin: 5px">#msg("template.notices.metamac_notices")</h5>
+			<h5 style="margin: 5px">${organisation}</h4>
+		</div>
+
+		<hr>
+
+		<ul>
+			<li><p><b>#msg("template.notices.sending_aplication"): </b><i>${notice.sendingApplication}</i></p></li>
+			<li><p><b>#msg("template.notices.creation_date"): </b><i>${createdDate}</i></p></li>
+			#if( "$!notice.sendingUser" != "" )
+				<li><p><b>#msg("template.notices.sending_user"): </b><i>${notice.sendingUser}</i></p></li>
+			#end
+			<li><p><b>#msg("template.notices.urn"): </b><i>${notice.urn}</i></p></li>
+			<li><p><b>#msg("template.notices.type"): </b><i>${noticeType}</i></p></li>
+			#if( "$!expirationDate" != "" )
+				<li><p><b>#msg("template.notices.expiration_date"): </b><i>${expirationDate}</i></p></li>
+			#end
+		
+			<li><p><b>#msg("template.notices.messages"): </b></p></li>
+			<ul>
+				#foreach( $item in ${notice.messages} )
+	
+					<li><p>$item.text</p></li>
+	
+					<ul>
+						#foreach( $resource in ${item.resources} )
+						
+							<li><p><i>$resource.code</i></p></li>
+							<ul>
+								#if( "$!resource.title.getLocalisedLabel(${locale.language})" != "" )
+									<li><p><b>#msg("template.notices.message.title"): </b><i>$resource.title.getLocalisedLabel(${locale.language})</i></p></li>
+								#end
+								<li><p><b>#msg("template.notices.message.code"): </b><i>$resource.code</i></p></li>
+								<li><p><b>#msg("template.notices.message.urn"): </b><i>$resource.urn</i></p></li>
+								<li><p><b>#msg("template.notices.message.type"): </b><i>$resource.type</i></p></li>
+								<li><p><b>#msg("template.notices.message.link_api"): </b><i>$baseDo2DtoMapper.externalItemApiUrlDoToDto($resource.type, $resource.uri)</i></p></li>
+								<li><p><b>#msg("template.notices.message.link_management_application"): </b><i>$baseDo2DtoMapper.externalItemWebAppUrlDoToDto($resource.type, $resource.managementAppUrl)</i></p></li>
+							</ul>
+						
+						#end
+					</ul>
+				#end
+			</ul>
+		</ul>
+
+		<hr>
+	
+	</body>
+</html>

@@ -48,16 +48,18 @@ public class MailChannelServiceImpl implements MailChannelService {
             @Override
             public void prepare(MimeMessage mimeMessage) throws Exception {
                 // Mail configuration
-                MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+                MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true);
                 message.setSubject(notice.getSubject());
                 message.setTo(mailsTo);
                 message.setReplyTo(replyTo);
                 message.setFrom(noticesConfiguration.retrieveChannelMailUsername());
 
                 Locale locale = noticesConfiguration.retrieveLanguageDefaultLocale();
+                String organisation = noticesConfiguration.retrieveOrganisation();
 
                 // Mail data
                 Map model = new HashMap();
+                model.put("organisation", organisation);
                 model.put("notice", notice);
                 model.put("createdDate", CoreCommonUtil.transformDateTimeToISODateTimeLexicalRepresentation(notice.getCreatedDate()));
                 model.put("baseDo2DtoMapper", baseDo2DtoMapper);
@@ -69,12 +71,17 @@ public class MailChannelServiceImpl implements MailChannelService {
                     model.put("expirationDate", CoreCommonUtil.transformDateTimeToISODateTimeLexicalRepresentation(notice.getExpirationDate()));
                 }
 
-                String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, NoticesConstants.CHANNEL_MAIL_TEMPLATE_NOTIFICATION_PLAIN, "UTF-8", model);
-                message.setText(text, false); // Text Plain
+                String plainText = mergeTemplateIntoString(NoticesConstants.CHANNEL_MAIL_TEMPLATE_NOTIFICATION_PLAIN, model);
+                String htmlText = mergeTemplateIntoString(NoticesConstants.CHANNEL_MAIL_TEMPLATE_NOTIFICATION_HTML, model);
+                message.setText(plainText, htmlText);
             }
         };
 
         this.mailSender.send(preparator);
+    }
+
+    private String mergeTemplateIntoString(String template, Map<String, Object> model) {
+        return VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, template, "UTF-8", model);
     }
 
     private String getLocalisedNoticeType(Notice notice, Locale locale) {
