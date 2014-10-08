@@ -1,6 +1,7 @@
 package org.siemac.metamac.notices.core.channel.mail.serviceimpl;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.mail.internet.MimeMessage;
@@ -13,6 +14,7 @@ import org.siemac.metamac.core.common.mapper.BaseDo2DtoMapper;
 import org.siemac.metamac.core.common.util.CoreCommonUtil;
 import org.siemac.metamac.notices.core.conf.NoticesConfigurationService;
 import org.siemac.metamac.notices.core.constants.NoticesConstants;
+import org.siemac.metamac.notices.core.constants.NoticesMailTemplateConstants;
 import org.siemac.metamac.notices.core.notice.domain.Notice;
 import org.siemac.metamac.notices.core.notice.enume.domain.NoticeType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +32,6 @@ public class MailChannelServiceImpl implements MailChannelService {
 
     @Autowired
     private VelocityEngine              velocityEngine;
-
-    @Autowired
-    private LocaleUtil                  localeUtil;
 
     @Autowired
     private NoticesConfigurationService noticesConfiguration;
@@ -55,25 +54,33 @@ public class MailChannelServiceImpl implements MailChannelService {
                 message.setReplyTo(replyTo);
                 message.setFrom(noticesConfiguration.retrieveChannelMailUsername());
 
+                String bundleName = "i18n/messages-notices";
+                Locale locale = noticesConfiguration.retrieveLanguageDefaultLocale();
+
                 // Mail data
                 Map model = new HashMap();
                 model.put("notice", notice);
                 model.put("createdDate", CoreCommonUtil.transformDateTimeToISODateTimeLexicalRepresentation(notice.getCreatedDate()));
                 model.put("baseDo2DtoMapper", baseDo2DtoMapper);
-                model.put("messages", localeUtil);
-                model.put("locale", noticesConfiguration.retrieveLanguageDefaultLocale());
-                model.put("bundleName", "i18n/messages-notices");
+                model.put("messages", LocaleUtil.class);
+                model.put("locale", locale);
+                model.put("bundleName", bundleName);
+                model.put("noticeType", getLocalisedNoticeType(notice, bundleName, locale));
 
                 if (NoticeType.ANNOUNCEMENT.equals(notice.getNoticeType())) {
                     model.put("expirationDate", CoreCommonUtil.transformDateTimeToISODateTimeLexicalRepresentation(notice.getExpirationDate()));
                 }
 
-                String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, NoticesConstants.CHANNEL_MAIL_TEMPLATE_NOTIFICATION, "UTF-8", model);
+                String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, NoticesConstants.CHANNEL_MAIL_TEMPLATE_NOTIFICATION_PLAIN, "UTF-8", model);
                 message.setText(text, false); // Text Plain
             }
-
         };
 
         this.mailSender.send(preparator);
+    }
+
+    private String getLocalisedNoticeType(Notice notice, String bundleName, Locale locale) {
+        String code = NoticeType.ANNOUNCEMENT.equals(notice.getNoticeType()) ? NoticesMailTemplateConstants.NOTICE_TYPE_ANNOUNCEMENT : NoticesMailTemplateConstants.NOTICE_TYPE_NOTIFICATION;
+        return LocaleUtil.getLocalizedMessageFromBundle(bundleName, code, locale);
     }
 }

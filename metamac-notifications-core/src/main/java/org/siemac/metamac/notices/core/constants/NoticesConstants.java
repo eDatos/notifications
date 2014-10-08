@@ -2,8 +2,9 @@ package org.siemac.metamac.notices.core.constants;
 
 public class NoticesConstants {
 
-    public static final String SECURITY_APPLICATION_ID            = "GESTOR_AVISOS";
+    public static final String SECURITY_APPLICATION_ID                  = "GESTOR_AVISOS";
 
     // Mail channel
-    public static final String CHANNEL_MAIL_TEMPLATE_NOTIFICATION = "mail_templates/mail_notification.vm";
+    public static final String CHANNEL_MAIL_TEMPLATE_NOTIFICATION_PLAIN = "mail_templates/mail_notification_plain.vm";
+    public static final String CHANNEL_MAIL_TEMPLATE_NOTIFICATION_HTML  = "mail_templates/mail_notification_html.vm";
 }

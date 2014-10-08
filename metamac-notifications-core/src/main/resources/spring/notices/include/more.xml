@@ -42,7 +42,4 @@
        </property>
     </bean>
 
-    <bean id="localeUtil" class="org.siemac.metamac.core.common.lang.LocaleUtil">
-	</bean>
-
 </beans>

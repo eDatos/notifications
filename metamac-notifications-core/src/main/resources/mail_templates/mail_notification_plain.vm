@@ -6,7 +6,7 @@
 - #msg("template.notice.sending_user"):  ${notice.sendingUser}
 #end
 - #msg("template.notice.urn"): ${notice.urn}
-- #msg("template.notice.type"): ${notice.noticeType}
+- #msg("template.notice.type"): ${noticeType}
 #if( "$!expirationDate" != "" )
 - #msg("template.notice.expiration_date"): ${expirationDate}
 #end
