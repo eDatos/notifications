@@ -16,4 +16,8 @@
         <constructor-arg value="org.siemac.metamac.notices.core.common.domain.InternationalStringRepository" />
     </bean>
     
+    <bean id="statisticalOperationsInternalFacade" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="org.siemac.metamac.notices.rest.internal.invocation.StatisticalOperationsRestInternalFacade" />
+    </bean>
+    
 </beans>
