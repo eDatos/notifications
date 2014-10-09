@@ -15,6 +15,7 @@ import org.siemac.metamac.core.common.util.CoreCommonUtil;
 import org.siemac.metamac.notices.core.conf.NoticesConfigurationService;
 import org.siemac.metamac.notices.core.constants.NoticesConstants;
 import org.siemac.metamac.notices.core.constants.NoticesMessagesConstants;
+import org.siemac.metamac.notices.core.navigation.InternalWebApplicationNavigation;
 import org.siemac.metamac.notices.core.notice.domain.Notice;
 import org.siemac.metamac.notices.core.notice.enume.domain.NoticeType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +67,7 @@ public class MailChannelServiceImpl implements MailChannelService {
                 model.put("messages", LocaleUtil.class);
                 model.put("locale", locale);
                 model.put("noticeType", getLocalisedNoticeType(notice, locale));
+                model.put("noticeUrl", generateNoticeInternalApplicationUrl(notice.getUrn()));
 
                 if (NoticeType.ANNOUNCEMENT.equals(notice.getNoticeType())) {
                     model.put("expirationDate", CoreCommonUtil.transformDateTimeToISODateTimeLexicalRepresentation(notice.getExpirationDate()));
@@ -87,5 +89,10 @@ public class MailChannelServiceImpl implements MailChannelService {
     private String getLocalisedNoticeType(Notice notice, Locale locale) {
         String code = NoticeType.ANNOUNCEMENT.equals(notice.getNoticeType()) ? NoticesMessagesConstants.NOTICE_TYPE_ANNOUNCEMENT : NoticesMessagesConstants.NOTICE_TYPE_NOTIFICATION;
         return LocaleUtil.getMessageForCode(code, locale);
+    }
+
+    private String generateNoticeInternalApplicationUrl(String noticeUrn) throws MetamacException {
+        String internalWebApplicationUrlBase = noticesConfiguration.retrieveNoticesInternalWebApplicationUrlBase();
+        return InternalWebApplicationNavigation.buildNoticeUrl(internalWebApplicationUrlBase, noticeUrn);
     }
 }

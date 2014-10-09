@@ -8,7 +8,7 @@ ${organisation}
 #if( "$!notice.sendingUser" != "" )
 - #msg("template.notices.sending_user"):  ${notice.sendingUser}
 #end
-- #msg("template.notices.urn"): ${notice.urn}
+- #msg("template.notices.url"): ${noticeUrl}
 - #msg("template.notices.type"): ${noticeType}
 #if( "$!expirationDate" != "" )
 - #msg("template.notices.expiration_date"): ${expirationDate}

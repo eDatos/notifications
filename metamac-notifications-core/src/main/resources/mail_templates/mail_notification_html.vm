@@ -15,7 +15,7 @@
 			#if( "$!notice.sendingUser" != "" )
 				<li><p><b>#msg("template.notices.sending_user"): </b><i>${notice.sendingUser}</i></p></li>
 			#end
-			<li><p><b>#msg("template.notices.urn"): </b><i>${notice.urn}</i></p></li>
+			<li><p><b>#msg("template.notices.url"): </b><i>${noticeUrl}</i></p></li>
 			<li><p><b>#msg("template.notices.type"): </b><i>${noticeType}</i></p></li>
 			#if( "$!expirationDate" != "" )
 				<li><p><b>#msg("template.notices.expiration_date"): </b><i>${expirationDate}</i></p></li>
