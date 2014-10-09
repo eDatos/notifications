@@ -1,10 +1,13 @@
 package org.siemac.metamac.notices.core.channel.mail.serviceimpl;
 
-import java.io.InputStream;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import javax.mail.Message.RecipientType;
+import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
-import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.siemac.metamac.notices.core.NoticesBaseTest;
@@ -17,8 +20,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
-
-import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring/notices/applicationContext-test.xml", "classpath:/spring/notices/include/more.xml"})
@@ -34,14 +35,20 @@ public class MailChannelServiceTest extends NoticesBaseTest {
     public void testMailChannel() throws Exception {
         Notice notice = NoticeMockFactory.getNotification03WithResources();
 
-        mailChannelService.sendMail(getServiceContextAdministrador(), notice, new String[]{"count@domain.com"}, "count@domain.com");
+        mailChannelService.sendMail(getServiceContextAdministrador(), notice, new String[]{"mailTo@domain.com"}, "replyTo@domain.com");
 
         assertEquals(1, greenMail.getReceivedMessages().length);
         MimeMessage[] messages = greenMail.getReceivedMessages();
         assertEquals(1, messages.length);
 
-        InputStream responseExpected = MailChannelServiceTest.class.getResourceAsStream("/responses/email/notice.mail");
-        assertInputStream(responseExpected, IOUtils.toInputStream((String) messages[0].getContent()), false);
         assertEquals("Test subject", messages[0].getSubject());
+        assertEquals("replyTo@domain.com", ((InternetAddress) messages[0].getReplyTo()[0]).getAddress());
+        assertEquals("mailTo@domain.com", ((InternetAddress) messages[0].getRecipients(RecipientType.TO)[0]).getAddress());
+
+        Object content = messages[0].getContent();
+        assertTrue(content instanceof MimeMultipart);
+
+        MimeMultipart multiPart = (MimeMultipart) content;
+        assertEquals(1, multiPart.getCount());
     }
 }
