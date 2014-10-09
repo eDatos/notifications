@@ -1,5 +1,10 @@
 package org.siemac.metamac.rest.notices.v1_0.service;
 
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.reset;
+import static org.mockito.Mockito.when;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,11 +33,6 @@ import org.siemac.metamac.rest.common.test.utils.MetamacRestAsserts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
-
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.reset;
-import static org.mockito.Mockito.when;
 
 public abstract class NoticesRestInternalFacadeV10BaseTest extends MetamacRestBaseTest {
 
@@ -135,10 +135,9 @@ public abstract class NoticesRestInternalFacadeV10BaseTest extends MetamacRestBa
     }
 
     private void resetMocks() throws Exception {
-        noticesService = applicationContext.getBean(NoticesService.class);
+        noticesService = (NoticesService) applicationContext.getBean("noticesService");
         reset(noticesService);
 
         mockRetrieveNoticeByUrn();
     }
-
 }
