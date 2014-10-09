@@ -1,6 +1,6 @@
 package org.siemac.metamac.notices.web.client.gin;
 
-import org.siemac.metamac.notices.web.client.NameTokens;
+import org.siemac.metamac.notices.core.navigation.shared.NameTokens;
 import org.siemac.metamac.notices.web.client.NoticesLoggedInGatekeeper;
 import org.siemac.metamac.notices.web.client.NoticesPlaceManager;
 import org.siemac.metamac.notices.web.client.NoticesWebConstants;

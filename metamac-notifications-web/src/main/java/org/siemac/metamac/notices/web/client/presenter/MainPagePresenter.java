@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.siemac.metamac.notices.web.client.NameTokens;
+import org.siemac.metamac.notices.core.navigation.shared.NameTokens;
 import org.siemac.metamac.notices.web.client.events.SelectMainSectionEvent;
 import org.siemac.metamac.notices.web.client.events.SelectMainSectionEvent.SelectMainSectionEventHandler;
 import org.siemac.metamac.notices.web.client.view.handlers.MainPageUiHandlers;

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.siemac.metamac.core.common.util.shared.UrnUtils;
-import org.siemac.metamac.notices.web.client.NameTokens;
-import org.siemac.metamac.notices.web.client.PlaceRequestParams;
+import org.siemac.metamac.notices.core.navigation.shared.NameTokens;
+import org.siemac.metamac.notices.core.navigation.shared.PlaceRequestParams;
 import org.siemac.metamac.web.common.client.utils.CommonPlaceRequestUtils;
 
 import com.gwtplatform.mvp.client.proxy.PlaceManager;

@@ -1,6 +1,6 @@
 package org.siemac.metamac.notices.web.client.presenter;
 
-import org.siemac.metamac.notices.web.client.NameTokens;
+import org.siemac.metamac.notices.core.navigation.shared.NameTokens;
 import org.siemac.metamac.notices.web.client.view.handlers.UnauthorizedPageUiHandlers;
 
 import com.google.inject.Inject;

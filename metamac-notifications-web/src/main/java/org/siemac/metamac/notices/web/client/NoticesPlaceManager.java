@@ -1,5 +1,6 @@
 package org.siemac.metamac.notices.web.client;
 
+import org.siemac.metamac.notices.core.navigation.shared.NameTokens;
 import org.siemac.metamac.notices.web.client.gin.DefaultPlace;
 
 import com.google.inject.Inject;

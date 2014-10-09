@@ -2,7 +2,7 @@ package org.siemac.metamac.notices.web.client.presenter;
 
 import static org.siemac.metamac.notices.web.client.NoticesWeb.getConstants;
 
-import org.siemac.metamac.notices.web.client.NameTokens;
+import org.siemac.metamac.notices.core.navigation.shared.NameTokens;
 import org.siemac.metamac.notices.web.client.view.handlers.ErrorPageUiHandlers;
 
 import com.google.inject.Inject;

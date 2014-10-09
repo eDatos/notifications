@@ -7,5 +7,6 @@
 	<source path='security/shared' />
 	<source path='constants' />
 	<source path='dto' />
+	<source path='navigation/shared' />
 
 </module>

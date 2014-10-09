@@ -4,7 +4,7 @@ import static org.siemac.metamac.notices.web.client.NoticesWeb.getConstants;
 
 import org.siemac.metamac.core.common.util.shared.StringUtils;
 import org.siemac.metamac.notices.core.dto.NoticeDto;
-import org.siemac.metamac.notices.web.client.NameTokens;
+import org.siemac.metamac.notices.core.navigation.shared.NameTokens;
 import org.siemac.metamac.notices.web.client.NoticesLoggedInGatekeeper;
 import org.siemac.metamac.notices.web.client.NoticesWeb;
 import org.siemac.metamac.notices.web.client.enums.NoticesToolStripButtonEnum;
