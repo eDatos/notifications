@@ -3,4 +3,7 @@
 <properties>
 	<comment>Configurations</comment>
 
+	<entry key="metamac.organisation">ISTAC</entry>
+	<entry key="metamac.notices.web.internal">http://localhost:8080/metamac-notifications-web</entry>
+
 </properties>
