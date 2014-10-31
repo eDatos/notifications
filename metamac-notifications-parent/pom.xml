@@ -11,7 +11,7 @@
 
 	<groupId>org.siemac.metamac.metamac-notifications</groupId>
 	<artifactId>metamac-notifications-parent</artifactId>
-	<version>2.1.0</version>
+	<version>2.1.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>METAMAC :: NOTIFICATIONS :: PARENT</name>
 	<description>METAMAC :: NOTIFICATIONS :: PARENT</description>
@@ -42,10 +42,4 @@
 		<metamac-notifications.baseDir>${basedir}/..</metamac-notifications.baseDir>
 		<metamac-notifications.etcDir>${metamac-notifications.baseDir}/etc</metamac-notifications.etcDir>
 	</properties>
-
-  <scm>
-    <connection>scm:svn:http://svn.arte-consultores.com/svn/arte/istac/metamac/metamac-parent/tags/20141031-1205-v2.1.0/metamac-notifications-parent</connection>
-    <developerConnection>scm:svn:http://svn.arte-consultores.com/svn/arte/istac/metamac/metamac-parent/tags/20141031-1205-v2.1.0/metamac-notifications-parent</developerConnection>
-    <url>http://svn.arte-consultores.com/viewvc/arte/istac/metamac/metamac-parent/tags/20141031-1205-v2.1.0/metamac-notifications-parent</url>
-  </scm>
 </project>
