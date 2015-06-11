@@ -6,8 +6,13 @@
     <!-- Mail Channel -->
     <!-- FOR USE GREEN MAIL TEST -->
     <entry key="metamac.notices.channel.mail.host">localhost</entry>
-    <entry key="metamac.notices.channel.mail.port">3465</entry>
     <entry key="metamac.notices.channel.mail.username">user@server.com</entry>
-    <entry key="metamac.notices.channel.mail.password">pasword</entry>
+    <entry key="metamac.notices.channel.mail.password">Tyd0RD9stm8GEmfvTTeN2H+V5vaFXUoR</entry>
+    <!-- PARA SMTPS -->
+    <entry key="metamac.notices.channel.mail.port">3465</entry>
     <entry key="metamac.notices.channel.mail.protocol">smtps</entry>
+    
+    <!-- PARA SMTP -->
+<!--     <entry key="metamac.notices.channel.mail.port">3025</entry> -->
+<!--     <entry key="metamac.notices.channel.mail.protocol">smtp</entry> -->
 </properties>
