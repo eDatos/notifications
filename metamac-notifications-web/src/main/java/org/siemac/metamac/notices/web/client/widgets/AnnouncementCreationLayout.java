@@ -131,6 +131,7 @@ public class AnnouncementCreationLayout extends VLayout {
         messageItem.setTitleStyle("formTitle");
 
         CustomDateItem expirationDateItem = new CustomDateItem(NoticeDS.EXPIRATION_DATE, getConstants().noticeExpirationDate());
+        expirationDateItem.setRequired(true);
 
         form.setFields(subjectItem, messageItem, expirationDateItem);
     }
