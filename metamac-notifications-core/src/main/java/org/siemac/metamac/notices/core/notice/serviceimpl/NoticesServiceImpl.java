@@ -273,12 +273,15 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
 
     private String[] extractMailsTo(Notice notice) throws MetamacException {
         List<User> users = calculateReceiversOfMail(notice);
-
-        String[] mailsTo = new String[users.size()];
-        for (int i = 0; i < users.size(); i++) {
-            mailsTo[i] = users.get(i).getMail();
+        List<String> mailsTo = new ArrayList<String>();
+        
+        for (User user: users) {
+            if (!mailsTo.contains(user.getMail())) {
+                mailsTo.add(user.getMail());
+            }
         }
-        return mailsTo;
+        
+        return mailsTo.toArray(new String[mailsTo.size()]);
     }
 
     private String extractReplyTo(Notice notice) throws MetamacException {

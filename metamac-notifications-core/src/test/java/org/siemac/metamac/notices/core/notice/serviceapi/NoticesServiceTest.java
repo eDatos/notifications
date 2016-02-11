@@ -1,5 +1,8 @@
 package org.siemac.metamac.notices.core.notice.serviceapi;
 
+import javax.mail.Message.RecipientType;
+import javax.mail.internet.MimeMessage;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.siemac.metamac.notices.core.NoticesBaseTest;
@@ -19,6 +22,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -50,8 +54,20 @@ public class NoticesServiceTest extends NoticesBaseTest implements NoticesServic
     @Test
     public void testCreateNotice() throws Exception {
         Notice notice = NoticesDoMocks.mockNoticeWithoutResources();
-        Notice persitedNotice = noticeService.createNotice(getServiceContextWithoutPrincipal(), notice);
-        assertNotNull(persitedNotice);
+        Notice persistedNotice = noticeService.createNotice(getServiceContextWithoutPrincipal(), notice);
+        assertNotNull(persistedNotice);
+        
+        // Mocked users share email account, so we only have one recipient
+        MimeMessage[] messages = greenMail.getReceivedMessages();
+        // ... or so we think, even when only one person is selected to receive the mail
+        assertEquals(2, messages[0].getRecipients(RecipientType.TO).length);
+    }
+    
+    @Test
+    public void testCreateNoticeWithoutSendingUser() throws Exception {
+        Notice notice = NoticesDoMocks.mockNoticeWithoutResourcesNorSendingUser();
+        Notice persistedNotice = noticeService.createNotice(getServiceContextWithoutPrincipal(), notice);
+        assertNotNull(persistedNotice);
     }
 
     @Override

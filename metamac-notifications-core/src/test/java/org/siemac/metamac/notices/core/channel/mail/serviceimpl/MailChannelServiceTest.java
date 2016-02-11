@@ -37,7 +37,6 @@ public class MailChannelServiceTest extends NoticesBaseTest {
 
         mailChannelService.sendMail(getServiceContextAdministrador(), notice, new String[]{"mailTo@domain.com"}, "replyTo@domain.com");
 
-        assertEquals(1, greenMail.getReceivedMessages().length);
         MimeMessage[] messages = greenMail.getReceivedMessages();
         assertEquals(1, messages.length);
 
