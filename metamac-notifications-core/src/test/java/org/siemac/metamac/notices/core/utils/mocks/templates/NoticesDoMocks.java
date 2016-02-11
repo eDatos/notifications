@@ -48,6 +48,14 @@ public class NoticesDoMocks extends MetamacMocks {
 
         return notice;
     }
+    
+
+    public static Notice mockNoticeWithoutResourcesNorSendingUser() {
+        Notice notice = mockNoticeWithoutResources();
+        notice.setSendingUser(null);
+        
+        return notice;
+    }
 
     private static Notice buildNotice() {
         Notice notice = new Notice(mockString(6), mockSentence(4), NoticeType.NOTIFICATION);
@@ -324,5 +332,6 @@ public class NoticesDoMocks extends MetamacMocks {
         }
         return target;
     }
+
 
 }
