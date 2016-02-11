@@ -56,11 +56,6 @@ public class NoticesServiceTest extends NoticesBaseTest implements NoticesServic
         Notice notice = NoticesDoMocks.mockNoticeWithoutResources();
         Notice persistedNotice = noticeService.createNotice(getServiceContextWithoutPrincipal(), notice);
         assertNotNull(persistedNotice);
-        
-        // Mocked users share email account, so we only have one recipient
-        MimeMessage[] messages = greenMail.getReceivedMessages();
-        // ... or so we think, even when only one person is selected to receive the mail
-        assertEquals(2, messages[0].getRecipients(RecipientType.TO).length);
     }
     
     @Test
