@@ -104,7 +104,6 @@ public class NoticesServiceInvocationValidatorImpl {
     }
 
     private static void checkNoticeMetadata(Notice notice, List<MetamacExceptionItem> exceptions) {
-        NoticesValidationUtils.checkMetadataRequired(notice.getSendingUser(), ServiceExceptionParameters.NOTICE__SENDING_USER, exceptions);
         NoticesValidationUtils.checkMetadataRequired(notice.getNoticeType(), ServiceExceptionParameters.NOTICE__NOTICE_TYPE, exceptions);
         NoticesValidationUtils.checkMetadataRequired(notice.getSubject(), ServiceExceptionParameters.NOTICE__SUBJECT, exceptions);
         NoticesValidationUtils.checkMetadataRequired(notice.getMessages(), ServiceExceptionParameters.NOTICE__MESSAGES, exceptions);

@@ -52,7 +52,11 @@ public class MailChannelServiceImpl implements MailChannelService {
                 MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true);
                 message.setSubject(notice.getSubject());
                 message.setTo(mailsTo);
-                message.setReplyTo(replyTo);
+                
+                if (replyTo != null) {
+                    message.setReplyTo(replyTo);
+                }
+                
                 message.setFrom(noticesConfiguration.retrieveChannelMailUsername());
 
                 Locale locale = noticesConfiguration.retrieveLanguageDefaultLocale();

@@ -282,6 +282,10 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
     }
 
     private String extractReplyTo(Notice notice) throws MetamacException {
+        if (notice.getSendingUser() == null) {
+            return null;
+        }
+        
         String queryForFindUsers = NoticesServiceUtil.createQueryForFindUser(notice.getSendingUser());
 
         if (StringUtils.isEmpty(queryForFindUsers)) {
