@@ -52,6 +52,8 @@ public class CommonRest2DoMapperV10Impl implements CommonRest2DoMapperV10 {
             return externalItemRestStatisticalOperationToExternalItemDo(source, null);
         } else if (TypeExternalArtefactsEnumUtils.isExternalItemOfStatisticalResourcesApp(typeExternalItem)) {
             return externalItemRestStatisticalResourceToExternalItemDo(source, null);
+        } else if (TypeExternalArtefactsEnumUtils.isExternalItemOfIndicatorsApp(typeExternalItem)) {
+            return externalItemRestIndicatorToExternalItemDo(source, null);
         } else {
             throw new MetamacException(ServiceExceptionType.UNKNOWN, "Unknown type of external Item");
         }
@@ -144,6 +146,27 @@ public class CommonRest2DoMapperV10Impl implements CommonRest2DoMapperV10 {
 
     private String getStatisticalResourceInternalApiUrlBase() throws MetamacException {
         return configurationService.retrieveStatisticalResourcesInternalApiUrlBase();
+    }
+    
+    // -------------------------------------------------------------------
+    // EXTERNAL ITEM: INDICATORS
+    // -------------------------------------------------------------------
+
+    private ExternalItem externalItemRestIndicatorToExternalItemDo(ResourceInternal source, ExternalItem target) throws MetamacException {
+        target = resourceInternalToExternalItem(source, target);
+        if (target != null) {
+            target.setUri(CoreCommonUtil.externalItemUrlDtoToUrlDo(getIndicatorsInternalApiUrlBase(), source.getSelfLink().getHref()));
+            target.setManagementAppUrl(CoreCommonUtil.externalItemUrlDtoToUrlDo(getIndicatorsExternalWebUrlBase(), source.getManagementAppLink()));
+        }
+        return target;
+    }
+
+    private String getIndicatorsInternalApiUrlBase() throws MetamacException {
+        return configurationService.retrieveIndicatorsInternalApiUrlBase();
+    }
+
+    private String getIndicatorsExternalWebUrlBase() throws MetamacException {
+        return configurationService.retrieveIndicatorsExternalWebApplicationUrlBase();
     }
 
     // -------------------------------------------------------------------
