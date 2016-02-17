@@ -156,7 +156,7 @@ public class CommonRest2DoMapperV10Impl implements CommonRest2DoMapperV10 {
         target = resourceInternalToExternalItem(source, target);
         if (target != null) {
             target.setUri(CoreCommonUtil.externalItemUrlDtoToUrlDo(getIndicatorsInternalApiUrlBase(), source.getSelfLink().getHref()));
-            target.setManagementAppUrl(CoreCommonUtil.externalItemUrlDtoToUrlDo(getIndicatorsExternalWebUrlBase(), source.getManagementAppLink()));
+            target.setManagementAppUrl(CoreCommonUtil.externalItemUrlDtoToUrlDo(getIndicatorsInternalWebUrlBase(), source.getManagementAppLink()));
         }
         return target;
     }
@@ -165,8 +165,8 @@ public class CommonRest2DoMapperV10Impl implements CommonRest2DoMapperV10 {
         return configurationService.retrieveIndicatorsInternalApiUrlBase();
     }
 
-    private String getIndicatorsExternalWebUrlBase() throws MetamacException {
-        return configurationService.retrieveIndicatorsExternalWebApplicationUrlBase();
+    private String getIndicatorsInternalWebUrlBase() throws MetamacException {
+        return configurationService.retrieveIndicatorsInternalWebApplicationUrlBase();
     }
 
     // -------------------------------------------------------------------
