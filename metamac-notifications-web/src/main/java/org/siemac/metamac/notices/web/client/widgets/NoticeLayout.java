@@ -10,6 +10,7 @@ import org.siemac.metamac.notices.core.notice.enume.domain.NoticeType;
 import org.siemac.metamac.notices.web.client.model.ds.NoticeDS;
 import org.siemac.metamac.notices.web.client.utils.AccessControlValues;
 import org.siemac.metamac.notices.web.client.utils.CommonUtils;
+import org.siemac.metamac.notices.web.client.utils.RecordUtils;
 import org.siemac.metamac.web.common.client.utils.DateUtils;
 import org.siemac.metamac.web.common.client.utils.ExternalItemUtils;
 import org.siemac.metamac.web.common.client.utils.FormItemUtils;
@@ -22,13 +23,15 @@ import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.FormItemIfFunction;
 import com.smartgwt.client.widgets.form.fields.FormItem;
 import com.smartgwt.client.widgets.layout.VLayout;
+import com.smartgwt.client.widgets.toolbar.ToolStrip;
 
 public class NoticeLayout extends VLayout {
 
-    private MainFormLayout mainFormLayout;
-    private DynamicForm    form;
-    private Canvas         messageHtmlCanvas;
-
+    private MainFormLayout   mainFormLayout;
+    private DynamicForm      form;
+    private Canvas           messageHtmlCanvas;
+    private NoticesToolStrip noticeToolStrip;
+   
     public NoticeLayout() {
         setMargin(10);
         setMembersMargin(10);
@@ -51,7 +54,13 @@ public class NoticeLayout extends VLayout {
         setMessage(notice);
 
         form.markForRedraw();
+        
+        updateToolStripButtonsVisibility(notice);
         show();
+    }
+
+    public String getNoticeUrn() {
+        return form.getValueAsString(NoticeDS.URN);
     }
 
     private void setMessage(NoticeDto notice) {
@@ -66,6 +75,9 @@ public class NoticeLayout extends VLayout {
         mainFormLayout = new MainFormLayout(false, false);
         createForm();
         mainFormLayout.addViewCanvas(form);
+        
+        
+        extendToolStrip(mainFormLayout.getToolStrip());
 
         messageHtmlCanvas = new Canvas();
         messageHtmlCanvas.setOverflow(Overflow.VISIBLE);
@@ -75,6 +87,11 @@ public class NoticeLayout extends VLayout {
         mainFormLayout.addViewCanvas(messageHtmlCanvas);
 
         addMember(mainFormLayout);
+    }
+
+    private void extendToolStrip(ToolStrip toolStrip) {        
+        noticeToolStrip = new NoticesToolStrip();
+        toolStrip.addChild(noticeToolStrip);
     }
 
     private void createForm() {
@@ -141,4 +158,19 @@ public class NoticeLayout extends VLayout {
         result.append("</u>").append("</p>");
         return result.toString();
     }
+    
+    private void updateToolStripButtonsVisibility(NoticeDto notice) {
+        getNoticeToolStrip().hideButtons();
+        boolean noticeRead = RecordUtils.getNoticeRecord(notice).getReceiverAcknowledge();
+        if (noticeRead) {
+            getNoticeToolStrip().showMarkAsUnreadButton();
+        } else {
+            getNoticeToolStrip().showMarkAsReadButton();
+        }
+    }
+    
+    public NoticesToolStrip getNoticeToolStrip() {
+        return noticeToolStrip;
+    }
+
 }

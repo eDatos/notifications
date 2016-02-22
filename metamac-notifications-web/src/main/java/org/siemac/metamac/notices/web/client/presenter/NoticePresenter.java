@@ -2,6 +2,7 @@ package org.siemac.metamac.notices.web.client.presenter;
 
 import static org.siemac.metamac.notices.web.client.NoticesWeb.getConstants;
 
+import java.util.Arrays;
 import org.siemac.metamac.core.common.util.shared.StringUtils;
 import org.siemac.metamac.notices.core.dto.NoticeDto;
 import org.siemac.metamac.notices.core.navigation.shared.NameTokens;
@@ -17,6 +18,8 @@ import org.siemac.metamac.notices.web.client.utils.PlaceRequestUtils;
 import org.siemac.metamac.notices.web.client.view.handlers.NoticeUiHandlers;
 import org.siemac.metamac.notices.web.shared.GetNoticeAction;
 import org.siemac.metamac.notices.web.shared.GetNoticeResult;
+import org.siemac.metamac.notices.web.shared.UpdateNoticeRecieverAcknowledgeAction;
+import org.siemac.metamac.notices.web.shared.UpdateNoticeRecieverAcknowledgeResult;
 import org.siemac.metamac.web.common.client.utils.WaitingAsyncCallbackHandlingError;
 
 import com.google.gwt.event.shared.GwtEvent.Type;
@@ -111,6 +114,31 @@ public class NoticePresenter extends Presenter<NoticePresenter.NoticeView, Notic
             public void onWaitSuccess(GetNoticeResult result) {
                 getView().setNotice(result.getUpdatedNotice());
                 MarkNoticeAsReadEvent.fire(NoticePresenter.this, urn);
+            }
+        });
+    }
+
+    @Override
+    public void markAsRead(String noticeUrn) {
+        updateNoticeReceiverStatus(noticeUrn, true);  
+        
+    }
+
+    @Override
+    public void markAsUnread(String noticeUrn) {
+        updateNoticeReceiverStatus(noticeUrn, false);
+    }   
+    
+    private void updateNoticeReceiverStatus(String noticeUrn, boolean receiverAcknowledgeStatus) {
+        // Nothing else is needed on UpdateNoticeRecieverAcknowledge and this way we can reuse the existing method
+        NoticeDto notice = new NoticeDto();
+        notice.setUrn(noticeUrn);
+        
+        dispatcher.execute(new UpdateNoticeRecieverAcknowledgeAction(Arrays.asList(notice), receiverAcknowledgeStatus), new WaitingAsyncCallbackHandlingError<UpdateNoticeRecieverAcknowledgeResult>(this) {
+
+            @Override
+            public void onWaitSuccess(UpdateNoticeRecieverAcknowledgeResult result) {
+                placeManager.revealPlaceHierarchy(PlaceRequestUtils.buildAbsoluteNoticesPlaceRequest());     
             }
         });
     }

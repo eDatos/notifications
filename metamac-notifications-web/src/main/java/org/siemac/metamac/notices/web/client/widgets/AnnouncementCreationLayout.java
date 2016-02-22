@@ -1,5 +1,6 @@
 package org.siemac.metamac.notices.web.client.widgets;
 
+import static org.siemac.metamac.web.common.client.resources.GlobalResources.RESOURCE;
 import static org.siemac.metamac.notices.web.client.NoticesWeb.getConstants;
 
 import java.util.List;
@@ -43,6 +44,7 @@ import com.smartgwt.client.widgets.form.validator.CustomValidator;
 import com.smartgwt.client.widgets.layout.VLayout;
 import com.smartgwt.client.widgets.toolbar.ToolStripButton;
 
+
 public class AnnouncementCreationLayout extends VLayout {
 
     private MainFormLayout                 mainFormLayout;
@@ -64,7 +66,7 @@ public class AnnouncementCreationLayout extends VLayout {
         mainFormLayout.getSave().setVisible(false);
         mainFormLayout.getCancelToolStripButton().setVisible(false);
 
-        sendButton = new ToolStripButton(getConstants().actionCreate());
+        sendButton = new ToolStripButton(getConstants().actionCreate(), RESOURCE.sendMail().getURL());
         mainFormLayout.getToolStrip().addButton(sendButton);
 
         createReceiversForm();
@@ -161,7 +163,9 @@ public class AnnouncementCreationLayout extends VLayout {
     }
 
     public boolean validate() {
-        return receiversForm.validate(false) && form.validate(false);
+        boolean receiversFormValidation = receiversForm.validate(false);
+        boolean formValidation = form.validate(false);
+        return receiversFormValidation && formValidation;
     }
 
     public void setUiHandlers(AnnouncementCreationUiHandlers uiHandlers) {

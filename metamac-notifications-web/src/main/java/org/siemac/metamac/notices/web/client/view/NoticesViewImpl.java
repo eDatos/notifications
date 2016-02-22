@@ -161,21 +161,22 @@ public class NoticesViewImpl extends ViewWithUiHandlers<NoticesUiHandlers> imple
     private void updateToolStripButtonsVisibility(ListGridRecord[] selectedRecords) {
         toolStrip.hideButtons();
         if (selectedRecords != null && selectedRecords.length > 0) {
-            boolean allNoticesRead = true;
-            boolean allNoticesUnread = true;
+            boolean someNoticesRead = false;
+            boolean someNoticesUnread = false;
             for (ListGridRecord record : selectedRecords) {
                 if (record instanceof NoticeRecord) {
                     boolean noticeRead = ((NoticeRecord) record).getReceiverAcknowledge();
                     if (noticeRead) {
-                        allNoticesUnread = false;
+                        someNoticesRead = true;
                     } else {
-                        allNoticesRead = false;
+                        someNoticesUnread = true;
                     }
                 }
             }
-            if (allNoticesRead) {
+            if (someNoticesRead) {
                 toolStrip.showMarkAsUnreadButton();
-            } else if (allNoticesUnread) {
+            } 
+            if (someNoticesUnread) {
                 toolStrip.showMarkAsReadButton();
             }
         }

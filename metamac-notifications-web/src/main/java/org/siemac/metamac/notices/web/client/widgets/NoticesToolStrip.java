@@ -1,5 +1,5 @@
 package org.siemac.metamac.notices.web.client.widgets;
-
+import static org.siemac.metamac.web.common.client.resources.GlobalResources.RESOURCE;
 import static org.siemac.metamac.notices.web.client.NoticesWeb.getConstants;
 
 import org.siemac.metamac.notices.web.client.utils.ClientSecurityUtils;
@@ -16,11 +16,11 @@ public class NoticesToolStrip extends ToolStrip {
     public NoticesToolStrip() {
         setWidth100();
 
-        markAsReadButton = new ToolStripButton(getConstants().actionMarkAsRead());
+        markAsReadButton = new ToolStripButton(getConstants().actionMarkAsRead(), RESOURCE.markAsRead().getURL());
         markAsReadButton.setVisible(false);
         addButton(markAsReadButton);
 
-        markAsUnreadButton = new ToolStripButton(getConstants().actionMarkAsUnread());
+        markAsUnreadButton = new ToolStripButton(getConstants().actionMarkAsUnread(), RESOURCE.markAsUnread().getURL());
         markAsUnreadButton.setVisible(false);
         addButton(markAsUnreadButton);
     }
