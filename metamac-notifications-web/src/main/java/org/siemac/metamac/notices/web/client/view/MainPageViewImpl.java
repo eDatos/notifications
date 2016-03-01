@@ -6,11 +6,12 @@ import org.siemac.metamac.notices.web.client.presenter.MainPagePresenter;
 import org.siemac.metamac.notices.web.client.view.handlers.MainPageUiHandlers;
 import org.siemac.metamac.sso.client.MetamacPrincipal;
 import org.siemac.metamac.web.common.client.enums.MessageTypeEnum;
+import org.siemac.metamac.web.common.client.utils.ApplicationOrganisation;
 import org.siemac.metamac.web.common.client.widgets.BreadCrumbsPanel;
+import org.siemac.metamac.web.common.client.widgets.FooterLayout;
 import org.siemac.metamac.web.common.client.widgets.MasterHead;
 import org.siemac.metamac.web.common.client.widgets.MessagePanel;
 import org.siemac.metamac.web.common.client.widgets.MetamacNavBar;
-import org.siemac.metamac.web.common.client.widgets.VersionFooter;
 import org.siemac.metamac.web.common.client.widgets.WaitPopup;
 
 import com.google.gwt.user.client.Window;
@@ -39,7 +40,7 @@ public class MainPageViewImpl extends ViewWithUiHandlers<MainPageUiHandlers> imp
     private VLayout                panel;
     private VLayout                northLayout;
     private HLayout                southLayout;
-    private VLayout                footerLayout;
+    private FooterLayout           footerLayout;
 
     @Inject
     public MainPageViewImpl(MasterHead masterHead, BreadCrumbsPanel breadCrumbsPanel, MessagePanel messagePanel) {
@@ -77,9 +78,7 @@ public class MainPageViewImpl extends ViewWithUiHandlers<MainPageUiHandlers> imp
         southLayout = new HLayout();
         southLayout.setHeight100();
 
-        footerLayout = new VLayout();
-        footerLayout.addMember(this.messagePanel);
-        footerLayout.addMember(new VersionFooter(NoticesWeb.getProjectVersion()));
+        footerLayout = new FooterLayout(this.messagePanel, ApplicationOrganisation.getCurrentOrganisation(), NoticesWeb.getProjectVersion());
 
         // Set user name
         masterHead.getUserNameLabel().setContents(getUserName());
