@@ -5,7 +5,7 @@ import org.siemac.metamac.notices.web.server.handlers.GetAccessControlRolesAndAp
 import org.siemac.metamac.notices.web.server.handlers.GetNoticeActionHandler;
 import org.siemac.metamac.notices.web.server.handlers.GetNoticesActionHandler;
 import org.siemac.metamac.notices.web.server.handlers.GetStatisticalOperationsActionHandler;
-import org.siemac.metamac.notices.web.server.handlers.GetUserGuideUrlActionHandler;
+import org.siemac.metamac.notices.web.server.handlers.GetHelpUrlActionHandler;
 import org.siemac.metamac.notices.web.server.handlers.UpdateNoticeRecieverAcknowledgeActionHandler;
 import org.siemac.metamac.notices.web.server.handlers.ValidateTicketActionHandler;
 import org.siemac.metamac.notices.web.shared.CreateNoticeAction;
@@ -13,7 +13,7 @@ import org.siemac.metamac.notices.web.shared.GetAccessControlRolesAndAppsAction;
 import org.siemac.metamac.notices.web.shared.GetNoticeAction;
 import org.siemac.metamac.notices.web.shared.GetNoticesAction;
 import org.siemac.metamac.notices.web.shared.GetStatisticalOperationsAction;
-import org.siemac.metamac.notices.web.shared.GetUserGuideUrlAction;
+import org.siemac.metamac.notices.web.shared.GetHelpUrlAction;
 import org.siemac.metamac.notices.web.shared.UpdateNoticeRecieverAcknowledgeAction;
 import org.siemac.metamac.web.common.server.handlers.CloseSessionActionHandler;
 import org.siemac.metamac.web.common.server.handlers.GetLoginPageUrlActionHandler;
@@ -54,7 +54,7 @@ public class ServerModule extends HandlerModule {
         bindHandler(GetNavigationBarUrlAction.class, GetNavigationBarUrlActionHandler.class);
 
         bindHandler(LoadConfigurationPropertiesAction.class, LoadConfigurationPropertiesActionHandler.class);
-        bindHandler(GetUserGuideUrlAction.class, GetUserGuideUrlActionHandler.class);
+        bindHandler(GetHelpUrlAction.class, GetHelpUrlActionHandler.class);
 
         // This action should be removed to use CAS authentication
         bindHandler(MockCASUserAction.class, MockCASUserActionHandler.class);

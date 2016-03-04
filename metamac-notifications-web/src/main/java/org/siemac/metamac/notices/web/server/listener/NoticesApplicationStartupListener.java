@@ -26,7 +26,7 @@ public class NoticesApplicationStartupListener extends InternalApplicationStartu
 
     @Override
     public void checkOtherModuleProperties() {
-        checkRequiredProperty(NoticesConfigurationConstants.USER_GUIDE_FILE_NAME);
+        checkRequiredProperty(NoticesConfigurationConstants.HELP_URL);
     }
 
     @Override

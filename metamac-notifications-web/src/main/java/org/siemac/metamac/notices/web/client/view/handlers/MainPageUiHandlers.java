@@ -9,5 +9,5 @@ public interface MainPageUiHandlers extends UiHandlers {
     void onNavigationPaneSectionHeaderClicked(String name);
     void onNavigationPaneSectionClicked(String name);
 
-    void downloadUserGuide();
+    void openHelpUrl();
 }

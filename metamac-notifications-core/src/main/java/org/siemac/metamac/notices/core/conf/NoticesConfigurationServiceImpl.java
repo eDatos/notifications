@@ -7,8 +7,8 @@ import org.siemac.metamac.notices.core.constants.NoticesConfigurationConstants;
 public class NoticesConfigurationServiceImpl extends ConfigurationServiceImpl implements NoticesConfigurationService {
 
     @Override
-    public String retrieveUserGuideFileName() throws MetamacException {
-        return retrieveProperty(NoticesConfigurationConstants.USER_GUIDE_FILE_NAME);
+    public String retrieveHelpUrl() throws MetamacException {
+        return retrieveProperty(NoticesConfigurationConstants.HELP_URL);
     }
 
     @Override
