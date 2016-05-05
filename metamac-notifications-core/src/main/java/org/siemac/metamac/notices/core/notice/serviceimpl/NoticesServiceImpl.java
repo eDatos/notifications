@@ -21,7 +21,6 @@ import org.siemac.metamac.notices.core.invocation.service.AccessControlRestInter
 import org.siemac.metamac.notices.core.notice.domain.Notice;
 import org.siemac.metamac.notices.core.notice.domain.Receiver;
 import org.siemac.metamac.notices.core.notice.enume.domain.NoticeType;
-import org.siemac.metamac.notices.core.notice.exception.NoticeNotFoundException;
 import org.siemac.metamac.notices.core.notice.serviceapi.NoticesService;
 import org.siemac.metamac.notices.core.notice.serviceapi.validators.NoticesServiceInvocationValidator;
 import org.siemac.metamac.notices.core.notice.serviceimpl.util.NoticesServiceUtil;
@@ -57,19 +56,6 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
     }
 
     @Override
-    public Notice findNoticeById(ServiceContext ctx, Long id) throws MetamacException {
-
-        // Validations
-        noticeServiceInvocationValidator.checkFindNoticeById(ctx, id);
-
-        try {
-            return getNoticeRepository().findById(id);
-        } catch (NoticeNotFoundException e) {
-            logger.error(ServiceExceptionType.NOTICE_NOT_FOUND.getCode(), e);
-            throw new MetamacException(ServiceExceptionType.NOTICE_NOT_FOUND, id);
-        }
-    }
-    @Override
     public Notice retrieveNoticeByUrn(ServiceContext ctx, String urn) throws MetamacException {
 
         // Validations
@@ -102,15 +88,6 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
     }
 
     @Override
-    public Notice updateNotice(ServiceContext ctx, Notice notice) throws MetamacException {
-
-        // Validations
-        noticeServiceInvocationValidator.checkUpdateNotice(ctx, notice);
-
-        return getNoticeRepository().save(notice);
-    }
-
-    @Override
     public void markNoticeForReceiverAsRead(ServiceContext ctx, String noticeUrn, String username) throws MetamacException {
         // Validations
         noticeServiceInvocationValidator.checkMarkNoticeForReceiverAsRead(ctx, noticeUrn, username);
@@ -135,25 +112,6 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
     }
 
     @Override
-    public void deleteNotice(ServiceContext ctx, Long id) throws MetamacException {
-
-        // Validations
-        noticeServiceInvocationValidator.checkDeleteNotice(ctx, id);
-
-        Notice notice = findNoticeById(ctx, id);
-        getNoticeRepository().delete(notice);
-    }
-
-    @Override
-    public List<Notice> findAllNotice(ServiceContext ctx) throws MetamacException {
-
-        // Validations
-        noticeServiceInvocationValidator.checkFindAllNotice(ctx);
-
-        return getNoticeRepository().findAll();
-    }
-
-    @Override
     public PagedResult<Notice> findNoticeByCondition(ServiceContext ctx, List<ConditionalCriteria> condition, PagingParameter pagingParameter) throws MetamacException {
 
         // Validations
@@ -162,14 +120,6 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
         initCriteriaConditions(condition, Notice.class);
 
         return getNoticeRepository().findByCondition(condition, pagingParameter);
-    }
-
-    @Override
-    public List<Notice> findUserNotices(ServiceContext ctx, String receiverUsername) throws MetamacException {
-        // Validations
-        noticeServiceInvocationValidator.checkFindUserNotices(ctx, receiverUsername);
-
-        return getNoticeRepository().findByReceiverUsername(receiverUsername);
     }
 
     @Override
@@ -274,13 +224,13 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
     private String[] extractMailsTo(Notice notice) throws MetamacException {
         List<User> users = calculateReceiversOfMail(notice);
         List<String> mailsTo = new ArrayList<String>();
-        
-        for (User user: users) {
+
+        for (User user : users) {
             if (!mailsTo.contains(user.getMail())) {
                 mailsTo.add(user.getMail());
             }
         }
-        
+
         return mailsTo.toArray(new String[mailsTo.size()]);
     }
 
@@ -288,7 +238,7 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
         if (notice.getSendingUser() == null) {
             return null;
         }
-        
+
         String queryForFindUsers = NoticesServiceUtil.createQueryForFindUser(notice.getSendingUser());
 
         if (StringUtils.isEmpty(queryForFindUsers)) {

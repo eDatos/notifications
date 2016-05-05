@@ -1,8 +1,5 @@
 package org.siemac.metamac.notices.core.notice.serviceapi;
 
-import javax.mail.Message.RecipientType;
-import javax.mail.internet.MimeMessage;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.siemac.metamac.notices.core.NoticesBaseTest;
@@ -22,7 +19,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -45,45 +41,17 @@ public class NoticesServiceTest extends NoticesBaseTest implements NoticesServic
 
     @Override
     @Test
-    public void testFindNoticeById() throws Exception {
-        // TODO: Implement (METAMAC-2147)
-
-    }
-
-    @Override
-    @Test
     public void testCreateNotice() throws Exception {
         Notice notice = NoticesDoMocks.mockNoticeWithoutResources();
         Notice persistedNotice = noticeService.createNotice(getServiceContextWithoutPrincipal(), notice);
         assertNotNull(persistedNotice);
     }
-    
+
     @Test
     public void testCreateNoticeWithoutSendingUser() throws Exception {
         Notice notice = NoticesDoMocks.mockNoticeWithoutResourcesNorSendingUser();
         Notice persistedNotice = noticeService.createNotice(getServiceContextWithoutPrincipal(), notice);
         assertNotNull(persistedNotice);
-    }
-
-    @Override
-    @Test
-    public void testUpdateNotice() throws Exception {
-        // FIXME: No se testea porque updateNotice no se está usando. Si cuando el core esté estable sigue sin usarse, borrar
-        // método del servicio y borrar test
-    }
-
-    @Override
-    @Test
-    public void testDeleteNotice() throws Exception {
-        // FIXME: No se testea porque updateNotice no se está usando. Si cuando el core esté estable sigue sin usarse, borrar
-        // método del servicio y borrar test
-    }
-
-    @Override
-    @Test
-    public void testFindAllNotice() throws Exception {
-        // TODO: Implement (METAMAC-2147)
-
     }
 
     @Override
@@ -98,12 +66,6 @@ public class NoticesServiceTest extends NoticesBaseTest implements NoticesServic
     public void testRetrieveNoticeByUrn() throws Exception {
         // TODO: Implement (METAMAC-2147)
 
-    }
-
-    @Override
-    @Test
-    public void testFindUserNotices() throws Exception {
-        // TODO: Implement (METAMAC-2147)
     }
 
     @Override

@@ -31,14 +31,10 @@ Application Notices {
 			> @ReceiverRepository
 			
 			// Notices
-			@Notice findNoticeById(Long id) throws MetamacException;
+			
 			@Notice retrieveNoticeByUrn(String urn) throws MetamacException;
 			@Notice createNotice(@Notice notice) throws MetamacException;
-    		@Notice updateNotice(@Notice notice) throws MetamacException;
-    		deleteNotice(Long id) throws MetamacException;
-    		List<@Notice> findAllNotice throws MetamacException;
     		PagedResult<@Notice> findNoticeByCondition(List<ConditionalCriteria> condition, PagingParameter pagingParameter) throws MetamacException;
-    		List<@Notice> findUserNotices(String receiverUsername) throws MetamacException;
     		markNoticeForReceiverAsRead(String noticeUrn, String username) throws MetamacException;
     		markNoticeForReceiverAsUnread(String noticeUrn, String username) throws MetamacException;
     		
