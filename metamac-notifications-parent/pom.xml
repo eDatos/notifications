@@ -11,7 +11,7 @@
 
 	<groupId>org.siemac.metamac.metamac-notifications</groupId>
 	<artifactId>metamac-notifications-parent</artifactId>
-	<version>2.3.1-SNAPSHOT</version>
+	<version>3.0.0</version>
 	<packaging>pom</packaging>
 	<name>METAMAC :: NOTIFICATIONS :: PARENT</name>
 	<description>METAMAC :: NOTIFICATIONS :: PARENT</description>
@@ -42,4 +42,8 @@
 		<metamac-notifications.baseDir>${basedir}/..</metamac-notifications.baseDir>
 		<metamac-notifications.etcDir>${metamac-notifications.baseDir}/etc</metamac-notifications.etcDir>
 	</properties>
+
+  <scm>
+    <tag>20160926-1457-v3.0.0</tag>
+  </scm>
 </project>
