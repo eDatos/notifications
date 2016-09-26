@@ -13,8 +13,8 @@
     <name>METAMAC :: NOTIFICATIONS</name>
 
     <scm>
-        <connection>scm:svn:http://svn.arte-consultores.com/svn/arte/istac/metamac/metamac-notifications/trunk/</connection>
-        <developerConnection>scm:svn:http://svn.arte-consultores.com/svn/arte/istac/metamac/metamac-notifications/trunk/</developerConnection>
+        <connection>scm:git:http://git.arte-consultores.com/istac/metamac-notifications</connection>
+        <developerConnection>scm:git:http://git.arte-consultores.com/istac/metamac-notifications</developerConnection>
         <url>http://git.arte-consultores.com/istac/metamac-notifications</url>
     </scm>
 
