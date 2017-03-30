@@ -66,7 +66,7 @@ public class NoticeRecord extends ListGridRecord {
     }
 
     public void setCreationDate(Date value) {
-        setAttribute(NoticeDS.CREATION_DATE, DateUtils.getFormattedDate(value));
+        setAttribute(NoticeDS.CREATION_DATE, DateUtils.getFormattedDateTime(value));
     }
 
     public void setNoticeDto(NoticeDto value) {

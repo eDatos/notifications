@@ -50,7 +50,7 @@ public class NoticeLayout extends VLayout {
         form.setValue(NoticeDS.EXPIRATION_DATE, DateUtils.getFormattedDate(notice.getExpirationDate()));
         form.setValue(NoticeDS.TYPE, CommonUtils.getNoticeTypeName(notice.getType()));
         form.setValue(NoticeDS.TYPE_ENUM, notice.getType().name());
-        form.setValue(NoticeDS.CREATION_DATE, DateUtils.getFormattedDate(notice.getCreationDate()));
+        form.setValue(NoticeDS.CREATION_DATE, DateUtils.getFormattedDateTime(notice.getCreationDate()));
         setMessage(notice);
 
         form.markForRedraw();
