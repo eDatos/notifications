@@ -24,8 +24,10 @@
 			<li><p><b>#msg("template.notices.messages"): </b></p></li>
 			<ul>
 				#foreach( $item in ${notice.messages} )
-	
-					<li><p>$item.text</p></li>
+
+					#foreach( $line in $item.text.split("\n") )
+						<li><p>$line</p></li>
+					#end
 	
 					<ul>
 						#foreach( $resource in ${item.resources} )
