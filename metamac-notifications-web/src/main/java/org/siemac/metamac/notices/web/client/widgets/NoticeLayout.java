@@ -146,7 +146,9 @@ public class NoticeLayout extends VLayout {
 
     private String buildMessage(MessageDto messageDto) {
         StringBuilder result = new StringBuilder();
-        result.append("<p>").append(messageDto.getText()).append("</p>");
+        for (String textLine : messageDto.getText().split("\n")) {
+            result.append("<p>").append(textLine).append("</p>");
+        }
         result.append("<p>").append("<ul>");
         for (ExternalItemDto externalItemDto : messageDto.getResources()) {
             result.append("<li>");
@@ -158,7 +160,7 @@ public class NoticeLayout extends VLayout {
         result.append("</u>").append("</p>");
         return result.toString();
     }
-    
+
     private void updateToolStripButtonsVisibility(NoticeDto notice) {
         getNoticeToolStrip().hideButtons();
         boolean noticeRead = RecordUtils.getNoticeRecord(notice).getReceiverAcknowledge();

@@ -16,7 +16,9 @@ ${organisation}
 
 - #msg("template.notices.messages"):
 #foreach( $item in ${notice.messages} )
-	· $item.text
+	#foreach( $line in $item.text.split("\n") )
+		· $line
+	#end
 #foreach( $resource in ${item.resources} )
 #if( "$!resource.title.getLocalisedLabel(${locale.language})" != "" )
 		- #msg("template.notices.message.title"): $resource.title.getLocalisedLabel(${locale.language})
