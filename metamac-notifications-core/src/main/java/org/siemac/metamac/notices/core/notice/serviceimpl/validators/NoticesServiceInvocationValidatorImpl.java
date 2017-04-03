@@ -71,6 +71,10 @@ public class NoticesServiceInvocationValidatorImpl {
         NoticesValidationUtils.checkParameterRequired(noticeUrn, ServiceExceptionParameters.NOTICE__URN, exceptions);
     }
 
+    public static void checkCalculateReceiversOfAccessControl(Notice notice, List<org.siemac.metamac.core.common.exception.MetamacExceptionItem> exceptions) {
+        NoticesValidationUtils.checkParameterRequired(notice, ServiceExceptionParameters.NOTICE, exceptions);
+    }
+
     // ------------------------------------------------------------------------
     // PRIVATE METHODS
     // ------------------------------------------------------------------------

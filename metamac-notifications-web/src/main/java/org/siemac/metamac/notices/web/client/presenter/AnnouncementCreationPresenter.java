@@ -96,7 +96,11 @@ public class AnnouncementCreationPresenter extends Presenter<AnnouncementCreatio
 
             @Override
             public void onWaitSuccess(CreateNoticeResult result) {
-                fireSuccessMessage(NoticesWeb.getMessages().announcementCreated());
+                if (result.getNoticeCreationResultDto().getReceiversUsernamesWithError().isEmpty()) {
+                    fireSuccessMessage(NoticesWeb.getMessages().announcementCreated());
+                } else {
+                    fireWarningMessageWithError(NoticesWeb.getMessages().announcementCreatedButErrorInReceivers(), null);
+                }
                 placeManager.revealPlaceHierarchy(PlaceRequestUtils.buildAbsoluteNoticesPlaceRequest());
             }
         });

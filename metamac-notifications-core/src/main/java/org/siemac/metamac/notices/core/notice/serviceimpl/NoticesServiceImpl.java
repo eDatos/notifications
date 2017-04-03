@@ -19,6 +19,7 @@ import org.siemac.metamac.notices.core.constants.NoticesMessagesConstants;
 import org.siemac.metamac.notices.core.error.ServiceExceptionType;
 import org.siemac.metamac.notices.core.invocation.service.AccessControlRestInternalFacade;
 import org.siemac.metamac.notices.core.notice.domain.Notice;
+import org.siemac.metamac.notices.core.notice.domain.NoticeCreationResult;
 import org.siemac.metamac.notices.core.notice.domain.Receiver;
 import org.siemac.metamac.notices.core.notice.enume.domain.NoticeType;
 import org.siemac.metamac.notices.core.notice.serviceapi.NoticesService;
@@ -27,8 +28,6 @@ import org.siemac.metamac.notices.core.notice.serviceimpl.util.NoticesServiceUti
 import org.siemac.metamac.rest.access_control.v1_0.domain.App;
 import org.siemac.metamac.rest.access_control.v1_0.domain.Apps;
 import org.siemac.metamac.rest.access_control.v1_0.domain.User;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,8 +36,6 @@ import org.springframework.stereotype.Service;
  */
 @Service(NoticesService.BEAN_ID)
 public class NoticesServiceImpl extends NoticesServiceImplBase {
-
-    private final static Logger               logger = LoggerFactory.getLogger(NoticesServiceImpl.class);
 
     @Autowired
     private NoticesServiceInvocationValidator noticeServiceInvocationValidator;
@@ -65,7 +62,7 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
     }
 
     @Override
-    public Notice createNotice(ServiceContext ctx, Notice notice) throws MetamacException {
+    public NoticeCreationResult createNotice(ServiceContext ctx, Notice notice) throws MetamacException {
 
         // Validations
         noticeServiceInvocationValidator.checkCreateNotice(ctx, notice);
@@ -82,9 +79,12 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
         String[] mailsTo = extractMailsTo(notice);
         String replyTo = extractReplyTo(notice);
 
-        mailChannelService.sendMail(ctx, notice, mailsTo, replyTo);
+        Set<String> receiversWithError = mailChannelService.sendMail(ctx, notice, mailsTo, replyTo);
 
-        return notice;
+        NoticeCreationResult noticeCreationResult = new NoticeCreationResult();
+        noticeCreationResult.setNotice(notice);
+        noticeCreationResult.setReceiversUsernamesWithError(receiversWithError);
+        return noticeCreationResult;
     }
 
     @Override
@@ -136,6 +136,15 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
         noticeServiceInvocationValidator.checkUpdateReceiver(ctx, receiver);
 
         return getReceiverRepository().save(receiver);
+    }
+
+    @Override
+    public List<User> calculateReceiversOfAccessControl(ServiceContext ctx, Notice notice) throws MetamacException {
+
+        // Validations
+        noticeServiceInvocationValidator.checkCalculateReceiversOfAccessControl(ctx, notice);
+
+        return calculateReceiversOfAccessControl(notice);
     }
 
     // ----------------------------------------------------------------------

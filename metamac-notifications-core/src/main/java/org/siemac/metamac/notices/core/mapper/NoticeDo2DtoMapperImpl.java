@@ -14,11 +14,13 @@ import org.siemac.metamac.notices.core.common.domain.ExternalItem;
 import org.siemac.metamac.notices.core.common.domain.InternationalString;
 import org.siemac.metamac.notices.core.common.domain.LocalisedString;
 import org.siemac.metamac.notices.core.dto.MessageDto;
+import org.siemac.metamac.notices.core.dto.NoticeCreationResultDto;
 import org.siemac.metamac.notices.core.dto.NoticeDto;
 import org.siemac.metamac.notices.core.dto.ReceiverDto;
 import org.siemac.metamac.notices.core.notice.domain.App;
 import org.siemac.metamac.notices.core.notice.domain.Message;
 import org.siemac.metamac.notices.core.notice.domain.Notice;
+import org.siemac.metamac.notices.core.notice.domain.NoticeCreationResult;
 import org.siemac.metamac.notices.core.notice.domain.Receiver;
 import org.siemac.metamac.notices.core.notice.domain.Role;
 import org.siemac.metamac.notices.core.notice.domain.StatisticalOperation;
@@ -38,6 +40,17 @@ public class NoticeDo2DtoMapperImpl implements NoticeDo2DtoMapper {
         }
         NoticeDto target = new NoticeDto();
         noticeDoToDto(source, target);
+        return target;
+    }
+
+    @Override
+    public NoticeCreationResultDto noticeCreationResultDo2Dto(NoticeCreationResult source) throws MetamacException {
+        if (source == null) {
+            return null;
+        }
+        NoticeCreationResultDto target = new NoticeCreationResultDto();
+        target.setNoticeDto(noticeDoToDto(source.getNotice()));
+        target.setReceiversUsernamesWithError(source.getReceiversUsernamesWithError());
         return target;
     }
 

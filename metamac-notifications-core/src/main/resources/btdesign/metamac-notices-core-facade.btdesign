@@ -18,7 +18,7 @@ Application NoticesFacade {
 			MetamacCriteriaResult<@NoticeDto> findNotices(MetamacCriteria criteria) throws MetamacException;
 			markNoticeAsRead(String noticeUrn, String username) throws MetamacException;
 			markNoticeAsUnread(String noticeUrn, String username) throws MetamacException;
-			sendAnnouncement(@NoticeDto notice) throws MetamacException;
+			NoticeCreationResultDto sendAnnouncement(@NoticeDto notice) throws MetamacException;
 		}
 	}
 }

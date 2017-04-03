@@ -1,9 +1,14 @@
 package org.siemac.metamac.notices.core.notice.serviceapi;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.siemac.metamac.notices.core.NoticesBaseTest;
 import org.siemac.metamac.notices.core.notice.domain.Notice;
+import org.siemac.metamac.notices.core.notice.domain.NoticeCreationResult;
 import org.siemac.metamac.notices.core.notice.domain.NoticeRepository;
 import org.siemac.metamac.notices.core.notice.domain.Receiver;
 import org.siemac.metamac.notices.core.notice.domain.ReceiverRepository;
@@ -18,10 +23,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring/notices/applicationContext-test.xml"})
@@ -43,15 +44,15 @@ public class NoticesServiceTest extends NoticesBaseTest implements NoticesServic
     @Test
     public void testCreateNotice() throws Exception {
         Notice notice = NoticesDoMocks.mockNoticeWithoutResources();
-        Notice persistedNotice = noticeService.createNotice(getServiceContextWithoutPrincipal(), notice);
-        assertNotNull(persistedNotice);
+        NoticeCreationResult noticeCreationResult = noticeService.createNotice(getServiceContextWithoutPrincipal(), notice);
+        assertNotNull(noticeCreationResult.getNotice());
     }
 
     @Test
     public void testCreateNoticeWithoutSendingUser() throws Exception {
         Notice notice = NoticesDoMocks.mockNoticeWithoutResourcesNorSendingUser();
-        Notice persistedNotice = noticeService.createNotice(getServiceContextWithoutPrincipal(), notice);
-        assertNotNull(persistedNotice);
+        NoticeCreationResult noticeCreationResult = noticeService.createNotice(getServiceContextWithoutPrincipal(), notice);
+        assertNotNull(noticeCreationResult.getNotice());
     }
 
     @Override
@@ -185,4 +186,9 @@ public class NoticesServiceTest extends NoticesBaseTest implements NoticesServic
 
     }
 
+    @Override
+    public void testCalculateReceiversOfAccessControl() throws Exception {
+        // TODO METAMAC-2530
+
+    }
 }

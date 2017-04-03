@@ -33,7 +33,7 @@ Application Notices {
 			// Notices
 			
 			@Notice retrieveNoticeByUrn(String urn) throws MetamacException;
-			@Notice createNotice(@Notice notice) throws MetamacException;
+			NoticeCreationResult createNotice(@Notice notice) throws MetamacException;
     		PagedResult<@Notice> findNoticeByCondition(List<ConditionalCriteria> condition, PagingParameter pagingParameter) throws MetamacException;
     		markNoticeForReceiverAsRead(String noticeUrn, String username) throws MetamacException;
     		markNoticeForReceiverAsUnread(String noticeUrn, String username) throws MetamacException;
@@ -41,8 +41,8 @@ Application Notices {
     		// Receivers
     		@Receiver retrieveReceiver(String noticeUrn, String username) throws MetamacException;
     		@Receiver updateReceiver(@Receiver receiver)  throws MetamacException;
-			
-		}  
+			List<User> calculateReceiversOfAccessControl(@Notice notice) throws MetamacException;
+		}
 
 		// ----------------------------------------------------------------
 		// 							ENTITIES

@@ -1,6 +1,7 @@
 package org.siemac.metamac.notices.web.server.handlers;
 
 import org.siemac.metamac.core.common.exception.MetamacException;
+import org.siemac.metamac.notices.core.dto.NoticeCreationResultDto;
 import org.siemac.metamac.notices.core.facade.serviceapi.NoticesServiceFacade;
 import org.siemac.metamac.notices.web.shared.CreateNoticeAction;
 import org.siemac.metamac.notices.web.shared.CreateNoticeResult;
@@ -25,10 +26,10 @@ public class CreateNoticeActionHandler extends SecurityActionHandler<CreateNotic
     @Override
     public CreateNoticeResult executeSecurityAction(CreateNoticeAction action) throws ActionException {
         try {
-            noticesServiceFacade.sendAnnouncement(ServiceContextHolder.getCurrentServiceContext(), action.getNotice());
+            NoticeCreationResultDto noticeCreationResultDto = noticesServiceFacade.sendAnnouncement(ServiceContextHolder.getCurrentServiceContext(), action.getNotice());
+            return new CreateNoticeResult(noticeCreationResultDto);
         } catch (MetamacException e) {
             throw WebExceptionUtils.createMetamacWebException(e);
         }
-        return new CreateNoticeResult();
     }
 }

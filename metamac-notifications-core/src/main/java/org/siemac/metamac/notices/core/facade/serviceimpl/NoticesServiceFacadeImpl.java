@@ -8,10 +8,12 @@ import org.siemac.metamac.core.common.criteria.SculptorCriteria;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.notices.core.criteria.mapper.MetamacCriteria2SculptorCriteriaMapper;
 import org.siemac.metamac.notices.core.criteria.mapper.SculptorCriteria2MetamacCriteriaMapper;
+import org.siemac.metamac.notices.core.dto.NoticeCreationResultDto;
 import org.siemac.metamac.notices.core.dto.NoticeDto;
 import org.siemac.metamac.notices.core.mapper.NoticeDo2DtoMapper;
 import org.siemac.metamac.notices.core.mapper.NoticeDto2DoMapper;
 import org.siemac.metamac.notices.core.notice.domain.Notice;
+import org.siemac.metamac.notices.core.notice.domain.NoticeCreationResult;
 import org.siemac.metamac.notices.core.security.NoticesSecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -87,7 +89,7 @@ public class NoticesServiceFacadeImpl extends NoticesServiceFacadeImplBase {
     }
 
     @Override
-    public void sendAnnouncement(ServiceContext ctx, NoticeDto noticeDto) throws MetamacException {
+    public NoticeCreationResultDto sendAnnouncement(ServiceContext ctx, NoticeDto noticeDto) throws MetamacException {
 
         // Security
         NoticesSecurityUtils.canSendAnnouncement(ctx);
@@ -96,6 +98,8 @@ public class NoticesServiceFacadeImpl extends NoticesServiceFacadeImplBase {
         Notice notice = dto2DoMapper.noticeDtoToDo(noticeDto);
 
         // Create
-        getNoticesService().createNotice(ctx, notice);
+        NoticeCreationResult noticeCreationResult = getNoticesService().createNotice(ctx, notice);
+
+        return do2DtoMapper.noticeCreationResultDo2Dto(noticeCreationResult);
     }
 }
