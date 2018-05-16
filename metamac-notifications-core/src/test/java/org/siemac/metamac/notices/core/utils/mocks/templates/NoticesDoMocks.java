@@ -1,7 +1,7 @@
 package org.siemac.metamac.notices.core.utils.mocks.templates;
 
-import java.util.HashMap;
-import java.util.Map;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
@@ -19,36 +19,17 @@ import org.siemac.metamac.notices.core.notice.domain.Role;
 import org.siemac.metamac.notices.core.notice.domain.StatisticalOperation;
 import org.siemac.metamac.notices.core.notice.enume.domain.NoticeType;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
-
 public class NoticesDoMocks extends MetamacMocks {
 
     // -----------------------------------------------------------------
     // NOTICES
     // -----------------------------------------------------------------
 
-    public static Notice mockNoticeWithResources() {
-        Notice notice = buildNotice();
-        notice.getMessages().add(mockMessageWithResources(notice));
-        return notice;
-    }
-
     public static Notice mockNoticeWithoutResources() {
         Notice notice = buildNotice();
         notice.getMessages().add(mockMessageWithoutResources(notice));
         return notice;
     }
-
-    public static Notice mockNoticeWithoutResources(String urn, String sendingApplication, String messageText) {
-        Notice notice = mockNoticeWithoutResources();
-        notice.setUrn(urn);
-        notice.setSendingApplication(sendingApplication);
-        notice.getMessages().get(0).setText(messageText);
-
-        return notice;
-    }
-    
 
     public static Notice mockNoticeWithoutResourcesNorSendingUser() {
         Notice notice = mockNoticeWithoutResources();
@@ -92,115 +73,17 @@ public class NoticesDoMocks extends MetamacMocks {
         return message;
     }
 
-    public static Message mockMessageWithResources(Notice notice) {
-        Message message = mockMessageWithoutResources(notice);
-        message.getResources().add(mockStatisticalOperationExternalItem());
-        message.getResources().add(mockStatisticalOperationExternalItem());
-        return message;
-    }
-
     // -----------------------------------------------------------------
     // EXTERNAL ITEMS
     // -----------------------------------------------------------------
-
-    public static ExternalItem mockCommonConfigurationExternalItem() {
-        String code = mockCode();
-        return mockExternalItem(code, mockCommonConfigurationUrn(code), TypeExternalArtefactsEnum.CONFIGURATION);
-    }
-
-    public static ExternalItem mockStatisticalOperationExternalItem() {
-        String code = mockCode();
-        return mockStatisticalOperationExternalItem(code);
-    }
-
-    public static ExternalItem mockStatisticalOperationExternalItem(String code) {
-        return mockExternalItem(code, mockStatisticalOperationUrn(code), TypeExternalArtefactsEnum.STATISTICAL_OPERATION);
-    }
-
-    public static ExternalItem mockStatisticalOperationInstanceExternalItem() {
-        String code = mockCode();
-        return mockStatisticalOperationInstanceExternalItem(code);
-    }
-
-    public static ExternalItem mockStatisticalOperationInstanceExternalItem(String code) {
-        return mockExternalItem(code, mockStatisticalOperationInstanceUrn(code), TypeExternalArtefactsEnum.STATISTICAL_OPERATION_INSTANCE);
-    }
-
-    public static ExternalItem mockAgencyExternalItem() {
-        String code = mockCode();
-        return mockAgencyExternalItem(code);
-    }
 
     public static ExternalItem mockAgencyExternalItem(String code) {
         return mockExternalItem(code, mockAgencyUrn(code), TypeExternalArtefactsEnum.AGENCY);
     }
 
-    public static ExternalItem mockAgencyExternalItem(String code, String codeNested) {
-        return mockExternalItem(code, codeNested, mockAgencyUrn(code), TypeExternalArtefactsEnum.AGENCY);
-    }
-
-    public static ExternalItem mockOrganizationUnitExternalItem() {
-        String code = mockCode();
-        return mockOrganizationUnitExternalItem(code);
-    }
-
-    public static ExternalItem mockOrganizationUnitExternalItem(String code) {
-        return mockExternalItem(code, mockOrganizationUnitUrn(code), TypeExternalArtefactsEnum.ORGANISATION_UNIT);
-    }
-
-    public static ExternalItem mockConceptExternalItem() {
-        String code = mockCode();
-        return mockConceptExternalItem(code);
-    }
 
     public static ExternalItem mockConceptExternalItem(String code) {
         return mockExternalItem(code, mockConceptUrn(code), TypeExternalArtefactsEnum.CONCEPT);
-    }
-
-    public static ExternalItem mockConceptSchemeExternalItem() {
-        String code = mockCode();
-        return mockExternalItem(code, mockConceptSchemeUrn(code), TypeExternalArtefactsEnum.CONCEPT_SCHEME);
-    }
-
-    public static ExternalItem mockCodeListSchemeExternalItem() {
-        String code = mockCode();
-        return mockExternalItem(code, mockCodeListUrn(code), TypeExternalArtefactsEnum.CODELIST);
-    }
-
-    public static ExternalItem mockCodeExternalItem() {
-        String code = mockCode();
-        return mockCodeExternalItem(code);
-    }
-
-    public static ExternalItem mockCodeExternalItem(String code) {
-        return mockExternalItem(code, mockCodeUrn(code), TypeExternalArtefactsEnum.CODE);
-    }
-
-    public static ExternalItem mockCodeExternalItem(String code, String title) {
-        return mockExternalItem(code, mockCodeUrn(code), TypeExternalArtefactsEnum.CODE);
-    }
-
-    public static ExternalItem mockCategoryExternalItem(String code) {
-        return mockExternalItem(code, mockCategoryUrn(code), TypeExternalArtefactsEnum.CATEGORY);
-    }
-
-    public static ExternalItem mockDsdExternalItem() {
-        String code = mockCode();
-        return mockDsdExternalItem(code);
-    }
-
-    public static ExternalItem mockDsdExternalItem(String code) {
-        return mockExternalItem(code, mockDsdUrn(code), TypeExternalArtefactsEnum.DATASTRUCTURE);
-    }
-
-    public static ExternalItem mockDimensionExternalItem() {
-        String code = mockCode();
-        return mockExternalItem(code, mockDimensionUrn(code), TypeExternalArtefactsEnum.DIMENSION);
-    }
-
-    public static ExternalItem mockConfigurationExternalItem() {
-        String code = mockCode();
-        return mockExternalItem(code, mockCommonConfigurationUrn(code), TypeExternalArtefactsEnum.CONFIGURATION);
     }
 
     public static ExternalItem mockExternalItem(String code, String codeNested, String uri, String urnProvider, String urn, TypeExternalArtefactsEnum type) {
@@ -256,10 +139,6 @@ public class NoticesDoMocks extends MetamacMocks {
     // INTERNATIONAL STRING
     // -----------------------------------------------------------------
 
-    public static InternationalString mockInternationalString() {
-        return mockInternationalStringMetadata(null, mockString(10));
-    }
-
     public static InternationalString mockInternationalStringMetadata(String resource, String metadata) {
         assertNotNull(metadata);
 
@@ -289,49 +168,5 @@ public class NoticesDoMocks extends MetamacMocks {
         }
         return internationalString;
     }
-
-    /**
-     * Mock an InternationalString with one locale
-     */
-    public static InternationalString mockInternationalString(String locale, String label) {
-        InternationalString target = new InternationalString();
-        LocalisedString localisedString = new LocalisedString();
-        localisedString.setLocale(locale);
-        localisedString.setLabel(label);
-        target.addText(localisedString);
-        return target;
-    }
-
-    /**
-     * Mock an InternationalString with two locales
-     */
-    public static InternationalString mockInternationalString(String locale01, String label01, String locale02, String label02) {
-        InternationalString target = new InternationalString();
-        LocalisedString localisedString01 = new LocalisedString();
-        localisedString01.setLocale(locale01);
-        localisedString01.setLabel(label01);
-        target.addText(localisedString01);
-
-        LocalisedString localisedString02 = new LocalisedString();
-        localisedString02.setLocale(locale02);
-        localisedString02.setLabel(label02);
-        target.addText(localisedString02);
-        return target;
-    }
-
-    /**
-     * Mock an InternationalString with two locales
-     */
-    public static Map<String, String> mockInternationalStringAsMap(String locale01, String label01, String locale02, String label02) {
-        Map<String, String> target = new HashMap<String, String>();
-        if (locale01 != null) {
-            target.put(locale01, label01);
-        }
-        if (locale02 != null) {
-            target.put(locale02, label02);
-        }
-        return target;
-    }
-
 
 }
