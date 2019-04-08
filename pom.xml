@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.siemac.metamac.metamac-notifications</groupId>
         <artifactId>metamac-notifications-parent</artifactId>
-        <version>3.2.1-SNAPSHOT</version>
+        <version>3.2.1</version>
         <relativePath>metamac-notifications-parent/pom.xml</relativePath>
     </parent>
 
@@ -16,7 +16,7 @@
         <connection>scm:git:http://git.arte-consultores.com/istac/metamac-notifications</connection>
         <developerConnection>scm:git:http://git.arte-consultores.com/istac/metamac-notifications</developerConnection>
         <url>http://git.arte-consultores.com/istac/metamac-notifications</url>
-      <tag>HEAD</tag>
+      <tag>20190408-0737-v3.2.1</tag>
   </scm>
 
     <modules>
