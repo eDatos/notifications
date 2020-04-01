@@ -2,7 +2,7 @@
 
 HOME_PATH=metamac-notices
 TRANSFER_PATH=$HOME_PATH/tmp
-DEPLOY_TARGET_PATH=/servers/metamac/tomcats/metamac01/webapps
+DEPLOY_TARGET_PATH=/servers/edatos-internal/tomcats/edatos-internal01/webapps
 ENVIRONMENT_RELATIVE_PATH_FILE=WEB-INF/classes/metamac/environment.xml
 LOGBACK_RELATIVE_PATH_FILE=WEB-INF/classes/logback.xml
 RESTART=1
@@ -20,8 +20,8 @@ ssh deploy@estadisticas.arte-consultores.com <<EOF
     . $TRANSFER_PATH/deploy/utilities.sh
 
     if [ $RESTART -eq 1 ]; then
-        sudo service metamac01 stop
-        checkPROC "metamac"
+        sudo service edatos-internal01 stop
+        checkPROC "edatos-internal"
     fi
 
 
@@ -40,8 +40,8 @@ ssh deploy@estadisticas.arte-consultores.com <<EOF
     sudo cp $HOME_PATH/logback.xml $DEPLOY_TARGET_PATH/notices-internal/$LOGBACK_RELATIVE_PATH_FILE
 
     if [ $RESTART -eq 1 ]; then
-        sudo chown -R metamac.metamac /servers/metamac
-        sudo service metamac01 start
+        sudo chown -R edatos-internal.edatos-internal /servers/edatos-internal
+        sudo service edatos-internal01 start
     fi
 
     #checkURL "http://estadisticas.arte-consultores.com/notices-internal" "metamac01"
