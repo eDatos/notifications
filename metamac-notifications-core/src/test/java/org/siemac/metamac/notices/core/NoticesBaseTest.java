@@ -18,6 +18,7 @@ import org.junit.Before;
 import org.siemac.metamac.common.test.dbunit.MetamacDBUnitBaseTests;
 import org.siemac.metamac.common.test.utils.MetamacAsserts;
 import org.siemac.metamac.notices.core.constants.NoticesConstants;
+import org.siemac.metamac.notices.core.notice.enume.domain.NoticesRoleEnum;
 import org.siemac.metamac.sso.client.MetamacPrincipal;
 import org.siemac.metamac.sso.client.MetamacPrincipalAccess;
 import org.siemac.metamac.sso.client.SsoClientConstants;
@@ -42,6 +43,9 @@ public abstract class NoticesBaseTest extends MetamacDBUnitBaseTests {
     @Value("${metamac.notices.db.provider}")
     private String          databaseProvider;
 
+    @Value("${metamac.notices.db.default_schema}")
+    private String          defaultSchema;
+    
     protected GreenMail     greenMail;
 
     // --------------------------------------------------------------------------------------------------------------
@@ -72,8 +76,7 @@ public abstract class NoticesBaseTest extends MetamacDBUnitBaseTests {
 
     protected ServiceContext getServiceContextAdministrador() {
         ServiceContext serviceContext = getServiceContextWithoutPrincipal();
-        // TODO: Change ADMINISTRADOR for NoticesRoleEnum
-        putMetamacPrincipalInServiceContext(serviceContext, "ADMINISTRADOR");
+        putMetamacPrincipalInServiceContext(serviceContext, NoticesRoleEnum.ADMINISTRADOR.getName());
         return serviceContext;
     }
 
@@ -91,6 +94,11 @@ public abstract class NoticesBaseTest extends MetamacDBUnitBaseTests {
     @Override
     protected DataBaseProvider getDatabaseProvider() {
         return DataBaseProvider.valueOf(databaseProvider);
+    }
+
+    @Override
+    protected String getDefaultSchema() {
+        return defaultSchema;
     }
 
     @Override
