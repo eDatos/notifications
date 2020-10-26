@@ -20,7 +20,6 @@
             <list>
                 <value>classpath:/data/notices/conf/static/channels.xml</value>
                 <value>classpath:/data/notices/conf/static/resources.xml</value>
-                <value>classpath:/data/notices/conf/static/datasource-POSTGRESQL.xml</value>
                 <value>classpath:/data/notices/conf/static/datasource-ORACLE.xml</value>
                 <value>classpath:/data/notices/conf/static/datasource-${TEST_DATABASE_PROVIDER}.xml</value>
                 <value>classpath:/data/notices/conf/static/datasource-local.xml</value>
