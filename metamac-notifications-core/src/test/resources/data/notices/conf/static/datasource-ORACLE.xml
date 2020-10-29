@@ -9,4 +9,5 @@
     <entry key="metamac.notices.db.password">JENKINS_METAMAC_NOTIFICATIONS</entry>
     <entry key="metamac.notices.db.dialect">org.siemac.metamac.hibernate.dialect.Oracle10gDialectMetamac</entry>
     <entry key="metamac.notices.db.provider">ORACLE</entry>
+    <entry key="metamac.notices.db.default_schema">JENKINS_METAMAC_NOTIFICATIONS</entry>
 </properties>

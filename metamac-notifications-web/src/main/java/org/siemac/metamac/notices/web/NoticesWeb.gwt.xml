@@ -36,6 +36,7 @@
 	<inherits name="org.siemac.metamac.web.common.MetamacWebCommon" />
 	<inherits name="org.siemac.metamac.SsoClient" />
 	<inherits name="org.siemac.metamac.notices.core.NoticesCore" />
+	<inherits name="org.siemac.EDatosCoreUtils" />
 
 	<!-- Specify the app entry point class. -->
 	<entry-point class='org.siemac.metamac.notices.web.client.NoticesWeb' />

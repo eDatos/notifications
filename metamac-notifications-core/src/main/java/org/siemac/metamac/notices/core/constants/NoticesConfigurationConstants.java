@@ -17,6 +17,7 @@ public class NoticesConfigurationConstants extends ConfigurationConstants {
     public static final String DB_USERNAME                                = "metamac.notices.db.username";
     public static final String DB_PASSWORD                                = "metamac.notices.db.password";
     public static final String DB_DRIVER_NAME                             = "metamac.notices.db.driver_name";
+    public static final String DB_DIALECT                                 = "metamac.notices.db.dialect";
 
     // MAIL CHANNEL
 
