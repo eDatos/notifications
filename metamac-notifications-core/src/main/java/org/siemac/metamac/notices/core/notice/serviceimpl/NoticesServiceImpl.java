@@ -77,7 +77,7 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
 
         // Send notice
         String[] mailsTo = extractMailsTo(notice);
-       // String replyTo = extractReplyTo(notice);
+        String replyTo = extractReplyTo(notice);
 
         Set<String> receiversWithError = mailChannelService.sendMail(ctx, notice, mailsTo, replyTo);
 
