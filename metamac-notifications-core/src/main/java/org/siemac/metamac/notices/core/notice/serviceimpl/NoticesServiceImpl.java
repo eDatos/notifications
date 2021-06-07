@@ -77,6 +77,29 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
 
         // Send notice
         String[] mailsTo = extractMailsTo(notice);
+       // String replyTo = extractReplyTo(notice);
+
+        Set<String> receiversWithError = mailChannelService.sendMail(ctx, notice, mailsTo, replyTo);
+
+        NoticeCreationResult noticeCreationResult = new NoticeCreationResult();
+        noticeCreationResult.setNotice(notice);
+        noticeCreationResult.setReceiversUsernamesWithError(receiversWithError);
+        return noticeCreationResult;
+    }
+
+    @Override
+    public NoticeCreationResult createNoticeForExternalUsers(ServiceContext ctx, Notice notice) throws MetamacException {
+
+        // Validations
+        noticeServiceInvocationValidator.checkCreateNoticeForExternalUsers(ctx, notice);
+
+        fillNoticeMetadata(ctx, notice);
+
+        // Calculate receivers
+        notice = getNoticeRepository().save(notice);
+
+        // Send notice
+        String[] mailsTo = extractExternalUsersMailsTo(notice);
         String replyTo = extractReplyTo(notice);
 
         Set<String> receiversWithError = mailChannelService.sendMail(ctx, notice, mailsTo, replyTo);
@@ -237,6 +260,18 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
         for (User user : users) {
             if (!mailsTo.contains(user.getMail())) {
                 mailsTo.add(user.getMail());
+            }
+        }
+
+        return mailsTo.toArray(new String[mailsTo.size()]);
+    }
+
+    private String[] extractExternalUsersMailsTo(Notice notice) throws MetamacException {
+        List<String> mailsTo = new ArrayList<String>();
+
+        for (Receiver reciver : notice.getReceivers()) {
+            if (!mailsTo.contains(reciver.getUsername())) {
+                mailsTo.add(reciver.getUsername());
             }
         }
 

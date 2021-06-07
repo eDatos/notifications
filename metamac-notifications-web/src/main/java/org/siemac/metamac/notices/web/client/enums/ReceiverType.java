@@ -3,7 +3,7 @@ package org.siemac.metamac.notices.web.client.enums;
 import java.io.Serializable;
 
 public enum ReceiverType implements Serializable {
-    USERS, CONDITIONS;
+    USERS, CONDITIONS, EXTERNAL_USERS;
 
     private ReceiverType() {
     }

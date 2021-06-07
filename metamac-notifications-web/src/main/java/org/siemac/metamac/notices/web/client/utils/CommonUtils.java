@@ -58,6 +58,7 @@ public class CommonUtils {
         LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
         valueMap.put(StringUtils.EMPTY, StringUtils.EMPTY);
         valueMap.put(ReceiverType.USERS.name(), getConstants().receiverTypeUsernames());
+        valueMap.put(ReceiverType.EXTERNAL_USERS.name(), getConstants().receiverTypeExternalUsernames());
         valueMap.put(ReceiverType.CONDITIONS.name(), getConstants().receiverTypeConditions());
         return valueMap;
     }

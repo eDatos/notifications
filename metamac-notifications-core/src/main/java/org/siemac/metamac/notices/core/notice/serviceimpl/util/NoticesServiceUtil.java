@@ -8,9 +8,12 @@ import static org.siemac.metamac.notices.core.invocation.utils.RestCriteriaUtils
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.siemac.metamac.notices.core.common.domain.ExternalItem;
+import org.siemac.metamac.notices.core.dto.NoticeDto;
 import org.siemac.metamac.notices.core.notice.domain.App;
 import org.siemac.metamac.notices.core.notice.domain.Notice;
 import org.siemac.metamac.notices.core.notice.domain.Receiver;
@@ -20,6 +23,8 @@ import org.siemac.metamac.rest.access_control.v1_0.domain.UserCriteriaPropertyRe
 import org.siemac.metamac.rest.common.v1_0.domain.ComparisonOperator;
 
 public class NoticesServiceUtil {
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
+            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
     public static String createQueryForFindNoticeReveiversThatReceiveMail(Notice notice) {
         StringBuilder query = new StringBuilder(createQueryForFindNoticeReceivers(notice));
@@ -129,5 +134,10 @@ public class NoticesServiceUtil {
             }
         }
         return usernames;
+    }
+
+    public static boolean isExternalUser(NoticeDto noticeDto){
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(noticeDto.getReceivers().get(0).getUsername());
+        return matcher.find();
     }
 }
