@@ -28,10 +28,6 @@ public class NoticesServiceInvocationValidatorImpl {
         checkNewNotice(notice, exceptions);
     }
 
-    public static void checkCreateNoticeForExternalUsers(Notice notice, List<MetamacExceptionItem> exceptions) {
-        checkNewNotice(notice, exceptions);
-    }
-
     public static void checkUpdateNotice(Notice notice, List<MetamacExceptionItem> exceptions) {
         checkExistingNotice(notice, exceptions);
     }

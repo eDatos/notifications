@@ -13,7 +13,6 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.siemac.metamac.notices.core.common.domain.ExternalItem;
-import org.siemac.metamac.notices.core.dto.NoticeDto;
 import org.siemac.metamac.notices.core.notice.domain.App;
 import org.siemac.metamac.notices.core.notice.domain.Notice;
 import org.siemac.metamac.notices.core.notice.domain.Receiver;
@@ -136,8 +135,8 @@ public class NoticesServiceUtil {
         return usernames;
     }
 
-    public static boolean isExternalUser(NoticeDto noticeDto){
-        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(noticeDto.getReceivers().get(0).getUsername());
+    public static boolean isExternalUser(Notice notice){
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(notice.getReceivers().get(0).getUsername());
         return matcher.find();
     }
 }

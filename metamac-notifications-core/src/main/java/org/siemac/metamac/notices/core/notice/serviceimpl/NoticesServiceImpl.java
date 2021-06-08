@@ -69,14 +69,21 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
 
         fillNoticeMetadata(ctx, notice);
 
-        // Calculate receivers
-        List<User> users = calculateReceiversOfAccessControl(notice);
-        addReceiversToNotice(users, notice);
+        String[] mailsTo = null;
+        if(NoticesServiceUtil.isExternalUser(notice)){
+            // Send notice
+           mailsTo = extractExternalUsersMailsTo(notice);
+        }else{
+            // Calculate receivers
+            List<User> users = calculateReceiversOfAccessControl(notice);
+            addReceiversToNotice(users, notice);
+            // Send notice
+            mailsTo = extractMailsTo(notice);
+        }
 
         notice = getNoticeRepository().save(notice);
 
         // Send notice
-        String[] mailsTo = extractMailsTo(notice);
         String replyTo = extractReplyTo(notice);
 
         Set<String> receiversWithError = mailChannelService.sendMail(ctx, notice, mailsTo, replyTo);
@@ -87,28 +94,6 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
         return noticeCreationResult;
     }
 
-    @Override
-    public NoticeCreationResult createNoticeForExternalUsers(ServiceContext ctx, Notice notice) throws MetamacException {
-
-        // Validations
-        noticeServiceInvocationValidator.checkCreateNoticeForExternalUsers(ctx, notice);
-
-        fillNoticeMetadata(ctx, notice);
-
-        // Calculate receivers
-        notice = getNoticeRepository().save(notice);
-
-        // Send notice
-        String[] mailsTo = extractExternalUsersMailsTo(notice);
-        String replyTo = extractReplyTo(notice);
-
-        Set<String> receiversWithError = mailChannelService.sendMail(ctx, notice, mailsTo, replyTo);
-
-        NoticeCreationResult noticeCreationResult = new NoticeCreationResult();
-        noticeCreationResult.setNotice(notice);
-        noticeCreationResult.setReceiversUsernamesWithError(receiversWithError);
-        return noticeCreationResult;
-    }
 
     @Override
     public void markNoticeForReceiverAsRead(ServiceContext ctx, String noticeUrn, String username) throws MetamacException {

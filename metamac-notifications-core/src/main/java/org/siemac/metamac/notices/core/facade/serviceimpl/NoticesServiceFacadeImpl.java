@@ -14,7 +14,6 @@ import org.siemac.metamac.notices.core.mapper.NoticeDo2DtoMapper;
 import org.siemac.metamac.notices.core.mapper.NoticeDto2DoMapper;
 import org.siemac.metamac.notices.core.notice.domain.Notice;
 import org.siemac.metamac.notices.core.notice.domain.NoticeCreationResult;
-import org.siemac.metamac.notices.core.notice.serviceimpl.util.NoticesServiceUtil;
 import org.siemac.metamac.notices.core.security.NoticesSecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -99,13 +98,7 @@ public class NoticesServiceFacadeImpl extends NoticesServiceFacadeImplBase {
         Notice notice = dto2DoMapper.noticeDtoToDo(noticeDto);
 
         // Create
-        NoticeCreationResult noticeCreationResult = new NoticeCreationResult();
-        if(NoticesServiceUtil.isExternalUser(noticeDto)){
-            noticeCreationResult = getNoticesService().createNoticeForExternalUsers(ctx, notice);
-        }else{
-            noticeCreationResult = getNoticesService().createNotice(ctx, notice);
-        }
-
+        NoticeCreationResult noticeCreationResult =  noticeCreationResult = getNoticesService().createNotice(ctx, notice);
 
         return do2DtoMapper.noticeCreationResultDo2Dto(noticeCreationResult);
     }
