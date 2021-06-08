@@ -35,7 +35,9 @@ public class NoticesRestFacadeV10Impl implements NoticesV1_0 {
 
             // Create
             noticesService.createNotice(NoticesRestConstants.SERVICE_CONTEXT, noticeEntity);
+
             return Response.status(Response.Status.CREATED).build();
+
         } catch (Exception e) {
             throw NoticesRestInternalUtils.manageException(e);
         }
