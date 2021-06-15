@@ -28,6 +28,7 @@ import org.siemac.metamac.notices.core.notice.domain.Role;
 import org.siemac.metamac.notices.core.notice.enume.domain.NoticeType;
 import org.siemac.metamac.notices.core.notice.enume.domain.NoticesRoleEnum;
 import org.siemac.metamac.notices.core.notice.serviceapi.NoticesService;
+import org.siemac.metamac.notices.core.notice.serviceimpl.util.NoticesServiceUtil;
 import org.siemac.metamac.notices.core.utils.TemplateUtils;
 import org.siemac.metamac.rest.access_control.v1_0.domain.User;
 import org.slf4j.Logger;
@@ -113,8 +114,17 @@ public class MailChannelServiceImpl implements MailChannelService {
                     model.put("expirationDate", TemplateUtils.formatVelocityDate(notice.getExpirationDate()));
                 }
 
-                String plainText = mergeTemplateIntoString(NoticesConstants.CHANNEL_MAIL_TEMPLATE_NOTIFICATION_PLAIN, model);
-                String htmlText = mergeTemplateIntoString(NoticesConstants.CHANNEL_MAIL_TEMPLATE_NOTIFICATION_HTML, model);
+                String plainText = "";
+                String htmlText = "";
+                if(NoticesServiceUtil.isExternalUser(notice)){
+                   plainText = mergeTemplateIntoString(NoticesConstants.CHANNEL_MAIL_TEMPLATE_EXTERNAL_USER_NOTIFICATION_PLAIN, model);
+                   htmlText = mergeTemplateIntoString(NoticesConstants.CHANNEL_MAIL_TEMPLATE_EXTERNAL_USER_NOTIFICATION_HTML, model);
+
+                }else{
+                    plainText = mergeTemplateIntoString(NoticesConstants.CHANNEL_MAIL_TEMPLATE_NOTIFICATION_PLAIN, model);
+                    htmlText = mergeTemplateIntoString(NoticesConstants.CHANNEL_MAIL_TEMPLATE_NOTIFICATION_HTML, model);
+
+                }
                 message.setText(plainText, htmlText);
             }
         };

@@ -12,4 +12,7 @@ public final class NoticesConstants {
     // Mail channel
     public static final String CHANNEL_MAIL_TEMPLATE_NOTIFICATION_PLAIN = "mail_templates/mail_notification_plain.vm";
     public static final String CHANNEL_MAIL_TEMPLATE_NOTIFICATION_HTML  = "mail_templates/mail_notification_html.vm";
+
+    public static final String CHANNEL_MAIL_TEMPLATE_EXTERNAL_USER_NOTIFICATION_PLAIN = "mail_templates/mail_external_user_notification_plain.vm";
+    public static final String CHANNEL_MAIL_TEMPLATE_EXTERNAL_USER_NOTIFICATION_HTML  = "mail_templates/mail_external_user_notification_html.vm";
 }
