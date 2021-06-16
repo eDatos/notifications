@@ -41,13 +41,13 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
     private NoticesServiceInvocationValidator noticeServiceInvocationValidator;
 
     @Autowired
-    private MailChannelService                mailChannelService;
+    private MailChannelService mailChannelService;
 
     @Autowired
-    private AccessControlRestInternalFacade   accessControlRestInternalFacade;
+    private AccessControlRestInternalFacade accessControlRestInternalFacade;
 
     @Autowired
-    private NoticesConfigurationService       noticesConfigurationService;
+    private NoticesConfigurationService noticesConfigurationService;
 
     public NoticesServiceImpl() {
     }
@@ -70,13 +70,14 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
         fillNoticeMetadata(ctx, notice);
 
         String[] mailsTo = null;
-        if(NoticesServiceUtil.isExternalUser(notice)){
+        if (NoticesServiceUtil.isExternalUser(notice)) {
             // Send notice
-           mailsTo = extractExternalUsersMailsTo(notice);
-        }else{
+            mailsTo = extractExternalUsersMailsTo(notice);
+        } else {
             // Calculate receivers
             List<User> users = calculateReceiversOfAccessControl(notice);
             addReceiversToNotice(users, notice);
+
             // Send notice
             mailsTo = extractMailsTo(notice);
         }
@@ -93,7 +94,6 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
         noticeCreationResult.setReceiversUsernamesWithError(receiversWithError);
         return noticeCreationResult;
     }
-
 
     @Override
     public void markNoticeForReceiverAsRead(ServiceContext ctx, String noticeUrn, String username) throws MetamacException {

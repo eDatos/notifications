@@ -22,8 +22,8 @@ import org.siemac.metamac.rest.access_control.v1_0.domain.UserCriteriaPropertyRe
 import org.siemac.metamac.rest.common.v1_0.domain.ComparisonOperator;
 
 public class NoticesServiceUtil {
-    public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
-            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
     public static String createQueryForFindNoticeReveiversThatReceiveMail(Notice notice) {
         StringBuilder query = new StringBuilder(createQueryForFindNoticeReceivers(notice));
@@ -45,8 +45,7 @@ public class NoticesServiceUtil {
 
         // Add filter: by statistic operations
         if (notice.getStatisticalOperations() != null && !notice.getStatisticalOperations().isEmpty()) {
-            appendConditionDisjuctionToQuery(
-                    query,
+            appendConditionDisjuctionToQuery(query,
                     fieldComparison(UserCriteriaPropertyRestriction.STATISTICAL_OPERATION_URN, ComparisonOperator.IN,
                             transformStatisticalOperationsIntoCommaSeparatedUrns(notice.getStatisticalOperations())),
                     fieldComparison(UserCriteriaPropertyRestriction.STATISTICAL_OPERATION_URN, ComparisonOperator.IS_NULL, null));
@@ -135,8 +134,12 @@ public class NoticesServiceUtil {
         return usernames;
     }
 
-    public static boolean isExternalUser(Notice notice){
-        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(notice.getReceivers().get(0).getUsername());
+    public static boolean isExternalUser(Notice notice) {
+        String email = notice.getReceivers().get(0).getUsername();
+        if (StringUtils.isNotBlank(email)) {
+            throw new NullPointerException("NullPointerException error: External User email is null or empty.");
+        }
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
         return matcher.find();
     }
 }
