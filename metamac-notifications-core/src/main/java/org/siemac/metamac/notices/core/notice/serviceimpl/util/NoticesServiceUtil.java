@@ -12,7 +12,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
+import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.notices.core.common.domain.ExternalItem;
+import org.siemac.metamac.notices.core.error.ServiceExceptionType;
 import org.siemac.metamac.notices.core.notice.domain.App;
 import org.siemac.metamac.notices.core.notice.domain.Notice;
 import org.siemac.metamac.notices.core.notice.domain.Receiver;
@@ -134,10 +136,10 @@ public class NoticesServiceUtil {
         return usernames;
     }
 
-    public static boolean isExternalUser(Notice notice) {
+    public static boolean isExternalUser(Notice notice) throws MetamacException {
         String email = notice.getReceivers().get(0).getUsername();
         if (StringUtils.isNotBlank(email)) {
-            throw new NullPointerException("NullPointerException error: External User email is null or empty.");
+            throw new MetamacException(ServiceExceptionType.RECEIVER_NULL, notice.getUrn());
         }
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
         return matcher.find();
