@@ -41,13 +41,13 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
     private NoticesServiceInvocationValidator noticeServiceInvocationValidator;
 
     @Autowired
-    private MailChannelService                mailChannelService;
+    private MailChannelService mailChannelService;
 
     @Autowired
-    private AccessControlRestInternalFacade   accessControlRestInternalFacade;
+    private AccessControlRestInternalFacade accessControlRestInternalFacade;
 
     @Autowired
-    private NoticesConfigurationService       noticesConfigurationService;
+    private NoticesConfigurationService noticesConfigurationService;
 
     public NoticesServiceImpl() {
     }
@@ -69,14 +69,22 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
 
         fillNoticeMetadata(ctx, notice);
 
-        // Calculate receivers
-        List<User> users = calculateReceiversOfAccessControl(notice);
-        addReceiversToNotice(users, notice);
+        String[] mailsTo = null;
+        if (NoticesServiceUtil.isExternalUser(notice)) {
+            // Send notice
+            mailsTo = extractExternalUsersMailsTo(notice);
+        } else {
+            // Calculate receivers
+            List<User> users = calculateReceiversOfAccessControl(notice);
+            addReceiversToNotice(users, notice);
+
+            // Send notice
+            mailsTo = extractMailsTo(notice);
+        }
 
         notice = getNoticeRepository().save(notice);
 
         // Send notice
-        String[] mailsTo = extractMailsTo(notice);
         String replyTo = extractReplyTo(notice);
 
         Set<String> receiversWithError = mailChannelService.sendMail(ctx, notice, mailsTo, replyTo);
@@ -237,6 +245,18 @@ public class NoticesServiceImpl extends NoticesServiceImplBase {
         for (User user : users) {
             if (!mailsTo.contains(user.getMail())) {
                 mailsTo.add(user.getMail());
+            }
+        }
+
+        return mailsTo.toArray(new String[mailsTo.size()]);
+    }
+
+    private String[] extractExternalUsersMailsTo(Notice notice) throws MetamacException {
+        List<String> mailsTo = new ArrayList<String>();
+
+        for (Receiver reciver : notice.getReceivers()) {
+            if (!mailsTo.contains(reciver.getUsername())) {
+                mailsTo.add(reciver.getUsername());
             }
         }
 

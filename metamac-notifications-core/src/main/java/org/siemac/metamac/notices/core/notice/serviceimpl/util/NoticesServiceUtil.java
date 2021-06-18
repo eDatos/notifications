@@ -8,9 +8,13 @@ import static org.siemac.metamac.notices.core.invocation.utils.RestCriteriaUtils
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
+import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.notices.core.common.domain.ExternalItem;
+import org.siemac.metamac.notices.core.error.ServiceExceptionType;
 import org.siemac.metamac.notices.core.notice.domain.App;
 import org.siemac.metamac.notices.core.notice.domain.Notice;
 import org.siemac.metamac.notices.core.notice.domain.Receiver;
@@ -20,6 +24,8 @@ import org.siemac.metamac.rest.access_control.v1_0.domain.UserCriteriaPropertyRe
 import org.siemac.metamac.rest.common.v1_0.domain.ComparisonOperator;
 
 public class NoticesServiceUtil {
+
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
     public static String createQueryForFindNoticeReveiversThatReceiveMail(Notice notice) {
         StringBuilder query = new StringBuilder(createQueryForFindNoticeReceivers(notice));
@@ -41,8 +47,7 @@ public class NoticesServiceUtil {
 
         // Add filter: by statistic operations
         if (notice.getStatisticalOperations() != null && !notice.getStatisticalOperations().isEmpty()) {
-            appendConditionDisjuctionToQuery(
-                    query,
+            appendConditionDisjuctionToQuery(query,
                     fieldComparison(UserCriteriaPropertyRestriction.STATISTICAL_OPERATION_URN, ComparisonOperator.IN,
                             transformStatisticalOperationsIntoCommaSeparatedUrns(notice.getStatisticalOperations())),
                     fieldComparison(UserCriteriaPropertyRestriction.STATISTICAL_OPERATION_URN, ComparisonOperator.IS_NULL, null));
@@ -129,5 +134,14 @@ public class NoticesServiceUtil {
             }
         }
         return usernames;
+    }
+
+    public static boolean isExternalUser(Notice notice) throws MetamacException {
+        String email = notice.getReceivers().get(0).getUsername();
+        if (StringUtils.isNotBlank(email)) {
+            throw new MetamacException(ServiceExceptionType.RECEIVER_NULL, notice.getUrn());
+        }
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
+        return matcher.find();
     }
 }

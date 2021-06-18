@@ -102,6 +102,16 @@ public class AnnouncementCreationLayout extends VLayout {
         usersItem.setShowIfCondition(getReceiverTypeUsernamesFormItemIfFunction());
         usersItem.setStartRow(true);
 
+       MultiTextItem emailItem = new MultiTextItem(NoticeDS.EMAILS, getConstants().noticeEmails(), new CustomValidator() {
+            @Override
+            protected boolean condition(Object value) {
+                return value != null && !StringUtils.isBlank((String) value);
+            }
+        });
+        emailItem.setTitleStyle("staticFormItemTitle");
+        emailItem.setShowIfCondition(getReceiverTypeExternalUsernamesFormItemIfFunction());
+        emailItem.setStartRow(true);
+
         SearchMultiExternalItemSimpleItem operationsItem = new SearchMultiExternalItemSimpleItem(NoticeDS.STATISTICAL_OPERATION, NoticesWeb.getConstants().noticeStatisticalOperations(),
                 CommonWebConstants.FORM_LIST_MAX_RESULTS) {
 
@@ -119,7 +129,7 @@ public class AnnouncementCreationLayout extends VLayout {
         SearchAppsItem appsItem = new SearchAppsItem(NoticeDS.APPLICATION, getConstants().noticeApplications());
         appsItem.setShowIfCondition(getReceiverTypeConditionsFormItemIfFunction());
 
-        receiversForm.setFields(receiverTypeItem, usersItem, operationsItem, rolesItem, appsItem);
+        receiversForm.setFields(receiverTypeItem, usersItem, emailItem, operationsItem, rolesItem, appsItem);
     }
 
     private void createForm() {
@@ -150,6 +160,7 @@ public class AnnouncementCreationLayout extends VLayout {
         NoticeDto noticeDto = new NoticeDto();
         noticeDto.setType(NoticeType.ANNOUNCEMENT);
         updateUsernames(noticeDto);
+        updateExternalUsernames(noticeDto);
         updateStatisticalOperations(noticeDto);
         updateRoles(noticeDto);
         updateApplications(noticeDto);
@@ -179,6 +190,7 @@ public class AnnouncementCreationLayout extends VLayout {
     public void clearValues() {
         receiversForm.clearValues();
         ((MultiTextItem) receiversForm.getItem(NoticeDS.USERNAMES)).resetFormLayout();
+        ((MultiTextItem) receiversForm.getItem(NoticeDS.EMAILS)).resetFormLayout();
         ((SearchMultiExternalItemSimpleItem) receiversForm.getItem(NoticeDS.STATISTICAL_OPERATION)).clearRelatedResourceList();
         ((SearchRolesItem) receiversForm.getItem(NoticeDS.ROLE)).clearRelatedResourceList();
         ((SearchAppsItem) receiversForm.getItem(NoticeDS.APPLICATION)).clearRelatedResourceList();
@@ -192,6 +204,17 @@ public class AnnouncementCreationLayout extends VLayout {
             public boolean execute(FormItem item, Object value, DynamicForm form) {
                 ReceiverType type = CommonUtils.getReceiverType(form.getValueAsString(NoticeDS.RECEIVER_TYPE));
                 return ReceiverType.USERS.equals(type);
+            }
+        };
+    }
+
+    private FormItemIfFunction getReceiverTypeExternalUsernamesFormItemIfFunction() {
+        return new FormItemIfFunction() {
+
+            @Override
+            public boolean execute(FormItem item, Object value, DynamicForm form) {
+                ReceiverType type = CommonUtils.getReceiverType(form.getValueAsString(NoticeDS.RECEIVER_TYPE));
+                return ReceiverType.EXTERNAL_USERS.equals(type);
             }
         };
     }
@@ -216,6 +239,14 @@ public class AnnouncementCreationLayout extends VLayout {
             List<String> usernames = ((MultiTextItem) receiversForm.getItem(NoticeDS.USERNAMES)).getValues();
             for (String username : usernames) {
                 noticeDto.addReceiver(buildReceiver(username));
+            }
+        }
+    }
+    private void updateExternalUsernames(NoticeDto noticeDto) {
+        if (receiversForm.getItem(NoticeDS.EMAILS).isVisible()) {
+            List<String> emails = ((MultiTextItem) receiversForm.getItem(NoticeDS.EMAILS)).getValues();
+            for (String email : emails) {
+                noticeDto.addReceiver(buildReceiver(email));
             }
         }
     }

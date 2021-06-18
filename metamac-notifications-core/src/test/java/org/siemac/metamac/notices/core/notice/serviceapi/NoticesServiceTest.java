@@ -48,6 +48,7 @@ public class NoticesServiceTest extends NoticesBaseTest implements NoticesServic
         assertNotNull(noticeCreationResult.getNotice());
     }
 
+
     @Test
     public void testCreateNoticeWithoutSendingUser() throws Exception {
         Notice notice = NoticesDoMocks.mockNoticeWithoutResourcesNorSendingUser();

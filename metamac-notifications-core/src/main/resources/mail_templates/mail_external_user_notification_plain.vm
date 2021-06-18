@@ -1,0 +1,5 @@
+#macro( msg $key )$messages.getMessageForCode($key, $locale)#end
+
+#foreach( $item in ${notice.messages} )
+$item
+#end
