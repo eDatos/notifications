@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.siemac.metamac</groupId>
 		<artifactId>metamac-parent</artifactId>
-		<version>3.1.1-SNAPSHOT</version>
+		<version>4.0.0</version>
 	</parent>
 
 
@@ -30,12 +30,12 @@
 	</repositories>
 
 	<properties>
-		<metamac-core-common.version>6.0.0</metamac-core-common.version>
+		<metamac-core-common.version>6.0.3</metamac-core-common.version>
 		<metamac-rest-api.version>2.1.0</metamac-rest-api.version>
-		<metamac-sso.version>3.0.4</metamac-sso.version>
+		<metamac-sso.version>3.0.6</metamac-sso.version>
 		<metamac-rest-common.version>2.2.0</metamac-rest-common.version>
-		<metamac-access-control.version>2.3.0</metamac-access-control.version>
-		<metamac-web-common.version>4.0.0</metamac-web-common.version>
+		<metamac-access-control.version>2.5.1</metamac-access-control.version>
+		<metamac-web-common.version>4.2.1</metamac-web-common.version>
 		<metamac-notifications-rest-internal-api.version>3.1.0</metamac-notifications-rest-internal-api.version>
 		<metamac-statistical-operations-rest-internal-api.version>2.2.0</metamac-statistical-operations-rest-internal-api.version>
 

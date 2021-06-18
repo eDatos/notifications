@@ -98,7 +98,7 @@ public class NoticesServiceFacadeImpl extends NoticesServiceFacadeImplBase {
         Notice notice = dto2DoMapper.noticeDtoToDo(noticeDto);
 
         // Create
-        NoticeCreationResult noticeCreationResult = getNoticesService().createNotice(ctx, notice);
+        NoticeCreationResult noticeCreationResult =  noticeCreationResult = getNoticesService().createNotice(ctx, notice);
 
         return do2DtoMapper.noticeCreationResultDo2Dto(noticeCreationResult);
     }

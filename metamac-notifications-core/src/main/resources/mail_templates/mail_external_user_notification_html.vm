@@ -1,0 +1,16 @@
+#macro( msg $key )$messages.getMessageForCode($key, $locale)#end
+
+<html>
+	<body>
+		<div>
+			#foreach( $item in ${notice.messages} )
+
+				#foreach( $line in $item.text.split("\n") )
+					<p>$line</p>
+				#end
+
+			#end
+		</div>
+
+	</body>
+</html>
