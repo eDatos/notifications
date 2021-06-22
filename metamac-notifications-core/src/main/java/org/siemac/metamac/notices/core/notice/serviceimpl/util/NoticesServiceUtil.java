@@ -138,7 +138,7 @@ public class NoticesServiceUtil {
 
     public static boolean isExternalUser(Notice notice) throws MetamacException {
         String email = notice.getReceivers().get(0).getUsername();
-        if (StringUtils.isNotBlank(email)) {
+        if (StringUtils.isBlank(email)) {
             throw new MetamacException(ServiceExceptionType.RECEIVER_NULL, notice.getUrn());
         }
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
