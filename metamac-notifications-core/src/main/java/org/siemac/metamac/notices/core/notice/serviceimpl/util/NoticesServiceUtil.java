@@ -137,11 +137,11 @@ public class NoticesServiceUtil {
     }
 
     public static boolean isExternalUser(Notice notice) throws MetamacException {
-        String email = notice.getReceivers().get(0).getUsername();
-        if (StringUtils.isBlank(email)) {
-            throw new MetamacException(ServiceExceptionType.RECEIVER_NULL, notice.getUrn());
+        if (notice.getReceivers() == null) {
+            return false;
         }
-        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
+
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(notice.getReceivers().get(0).getUsername());
         return matcher.find();
     }
 }
