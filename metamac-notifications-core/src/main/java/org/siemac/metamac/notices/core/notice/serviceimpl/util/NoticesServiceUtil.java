@@ -11,10 +11,10 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.notices.core.common.domain.ExternalItem;
-import org.siemac.metamac.notices.core.error.ServiceExceptionType;
 import org.siemac.metamac.notices.core.notice.domain.App;
 import org.siemac.metamac.notices.core.notice.domain.Notice;
 import org.siemac.metamac.notices.core.notice.domain.Receiver;
@@ -137,11 +137,12 @@ public class NoticesServiceUtil {
     }
 
     public static boolean isExternalUser(Notice notice) throws MetamacException {
-        if (notice.getReceivers() == null) {
-            return false;
+        if (CollectionUtils.isNotEmpty(notice.getReceivers())) {
+            for (Receiver receiver : notice.getReceivers()) {
+                Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(receiver.getUsername());
+                return matcher.find();
+            }
         }
-
-        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(notice.getReceivers().get(0).getUsername());
-        return matcher.find();
+        return false;
     }
 }
