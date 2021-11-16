@@ -30,9 +30,9 @@
 	</repositories>
 
 	<properties>
-		<metamac-core-common.version>6.1.0</metamac-core-common.version>
+		<metamac-core-common.version>6.2.0</metamac-core-common.version>
 		<metamac-rest-api.version>2.1.0</metamac-rest-api.version>
-		<metamac-sso.version>3.0.7</metamac-sso.version>
+		<metamac-sso.version>3.0.8</metamac-sso.version>
 		<metamac-rest-common.version>2.2.0</metamac-rest-common.version>
 		<metamac-access-control.version>2.5.1</metamac-access-control.version>
 		<metamac-web-common.version>4.3.2</metamac-web-common.version>
