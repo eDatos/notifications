@@ -6,13 +6,13 @@
 	<parent>
 		<groupId>org.siemac.metamac.metamac-notifications</groupId>
 		<artifactId>metamac-notifications-parent</artifactId>
-		<version>3.5.3-SNAPSHOT</version>
+		<version>3.5.3</version>
 		<relativePath>../metamac-notifications-parent/pom.xml</relativePath>
 	</parent>
 
 	<groupId>org.siemac.metamac.metamac-notifications</groupId>
 	<artifactId>metamac-notifications-core</artifactId>
-	<version>3.5.3-SNAPSHOT</version>
+	<version>3.5.3</version>
 	<name>METAMAC :: NOTIFICATIONS :: CORE</name>
 
 	<dependencies>
